@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: Aryan-DMS/aero-website # Connecting directly to your repository
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "events"
+    label: "Mission Manifest"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - {label: "Event Title", name: "title", widget: "string"}
+      - {label: "Deployment Date", name: "date", widget: "datetime"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Hardware Class", name: "hardware", widget: "string"}
+      - {label: "Operational Briefing", name: "body", widget: "markdown"}
