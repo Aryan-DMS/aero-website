@@ -26,8 +26,28 @@ collections:
     files:
       - label: "About Section"
         name: "about"
-        file: "content/pages/about.md" # Where the text file will be saved
+        file: "content/pages/about.md"
         fields:
-          - {label: "Division Overview", name: "overview", widget: "markdown"}
-          - {label: "Engineering Philosophy", name: "philosophy", widget: "markdown"}
-          - {label: "Scope of Operation", name: "scope", widget: "markdown"}
+          # Division Overview (Object to separate subtitle from text)
+          - label: "Division Overview"
+            name: "overview"
+            widget: "object"
+            fields:
+              - {label: "Meta Subtitle", name: "subtitle", widget: "string", default: "EST. 2015 // PUNE, INDIA"}
+              - {label: "Main Briefing", name: "body", widget: "markdown"}
+          
+          # Engineering Philosophy (Strict list of 3 blocks)
+          - label: "Engineering Philosophy Pillars"
+            name: "philosophy"
+            widget: "list"
+            min: 3
+            max: 3
+            summary: '{{fields.title}}'
+            fields:
+              - {label: "Pillar Title", name: "title", widget: "string"}
+              - {label: "Pillar Description", name: "body", widget: "text"}
+          
+          # Scope of Operation (Standard text block)
+          - label: "Scope of Operation"
+            name: "scope"
+            widget: "markdown"
