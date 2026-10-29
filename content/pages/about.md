@@ -1,4 +1,6 @@
 ---
+layout: about.njk
+permalink: /about/index.html
 overview:
   subtitle: "EST. 2015 // PUNE, INDIA"
   body: "Welcome to the AeroClub division."
