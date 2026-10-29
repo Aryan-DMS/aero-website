@@ -1,12 +1,13 @@
 backend:
   name: github
-  repo: Aryan-DMS/aero-website # Connecting directly to your repository
+  repo: Aryan-DMS/aero-website
   branch: main
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  # 1. Folder Collection (For multiple events)
   - name: "events"
     label: "Mission Manifest"
     folder: "content/events"
@@ -18,3 +19,15 @@ collections:
       - {label: "Location", name: "location", widget: "string"}
       - {label: "Hardware Class", name: "hardware", widget: "string"}
       - {label: "Operational Briefing", name: "body", widget: "markdown"}
+
+  # 2. File Collection (For single static pages)
+  - name: "pages"
+    label: "Core Pages"
+    files:
+      - label: "About Section"
+        name: "about"
+        file: "content/pages/about.md" # Where the text file will be saved
+        fields:
+          - {label: "Division Overview", name: "overview", widget: "markdown"}
+          - {label: "Engineering Philosophy", name: "philosophy", widget: "markdown"}
+          - {label: "Scope of Operation", name: "scope", widget: "markdown"}
