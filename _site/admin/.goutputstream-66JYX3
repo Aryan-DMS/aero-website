@@ -1,0 +1,84 @@
+backend:
+  name: github
+  repo: Aryan-DMS/aero-website
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # 1. Folder Collection (For multiple events)
+  - name: "events"
+    label: "Mission Manifest"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - {label: "Event Title", name: "title", widget: "string"}
+      - {label: "Deployment Date", name: "date", widget: "datetime"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Hardware Class", name: "hardware", widget: "string"}
+      - {label: "Operational Briefing", name: "body", widget: "markdown"}
+
+  # 2. File Collection (For single static pages)
+  - name: "pages"
+    label: "Core Pages"
+    files:
+      - label: "About Section"
+        name: "about"
+        file: "content/pages/about.md"
+        fields:
+          - label: "Division Overview"
+            name: "overview"
+            widget: "object"
+            fields:
+              - label: "Meta Subtitle"
+                name: "subtitle"
+                widget: "string"
+                default: "EST. 2015 // PUNE, INDIA"
+              - label: "Overview Image"
+                name: "image"
+                widget: "image"
+              - label: "Main Briefing"
+                name: "body"
+                widget: "markdown"
+          
+          - label: "Engineering Philosophy Pillars"
+            name: "philosophy"
+            widget: "list"
+            fields:
+              - label: "Pillar Title"
+                name: "title"
+                widget: "string"
+              - label: "Pillar Description"
+                name: "body"
+                widget: "text"
+          
+          - label: "Scope of Operation"
+            name: "scope"
+            widget: "markdown"
+
+      - label: "Team Section"
+        name: "team"
+        file: "content/pages/team.md"
+        fields:
+          - label: "Page Intro"
+            name: "intro"
+            widget: "string"
+            default: "The engineers, designers, and operators driving our autonomous flight programs."
+
+  # 3. Personnel Database (Generates individual expanded pages)
+  - name: "personnel"
+    label: "Personnel Roster"
+    folder: "content/personnel"
+    create: true
+    slug: "{{name}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}
+      - {label: "Role / Title", name: "role", widget: "string"}
+      - {label: "Profile Image", name: "image", widget: "image"}
+      - {label: "Academic Major", name: "major", widget: "string"}
+      - {label: "Joined Division", name: "joined", widget: "string"}
+      - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+      - {label: "Full Bio", name: "body", widget: "markdown"}

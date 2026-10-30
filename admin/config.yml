@@ -82,3 +82,4 @@ collections:
       - {label: "Joined Division", name: "joined", widget: "string"}
       - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
       - {label: "Full Bio", name: "body", widget: "markdown"}
+      
