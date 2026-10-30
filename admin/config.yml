@@ -129,10 +129,12 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Mission Title", name: "title", widget: "string"}
-      - {label: "Card Meta Tag (e.g. DEC 2026 // OVERALL RANK: AIR 5)", name: "meta", widget: "string"}
-      - {label: "Hardware Deployed (For expanded page)", name: "hardware", widget: "string"}
-      - {label: "Overall Result (For expanded page)", name: "result", widget: "string"}
-      - {label: "Cover Image", name: "image", widget: "image"}
-      - {label: "Card Summary", name: "summary", widget: "text"}
-      - {label: "Full Mission Report", name: "body", widget: "markdown"}
+      - {label: "Expanded Cinematic Title (e.g. National Drone Techfest: Securing AIR 5)", name: "title", widget: "string"}
+      - {label: "Compact Card Title (e.g. National Drone Techfest)", name: "card_title", widget: "string"}
+      - {label: "Hero Meta Tag (e.g. MISSION LOG // DEC 2026 // PUNE, INDIA)", name: "hero_meta", widget: "string"}
+      - {label: "Card Meta Tag (e.g. DEC 2026 // OVERALL RANK: AIR 5)", name: "card_meta", widget: "string"}
+      - {label: "Cover/Hero Image", name: "image", widget: "image"}
+      - {label: "Card Summary (Short paragraph for the grid)", name: "summary", widget: "text"}
+      - {label: "Hardware Deployed (e.g. Project Valkyrie (Quadcopter))", name: "hardware", widget: "string"}
+      - {label: "Overall Result (e.g. All India Rank 5 (out of 102))", name: "result", widget: "string"}
+      - {label: "Full Mission Report (Use the editor toolbar to add headings and inline images)", name: "body", widget: "markdown"}
