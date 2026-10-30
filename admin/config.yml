@@ -67,6 +67,31 @@ collections:
             widget: "string"
             default: "The engineers, designers, and operators driving our autonomous flight programs."
 
+      - label: "Contact Section"
+        name: "contact"
+        file: "content/pages/contact.md"
+        fields:
+          - label: "Primary Email"
+            name: "email"
+            widget: "string"
+          - label: "Facility Location"
+            name: "location"
+            widget: "text"
+          - label: "Direct Line"
+            name: "phone"
+            widget: "string"
+          - label: "Social Networks"
+            name: "socials"
+            widget: "list"
+            summary: '{{fields.platform}}'
+            fields:
+              - label: "Platform Name"
+                name: "platform"
+                widget: "string"
+              - label: "Profile URL"
+                name: "url"
+                widget: "string"
+
   # 3. Personnel Database (Generates individual expanded pages)
   - name: "personnel"
     label: "Personnel Roster"

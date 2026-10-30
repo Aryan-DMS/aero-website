@@ -140,20 +140,20 @@
 
     <!-- Integrated, High-Contrast Navigation -->
     <header>
-        <a href="index.html" class="nav-logo">Aero<span>Club</span></a>
+        <a href="/" class="nav-logo">Aero<span>Club</span></a>
         
         <nav>
             <ul class="nav-links">
-                <li><a href="about.html">About</a></li>
-                <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="models.html">Models</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="team.html">Team</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/achievements/">Achievements</a></li>
+                <li><a href="/gallery/">Gallery</a></li>
+                <li><a href="/models/">Models</a></li>
+                <li><a href="/events/">Events</a></li>
+                <li><a href="/team/">Team</a></li>
+                <li><a href="/contact/">Contact</a></li>
             </ul>
         </nav>
-        <a href="join_us.html" class="btn-join">Join Us</a>
+        <a href="/join_us/" class="btn-join">Join Us</a>
     </header>
 
     <!-- Page Specific Content Wrapper -->
@@ -177,24 +177,24 @@
                     <ul class="contact-list">
                         <li class="contact-item">
                             <span class="contact-label">Primary Email</span>
-                            <span class="contact-value">contact@aeroclub.edu.in</span>
+                            <span class="contact-value">{{ email }}</span>
                         </li>
                         <li class="contact-item">
                             <span class="contact-label">Facility Location</span>
-                            <span class="contact-value">Aerospace Lab 3, College of Engineering<br>Pune, Maharashtra 411005</span>
+                            <span class="contact-value" style="white-space: pre-line;">{{ location }}</span>
                         </li>
                         <li class="contact-item">
                             <span class="contact-label">Direct Line</span>
-                            <span class="contact-value">+91 98765 43210</span>
+                            <span class="contact-value">{{ phone }}</span>
                         </li>
                     </ul>
 
                     <div style="margin-top: 48px; border-top: 1px solid var(--border-dark); padding-top: 32px;">
                         <span class="contact-label" style="margin-bottom: 16px; display: block;">Social Network</span>
                         <div class="social-links">
-                            <a href="#" class="social-link">LinkedIn ↗</a>
-                            <a href="#" class="social-link">Instagram ↗</a>
-                            <a href="#" class="social-link">YouTube ↗</a>
+                            {% for social in socials %}
+                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" class="social-link">{{ social.platform }} ↗</a>
+                            {% endfor %}
                         </div>
                     </div>
 
