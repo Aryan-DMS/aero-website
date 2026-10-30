@@ -2,6 +2,8 @@ backend:
   name: github
   repo: Aryan-DMS/aero-website
   branch: main
+  base_url: "https://aero-website-7xh.pages.dev"
+  auth_endpoint: "oauth/auth"
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
