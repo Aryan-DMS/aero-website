@@ -100,21 +100,26 @@
         .achievement-card:hover .read-report::after { transform: translateX(6px); }
 
         /* ==========================================
-           ACHIEVEMENT TIMELINE (HORIZONTAL)
+           UNIFIED HORIZONTAL TIMELINE
         ========================================== */
         .timeline-section { padding: 80px 0; border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); }
-        .timeline-container { width: 100%; overflow-x: auto; padding-bottom: 24px; scrollbar-width: thin; scrollbar-color: var(--accent-cyan) var(--bg-deep); }
         
-        /* Custom Webkit Scrollbar for a native macOS feel */
-        .timeline-container::-webkit-scrollbar { height: 6px; }
-        .timeline-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
-        .timeline-container::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
+        .timeline-wrapper { width: 100%; overflow-x: auto; padding-bottom: 32px; scroll-behavior: smooth; cursor: grab; }
+        .timeline-wrapper:active { cursor: grabbing; }
+        .timeline-wrapper::-webkit-scrollbar { height: 6px; }
+        .timeline-wrapper::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+        .timeline-wrapper::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 4px; transition: background 0.2s; }
+        .timeline-wrapper:hover::-webkit-scrollbar-thumb { background: var(--accent-cyan); }
         
-        .timeline-track { display: flex; gap: 48px; min-width: max-content; padding-top: 24px; border-top: 2px solid var(--border-dark); margin-top: 40px; }
-        .timeline-node { position: relative; width: 320px; white-space: normal; }
-        .timeline-dot { position: absolute; left: 0; top: -31px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-cyan); border: 4px solid var(--bg-panel-dark); box-shadow: 0 0 0 2px var(--accent-cyan); }
-        .timeline-date { font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 8px; display: block; font-weight: 700; }
-        .timeline-title { font-size: 22px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; }
+        /* The padding-left of 24px prevents the first dot's hover state from clipping */
+        .timeline-track { display: flex; gap: 64px; min-width: max-content; padding: 40px 24px 0; border-top: 2px solid var(--border-dark); position: relative; margin-top: 32px; }
+        .timeline-node { width: 340px; position: relative; display: flex; flex-direction: column; white-space: normal; }
+        
+        .timeline-dot { position: absolute; left: 0; top: -48px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--text-muted); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2; }
+        .timeline-node:hover .timeline-dot { background: var(--accent-cyan); border-color: var(--accent-cyan); transform: scale(1.3); box-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
+        
+        .timeline-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 12px; display: block; text-transform: uppercase; font-weight: 700; }
+        .timeline-title { font-size: 22px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; line-height: 1.3; }
         .timeline-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
 
         /* ==========================================
@@ -219,14 +224,14 @@
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">DIVISION HISTORY</h4>
                     <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Historical Milestones</h3>
                 </div>
-                <div class="timeline-container">
+                <div class="timeline-wrapper">
                     <div class="timeline-track">
                         {% for page in collections.all %}
                             {% if page.fileSlug == 'achievements_timeline' %}
                                 {% for milestone in page.data.timeline %}
                                 <div class="timeline-node">
                                     <div class="timeline-dot"></div>
-                                    <span class="timeline-date">{{ milestone.date_meta }}</span>
+                                    <span class="timeline-meta">{{ milestone.date_meta }}</span>
                                     <h4 class="timeline-title">{{ milestone.title }}</h4>
                                     <p class="timeline-desc">{{ milestone.desc }}</p>
                                 </div>
