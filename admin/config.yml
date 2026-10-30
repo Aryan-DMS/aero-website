@@ -34,7 +34,7 @@ collections:
       - {label: "Operational Briefing", name: "body", widget: "markdown"}
 
   - name: "achievements"
-    label: "Mission Reports (Deployments)"
+    label: "Achievements: Reports"
     folder: "content/achievements"
     create: true
     slug: "{{slug}}"
@@ -161,7 +161,7 @@ collections:
               - {label: "Caption / Title", name: "caption", widget: "string"}
 
   - name: "page_achievements_timeline"
-    label: "Page: Achievements Timeline"
+    label: "Achievements: Timeline"
     files:
       - label: "Timeline Editor"
         name: "achievements_timeline"
