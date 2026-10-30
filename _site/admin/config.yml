@@ -58,13 +58,13 @@ collections:
             name: "scope"
             widget: "markdown"
 
-	      - label: "Team Section"
-		name: "team"
-		file: "content/pages/team.md"
-		fields:
-		  - label: "Divisions"
-		    name: "divisions"
-		    widget: "list"
+      - label: "Team Section"
+        name: "team"
+        file: "content/pages/team.md"
+        fields:
+          - label: "Divisions"
+            name: "divisions"
+            widget: "list"
 		    summary: '{{fields.title}}'
 		    fields:
 		      - label: "Division Title"
