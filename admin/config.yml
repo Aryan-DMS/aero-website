@@ -94,6 +94,18 @@ collections:
                 name: "url"
                 widget: "string"
 
+      - label: "Achievements Timeline"
+        name: "achievements_timeline"
+        file: "content/pages/achievements_timeline.md"
+        fields:
+          - label: "Historical Milestones"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - {label: "Date / Event Meta (e.g. 2025 // SAE AERO DESIGN)", name: "date_meta", widget: "string"}
+              - {label: "Milestone Title", name: "title", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+
   # 3. Personnel Database (Generates individual expanded pages)
   - name: "personnel"
     label: "Personnel Roster"
@@ -109,3 +121,18 @@ collections:
       - {label: "Joined Division", name: "joined", widget: "string"}
       - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
       - {label: "Full Bio", name: "body", widget: "markdown"}
+
+  # 4. Mission Reports (Generates expanded achievement pages)
+  - name: "achievements"
+    label: "Mission Reports (Deployments)"
+    folder: "content/achievements"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Mission Title", name: "title", widget: "string"}
+      - {label: "Card Meta Tag (e.g. DEC 2026 // OVERALL RANK: AIR 5)", name: "meta", widget: "string"}
+      - {label: "Hardware Deployed (For expanded page)", name: "hardware", widget: "string"}
+      - {label: "Overall Result (For expanded page)", name: "result", widget: "string"}
+      - {label: "Cover Image", name: "image", widget: "image"}
+      - {label: "Card Summary", name: "summary", widget: "text"}
+      - {label: "Full Mission Report", name: "body", widget: "markdown"}
