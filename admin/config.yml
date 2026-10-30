@@ -125,6 +125,14 @@ collections:
       - {label: "Joined Division", name: "joined", widget: "string"}
       - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
       - {label: "Full Bio", name: "body", widget: "markdown"}
+      - label: "Key Contributions"
+        name: "contributions"
+        widget: "list"
+        required: false
+        fields:
+          - {label: "Project / Initiative", name: "title", widget: "string"}
+          - {label: "Contribution Details", name: "desc", widget: "text"}
+      - {label: "Personal Quote (Without quotes)", name: "quote", widget: "text", required: false}
 
   # ==========================================
   # MASTER PAGES (Single File Configuration)

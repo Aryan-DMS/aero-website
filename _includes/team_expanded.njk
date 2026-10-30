@@ -238,42 +238,71 @@
         <a href="/join_us/" class="btn-join">Join Us</a>
     </header>
 
-    <!-- Personnel Dossier (Letter Layout) -->
-    <main id="personnel-dossier" style="background: var(--bg-deep);">
-        <section style="padding: 60px 0;">
-            <div class="container" style="max-width: 1000px; margin: 0 auto;">
+    <!-- Page Specific Content Wrapper -->
+    <main id="personnel-expanded">
+        <section style="padding: 60px 0 100px;">
+            <div class="container">
+                <a href="/team/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; letter-spacing: 1px; transition: color 0.2s;">← Back to Personnel</a>
                 
-                <a href="/team/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Personnel</a>
-
-                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 60px; align-items: start;">
-                    
-                    <!-- Left Column: Photo & Stats -->
+                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start;">
+                    <!-- Left Column: Media & Meta -->
                     <div>
-                        <div style="border-radius: 4px; overflow: hidden; border: 1px solid var(--border-dark); margin-bottom: 24px;">
-                            <img src="{{ image }}" alt="{{ name }}" style="width: 100%; height: auto; display: block; filter: grayscale(20%);">
+                        <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; overflow: hidden; margin-bottom: 24px;">
+                            <img src="{{ image }}" alt="{{ name }}" style="width: 100%; height: 400px; object-fit: cover; display: block; filter: grayscale(100%) contrast(1.1);">
                         </div>
-                        <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px;">
-                            <span style="display: block; font-family: var(--font-data); font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">ACADEMIC MAJOR</span>
-                            <strong style="display: block; font-size: 14px; color: var(--text-light); margin-bottom: 16px;">{{ major }}</strong>
-                            
-                            <span style="display: block; font-family: var(--font-data); font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">JOINED DIVISION</span>
-                            <strong style="display: block; font-size: 14px; color: var(--text-light); margin-bottom: 16px;">{{ joined }}</strong>
-
-                            <span style="display: block; font-family: var(--font-data); font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">NETWORK</span>
-                            <a href="{{ linkedin }}" style="color: var(--accent-cyan); font-size: 14px; font-weight: 600;">LinkedIn Profile ↗</a>
+                        
+                        <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 24px;">
+                            <div style="margin-bottom: 16px;">
+                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Academic Major</span>
+                                <span style="color: var(--text-light); font-size: 14px; font-weight: 600;">{{ major }}</span>
+                            </div>
+                            <div style="margin-bottom: 16px;">
+                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Joined Division</span>
+                                <span style="color: var(--text-light); font-size: 14px; font-weight: 600;">{{ joined }}</span>
+                            </div>
+                            <div>
+                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Network</span>
+                                <a href="{{ linkedin }}" target="_blank" style="color: var(--accent-cyan); font-size: 13px; font-weight: 600; text-decoration: none;">LinkedIn Profile ↗</a>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Right Column: The "Letter" (Left-aligned text) -->
-                    <div style="padding-top: 12px;">
-                        <h1 style="font-size: 48px; font-weight: 800; margin-bottom: 8px; color: var(--text-light); letter-spacing: -1px;">{{ name }}</h1>
-                        <h3 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 16px; margin-bottom: 40px; letter-spacing: 1px; text-transform: uppercase;">{{ role }}</h3>
+                    
+                    <!-- Right Column: Profile Narrative -->
+                    <div style="padding-top: 16px;">
+                        <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; letter-spacing: -1px;">{{ name }}</h1>
+                        <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; margin-bottom: 40px; letter-spacing: 1px; text-transform: uppercase;">{{ role }}</h4>
                         
-                        <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8; text-align: left;">
+                        <div style="font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px;">
                             {{ content | safe }}
                         </div>
+                        
+                        <!-- CMS Injected: Key Contributions -->
+                        {% if contributions %}
+                        <div style="margin-bottom: 48px;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 24px;">Key Contributions</h3>
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                {% for item in contributions %}
+                                <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline;">
+                                    <div style="color: var(--accent-cyan); font-weight: 700; font-size: 14px; position: relative; padding-left: 16px; font-family: var(--font-ui);">
+                                        <span style="position: absolute; left: 0; top: 6px; width: 6px; height: 6px; background: var(--accent-cyan);"></span>
+                                        {{ item.title }}:
+                                    </div>
+                                    <div style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
+                                        {{ item.desc }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- CMS Injected: Quote -->
+                        {% if quote %}
+                        <blockquote style="border-left: 3px solid var(--accent-cyan); padding-left: 24px; margin: 0; font-style: italic; font-size: 18px; color: var(--text-light); line-height: 1.6; font-weight: 500;">
+                            "{{ quote }}"
+                        </blockquote>
+                        {% endif %}
                     </div>
-
                 </div>
             </div>
         </section>
