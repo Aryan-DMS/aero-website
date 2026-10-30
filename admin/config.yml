@@ -110,6 +110,7 @@ collections:
         name: "gallery"
         file: "content/pages/gallery.md"
         fields:
+          - {name: "permalink", widget: "hidden", default: false}
           - label: "Operations & Flight Logs"
             name: "operations"
             widget: "list"

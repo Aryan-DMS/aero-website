@@ -1,4 +1,5 @@
 ---
+permalink: false
 operations:
   - grid_span: standard
     type: video
