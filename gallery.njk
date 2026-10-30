@@ -82,27 +82,45 @@
         .btn-outline { display: inline-block; padding: 12px 28px; border: 1px solid var(--border-dark); background: transparent; color: var(--text-light); border-radius: 4px; font-size: 15px; font-weight: 800; transition: all 0.2s ease; }
         .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
 
-        /* Gallery Architectural Grid */
+        /* Gallery Architectural Grid (Dynamic Masonry) */
         .gallery-section { padding: 80px 0; border-bottom: 1px solid var(--border-dark); }
         .gallery-header { margin-bottom: 40px; }
         .gallery-header h4 { font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
         .gallery-header h2 { font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px; }
         
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px; }
-        .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .masonry-grid { column-count: 3; column-gap: 24px; }
+        @media (max-width: 900px) { .masonry-grid { column-count: 2; } }
+        @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
         
-        .gallery-item { position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-dark); background: var(--bg-panel-dark); aspect-ratio: 16/9; display: block; cursor: pointer; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        .gallery-item { position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-dark); background: var(--bg-panel-dark); display: inline-block; width: 100%; margin-bottom: 24px; break-inside: avoid; cursor: pointer; }
+        /* Removed fixed aspect-ratio so images flow naturally */
+        .gallery-item img { width: 100%; display: block; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.03); }
         
         /* Interactive Overlay */
-        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 24px 24px; background: linear-gradient(to top, rgba(11,17,33,0.95), transparent); color: var(--text-light); font-weight: 700; font-size: 16px; transform: translateY(100%); transition: transform 0.3s ease; }
-        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(11,17,33,0.95) 10%, transparent); color: var(--text-light); font-weight: 700; font-size: 16px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
+        .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
         
         /* Cinematic Play Button */
         .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background: rgba(11,17,33,0.7); border: 2px solid var(--text-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-light); transition: all 0.2s ease; z-index: 2; }
-        .gallery-item:hover .play-btn { background: var(--text-light); color: var(--bg-deep); scale: 1.1; }
+        .gallery-item:hover .play-btn { background: var(--text-light); color: var(--bg-deep); transform: translate(-50%, -50%) scale(1.1); }
         .play-btn::after { content: '▶'; margin-left: 4px; font-size: 20px; }
+
+        /* ==========================================
+           PROFESSIONAL LIGHTBOX VIEWER
+        ========================================== */
+        .lightbox { position: fixed; inset: 0; background: rgba(11, 17, 33, 0.98); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(10px); }
+        .lightbox.active { opacity: 1; pointer-events: auto; }
+        
+        .lightbox-close { position: absolute; top: 40px; right: 40px; background: transparent; border: 1px solid var(--border-dark); color: var(--text-light); width: 48px; height: 48px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 10000; }
+        .lightbox-close:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
+        
+        .lightbox-content-wrapper { position: relative; max-width: 90vw; max-height: 80vh; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .lightbox-img, .lightbox-video { max-width: 100%; max-height: 75vh; border-radius: 4px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: none; object-fit: contain; }
+        
+        .lightbox-meta-container { text-align: center; margin-top: 24px; }
+        .lightbox-caption-text { font-size: 20px; font-weight: 800; color: var(--text-light); margin-bottom: 8px; }
+        .lightbox-meta-tag { font-family: var(--font-data); color: var(--accent-cyan); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
 
         /* ==========================================
            PAGE CONTENT (HOME PAGE)
@@ -173,68 +191,48 @@
             </div>
         </section>
 
-        <!-- Category 1: Field Operations (Photos) -->
-        <section class="gallery-section">
-            <div class="container">
-                <div class="gallery-header">
-                    <h4>IMAGE ARCHIVE</h4>
-                    <h2>Field Operations & Labs</h2>
-                </div>
-                <div class="gallery-grid">
-                    <a href="#" class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Avionics testing">
-                        <div class="gallery-caption">Avionics Calibration // Lab 3</div>
-                    </a>
-                    <a href="#" class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" alt="Machining">
-                        <div class="gallery-caption">CNC Machining Chassis Plates</div>
-                    </a>
-                    <a href="#" class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=800" alt="Wind tunnel">
-                        <div class="gallery-caption">Pre-flight Thermal Inspection</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Category 2: Flight Logs (Videos) -->
-        <section class="gallery-section" style="background: var(--bg-panel-dark);">
-            <div class="container">
-                <div class="gallery-header">
-                    <h4>VIDEO ARCHIVE</h4>
-                    <h2>Flight Logs</h2>
-                </div>
-                <div class="video-grid">
-                    <a href="#" class="gallery-item" style="aspect-ratio: 21/9;">
-                        <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=1200" alt="Maiden Flight">
-                        <div class="play-btn"></div>
-                        <div class="gallery-caption">Project Valkyrie // Maiden Autonomous Flight</div>
-                    </a>
-                    <a href="#" class="gallery-item" style="aspect-ratio: 21/9;">
-                        <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=1200" alt="Competition Run">
-                        <div class="play-btn"></div>
-                        <div class="gallery-caption">National Techfest // Final Deployment Circuit</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Category 3: Hall of Records (Awards) -->
+        <!-- Dynamic Unified Masonry Grid -->
         <section class="gallery-section" style="border-bottom: none;">
             <div class="container">
-                <div class="gallery-header">
-                    <h4>ACCOLADES</h4>
-                    <h2>Hall of Records</h2>
-                </div>
-                <div class="gallery-grid">
-                    <a href="#" class="gallery-item">
+                <div class="masonry-grid">
+                    
+                    <!-- Vertical Image (Portrait / 9:16 feel) -->
+                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=100&w=1200" data-meta="LAB ARCHIVE">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Avionics testing">
+                        <div class="gallery-caption">Avionics Calibration // Lab 3</div>
+                    </div>
+
+                    <!-- Horizontal Video (Landscape) -->
+                    <div class="gallery-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FLIGHT LOG">
+                        <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=800" alt="Maiden Flight">
+                        <div class="play-btn"></div>
+                        <div class="gallery-caption">Project Valkyrie // Maiden Autonomous Flight</div>
+                    </div>
+
+                    <!-- Standard Horizontal Image -->
+                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=100&w=1600" data-meta="MANUFACTURING">
+                        <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" alt="Machining">
+                        <div class="gallery-caption">CNC Machining Chassis Plates</div>
+                    </div>
+
+                    <!-- Vertical Video (Shorts / 9:16) -->
+                    <div class="gallery-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FIELD TEST">
+                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=600&h=900" alt="Wind tunnel">
+                        <div class="play-btn"></div>
+                        <div class="gallery-caption">Pre-flight Thermal Inspection</div>
+                    </div>
+
+                    <!-- Large Landscape Feature -->
+                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=100&w=1600" data-meta="DEPLOYMENT">
+                        <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=800" alt="Competition Run">
+                        <div class="gallery-caption">National Techfest // Final Deployment Circuit</div>
+                    </div>
+
+                    <!-- Award Placeholder -->
+                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
                         <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80&w=800" alt="Team Award">
                         <div class="gallery-caption">Best Embedded System // 2025 Expo</div>
-                    </a>
-                    <a href="#" class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Podium">
-                        <div class="gallery-caption">Overall Team Champions // 2024 Regionals</div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -300,5 +298,79 @@
     </footer>
     
 
+<!-- Professional Lightbox Overlay -->
+    <div class="lightbox" id="media-lightbox">
+        <button class="lightbox-close" id="lightbox-close">×</button>
+        <div class="lightbox-content-wrapper">
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <video src="" controls class="lightbox-video" id="lightbox-video"></video>
+            
+            <div class="lightbox-meta-container">
+                <div class="lightbox-caption-text" id="lightbox-caption"></div>
+                <div class="lightbox-meta-tag" id="lightbox-tag"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = document.getElementById('media-lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbVid = document.getElementById('lightbox-video');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbTag = document.getElementById('lightbox-tag');
+            const closeBtn = document.getElementById('lightbox-close');
+
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const type = item.getAttribute('data-type');
+                    const src = item.getAttribute('data-src');
+                    const caption = item.querySelector('.gallery-caption').textContent;
+                    const meta = item.getAttribute('data-meta') || 'ARCHIVE';
+
+                    lbCaption.textContent = caption;
+                    lbTag.textContent = meta;
+
+                    if (type === 'video') {
+                        lbImg.style.display = 'none';
+                        lbVid.src = src;
+                        lbVid.style.display = 'block';
+                        lbVid.play();
+                    } else {
+                        lbVid.style.display = 'none';
+                        lbVid.pause();
+                        lbVid.src = '';
+                        lbImg.src = src;
+                        lbImg.style.display = 'block';
+                    }
+                    
+                    lightbox.classList.add('active');
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                lbVid.pause();
+                lbVid.src = '';
+            };
+
+            closeBtn.addEventListener('click', closeLightbox);
+            
+            // Close if clicking outside the media
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || e.target.classList.contains('lightbox-content-wrapper')) {
+                    closeLightbox();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
