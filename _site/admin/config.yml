@@ -57,3 +57,30 @@ collections:
           - label: "Scope of Operation"
             name: "scope"
             widget: "markdown"
+
+      - label: "Team Section"
+        name: "team"
+        file: "content/pages/team.md"
+        fields:
+          - label: "Divisions"
+            name: "divisions"
+            widget: "list"
+            summary: '{{fields.title}}'
+            fields:
+              - label: "Division Title"
+                name: "title"
+                widget: "string"
+              - label: "Members"
+                name: "members"
+                widget: "list"
+                summary: '{{fields.name}} - {{fields.role}}'
+                fields:
+                  - label: "Name"
+                    name: "name"
+                    widget: "string"
+                  - label: "Role"
+                    name: "role"
+                    widget: "string"
+                  - label: "Profile Image"
+                    name: "image"
+                    widget: "image"
