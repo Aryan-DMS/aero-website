@@ -106,6 +106,34 @@ collections:
               - {label: "Milestone Title", name: "title", widget: "string"}
               - {label: "Description", name: "desc", widget: "text"}
 
+      - label: "Gallery Page"
+        name: "gallery"
+        file: "content/pages/gallery.md"
+        fields:
+          - label: "Operations & Flight Logs"
+            name: "operations"
+            widget: "list"
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
+              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
+              - {label: "Video Thumbnail (Required if media is a video)", name: "thumbnail", widget: "image", required: false}
+              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "standard"}
+              - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+              
+          - label: "Hall of Records (Awards)"
+            name: "awards"
+            widget: "list"
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
+              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
+              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
+              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "span-2-col"}
+              - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+
   # 3. Personnel Database (Generates individual expanded pages)
   - name: "personnel"
     label: "Personnel Roster"

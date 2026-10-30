@@ -228,32 +228,17 @@
                 </div>
                 
                 <div class="bento-grid">
-                    <!-- Featured Cinematic Video (Spans 2x2) -->
-                    <div class="gallery-item featured-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FLIGHT LOG">
-                        <!-- We use an image thumbnail here so it loads instantly without buffering a huge video -->
-                        <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=1200" alt="Maiden Flight">
-                        <div class="play-btn"></div>
-                        <div class="gallery-caption">Project Valkyrie // Maiden Autonomous Flight</div>
-                    </div>
-
-                    <!-- Standard Horizontal Image -->
-                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=100&w=1600" data-meta="MANUFACTURING">
-                        <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" alt="Machining">
-                        <div class="gallery-caption">CNC Machining Chassis Plates</div>
-                    </div>
-
-                    <!-- Vertical Video/Short (Spans 2 rows) -->
-                    <div class="gallery-item span-2-row" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FIELD TEST">
-                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=600&h=900" alt="Wind tunnel">
-                        <div class="play-btn"></div>
-                        <div class="gallery-caption">Thermal Drone Inspection</div>
-                    </div>
-
-                    <!-- Standard Image (1x1 square) -->
-                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=100&w=1200" data-meta="LAB ARCHIVE">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Avionics testing">
-                        <div class="gallery-caption">Avionics Calibration</div>
-                    </div>
+                    {% for page in collections.all %}
+                        {% if page.fileSlug == 'gallery' %}
+                            {% for item in page.data.operations %}
+                            <div class="gallery-item {% if item.grid_span != 'standard' %}{{ item.grid_span }}{% endif %}" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                <div class="gallery-caption">{{ item.caption }}</div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -267,21 +252,23 @@
                 </div>
                 
                 <div class="bento-grid" style="grid-auto-rows: 250px;">
-                    <!-- Spanning Wide Horizontal Award Image -->
-                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
-                        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80&w=800" alt="Team Award">
-                        <div class="gallery-caption">Best Embedded System // 2025 Expo</div>
-                    </div>
-                    
-                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Podium">
-                        <div class="gallery-caption">Overall Team Champions // Regionals</div>
-                    </div>
+                    {% for page in collections.all %}
+                        {% if page.fileSlug == 'gallery' %}
+                            {% for item in page.data.awards %}
+                            <div class="gallery-item {% if item.grid_span != 'standard' %}{{ item.grid_span }}{% endif %}" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                <div class="gallery-caption">{{ item.caption }}</div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
 
     </main>
+    
     
     <!-- Global Footer -->
     <footer style="background: var(--bg-deep); border-top: 1px solid var(--border-dark); padding: 80px 0 40px; margin-top: auto;">
