@@ -15,9 +15,11 @@ media_library:
       - quality: auto
 
 collections:
-  # 1. Folder Collection (For multiple events)
+  # ==========================================
+  # DATABASES (Dynamic Collections)
+  # ==========================================
   - name: "events"
-    label: "Mission Manifest"
+    label: "Mission Manifest (Events)"
     folder: "content/events"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
@@ -31,127 +33,6 @@ collections:
       - {label: "Cover Image", name: "image", widget: "image"}
       - {label: "Operational Briefing", name: "body", widget: "markdown"}
 
-  # 2. File Collection (For single static pages)
-  - name: "pages"
-    label: "Core Pages"
-    files:
-      - label: "About Section"
-        name: "about"
-        file: "content/pages/about.md"
-        fields:
-          - label: "Division Overview"
-            name: "overview"
-            widget: "object"
-            fields:
-              - label: "Meta Subtitle"
-                name: "subtitle"
-                widget: "string"
-                default: "EST. 2015 // PUNE, INDIA"
-              - label: "Overview Image"
-                name: "image"
-                widget: "image"
-              - label: "Main Briefing"
-                name: "body"
-                widget: "markdown"
-          
-          - label: "Engineering Philosophy Pillars"
-            name: "philosophy"
-            widget: "list"
-            fields:
-              - label: "Pillar Title"
-                name: "title"
-                widget: "string"
-              - label: "Pillar Description"
-                name: "body"
-                widget: "text"
-          
-          - label: "Scope of Operation"
-            name: "scope"
-            widget: "markdown"
-
-      - label: "Contact Section"
-        name: "contact"
-        file: "content/pages/contact.md"
-        fields:
-          - label: "Primary Email"
-            name: "email"
-            widget: "string"
-          - label: "Facility Location"
-            name: "location"
-            widget: "text"
-          - label: "Direct Line"
-            name: "phone"
-            widget: "string"
-          - label: "Social Networks"
-            name: "socials"
-            widget: "list"
-            summary: '{{fields.platform}}'
-            fields:
-              - label: "Platform Name"
-                name: "platform"
-                widget: "string"
-              - label: "Profile URL"
-                name: "url"
-                widget: "string"
-
-      - label: "Achievements Timeline"
-        name: "achievements_timeline"
-        file: "content/pages/achievements_timeline.md"
-        fields:
-          - label: "Historical Milestones"
-            name: "timeline"
-            widget: "list"
-            fields:
-              - {label: "Date / Event Meta (e.g. 2025 // SAE AERO DESIGN)", name: "date_meta", widget: "string"}
-              - {label: "Milestone Title", name: "title", widget: "string"}
-              - {label: "Description", name: "desc", widget: "text"}
-
-      - label: "Gallery Page"
-        name: "gallery"
-        file: "content/pages/gallery.md"
-        fields:
-          - {name: "permalink", widget: "hidden", default: false}
-          - label: "Operations & Flight Logs"
-            name: "operations"
-            widget: "list"
-            summary: '{{fields.meta}} - {{fields.caption}}'
-            fields:
-              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
-              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
-              - {label: "Video Thumbnail (Required if media is a video)", name: "thumbnail", widget: "image", required: false}
-              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "standard"}
-              - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
-              - {label: "Caption / Title", name: "caption", widget: "string"}
-              
-          - label: "Hall of Records (Awards)"
-            name: "awards"
-            widget: "list"
-            summary: '{{fields.meta}} - {{fields.caption}}'
-            fields:
-              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
-              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
-              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
-              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "span-2-col"}
-              - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
-              - {label: "Caption / Title", name: "caption", widget: "string"}
-
-  # 3. Personnel Database (Generates individual expanded pages)
-  - name: "personnel"
-    label: "Personnel Roster"
-    folder: "content/personnel"
-    create: true
-    slug: "{{name}}"
-    fields:
-      - {label: "Name", name: "name", widget: "string"}
-      - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}
-      - {label: "Role / Title", name: "role", widget: "string"}
-      - {label: "Profile Image", name: "image", widget: "image"}
-      - {label: "Academic Major", name: "major", widget: "string"}
-      - {label: "Joined Division", name: "joined", widget: "string"}
-      - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
-      - {label: "Full Bio", name: "body", widget: "markdown"}
-
-  # 4. Mission Reports (Generates expanded achievement pages)
   - name: "achievements"
     label: "Mission Reports (Deployments)"
     folder: "content/achievements"
@@ -184,7 +65,6 @@ collections:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Image Alt Text", name: "alt", widget: "string"}
 
-  # 5. Fleet Models (Generates hardware spec pages)
   - name: "models"
     label: "The Fleet (Models)"
     folder: "content/models"
@@ -195,28 +75,24 @@ collections:
       - {label: "Card Meta Tag (e.g. CLASS // AUTONOMOUS QUADCOPTER)", name: "card_meta", widget: "string"}
       - {label: "Hero Meta Tag (e.g. CLASS: AUTONOMOUS QUADCOPTER // STATUS: ACTIVE)", name: "hero_meta", widget: "string"}
       - {label: "Cover/Hero Image", name: "image", widget: "image"}
-      
       - label: "Quick Specs (For the Grid Card - Max 4)"
         name: "card_specs"
         widget: "list"
         fields:
           - {label: "Label (e.g. Max Takeoff)", name: "label", widget: "string"}
           - {label: "Value (e.g. 4.2 kg)", name: "value", widget: "string"}
-          
       - label: "Physical Dimensions (For Expanded Page)"
         name: "dimensions"
         widget: "list"
         fields:
           - {label: "Label", name: "label", widget: "string"}
           - {label: "Value", name: "value", widget: "string"}
-          
       - label: "Avionics & Power Systems (For Expanded Page)"
         name: "systems"
         widget: "list"
         fields:
           - {label: "Label", name: "label", widget: "string"}
           - {label: "Value", name: "value", widget: "string"}
-          
       - label: "Engineering Summary (Block Builder)"
         name: "blocks"
         widget: "list"
@@ -234,3 +110,131 @@ collections:
             fields:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Image Alt Text", name: "alt", widget: "string"}
+
+  - name: "personnel"
+    label: "Personnel Roster"
+    folder: "content/personnel"
+    create: true
+    slug: "{{name}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}
+      - {label: "Role / Title", name: "role", widget: "string"}
+      - {label: "Profile Image", name: "image", widget: "image"}
+      - {label: "Academic Major", name: "major", widget: "string"}
+      - {label: "Joined Division", name: "joined", widget: "string"}
+      - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+      - {label: "Full Bio", name: "body", widget: "markdown"}
+
+  # ==========================================
+  # MASTER PAGES (Single File Configuration)
+  # ==========================================
+  - name: "page_gallery"
+    label: "Page: Gallery"
+    files:
+      - label: "Gallery Editor"
+        name: "gallery"
+        file: "content/pages/gallery.md"
+        fields:
+          - {name: "permalink", widget: "hidden", default: false}
+          - label: "Operations & Flight Logs"
+            name: "operations"
+            widget: "list"
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
+              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
+              - {label: "Video Thumbnail (Required if media is a video)", name: "thumbnail", widget: "image", required: false}
+              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "standard"}
+              - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+          - label: "Hall of Records (Awards)"
+            name: "awards"
+            widget: "list"
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
+              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
+              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
+              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "span-2-col"}
+              - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+
+  - name: "page_achievements_timeline"
+    label: "Page: Achievements Timeline"
+    files:
+      - label: "Timeline Editor"
+        name: "achievements_timeline"
+        file: "content/pages/achievements_timeline.md"
+        fields:
+          - label: "Historical Milestones"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - {label: "Date / Event Meta (e.g. 2025 // SAE AERO DESIGN)", name: "date_meta", widget: "string"}
+              - {label: "Milestone Title", name: "title", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+
+  - name: "page_about"
+    label: "Page: About Us"
+    files:
+      - label: "About Us Editor"
+        name: "about"
+        file: "content/pages/about.md"
+        fields:
+          - label: "Division Overview"
+            name: "overview"
+            widget: "object"
+            fields:
+              - label: "Meta Subtitle"
+                name: "subtitle"
+                widget: "string"
+                default: "EST. 2015 // PUNE, INDIA"
+              - label: "Overview Image"
+                name: "image"
+                widget: "image"
+              - label: "Main Briefing"
+                name: "body"
+                widget: "markdown"
+          - label: "Engineering Philosophy Pillars"
+            name: "philosophy"
+            widget: "list"
+            fields:
+              - label: "Pillar Title"
+                name: "title"
+                widget: "string"
+              - label: "Pillar Description"
+                name: "body"
+                widget: "text"
+          - label: "Scope of Operation"
+            name: "scope"
+            widget: "markdown"
+
+  - name: "page_contact"
+    label: "Page: Contact Details"
+    files:
+      - label: "Contact Details Editor"
+        name: "contact"
+        file: "content/pages/contact.md"
+        fields:
+          - label: "Primary Email"
+            name: "email"
+            widget: "string"
+          - label: "Facility Location"
+            name: "location"
+            widget: "text"
+          - label: "Direct Line"
+            name: "phone"
+            widget: "string"
+          - label: "Social Networks"
+            name: "socials"
+            widget: "list"
+            summary: '{{fields.platform}}'
+            fields:
+              - label: "Platform Name"
+                name: "platform"
+                widget: "string"
+              - label: "Profile URL"
+                name: "url"
+                widget: "string"
+                
