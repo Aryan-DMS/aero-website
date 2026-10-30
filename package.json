@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Aryan-DMS/aero-website#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.7"
+    "@11ty/eleventy": "^3.1.7",
+    "markdown-it": "^15.0.3"
   }
 }
