@@ -229,13 +229,13 @@
         
         <nav>
             <ul class="nav-links">
-                <li><a href="/about/">About</a></li>
-                <li><a href="/achievements/">Achievements</a></li>
-                <li><a href="/gallery/">Gallery</a></li>
-                <li><a href="/models/">Models</a></li>
-                <li><a href="/events/">Events</a></li>
-                <li><a href="/team/">Team</a></li>
-                <li><a href="/contact/">Contact</a></li>
+                <li><a href="/about/" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
+                <li><a href="/achievements/" {% if page.url == '/achievements/' %}class="active"{% endif %}>Achievements</a></li>
+                <li><a href="/gallery/" {% if page.url == '/gallery/' %}class="active"{% endif %}>Gallery</a></li>
+                <li><a href="/models/" {% if page.url == '/models/' %}class="active"{% endif %}>Models</a></li>
+                <li><a href="/events/" {% if '/events/' in page.url %}class="active"{% endif %}>Events</a></li>
+                <li><a href="/team/" {% if '/team/' in page.url %}class="active"{% endif %}>Team</a></li>
+                <li><a href="/contact/" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
             </ul>
         </nav>
         <a href="join_us.html" class="btn-join">Join Us</a>

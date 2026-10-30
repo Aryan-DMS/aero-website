@@ -69,15 +69,6 @@ collections:
             name: "scope"
             widget: "markdown"
 
-      - label: "Team Section"
-        name: "team"
-        file: "content/pages/team.md"
-        fields:
-          - label: "Page Intro"
-            name: "intro"
-            widget: "string"
-            default: "The engineers, designers, and operators driving our autonomous flight programs."
-
       - label: "Contact Section"
         name: "contact"
         file: "content/pages/contact.md"
@@ -118,4 +109,3 @@ collections:
       - {label: "Joined Division", name: "joined", widget: "string"}
       - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
       - {label: "Full Bio", name: "body", widget: "markdown"}
-      
