@@ -100,16 +100,22 @@
         .achievement-card:hover .read-report::after { transform: translateX(6px); }
 
         /* ==========================================
-           ACHIEVEMENT TIMELINE
+           ACHIEVEMENT TIMELINE (HORIZONTAL)
         ========================================== */
-        .timeline-section { padding: 80px 0; border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark); }
-        .timeline-track { position: relative; max-width: 800px; margin: 0 auto; padding-left: 40px; border-left: 2px solid var(--border-dark); }
-        .timeline-node { position: relative; margin-bottom: 60px; }
-        .timeline-node:last-child { margin-bottom: 0; }
-        .timeline-dot { position: absolute; left: -47px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-cyan); border: 4px solid var(--bg-panel-dark); box-shadow: 0 0 0 2px var(--accent-cyan); }
+        .timeline-section { padding: 80px 0; border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); }
+        .timeline-container { width: 100%; overflow-x: auto; padding-bottom: 24px; scrollbar-width: thin; scrollbar-color: var(--accent-cyan) var(--bg-deep); }
+        
+        /* Custom Webkit Scrollbar for a native macOS feel */
+        .timeline-container::-webkit-scrollbar { height: 6px; }
+        .timeline-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+        .timeline-container::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
+        
+        .timeline-track { display: flex; gap: 48px; min-width: max-content; padding-top: 24px; border-top: 2px solid var(--border-dark); margin-top: 40px; }
+        .timeline-node { position: relative; width: 320px; white-space: normal; }
+        .timeline-dot { position: absolute; left: 0; top: -31px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-cyan); border: 4px solid var(--bg-panel-dark); box-shadow: 0 0 0 2px var(--accent-cyan); }
         .timeline-date { font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 8px; display: block; font-weight: 700; }
-        .timeline-title { font-size: 24px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; }
-        .timeline-desc { font-size: 16px; color: var(--text-muted); line-height: 1.6; }
+        .timeline-title { font-size: 22px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; }
+        .timeline-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
 
         /* ==========================================
            PAGE CONTENT (HOME PAGE)
@@ -180,39 +186,78 @@
             </div>
         </section>
 
-        <!-- Timeline Section -->
-        <section class="timeline-section">
+        <!-- Grid Section (Moved to top with heading) -->
+        <section style="padding: 60px 0 80px;">
             <div class="container">
-                <div style="margin-bottom: 60px;">
-                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Historical Milestones</h3>
+                <div style="margin-bottom: 40px;">
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Recent Deployments</h3>
                 </div>
-                <div class="timeline-track">
-                    <div class="timeline-node">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-date">2025 // SAE AERO DESIGN</span>
-                        <h4 class="timeline-title">Global Top 10 Debut</h4>
-                        <p class="timeline-desc">First international deployment. The team secured 8th place globally in the Advanced Class, setting a new national record for payload fraction.</p>
-                    </div>
-                    <div class="timeline-node">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-date">2023 // NATIONAL DRONE TECHFEST</span>
-                        <h4 class="timeline-title">Autonomous Navigation Champions</h4>
-                        <p class="timeline-desc">Awarded first place for our custom vision-based obstacle avoidance system, navigating a complex 2km circuit entirely without GPS.</p>
-                    </div>
-                    <div class="timeline-node">
-                        <div class="timeline-dot"></div>
-                        <span class="timeline-date">2020 // FOUNDATION</span>
-                        <h4 class="timeline-title">Division Established</h4>
-                        <p class="timeline-desc">AeroClub Engineering Division officially launched with a core team of 5 engineering students and a single RC trainer aircraft.</p>
-                    </div>
+                <div class="achievement-grid">
+                    <!-- Achievement Card 1 -->
+                    <a href="achievement_expanded.html" class="achievement-card">
+                        <div class="achievement-img">
+                            <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=800" alt="National Drone Techfest">
+                        </div>
+                        <div class="achievement-content">
+                            <span class="achievement-meta">DEC 2026 // OVERALL RANK: AIR 5</span>
+                            <h4>National Drone Techfest</h4>
+                            <p>Secured All India Rank 5 for autonomous navigation and structural design out of 100+ competing universities.</p>
+                            <span class="read-report">Read Mission Report</span>
+                        </div>
+                    </a>
+
+                    <!-- Achievement Card 2 -->
+                    <a href="achievement_expanded.html" class="achievement-card">
+                        <div class="achievement-img">
+                            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=800" alt="Innovation Expo">
+                        </div>
+                        <div class="achievement-content">
+                            <span class="achievement-meta">AUG 2025 // CATEGORY: AVIONICS</span>
+                            <h4>Best Embedded System Award</h4>
+                            <p>Awarded for developing a custom flight controller with multi-sensor fusion and real-time telemetry processing.</p>
+                            <span class="read-report">Read Mission Report</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Grid Section -->
-        <section style="padding: 60px 0 100px;">
+        <!-- Timeline Section (Moved to bottom, horizontal layout) -->
+        <section class="timeline-section">
             <div class="container">
-                <div class="achievement-grid">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Historical Milestones</h3>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-track">
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-date">2025 // SAE AERO DESIGN</span>
+                            <h4 class="timeline-title">Global Top 10 Debut</h4>
+                            <p class="timeline-desc">First international deployment. The team secured 8th place globally in the Advanced Class, setting a new national record for payload fraction.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-date">2023 // NATIONAL DRONE TECHFEST</span>
+                            <h4 class="timeline-title">Autonomous Navigation Champions</h4>
+                            <p class="timeline-desc">Awarded first place for our custom vision-based obstacle avoidance system, navigating a complex 2km circuit entirely without GPS.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-date">2021 // PAYLOAD MASTERS</span>
+                            <h4 class="timeline-title">First Podium Finish</h4>
+                            <p class="timeline-desc">Achieved 3rd place nationally by successfully lifting 3x our aircraft's dry weight using a custom high-lift airfoil profile.</p>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-date">2020 // FOUNDATION</span>
+                            <h4 class="timeline-title">Division Established</h4>
+                            <p class="timeline-desc">AeroClub Engineering Division officially launched with a core team of 5 engineering students and a single RC trainer aircraft.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
                     <!-- Achievement Card 1 -->
                     <a href="achievement_expanded.html" class="achievement-card">
                         <div class="achievement-img">
