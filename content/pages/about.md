@@ -14,10 +14,19 @@ overview:
     We do not just assemble kits. Our members design custom airframes, write proprietary flight-control software, and manufacture composite structures from raw materials to dominate national airspace competitions.
 philosophy:
   - title: Precision Engineering
-    body: We build it right the first time.
+    body: Every aircraft begins in CAD and CFD. We simulate stress, drag, and
+      thermal efficiency for hundreds of hours before cutting a single sheet of
+      material, minimizing waste and maximizing performance.
   - title: Autonomous Systems
-    body: We develop autonomous UAV as its the future of flights
-scope: |-
-  National collegiate aerospace competitions.\
-  Particiaptes is SAEISS and all things like those
+    body: From soldering custom avionics boards to curing fiberglass wings in-house,
+      we own our entire supply chain. This allows us to rapidly prototype and
+      adapt to competition rule changes within days.
+  - title: AUTONOMOUS FOCUS
+    body: The future of flight is unmanned. Our embedded systems division
+      prioritizes AI-assisted object tracking, autonomous payload delivery, and
+      beyond-visual-line-of-sight (BVLOS) capabilities.
+scope: Currently operating out of a dedicated 2,000 sq. ft. fabrication lab, the
+  club manages a rotating fleet of fixed-wing, multi-rotor, and hybrid UAVs. We
+  participate in tier-1 national events, consistently ranking among the top
+  engineering institutions nationwide.
 ---
