@@ -1,0 +1,5 @@
+{
+  "layout": "achievement_expanded.njk",
+  "tags": "achievements",
+  "permalink": "/achievements/{{ page.fileSlug }}/"
+}

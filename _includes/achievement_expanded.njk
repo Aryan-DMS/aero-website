@@ -242,11 +242,11 @@
     <main id="mission-report">
         
         <!-- Massive Cinematic Header -->
-        <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=2000') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
-                <a href="achievements.html" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">MISSION LOG // DEC 2026 // PUNE, INDIA</span>
-                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">National Drone Techfest: Securing AIR 5</h1>
+                <a href="/achievements/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ hero_meta }}</span>
+                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ title }}</h1>
             </div>
         </section>
 
@@ -258,27 +258,28 @@
                 <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px;">
                     <div>
                         <span style="display: block; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">HARDWARE DEPLOYED</span>
-                        <strong style="font-size: 18px; color: var(--text-light);">Project Valkyrie (Quadcopter)</strong>
+                        <strong style="font-size: 18px; color: var(--text-light);">{{ hardware }}</strong>
                     </div>
                     <div>
                         <span style="display: block; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">OVERALL RESULT</span>
-                        <strong style="font-size: 18px; color: var(--accent-cyan);">All India Rank 5 (out of 102)</strong>
+                        <strong style="font-size: 18px; color: var(--accent-cyan);">{{ result }}</strong>
                     </div>
                 </div>
 
-                <!-- The Letter / Body Copy -->
+                <!-- Block Builder Engine -->
                 <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8;">
-                    <p style="margin-bottom: 24px;">The 2026 National Drone Techfest presented one of the most rigorous autonomous navigation challenges to date. Competing against 102 engineering institutions, AeroClub was tasked with deploying an unmanned aerial vehicle capable of navigating a GPS-denied obstacle course while carrying a modular payload.</p>
-                    
-                    <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">Technical Approach & Structural Design</h3>
-                    <p style="margin-bottom: 24px;">Our engineering team utilized a custom carbon-fiber chassis, specifically laid up in our fabrication lab to reduce total dry weight by 14% compared to the previous year's iteration. This weight reduction allowed us to mount a heavier sensor array without compromising flight endurance.</p>
-                    
-                    <!-- Inline Article Image -->
-                    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" style="width: 100%; height: auto; border: 1px solid var(--border-dark); border-radius: 4px; margin: 32px 0;" alt="Lab preparation">
-                    
-                    <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">Avionics & Autonomous Execution</h3>
-                    <p style="margin-bottom: 24px;">The core differentiator for our AIR 5 ranking was the robustness of our avionics stack. Relying on an advanced sensor fusion algorithm combining optical flow and LiDAR data, Project Valkyrie successfully mapped the indoor environment in real-time, completing the circuit with zero structural collisions.</p>
-                    <p style="margin-bottom: 24px;">This achievement stands as a testament to the club's iterative design philosophy and our focus on bridging theoretical code with physical deployment.</p>
+                    {% for block in blocks %}
+                        {% if block.type == 'text_block' %}
+                            {% if block.heading %}
+                                <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
+                            {% endif %}
+                            <div style="margin-bottom: 24px;">
+                                {{ block.content | safe }}
+                            </div>
+                        {% elif block.type == 'image_block' %}
+                            <img src="{{ block.image }}" style="width: 100%; height: auto; border: 1px solid var(--border-dark); border-radius: 4px; margin: 32px 0;" alt="{{ block.alt }}">
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </div>
