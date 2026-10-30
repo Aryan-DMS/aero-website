@@ -3,6 +3,7 @@ layout: about.njk
 permalink: /about/index.html
 overview:
   subtitle: EST. 2018 // Pune,Maharashtra
+  image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800"
   body: |-
     Welcome EVERYONE\
     This is Team Aerial Martial
