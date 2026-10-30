@@ -5,8 +5,14 @@ backend:
   base_url: "https://aero-website-7xh.pages.dev"
   auth_endpoint: "oauth/auth"
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: "ylxttnsp"
+    api_key: "185379971175851"
+    default_transformations:
+      - fetch_format: auto
+      - quality: auto
 
 collections:
   # 1. Folder Collection (For multiple events)
