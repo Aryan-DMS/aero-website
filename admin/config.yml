@@ -137,4 +137,20 @@ collections:
       - {label: "Card Summary (Short paragraph for the grid)", name: "summary", widget: "text"}
       - {label: "Hardware Deployed (e.g. Project Valkyrie (Quadcopter))", name: "hardware", widget: "string"}
       - {label: "Overall Result (e.g. All India Rank 5 (out of 102))", name: "result", widget: "string"}
-      - {label: "Full Mission Report (Use the editor toolbar to add headings and inline images)", name: "body", widget: "markdown"}
+      - label: "Mission Report (Block Builder)"
+        name: "blocks"
+        widget: "list"
+        summary: '{{fields.type}} Block'
+        types:
+          - label: "Text Section"
+            name: "text_block"
+            widget: "object"
+            fields:
+              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false, hint: "Generates the massive white H3 heading"}
+              - {label: "Text Content", name: "content", widget: "markdown", hint: "Standard paragraph text"}
+          - label: "Inline Image"
+            name: "image_block"
+            widget: "object"
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Image Alt Text", name: "alt", widget: "string"}
