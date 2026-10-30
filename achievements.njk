@@ -100,6 +100,18 @@
         .achievement-card:hover .read-report::after { transform: translateX(6px); }
 
         /* ==========================================
+           ACHIEVEMENT TIMELINE
+        ========================================== */
+        .timeline-section { padding: 80px 0; border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark); }
+        .timeline-track { position: relative; max-width: 800px; margin: 0 auto; padding-left: 40px; border-left: 2px solid var(--border-dark); }
+        .timeline-node { position: relative; margin-bottom: 60px; }
+        .timeline-node:last-child { margin-bottom: 0; }
+        .timeline-dot { position: absolute; left: -47px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-cyan); border: 4px solid var(--bg-panel-dark); box-shadow: 0 0 0 2px var(--accent-cyan); }
+        .timeline-date { font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 8px; display: block; font-weight: 700; }
+        .timeline-title { font-size: 24px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; }
+        .timeline-desc { font-size: 16px; color: var(--text-muted); line-height: 1.6; }
+
+        /* ==========================================
            PAGE CONTENT (HOME PAGE)
         ========================================== */
         .hero {
@@ -165,6 +177,35 @@
             <div class="container">
                 <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Mission Archives</h2>
                 <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">A comprehensive record of our national standings, hardware awards, and competition deployments.</p>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <div style="margin-bottom: 60px;">
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Historical Milestones</h3>
+                </div>
+                <div class="timeline-track">
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <span class="timeline-date">2025 // SAE AERO DESIGN</span>
+                        <h4 class="timeline-title">Global Top 10 Debut</h4>
+                        <p class="timeline-desc">First international deployment. The team secured 8th place globally in the Advanced Class, setting a new national record for payload fraction.</p>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <span class="timeline-date">2023 // NATIONAL DRONE TECHFEST</span>
+                        <h4 class="timeline-title">Autonomous Navigation Champions</h4>
+                        <p class="timeline-desc">Awarded first place for our custom vision-based obstacle avoidance system, navigating a complex 2km circuit entirely without GPS.</p>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <span class="timeline-date">2020 // FOUNDATION</span>
+                        <h4 class="timeline-title">Division Established</h4>
+                        <p class="timeline-desc">AeroClub Engineering Division officially launched with a core team of 5 engineering students and a single RC trainer aircraft.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
