@@ -62,25 +62,23 @@ collections:
         name: "team"
         file: "content/pages/team.md"
         fields:
-          - label: "Divisions"
-            name: "divisions"
-            widget: "list"
-            summary: '{{fields.title}}'
-            fields:
-              - label: "Division Title"
-                name: "title"
-                widget: "string"
-              - label: "Members"
-                name: "members"
-                widget: "list"
-                summary: '{{fields.name}} - {{fields.role}}'
-                fields:
-                  - label: "Name"
-                    name: "name"
-                    widget: "string"
-                  - label: "Role"
-                    name: "role"
-                    widget: "string"
-                  - label: "Profile Image"
-                    name: "image"
-                    widget: "image"
+          - label: "Page Intro"
+            name: "intro"
+            widget: "string"
+            default: "The engineers, designers, and operators driving our autonomous flight programs."
+
+  # 3. Personnel Database (Generates individual expanded pages)
+  - name: "personnel"
+    label: "Personnel Roster"
+    folder: "content/personnel"
+    create: true
+    slug: "{{name}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}
+      - {label: "Role / Title", name: "role", widget: "string"}
+      - {label: "Profile Image", name: "image", widget: "image"}
+      - {label: "Academic Major", name: "major", widget: "string"}
+      - {label: "Joined Division", name: "joined", widget: "string"}
+      - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+      - {label: "Full Bio", name: "body", widget: "markdown"}
