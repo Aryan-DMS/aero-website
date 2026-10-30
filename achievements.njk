@@ -181,6 +181,7 @@
         <!-- Standardized Page Header -->
         <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark);">
             <div class="container">
+                <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">TRACK RECORD</h4>
                 <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Mission Archives</h2>
                 <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">A comprehensive record of our national standings, hardware awards, and competition deployments.</p>
             </div>
@@ -190,7 +191,8 @@
         <section style="padding: 60px 0 80px;">
             <div class="container">
                 <div style="margin-bottom: 40px;">
-                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Recent Deployments</h3>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">DEPLOYMENT LOGS</h4>
+                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Recent Deployments</h3>
                 </div>
                 <div class="achievement-grid">
                     {% for mission in collections.achievements | reverse %}
@@ -213,8 +215,9 @@
         <!-- Timeline Section (Dynamic Loop) -->
         <section class="timeline-section">
             <div class="container">
-                <div style="margin-bottom: 20px;">
-                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light);">Historical Milestones</h3>
+                <div style="margin-bottom: 40px;">
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">DIVISION HISTORY</h4>
+                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Historical Milestones</h3>
                 </div>
                 <div class="timeline-container">
                     <div class="timeline-track">

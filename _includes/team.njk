@@ -157,6 +157,7 @@
     <main id="team-page">
         <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark);">
             <div class="container">
+                <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">CORE ROSTER</h4>
                 <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Division Personnel</h2>
                 <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">The engineers, designers, and operators driving our autonomous flight programs.</p>
             </div>
@@ -167,8 +168,11 @@
                 
                 {% set groupedPersonnel = collections.personnel | groupby("data.division") %}
                 {% for divisionName, members in groupedPersonnel %}
-                <div style="margin-bottom: 60px;">
-                    <h3 style="font-size: 24px; font-weight: 700; color: var(--text-light); margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px;">{{ divisionName }}</h3>
+                <div style="margin-bottom: 80px;">
+                    <div style="margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px;">
+                        <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
+                        <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ divisionName }}</h3>
+                    </div>
                     <div class="team-grid">
                         {% for member in members %}
                         <a href="{{ member.url }}" class="team-card">
