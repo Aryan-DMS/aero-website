@@ -31,7 +31,23 @@ collections:
       - {label: "Hardware Class", name: "hardware", widget: "string", required: false}
       - {label: "Card Summary", name: "summary", widget: "text"}
       - {label: "Cover Image", name: "image", widget: "image"}
-      - {label: "Operational Briefing", name: "body", widget: "markdown"}
+      - label: "Operational Briefing (Block Builder)"
+        name: "blocks"
+        widget: "list"
+        summary: '{{fields.type}} Block'
+        types:
+          - label: "Text Section"
+            name: "text_block"
+            widget: "object"
+            fields:
+              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false}
+              - {label: "Text Content", name: "content", widget: "markdown"}
+          - label: "Inline Image"
+            name: "image_block"
+            widget: "object"
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Image Alt Text", name: "alt", widget: "string"}
 
   - name: "achievements"
     label: "Achievements: Reports"
