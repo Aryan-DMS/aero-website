@@ -82,32 +82,45 @@
         .btn-outline { display: inline-block; padding: 12px 28px; border: 1px solid var(--border-dark); background: transparent; color: var(--text-light); border-radius: 4px; font-size: 15px; font-weight: 800; transition: all 0.2s ease; }
         .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
 
-        /* Gallery Architectural Grid (Dynamic Masonry) */
+        /* ==========================================
+           FIXED BENTO-BOX GALLERY GRID
+        ========================================== */
         .gallery-section { padding: 80px 0; border-bottom: 1px solid var(--border-dark); }
         .gallery-header { margin-bottom: 40px; }
         .gallery-header h4 { font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
         .gallery-header h2 { font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px; }
         
-        .masonry-grid { column-count: 3; column-gap: 24px; }
-        @media (max-width: 900px) { .masonry-grid { column-count: 2; } }
-        @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+        .bento-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            grid-auto-rows: 300px; /* Fixed height for uniformity */
+            gap: 24px; 
+        }
         
-        .gallery-item { position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-dark); background: var(--bg-panel-dark); display: inline-block; width: 100%; margin-bottom: 24px; break-inside: avoid; cursor: pointer; }
-        /* Removed fixed aspect-ratio so images flow naturally */
-        .gallery-item img { width: 100%; display: block; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.03); }
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; } .bento-grid > div { grid-column: span 1 !important; grid-row: span 1 !important; } }
         
-        /* Interactive Overlay */
-        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(11,17,33,0.95) 10%, transparent); color: var(--text-light); font-weight: 700; font-size: 16px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
+        /* Grid Span Utilities */
+        .span-2-col { grid-column: span 2; }
+        .span-2-row { grid-row: span 2; }
+        .featured-item { grid-column: span 2; grid-row: span 2; }
+        
+        .gallery-item { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-dark); background: var(--bg-panel-dark); cursor: pointer; display: block; }
+        
+        /* Object-fit cover ensures it fills the rigid grid without EVER squishing */
+        .gallery-item img, .gallery-item .thumbnail-video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.1); transition: all 0.4s ease; display: block; }
+        .gallery-item:hover img, .gallery-item:hover .thumbnail-video { filter: grayscale(0%); transform: scale(1.05); }
+        
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(11,17,33,0.95) 10%, transparent); color: var(--text-light); font-weight: 700; font-size: 16px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; z-index: 5; }
         .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
         
-        /* Cinematic Play Button */
         .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background: rgba(11,17,33,0.7); border: 2px solid var(--text-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-light); transition: all 0.2s ease; z-index: 2; }
-        .gallery-item:hover .play-btn { background: var(--text-light); color: var(--bg-deep); transform: translate(-50%, -50%) scale(1.1); }
+        .gallery-item:hover .play-btn { background: var(--accent-cyan); color: var(--text-light); border-color: var(--accent-cyan); transform: translate(-50%, -50%) scale(1.1); }
         .play-btn::after { content: '▶'; margin-left: 4px; font-size: 20px; }
 
         /* ==========================================
-           PROFESSIONAL LIGHTBOX VIEWER
+           CUSTOM LIGHTBOX & VIDEO PLAYER
         ========================================== */
         .lightbox { position: fixed; inset: 0; background: rgba(11, 17, 33, 0.98); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(10px); }
         .lightbox.active { opacity: 1; pointer-events: auto; }
@@ -115,9 +128,23 @@
         .lightbox-close { position: absolute; top: 40px; right: 40px; background: transparent; border: 1px solid var(--border-dark); color: var(--text-light); width: 48px; height: 48px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 10000; }
         .lightbox-close:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
         
-        .lightbox-content-wrapper { position: relative; max-width: 90vw; max-height: 80vh; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        .lightbox-img, .lightbox-video { max-width: 100%; max-height: 75vh; border-radius: 4px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: none; object-fit: contain; }
+        .lightbox-content-wrapper { position: relative; width: 90vw; height: 85vh; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         
+        .lightbox-img, .lightbox-video { max-width: 100%; max-height: calc(85vh - 100px); border-radius: 4px; border: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: none; object-fit: contain; }
+        
+        /* Custom Video Player UI */
+        .video-container { position: relative; display: none; max-width: 100%; max-height: calc(85vh - 100px); }
+        .video-controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(11,17,33,0.95), transparent); padding: 30px 20px 15px; display: flex; align-items: center; gap: 16px; opacity: 0; transition: opacity 0.3s ease; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+        .video-container:hover .video-controls { opacity: 1; }
+        
+        .control-btn { background: transparent; border: none; color: var(--text-light); font-size: 18px; cursor: pointer; transition: color 0.2s; padding: 0; }
+        .control-btn:hover { color: var(--accent-cyan); }
+        
+        .progress-bar { flex: 1; -webkit-appearance: none; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; outline: none; cursor: pointer; }
+        .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-cyan); cursor: pointer; }
+        
+        .time-display { font-family: var(--font-data); font-size: 12px; color: var(--text-light); min-width: 80px; text-align: center; }
+
         .lightbox-meta-container { text-align: center; margin-top: 24px; }
         .lightbox-caption-text { font-size: 20px; font-weight: 800; color: var(--text-light); margin-bottom: 8px; }
         .lightbox-meta-tag { font-family: var(--font-data); color: var(--accent-cyan); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
@@ -181,6 +208,7 @@
     </header>
 
     <!-- Page Specific Content Wrapper -->
+    <!-- Page Specific Content Wrapper -->
     <main id="gallery-page">
         
         <!-- Header -->
@@ -191,54 +219,70 @@
             </div>
         </section>
 
-        <!-- Dynamic Unified Masonry Grid -->
-        <section class="gallery-section" style="border-bottom: none;">
+        <!-- Section 1: Field Operations & Flight Logs (Mixed Media) -->
+        <section class="gallery-section">
             <div class="container">
-                <div class="masonry-grid">
-                    
-                    <!-- Vertical Image (Portrait / 9:16 feel) -->
-                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=100&w=1200" data-meta="LAB ARCHIVE">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Avionics testing">
-                        <div class="gallery-caption">Avionics Calibration // Lab 3</div>
-                    </div>
-
-                    <!-- Horizontal Video (Landscape) -->
-                    <div class="gallery-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FLIGHT LOG">
-                        <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=800" alt="Maiden Flight">
+                <div class="gallery-header">
+                    <h4>COMBINED ARCHIVE</h4>
+                    <h2>Operations & Flight Logs</h2>
+                </div>
+                
+                <div class="bento-grid">
+                    <!-- Featured Cinematic Video (Spans 2x2) -->
+                    <div class="gallery-item featured-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FLIGHT LOG">
+                        <!-- We use an image thumbnail here so it loads instantly without buffering a huge video -->
+                        <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=1200" alt="Maiden Flight">
                         <div class="play-btn"></div>
                         <div class="gallery-caption">Project Valkyrie // Maiden Autonomous Flight</div>
                     </div>
 
                     <!-- Standard Horizontal Image -->
-                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=100&w=1600" data-meta="MANUFACTURING">
+                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=100&w=1600" data-meta="MANUFACTURING">
                         <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" alt="Machining">
                         <div class="gallery-caption">CNC Machining Chassis Plates</div>
                     </div>
 
-                    <!-- Vertical Video (Shorts / 9:16) -->
-                    <div class="gallery-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FIELD TEST">
+                    <!-- Vertical Video/Short (Spans 2 rows) -->
+                    <div class="gallery-item span-2-row" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-meta="FIELD TEST">
                         <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=600&h=900" alt="Wind tunnel">
                         <div class="play-btn"></div>
-                        <div class="gallery-caption">Pre-flight Thermal Inspection</div>
+                        <div class="gallery-caption">Thermal Drone Inspection</div>
                     </div>
 
-                    <!-- Large Landscape Feature -->
-                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=100&w=1600" data-meta="DEPLOYMENT">
-                        <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=800" alt="Competition Run">
-                        <div class="gallery-caption">National Techfest // Final Deployment Circuit</div>
+                    <!-- Standard Image (1x1 square) -->
+                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=100&w=1200" data-meta="LAB ARCHIVE">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Avionics testing">
+                        <div class="gallery-caption">Avionics Calibration</div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Award Placeholder -->
-                    <div class="gallery-item" data-type="image" data-src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
+        <!-- Section 2: Hall of Records / Ceremonial -->
+        <section class="gallery-section" style="border-bottom: none; background: var(--bg-panel-dark);">
+            <div class="container">
+                <div class="gallery-header">
+                    <h4>ACCOLADES</h4>
+                    <h2>Hall of Records</h2>
+                </div>
+                
+                <div class="bento-grid" style="grid-auto-rows: 250px;">
+                    <!-- Spanning Wide Horizontal Award Image -->
+                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
                         <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80&w=800" alt="Team Award">
                         <div class="gallery-caption">Best Embedded System // 2025 Expo</div>
+                    </div>
+                    
+                    <div class="gallery-item span-2-col" data-type="image" data-src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=100&w=1600" data-meta="ACCOLADE">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Podium">
+                        <div class="gallery-caption">Overall Team Champions // Regionals</div>
                     </div>
                 </div>
             </div>
         </section>
 
     </main>
-
+    
     <!-- Global Footer -->
     <footer style="background: var(--bg-deep); border-top: 1px solid var(--border-dark); padding: 80px 0 40px; margin-top: auto;">
         <div class="container" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px;">
@@ -299,11 +343,24 @@
     
 
 <!-- Professional Lightbox Overlay -->
+    <!-- Professional Lightbox Overlay with Custom Player -->
     <div class="lightbox" id="media-lightbox">
         <button class="lightbox-close" id="lightbox-close">×</button>
         <div class="lightbox-content-wrapper">
+            
+            <!-- Image Viewer -->
             <img src="" alt="" class="lightbox-img" id="lightbox-img">
-            <video src="" controls class="lightbox-video" id="lightbox-video"></video>
+            
+            <!-- Custom Video Player -->
+            <div class="video-container" id="video-container">
+                <video src="" class="lightbox-video" id="lightbox-video"></video>
+                <div class="video-controls">
+                    <button class="control-btn" id="play-pause-btn">⏸</button>
+                    <input type="range" class="progress-bar" id="progress-bar" value="0" min="0" step="0.1">
+                    <span class="time-display" id="time-display">0:00 / 0:00</span>
+                    <button class="control-btn" id="mute-btn">🔊</button>
+                </div>
+            </div>
             
             <div class="lightbox-meta-container">
                 <div class="lightbox-caption-text" id="lightbox-caption"></div>
@@ -317,11 +374,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             const lightbox = document.getElementById('media-lightbox');
             const lbImg = document.getElementById('lightbox-img');
+            const videoContainer = document.getElementById('video-container');
             const lbVid = document.getElementById('lightbox-video');
             const lbCaption = document.getElementById('lightbox-caption');
             const lbTag = document.getElementById('lightbox-tag');
             const closeBtn = document.getElementById('lightbox-close');
+            
+            // Custom Video Controls
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const timeDisplay = document.getElementById('time-display');
+            const muteBtn = document.getElementById('mute-btn');
 
+            // Open Lightbox
             document.querySelectorAll('.gallery-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const type = item.getAttribute('data-type');
@@ -334,13 +399,12 @@
 
                     if (type === 'video') {
                         lbImg.style.display = 'none';
+                        videoContainer.style.display = 'block';
                         lbVid.src = src;
-                        lbVid.style.display = 'block';
                         lbVid.play();
+                        playPauseBtn.textContent = '⏸';
                     } else {
-                        lbVid.style.display = 'none';
-                        lbVid.pause();
-                        lbVid.src = '';
+                        videoContainer.style.display = 'none';
                         lbImg.src = src;
                         lbImg.style.display = 'block';
                     }
@@ -349,15 +413,58 @@
                 });
             });
 
+            // Format time utility
+            const formatTime = (time) => {
+                const minutes = Math.floor(time / 60);
+                const seconds = Math.floor(time % 60);
+                return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            };
+
+            // Video Player Logic
+            playPauseBtn.addEventListener('click', () => {
+                if (lbVid.paused) {
+                    lbVid.play();
+                    playPauseBtn.textContent = '⏸';
+                } else {
+                    lbVid.pause();
+                    playPauseBtn.textContent = '▶';
+                }
+            });
+
+            lbVid.addEventListener('timeupdate', () => {
+                progressBar.value = (lbVid.currentTime / lbVid.duration) * 100 || 0;
+                timeDisplay.textContent = `${formatTime(lbVid.currentTime)} / ${formatTime(lbVid.duration || 0)}`;
+            });
+
+            progressBar.addEventListener('input', () => {
+                const time = (progressBar.value / 100) * lbVid.duration;
+                lbVid.currentTime = time;
+            });
+
+            muteBtn.addEventListener('click', () => {
+                lbVid.muted = !lbVid.muted;
+                muteBtn.textContent = lbVid.muted ? '🔇' : '🔊';
+            });
+
+            // Close & Hard-Clear Cache Logic
             const closeLightbox = () => {
                 lightbox.classList.remove('active');
+                
+                // Pause and clear everything to prevent ghost caching
                 lbVid.pause();
-                lbVid.src = '';
+                
+                setTimeout(() => {
+                    lbVid.removeAttribute('src'); // Hard clear video
+                    lbImg.removeAttribute('src'); // Hard clear image
+                    lbVid.load(); // Forces browser to drop the frame memory
+                    lbImg.style.display = 'none';
+                    videoContainer.style.display = 'none';
+                }, 300); // Wait for fade out animation
             };
 
             closeBtn.addEventListener('click', closeLightbox);
             
-            // Close if clicking outside the media
+            // Close if clicking outside
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox || e.target.classList.contains('lightbox-content-wrapper')) {
                     closeLightbox();
