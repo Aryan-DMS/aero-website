@@ -179,21 +179,16 @@
                 <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 32px; letter-spacing: 1px;">ACTIVE DEPLOYMENTS</h4>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-                    <!-- Highlight Card 1 -->
-                    <a href="event_expanded.html" class="event-card" style="text-decoration: none;">
-                        <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">FEB 15-18, 2027 // BANGALORE, INDIA</span>
-                        <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">Aero India Student Expo</h3>
-                        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">The engineering division will be exhibiting the Valkyrie v2.0 quadcopter and demonstrating our custom flight controller telemetry to industry professionals and aerospace defense contractors.</p>
+                    {% for event in collections.events %}
+                    {% if event.data.category == "Active" %}
+                    <a href="{{ event.url }}" class="event-card" style="text-decoration: none;">
+                        <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
+                        <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ event.data.title }}</h3>
+                        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ event.data.summary }}</p>
                         <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Mission Briefing →</span>
                     </a>
-                    
-                    <!-- Highlight Card 2 -->
-                    <a href="event_expanded.html" class="event-card" style="text-decoration: none;">
-                        <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">MARCH 10, 2027 // PUNE CAMPUS</span>
-                        <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">Spring Recruitment Drive</h3>
-                        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">Opening applications for structural engineers, C++ embedded developers, and CFD analysts. Bring physical portfolios and prepare for an on-site technical whiteboard evaluation.</p>
-                        <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Mission Briefing →</span>
-                    </a>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -204,29 +199,16 @@
                 <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 32px; letter-spacing: 1px;">PAST DEPLOYMENTS</h4>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                    <!-- Past Card 1 -->
-                    <a href="event_expanded.html" class="event-card" style="padding: 32px; text-decoration: none;">
-                        <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">DEC 2026 // COMPETITION</span>
-                        <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">National Drone Techfest</h4>
-                        <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">Secured AIR 5 in the autonomous payload delivery circuit.</p>
+                    {% for event in collections.events %}
+                    {% if event.data.category == "Past" %}
+                    <a href="{{ event.url }}" class="event-card" style="padding: 32px; text-decoration: none;">
+                        <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
+                        <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ event.data.title }}</h4>
+                        <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ event.data.summary }}</p>
                         <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Access Log ↗</span>
                     </a>
-                    
-                    <!-- Past Card 2 -->
-                    <a href="event_expanded.html" class="event-card" style="padding: 32px; text-decoration: none;">
-                        <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">OCT 2026 // FLIGHT TEST</span>
-                        <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Valkyrie Maiden Flight</h4>
-                        <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">Wind-shear validation testing at the Pune glider field.</p>
-                        <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Access Log ↗</span>
-                    </a>
-
-                    <!-- Past Card 3 -->
-                    <a href="event_expanded.html" class="event-card" style="padding: 32px; text-decoration: none;">
-                        <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">AUG 2025 // SYMPOSIUM</span>
-                        <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Innovation Expo</h4>
-                        <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">Awarded "Best Embedded System" for our sensor algorithms.</p>
-                        <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Access Log ↗</span>
-                    </a>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -238,40 +220,15 @@
                 
                 <div class="timeline-wrapper">
                     <div class="timeline-track">
-                        <!-- Node 1 -->
+                        {% for event in collections.events | reverse %}
+                        {% if event.data.category == "Timeline" %}
                         <div class="timeline-node">
-                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); margin-bottom: 8px;">DECEMBER 2026 // COMPETITION</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">National Drone Techfest</h4>
-                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">Secured All India Rank 5 against 100+ universities in the autonomous navigation challenge.</p>
+                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">{{ event.data.dateString }} // {{ event.data.location }}</span>
+                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ event.data.title }}</h4>
+                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">{{ event.data.summary }}</p>
                         </div>
-                        
-                        <!-- Node 2 -->
-                        <div class="timeline-node">
-                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">OCTOBER 2026 // FLIGHT TEST</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Valkyrie Maiden Flight</h4>
-                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">Successfully validated the new carbon-fiber chassis under high wind-shear conditions at the Pune glider field.</p>
-                        </div>
-
-                        <!-- Node 3 -->
-                        <div class="timeline-node">
-                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">AUGUST 2025 // SYMPOSIUM</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Innovation Expo</h4>
-                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">Awarded "Best Embedded System" for our proprietary multi-sensor fusion algorithms.</p>
-                        </div>
-
-                        <!-- Node 4 -->
-                        <div class="timeline-node">
-                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">MAY 2025 // R&D MILESTONE</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">In-house Manufacturing</h4>
-                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">Completed the buildout of Lab 3, allowing for on-site composite curing and CNC chassis fabrication.</p>
-                        </div>
-
-                        <!-- Node 5 -->
-                        <div class="timeline-node">
-                            <span style="font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">JANUARY 2024 // FOUNDATION</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Division Restructure</h4>
-                            <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">AeroClub formally shifted focus from RC model building to fully autonomous, competition-grade UAV systems.</p>
-                        </div>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

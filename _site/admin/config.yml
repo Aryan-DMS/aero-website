@@ -15,9 +15,12 @@ collections:
     slug: "{{year}}-{{month}}-{{slug}}"
     fields:
       - {label: "Event Title", name: "title", widget: "string"}
-      - {label: "Deployment Date", name: "date", widget: "datetime"}
-      - {label: "Location", name: "location", widget: "string"}
-      - {label: "Hardware Class", name: "hardware", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Active", "Past", "Timeline"]}
+      - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
+      - {label: "Location or Type", name: "location", widget: "string"}
+      - {label: "Hardware Class", name: "hardware", widget: "string", required: false}
+      - {label: "Card Summary", name: "summary", widget: "text"}
+      - {label: "Cover Image", name: "image", widget: "image"}
       - {label: "Operational Briefing", name: "body", widget: "markdown"}
 
   # 2. File Collection (For single static pages)
