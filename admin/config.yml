@@ -154,3 +154,54 @@ collections:
             fields:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Image Alt Text", name: "alt", widget: "string"}
+
+  # 5. Fleet Models (Generates hardware spec pages)
+  - name: "models"
+    label: "The Fleet (Models)"
+    folder: "content/models"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Model Name (e.g. Project Valkyrie v2.0)", name: "title", widget: "string"}
+      - {label: "Card Meta Tag (e.g. CLASS // AUTONOMOUS QUADCOPTER)", name: "card_meta", widget: "string"}
+      - {label: "Hero Meta Tag (e.g. CLASS: AUTONOMOUS QUADCOPTER // STATUS: ACTIVE)", name: "hero_meta", widget: "string"}
+      - {label: "Cover/Hero Image", name: "image", widget: "image"}
+      
+      - label: "Quick Specs (For the Grid Card - Max 4)"
+        name: "card_specs"
+        widget: "list"
+        fields:
+          - {label: "Label (e.g. Max Takeoff)", name: "label", widget: "string"}
+          - {label: "Value (e.g. 4.2 kg)", name: "value", widget: "string"}
+          
+      - label: "Physical Dimensions (For Expanded Page)"
+        name: "dimensions"
+        widget: "list"
+        fields:
+          - {label: "Label", name: "label", widget: "string"}
+          - {label: "Value", name: "value", widget: "string"}
+          
+      - label: "Avionics & Power Systems (For Expanded Page)"
+        name: "systems"
+        widget: "list"
+        fields:
+          - {label: "Label", name: "label", widget: "string"}
+          - {label: "Value", name: "value", widget: "string"}
+          
+      - label: "Engineering Summary (Block Builder)"
+        name: "blocks"
+        widget: "list"
+        summary: '{{fields.type}} Block'
+        types:
+          - label: "Text Section"
+            name: "text_block"
+            widget: "object"
+            fields:
+              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false}
+              - {label: "Text Content", name: "content", widget: "markdown"}
+          - label: "Inline Image"
+            name: "image_block"
+            widget: "object"
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Image Alt Text", name: "alt", widget: "string"}

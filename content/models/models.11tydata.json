@@ -1,0 +1,5 @@
+{
+  "layout": "model_expanded.njk",
+  "tags": "models",
+  "permalink": "/models/{{ page.fileSlug }}/"
+}

@@ -242,11 +242,11 @@
     <main id="hardware-report">
         
         <!-- Massive Cinematic Header -->
-        <section style="height: 70vh; background: linear-gradient(to top, var(--bg-deep) 5%, transparent 60%), url('https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=2000') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <section style="height: 70vh; background: linear-gradient(to top, var(--bg-deep) 5%, transparent 60%), url('{{ image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
-                <a href="models.html" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Fleet</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">CLASS: AUTONOMOUS QUADCOPTER // STATUS: ACTIVE</span>
-                <h1 style="font-size: 64px; font-weight: 900; line-height: 1.1; max-width: 900px; letter-spacing: -2px;">Project Valkyrie v2.0</h1>
+                <a href="/models/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Fleet</a>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ hero_meta }}</span>
+                <h1 style="font-size: 64px; font-weight: 900; line-height: 1.1; max-width: 900px; letter-spacing: -2px;">{{ title }}</h1>
             </div>
         </section>
 
@@ -259,54 +259,51 @@
                     <h4 style="font-family: var(--font-data); color: var(--text-muted); font-size: 14px; margin-bottom: 24px; letter-spacing: 1px;">HARDWARE DATA</h4>
                     
                     <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 4px; margin-bottom: 32px;">
+                        
                         <!-- Dimension Block -->
+                        {% if dimensions %}
                         <div style="margin-bottom: 24px;">
                             <h5 style="color: var(--accent-cyan); font-family: var(--font-data); font-size: 11px; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-dark); padding-bottom: 8px;">Physical Dimensions</h5>
+                            {% for spec in dimensions %}
                             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Diagonal Wheelbase</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">550 mm</span>
+                                <span style="color: var(--text-muted); font-size: 14px;">{{ spec.label }}</span>
+                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px; text-align: right; max-width: 50%;">{{ spec.value }}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Dry Weight</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">2.1 kg</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Max Takeoff Weight (MTOW)</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">4.2 kg</span>
-                            </div>
+                            {% endfor %}
                         </div>
+                        {% endif %}
 
                         <!-- Systems Block -->
+                        {% if systems %}
                         <div>
                             <h5 style="color: var(--accent-cyan); font-family: var(--font-data); font-size: 11px; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-dark); padding-bottom: 8px;">Avionics & Power</h5>
+                            {% for spec in systems %}
                             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Flight Controller</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">Custom Pixhawk 4</span>
+                                <span style="color: var(--text-muted); font-size: 14px;">{{ spec.label }}</span>
+                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px; text-align: right; max-width: 50%;">{{ spec.value }}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Sensors</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">LiDAR + Optical Flow</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: var(--text-muted); font-size: 14px;">Power Plant</span>
-                                <span style="color: var(--text-light); font-weight: 700; font-size: 14px;">6S 10,000mAh LiPo</span>
-                            </div>
+                            {% endfor %}
                         </div>
+                        {% endif %}
+                        
                     </div>
                 </div>
 
                 <!-- Right Column: Engineering Narrative -->
                 <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8;">
                     <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 24px; color: var(--text-light);">Engineering Summary</h2>
-                    <p style="margin-bottom: 24px;">Project Valkyrie v2.0 is the current flagship of AeroClub's autonomous multi-rotor division. Engineered entirely in-house to meet the stringent requirements of tier-1 national competitions, the v2.0 iteration introduces a radically redesigned chassis and an upgraded embedded systems stack capable of GPS-denied navigation.</p>
-                    
-                    <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">Structural Dynamics</h3>
-                    <p style="margin-bottom: 24px;">To achieve a 14% reduction in dry weight over the v1.0 prototype, our manufacturing team abandoned off-the-shelf aluminum arms. Instead, the central hub and motor mounts are CNC machined from 6061-T6 aluminum, while the arms utilize a proprietary 3K carbon-fiber tube layup, cured in our Lab 3 facility.</p>
-                    <p style="margin-bottom: 24px;">This hybrid material approach maximized torsional rigidity, severely reducing structural resonance that previously interfered with the onboard inertial measurement unit (IMU) during aggressive flight maneuvers.</p>
-
-                    <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">Autonomous Payload Delivery</h3>
-                    <p style="margin-bottom: 24px;">The primary mission objective for the Valkyrie platform is precision payload deployment. Integrating an underside 3D-printed electro-mechanical release mechanism, the aircraft relies on a downward-facing LiDAR array and optical flow camera to calculate altitude and ground speed with centimeter-level accuracy.</p>
-                    <p style="margin-bottom: 24px;">Upon recognizing an ARUco marker array on the ground via the onboard Raspberry Pi companion computer, the Pixhawk flight controller autonomously arrests horizontal velocity, descends to a 2-meter threshold, and actuates the payload release before initiating an automatic return-to-launch (RTL) sequence.</p>
+                    {% for block in blocks %}
+                        {% if block.type == 'text_block' %}
+                            {% if block.heading %}
+                                <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
+                            {% endif %}
+                            <div style="margin-bottom: 24px;">
+                                {{ block.content | safe }}
+                            </div>
+                        {% elif block.type == 'image_block' %}
+                            <img src="{{ block.image }}" style="width: 100%; height: auto; border: 1px solid var(--border-dark); border-radius: 4px; margin: 32px 0;" alt="{{ block.alt }}">
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </div>

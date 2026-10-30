@@ -178,61 +178,26 @@
         <section style="padding: 80px 0 100px;">
             <div class="container">
                 <div class="model-grid">
-                    
-                    <!-- Hardware Card 1 -->
-                    <a href="models_expanded.html" class="model-card">
+                    {% for model in collections.models %}
+                    <a href="{{ model.url }}" class="model-card">
                         <div class="model-img">
-                            <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=800&bg=transparent" alt="Valkyrie Quadcopter">
+                            <img src="{{ model.data.image }}" alt="{{ model.data.title }}">
                         </div>
                         <div class="model-content">
-                            <span class="model-meta">CLASS // AUTONOMOUS QUADCOPTER</span>
-                            <h4>Project Valkyrie v2.0</h4>
+                            <span class="model-meta">{{ model.data.card_meta }}</span>
+                            <h4>{{ model.data.title }}</h4>
                             <div class="tech-specs">
-                                <div class="spec-item"><span class="spec-label">Chassis</span><span class="spec-value">Carbon Fiber</span></div>
-                                <div class="spec-item"><span class="spec-label">Max Takeoff</span><span class="spec-value">4.2 kg</span></div>
-                                <div class="spec-item"><span class="spec-label">Endurance</span><span class="spec-value">28 mins</span></div>
-                                <div class="spec-item"><span class="spec-label">Avionics</span><span class="spec-value">Custom Pixhawk</span></div>
+                                {% for spec in model.data.card_specs %}
+                                <div class="spec-item">
+                                    <span class="spec-label">{{ spec.label }}</span>
+                                    <span class="spec-value">{{ spec.value }}</span>
+                                </div>
+                                {% endfor %}
                             </div>
                             <span class="view-specs">View Hardware Data</span>
                         </div>
                     </a>
-
-                    <!-- Hardware Card 2 -->
-                    <a href="models_expanded.html" class="model-card">
-                        <div class="model-img">
-                            <img src="https://images.unsplash.com/photo-1533908865611-6be95dccf0fa?auto=format&fit=crop&q=80&w=800&bg=transparent" alt="Chimera Fixed Wing">
-                        </div>
-                        <div class="model-content">
-                            <span class="model-meta">CLASS // FIXED-WING GLIDER</span>
-                            <h4>Chimera Endurance</h4>
-                            <div class="tech-specs">
-                                <div class="spec-item"><span class="spec-label">Wingspan</span><span class="spec-value">2.4 meters</span></div>
-                                <div class="spec-item"><span class="spec-label">Max Takeoff</span><span class="spec-value">3.1 kg</span></div>
-                                <div class="spec-item"><span class="spec-label">Endurance</span><span class="spec-value">55 mins</span></div>
-                                <div class="spec-item"><span class="spec-label">Material</span><span class="spec-value">Balsa / Fiberglass</span></div>
-                            </div>
-                            <span class="view-specs">View Hardware Data</span>
-                        </div>
-                    </a>
-
-                    <!-- Hardware Card 3 -->
-                    <a href="models_expanded.html" class="model-card">
-                        <div class="model-img">
-                            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=800&bg=transparent" alt="Sentinel Hexacopter">
-                        </div>
-                        <div class="model-content">
-                            <span class="model-meta">CLASS // HEAVY LIFT HEXACOPTER</span>
-                            <h4>Sentinel Heavy</h4>
-                            <div class="tech-specs">
-                                <div class="spec-item"><span class="spec-label">Chassis</span><span class="spec-value">Aluminum / Carbon</span></div>
-                                <div class="spec-item"><span class="spec-label">Payload Limit</span><span class="spec-value">8.5 kg</span></div>
-                                <div class="spec-item"><span class="spec-label">Propulsion</span><span class="spec-value">6x Brushless</span></div>
-                                <div class="spec-item"><span class="spec-label">Telemetry</span><span class="spec-value">900MHz RF</span></div>
-                            </div>
-                            <span class="view-specs">View Hardware Data</span>
-                        </div>
-                    </a>
-                    
+                    {% endfor %}
                 </div>
             </div>
         </section>
