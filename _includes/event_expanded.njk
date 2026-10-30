@@ -273,9 +273,20 @@
                     </div>
                 </div>
 
-                <!-- The Briefing / Body Copy -->
-                <div class="markdown-body" style="font-size: 18px; color: var(--text-muted); line-height: 1.8; text-align: left;">
-                    {{ content | safe }}
+                <!-- The Briefing / Block Builder Engine -->
+                <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8; text-align: left;">
+                    {% for block in blocks %}
+                        {% if block.type == 'text_block' %}
+                            {% if block.heading %}
+                                <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
+                            {% endif %}
+                            <div style="margin-bottom: 24px;">
+                                {{ block.content | safe }}
+                            </div>
+                        {% elif block.type == 'image_block' %}
+                            <img src="{{ block.image }}" style="width: 100%; height: auto; border: 1px solid var(--border-dark); border-radius: 4px; margin: 32px 0;" alt="{{ block.alt }}">
+                        {% endif %}
+                    {% endfor %}
                     
                     <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-dark);">
                         <a href="/contact/" class="btn-outline">Request a Briefing Appointment</a>
