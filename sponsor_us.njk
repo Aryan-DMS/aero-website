@@ -136,23 +136,27 @@
 
                 <!-- Right: Action Cards -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <!-- PDF Download Action -->
-                    <a href="#" class="action-card">
-                        <div class="action-icon">↓</div>
-                        <div class="action-content">
-                            <h3>Download Prospectus</h3>
-                            <p>Review our 2027 technical roadmap, detailed operational budget, and structured sponsorship tiers (PDF).</p>
-                        </div>
-                    </a>
+                    {% for page in collections.all %}
+                        {% if page.fileSlug == 'sponsor_us' %}
+                        <!-- PDF Download Action -->
+                        <a href="{{ page.data.prospectus_pdf }}" target="_blank" rel="noopener noreferrer" class="action-card">
+                            <div class="action-icon">↓</div>
+                            <div class="action-content">
+                                <h3>Download Prospectus</h3>
+                                <p>Review our 2027 technical roadmap, detailed operational budget, and structured sponsorship tiers (PDF).</p>
+                            </div>
+                        </a>
 
-                    <!-- Direct Email Action -->
-                    <a href="mailto:faculty@aerialmartial.edu.in?subject=Corporate%20Partnership%20Inquiry%20-%20Aerial%20Martial" class="action-card">
-                        <div class="action-icon">✉</div>
-                        <div class="action-content">
-                            <h3>Contact Faculty Board</h3>
-                            <p>Bypass generic forms. Open a direct dialogue with our academic advisors to discuss custom partnership frameworks.</p>
-                        </div>
-                    </a>
+                        <!-- Direct Email Action -->
+                        <a href="mailto:{{ page.data.contact_email }}?subject={{ page.data.email_subject | urlencode }}" class="action-card">
+                            <div class="action-icon">✉</div>
+                            <div class="action-content">
+                                <h3>Contact Faculty Board</h3>
+                                <p>Bypass generic forms. Open a direct dialogue with our academic advisors to discuss custom partnership frameworks.</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </div>

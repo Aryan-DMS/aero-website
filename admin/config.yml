@@ -261,4 +261,16 @@ collections:
               - label: "Profile URL"
                 name: "url"
                 widget: "string"
+
+  - name: "page_sponsor_us"
+    label: "Page: Sponsor Us (Actions)"
+    files:
+      - label: "Sponsor Action Editor"
+        name: "sponsor_us"
+        file: "content/pages/sponsor_us.md"
+        fields:
+          - {name: "permalink", widget: "hidden", default: false}
+          - {label: "Prospectus Document (PDF Upload)", name: "prospectus_pdf", widget: "file"}
+          - {label: "Faculty Board Email Address", name: "contact_email", widget: "string"}
+          - {label: "Default Email Subject Line", name: "email_subject", widget: "string", default: "Corporate Partnership Inquiry - Aerial Martial"}
                 
