@@ -189,8 +189,8 @@
         /* Dynamic Sponsor Cards */
         .sponsor-card-detailed { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 40px; display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease; aspect-ratio: 1 / 1; min-height: 380px; }
         .sponsor-card-detailed:hover { border-color: var(--text-light); }
-        .sponsor-brand { height: 72px; display: flex; align-items: flex-start; margin-bottom: 24px; flex-shrink: 0; }
-        .sponsor-logo-detailed { max-height: 100%; max-width: 200px; object-fit: contain; filter: brightness(0) invert(1); }
+        .sponsor-brand { height: 120px; width: 100%; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 32px; flex-shrink: 0; }
+        .sponsor-logo-detailed { width: 100%; height: 100%; max-height: 120px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
         .sponsor-divider { width: 24px; height: 2px; background: var(--accent-cyan); margin-bottom: 24px; }
         .sponsor-desc { color: var(--text-muted); font-size: 15px; line-height: 1.6; flex-grow: 1; margin-bottom: 32px; }
         .sponsor-link { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-top: auto; display: flex; align-items: center; gap: 6px; }
@@ -250,12 +250,12 @@
                             {% for sponsor in tier.sponsors_list %}
                                 
                                 {% if sponsor.type == 'detailed_card' %}
-                                <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="sponsor-card-detailed">
+                                <a href="{% if '://' in sponsor.url %}{{ sponsor.url }}{% else %}https://{{ sponsor.url }}{% endif %}" target="_blank" rel="noopener noreferrer" class="sponsor-card-detailed">
                                     <div class="sponsor-brand">
                                         {% if sponsor.logo %}
                                         <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}" class="sponsor-logo-detailed">
                                         {% else %}
-                                        <h4 style="font-size: 24px; font-weight: 800; color: var(--text-light); margin: 0;">{{ sponsor.name }}</h4>
+                                        <h4 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0;">{{ sponsor.name }}</h4>
                                         {% endif %}
                                     </div>
                                     <div class="sponsor-divider"></div>
@@ -266,7 +266,7 @@
 
                                 {% if sponsor.type == 'logo_card' %}
                                     {% if sponsor.url %}
-                                    <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="sponsor-card-logo">
+                                    <a href="{% if '://' in sponsor.url %}{{ sponsor.url }}{% else %}https://{{ sponsor.url }}{% endif %}" target="_blank" rel="noopener noreferrer" class="sponsor-card-logo">
                                         <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
                                     </a>
                                     {% else %}
