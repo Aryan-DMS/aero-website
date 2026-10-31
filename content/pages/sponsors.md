@@ -1,5 +1,4 @@
 ---
-permalink: false
 tiers:
   - eyebrow: TIER 1 ALLIANCES
     title: Titanium Partners
