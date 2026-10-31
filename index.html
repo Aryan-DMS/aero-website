@@ -75,8 +75,8 @@
             color: var(--bg-deep); 
         }
 
-        .btn-join { background: var(--accent-cyan); color: #fff; padding: 12px 28px; border-radius: 4px; font-size: 15px; font-weight: 700; transition: background 0.2s; }
-        .btn-join:hover { background: #0284C7; }
+        .btn-join { display: inline-block; background: var(--accent-cyan); color: var(--bg-deep); padding: 12px 28px; border-radius: 4px; font-size: 15px; font-weight: 800; border: 1px solid var(--accent-cyan); transition: all 0.2s ease; text-align: center; }
+        .btn-join:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
 
         /* ==========================================
            PAGE CONTENT (HOME PAGE)
@@ -116,10 +116,39 @@
             position: relative;
             z-index: 3;
             width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
 
-        .hero-text h1 { font-size: 72px; font-weight: 800; line-height: 1.05; margin-bottom: 24px; max-width: 850px; letter-spacing: -2px; color: var(--text-light); }
-        .hero-text p { font-size: 16px; color: var(--accent-cyan); max-width: 600px; margin-bottom: 40px; font-family: var(--font-data); letter-spacing: 2px; text-transform: uppercase; }
+        .hero-text h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -2px; color: var(--text-light); }
+        .hero-text p { font-size: 16px; color: var(--accent-cyan); margin-bottom: 40px; font-family: var(--font-data); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Telemetry HUD (Concept A) */
+        .telemetry-hud { background: rgba(21, 30, 50, 0.4); border: 1px solid var(--border-dark); border-radius: 4px; padding: 32px; backdrop-filter: blur(12px); box-shadow: 0 24px 48px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
+        .telemetry-hud::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-cyan); }
+        
+        .hud-header { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px; margin-bottom: 24px; }
+        .hud-status { display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        
+        .hud-body { display: grid; grid-template-columns: 120px 1fr; gap: 32px; align-items: center; }
+        
+        /* CSS Radar Sweep */
+        .radar-box { width: 120px; height: 120px; border-radius: 50%; border: 1px solid rgba(14, 165, 233, 0.2); position: relative; background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%); display: flex; align-items: center; justify-content: center; }
+        .radar-box::before { content: ''; position: absolute; width: 100%; height: 1px; background: rgba(14, 165, 233, 0.2); }
+        .radar-box::after { content: ''; position: absolute; height: 100%; width: 1px; background: rgba(14, 165, 233, 0.2); }
+        .radar-sweep { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 70%, rgba(14, 165, 233, 0.4) 100%); animation: radar-spin 3s linear infinite; }
+        .radar-target { position: absolute; width: 6px; height: 6px; background: var(--text-light); border-radius: 50%; top: 30%; left: 60%; box-shadow: 0 0 8px rgba(255,255,255,0.8); animation: fade-target 3s infinite; }
+        
+        @keyframes radar-spin { 100% { transform: rotate(360deg); } }
+        @keyframes fade-target { 0%, 85% { opacity: 0; transform: scale(0.5); } 90% { opacity: 1; transform: scale(1.5); } 100% { opacity: 0; transform: scale(0.5); } }
+        
+        .hud-logs { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); line-height: 2; display: flex; flex-direction: column; }
+        .log-line span { color: var(--text-light); }
+        .log-line.cyan span { color: var(--accent-cyan); font-weight: 700; }
 
         /* ==========================================
            GLOBAL FOOTER
@@ -232,24 +261,50 @@
                 <li><a href="/models/">Models</a></li>
                 <li><a href="/events/">Events</a></li>
                 <li><a href="/team/">Team</a></li>
+                <li><a href="/sponsors/">Sponsors</a></li>
                 <li><a href="/contact/">Contact</a></li>
             </ul>
         </nav>
-        <a href="/join_us/" class="btn-join">Join Us</a>
+        <a href="/sponsor_us/" class="btn-join">Sponsor Us</a>
     </header>
 
     <!-- Page Specific Content Wrapper -->
     <main id="home">
         <section class="hero">
             <div class="container hero-content">
+                
                 <div class="hero-text">
                     <h1>Engineering the future of unmanned flight.</h1>
                     <p>Design // Fabrication // Autonomous Deployment</p>
                     <div style="display: flex; gap: 16px; margin-top: 40px;">
-                        <a href="models.html" class="btn-join" style="padding: 14px 32px; font-size: 15px;">View The Fleet</a>
-                        <a href="about.html" class="btn-outline" style="padding: 14px 32px; font-size: 15px;">Our Mission</a>
+                        <a href="/models/" class="btn-join" style="padding: 14px 32px; font-size: 15px;">View The Fleet</a>
+                        <a href="/about/" class="btn-outline" style="padding: 14px 32px; font-size: 15px;">Our Mission</a>
                     </div>
                 </div>
+                
+                <!-- Live Telemetry HUD -->
+                <div class="telemetry-hud">
+                    <div class="hud-header">
+                        <div class="hud-status">
+                            <div class="status-dot"></div>
+                            SYS.LINK_ACTIVE
+                        </div>
+                        <div>UPLINK: 98.4%</div>
+                    </div>
+                    <div class="hud-body">
+                        <div class="radar-box">
+                            <div class="radar-sweep"></div>
+                            <div class="radar-target"></div>
+                        </div>
+                        <div class="hud-logs">
+                            <div class="log-line">INIT_SEQ <span>[OK]</span></div>
+                            <div class="log-line">GYRO_CAL <span>[STABLE]</span></div>
+                            <div class="log-line">GPS_LOCK <span>[12 SATS]</span></div>
+                            <div class="log-line cyan">FLIGHT_MODE <span>[AUTONOMOUS]</span></div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </section>
         
@@ -280,8 +335,8 @@
             <div class="mission-text">
                 <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">WHO WE ARE</h4>
                 <h2>Engineering the <span>future</span>,<br>one flight at a time.</h2>
-                <p>AeroClub is a student-led engineering division focused on design, manufacturing, embedded systems, and autonomous control. We build competition-ready aircraft that perform on national stages while mentoring the next generation of aerospace innovators.</p>
-                <a href="about.html" class="btn-outline">Learn More</a>
+                <p>Aerial Martial is a student-led engineering division focused on design, manufacturing, embedded systems, and autonomous control. We build competition-ready aircraft that perform on national stages while mentoring the next generation of aerospace innovators.</p>
+                <a href="/about/" class="btn-outline">Learn More</a>
             </div>
             <div class="mission-typo">
                 <h3>INNOVATE.</h3>
@@ -303,7 +358,7 @@
                         <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">FLAGSHIP HARDWARE</h4>
                         <h3>Project Valkyrie</h3>
                         <p>Our most advanced autonomous quadcopter, featuring a custom carbon-fiber chassis, real-time telemetry, and AI-assisted payload deployment.</p>
-                        <a href="models.html" class="btn-join">View Full Fleet</a>
+                        <a href="/models/" class="btn-join">View Full Fleet</a>
                     </div>
                     <div class="fleet-image">
                         <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=800&bg=transparent" alt="Project Valkyrie">
@@ -338,10 +393,10 @@
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px;">MISSION LOGS</h4>
                     <h2>Recent Highlights</h2>
                 </div>
-                <a href="achievements.html" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Logs</a>
+                <a href="/achievements/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Logs</a>
             </div>
             <div class="news-grid">
-                <a href="achievements.html" class="news-card">
+                <a href="/achievements/" class="news-card">
                     <div class="news-img"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Techfest"></div>
                     <div class="news-content">
                         <span class="news-meta">ACHIEVEMENT // 2026</span>
@@ -350,7 +405,7 @@
                         <span class="learn-more">Learn More</span>
                     </div>
                 </a>
-                <a href="events.html" class="news-card">
+                <a href="/events/" class="news-card">
                     <div class="news-img"><img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=600" alt="Expo"></div>
                     <div class="news-content">
                         <span class="news-meta">UPCOMING DEPLOYMENT</span>
@@ -359,7 +414,7 @@
                         <span class="learn-more">Learn More</span>
                     </div>
                 </a>
-                <a href="models.html" class="news-card">
+                <a href="/models/" class="news-card">
                     <div class="news-img"><img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=600" alt="Hardware Update"></div>
                     <div class="news-content">
                         <span class="news-meta">HARDWARE UPDATE</span>
@@ -378,19 +433,19 @@
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px;">INDUSTRY ALLIANCES</h4>
                     <h2>Strategic Partners</h2>
                 </div>
-                <a href="sponsors.html" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Partners</a>
+                <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Partners</a>
             </div>
             <div class="partners-grid">
-                <a href="sponsors.html" class="partner-logo">
+                <a href="/sponsors/" class="partner-logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Lockheed_Martin_logo.svg/320px-Lockheed_Martin_logo.svg.png" alt="Lockheed Martin">
                 </a>
-                <a href="sponsors.html" class="partner-logo">
+                <a href="/sponsors/" class="partner-logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Boeing_Logo.svg/320px-Boeing_Logo.svg.png" alt="Boeing">
                 </a>
-                <a href="sponsors.html" class="partner-logo">
+                <a href="/sponsors/" class="partner-logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/SpaceX_Logo_Black.svg/320px-SpaceX_Logo_Black.svg.png" alt="SpaceX">
                 </a>
-                <a href="sponsors.html" class="partner-logo">
+                <a href="/sponsors/" class="partner-logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/320px-Amazon_logo.svg.png" alt="Amazon">
                 </a>
             </div>
@@ -400,7 +455,7 @@
         <section class="launch-cta container">
             <h2>Ready for Takeoff?</h2>
             <p>Join the engineering team that competes, innovates, and builds the future of flight.</p>
-            <a href="contact.html" class="btn-join" style="padding: 16px 36px; font-size: 18px;">Join AeroClub</a>
+            <a href="/contact/" class="btn-join" style="padding: 16px 36px; font-size: 18px;">Join Aerial Martial</a>
         </section>
 
     </main>
