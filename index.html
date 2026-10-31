@@ -125,30 +125,19 @@
         .hero-text h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -2px; color: var(--text-light); }
         .hero-text p { font-size: 16px; color: var(--accent-cyan); margin-bottom: 40px; font-family: var(--font-data); letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Telemetry HUD (Concept A) */
-        .telemetry-hud { background: rgba(21, 30, 50, 0.4); border: 1px solid var(--border-dark); border-radius: 4px; padding: 32px; backdrop-filter: blur(12px); box-shadow: 0 24px 48px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
-        .telemetry-hud::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-cyan); }
+        /* Engineering Spec Cards (Concept B) */
+        .hero-spec-cards { display: flex; flex-direction: column; gap: 16px; position: relative; }
+        .spec-card { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 24px 32px; display: flex; align-items: center; gap: 24px; transition: border-color 0.2s ease, transform 0.2s ease; cursor: default; }
+        .spec-card:hover { border-color: var(--text-light); transform: translateX(-8px); }
         
-        .hud-header { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px; margin-bottom: 24px; }
-        .hud-status { display: flex; align-items: center; gap: 8px; }
-        .status-dot { width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; animation: pulse-dot 2s infinite; }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* Staggered Architectural Offset */
+        .spec-card:nth-child(1) { margin-left: 0; }
+        .spec-card:nth-child(2) { margin-left: 40px; }
+        .spec-card:nth-child(3) { margin-left: 80px; }
         
-        .hud-body { display: grid; grid-template-columns: 120px 1fr; gap: 32px; align-items: center; }
-        
-        /* CSS Radar Sweep */
-        .radar-box { width: 120px; height: 120px; border-radius: 50%; border: 1px solid rgba(14, 165, 233, 0.2); position: relative; background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%); display: flex; align-items: center; justify-content: center; }
-        .radar-box::before { content: ''; position: absolute; width: 100%; height: 1px; background: rgba(14, 165, 233, 0.2); }
-        .radar-box::after { content: ''; position: absolute; height: 100%; width: 1px; background: rgba(14, 165, 233, 0.2); }
-        .radar-sweep { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 70%, rgba(14, 165, 233, 0.4) 100%); animation: radar-spin 3s linear infinite; }
-        .radar-target { position: absolute; width: 6px; height: 6px; background: var(--text-light); border-radius: 50%; top: 30%; left: 60%; box-shadow: 0 0 8px rgba(255,255,255,0.8); animation: fade-target 3s infinite; }
-        
-        @keyframes radar-spin { 100% { transform: rotate(360deg); } }
-        @keyframes fade-target { 0%, 85% { opacity: 0; transform: scale(0.5); } 90% { opacity: 1; transform: scale(1.5); } 100% { opacity: 0; transform: scale(0.5); } }
-        
-        .hud-logs { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); line-height: 2; display: flex; flex-direction: column; }
-        .log-line span { color: var(--text-light); }
-        .log-line.cyan span { color: var(--accent-cyan); font-weight: 700; }
+        .spec-number { font-family: var(--font-data); font-size: 16px; color: var(--accent-cyan); font-weight: 700; width: 30px; border-right: 1px solid var(--border-dark); padding-right: 24px; height: 100%; display: flex; align-items: center; }
+        .spec-content h3 { font-size: 20px; font-weight: 800; color: var(--text-light); margin-bottom: 6px; letter-spacing: -0.5px; }
+        .spec-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 380px; }
 
         /* ==========================================
            GLOBAL FOOTER
@@ -282,25 +271,27 @@
                     </div>
                 </div>
                 
-                <!-- Live Telemetry HUD -->
-                <div class="telemetry-hud">
-                    <div class="hud-header">
-                        <div class="hud-status">
-                            <div class="status-dot"></div>
-                            SYS.LINK_ACTIVE
+                <!-- Engineering Spec Cards -->
+                <div class="hero-spec-cards">
+                    <div class="spec-card">
+                        <div class="spec-number">01</div>
+                        <div class="spec-content">
+                            <h3>Aerospace Design</h3>
+                            <p>Advanced CAD modeling and computational fluid dynamics (CFD) for optimized airframe aerodynamics.</p>
                         </div>
-                        <div>UPLINK: 98.4%</div>
                     </div>
-                    <div class="hud-body">
-                        <div class="radar-box">
-                            <div class="radar-sweep"></div>
-                            <div class="radar-target"></div>
+                    <div class="spec-card">
+                        <div class="spec-number">02</div>
+                        <div class="spec-content">
+                            <h3>Precision Fabrication</h3>
+                            <p>In-house manufacturing utilizing aerospace-grade carbon fiber composites and CNC machining.</p>
                         </div>
-                        <div class="hud-logs">
-                            <div class="log-line">INIT_SEQ <span>[OK]</span></div>
-                            <div class="log-line">GYRO_CAL <span>[STABLE]</span></div>
-                            <div class="log-line">GPS_LOCK <span>[12 SATS]</span></div>
-                            <div class="log-line cyan">FLIGHT_MODE <span>[AUTONOMOUS]</span></div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">03</div>
+                        <div class="spec-content">
+                            <h3>Autonomous Systems</h3>
+                            <p>Custom embedded avionics, real-time telemetry, and AI-driven payload deployment architecture.</p>
                         </div>
                     </div>
                 </div>
