@@ -171,9 +171,9 @@
         <!-- Standardized Page Header -->
         <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark);">
             <div class="container">
-                <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">FLIGHT SCHEDULE</h4>
-                <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Event Manifest</h2>
-                <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">Official deployments, technical symposiums, and our competitive flight schedule.</p>
+                <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">EVENT CALENDAR</h4>
+                <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Events</h2>
+                <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">Official events, technical symposiums, and our competitive schedule.</p>
             </div>
         </section>
 
@@ -181,8 +181,8 @@
         <section style="padding: 80px 0; border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark);">
             <div class="container">
                 <div style="margin-bottom: 40px;">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">CURRENT CALENDAR</h4>
-                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Active Deployments</h3>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">CURRENT SEASON</h4>
+                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Upcoming Events</h3>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
@@ -192,7 +192,7 @@
                         <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
                         <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ event.data.title }}</h3>
                         <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ event.data.summary }}</p>
-                        <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Mission Briefing →</span>
+                        <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Event Details →</span>
                     </a>
                     {% endif %}
                     {% endfor %}
@@ -204,8 +204,8 @@
         <section style="padding: 80px 0; border-bottom: 1px solid var(--border-dark);">
             <div class="container">
                 <div style="margin-bottom: 40px;">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">ARCHIVED LOGS</h4>
-                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Past Deployments</h3>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">PAST EVENTS</h4>
+                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Past Events</h3>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
@@ -215,7 +215,7 @@
                         <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
                         <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ event.data.title }}</h4>
                         <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ event.data.summary }}</p>
-                        <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Access Log ↗</span>
+                        <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Read Recap ↗</span>
                     </a>
                     {% endif %}
                     {% endfor %}
@@ -227,8 +227,8 @@
         <section style="padding: 80px 0 100px;">
             <div class="container">
                 <div style="margin-bottom: 40px;">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">DIVISION HISTORY</h4>
-                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Historical Timeline</h3>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">TEAM HISTORY</h4>
+                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Event Timeline</h3>
                 </div>
                 
                 <div class="timeline-wrapper">
