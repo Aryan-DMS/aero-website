@@ -185,6 +185,20 @@
         .launch-cta { text-align: center; padding: 100px 0; }
         .launch-cta h2 { font-size: 48px; font-weight: 800; margin-bottom: 24px; }
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
+        
+        /* Dynamic Sponsor Cards */
+        .sponsor-card-detailed { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 40px; display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease; height: 100%; }
+        .sponsor-card-detailed:hover { border-color: var(--text-light); }
+        .sponsor-brand { min-height: 60px; display: flex; align-items: flex-start; margin-bottom: 24px; }
+        .sponsor-logo-detailed { max-height: 48px; max-width: 80%; object-fit: contain; filter: brightness(0) invert(1); }
+        .sponsor-divider { width: 24px; height: 2px; background: var(--accent-cyan); margin-bottom: 24px; }
+        .sponsor-desc { color: var(--text-muted); font-size: 15px; line-height: 1.6; flex-grow: 1; margin-bottom: 32px; }
+        .sponsor-link { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-top: auto; display: flex; align-items: center; gap: 6px; }
+
+        .sponsor-card-logo { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px; transition: border-color 0.2s ease; text-decoration: none; }
+        .sponsor-card-logo:hover { border-color: var(--text-light); }
+        .sponsor-card-logo img { max-width: 100%; max-height: 50px; filter: brightness(0) invert(1); transition: transform 0.2s ease; }
+        .sponsor-card-logo:hover img { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -221,54 +235,54 @@
             </div>
         </section>
 
-        <!-- Tier 1: Titanium Partners -->
-        <section style="padding: 80px 0;">
-            <div class="container">
-                <div style="margin-bottom: 40px;">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">TIER 1 ALLIANCES</h4>
-                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Titanium Partners</h3>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                    <!-- Titanium Card 1 -->
-                    <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 60px; display: flex; flex-direction: column; justify-content: center;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Lockheed_Martin_logo.svg/320px-Lockheed_Martin_logo.svg.png" style="max-height: 60px; object-fit: contain; filter: brightness(0) invert(1); margin-bottom: 32px; align-self: flex-start;" alt="Lockheed Martin">
-                        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6;">Providing critical funding for our autonomous navigation division and supplying aerospace-grade carbon fiber composites for Project Valkyrie.</p>
-                    </div>
+        <!-- Dynamic Sponsorship Tiers -->
+        {% for item in collections.all %}
+            {% if item.fileSlug == 'sponsors' %}
+                {% for tier in item.data.tiers %}
+                <section style="padding: {% if loop.first %}80px 0{% else %}0 0 80px{% endif %};">
+                    <div class="container">
+                        <div style="margin-bottom: 40px;">
+                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">{{ tier.eyebrow }}</h4>
+                            <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ tier.title }}</h3>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                            {% for sponsor in tier.sponsors_list %}
+                                
+                                {% if sponsor.type == 'detailed_card' %}
+                                <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="sponsor-card-detailed">
+                                    <div class="sponsor-brand">
+                                        {% if sponsor.logo %}
+                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}" class="sponsor-logo-detailed">
+                                        {% else %}
+                                        <h4 style="font-size: 24px; font-weight: 800; color: var(--text-light); margin: 0;">{{ sponsor.name }}</h4>
+                                        {% endif %}
+                                    </div>
+                                    <div class="sponsor-divider"></div>
+                                    <p class="sponsor-desc">{{ sponsor.desc }}</p>
+                                    <span class="sponsor-link">VISIT SPONSOR ↗</span>
+                                </a>
+                                {% endif %}
 
-                    <!-- Titanium Card 2 -->
-                    <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 60px; display: flex; flex-direction: column; justify-content: center;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Boeing_Logo.svg/320px-Boeing_Logo.svg.png" style="max-height: 60px; object-fit: contain; filter: brightness(0) invert(1); margin-bottom: 32px; align-self: flex-start;" alt="Boeing">
-                        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6;">Supporting our fixed-wing endurance flights through state-of-the-art computational fluid dynamics (CFD) software licenses and technical mentorship.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                                {% if sponsor.type == 'logo_card' %}
+                                    {% if sponsor.url %}
+                                    <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="sponsor-card-logo">
+                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                    </a>
+                                    {% else %}
+                                    <div class="sponsor-card-logo" style="cursor: default;">
+                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                    </div>
+                                    {% endif %}
+                                {% endif %}
 
-        <!-- Tier 2: Gold Partners -->
-        <section style="padding: 0 0 80px;">
-            <div class="container">
-                <div style="margin-bottom: 40px;">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">TIER 2 ALLIANCES</h4>
-                    <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Gold Partners</h3>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
-                    <div style="background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/SpaceX_Logo_Black.svg/320px-SpaceX_Logo_Black.svg.png" style="max-width: 100%; max-height: 50px; filter: brightness(0) invert(1);" alt="SpaceX">
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div style="background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/320px-Amazon_logo.svg.png" style="max-width: 100%; max-height: 50px; filter: brightness(0) invert(1);" alt="Amazon">
-                    </div>
-                    <div style="background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Intel_logo_2020_light_blue.svg/320px-Intel_logo_2020_light_blue.svg.png" style="max-width: 100%; max-height: 50px; filter: brightness(0) invert(1);" alt="Intel">
-                    </div>
-                    <div style="background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/320px-Samsung_Logo.svg.png" style="max-width: 100%; max-height: 50px; filter: brightness(0) invert(1);" alt="Samsung">
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
 
         <!-- CTA Section -->
         <section style="padding: 80px 0; background: var(--bg-panel-dark); text-align: center; border-top: 1px solid var(--border-dark);">

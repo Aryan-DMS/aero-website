@@ -273,4 +273,39 @@ collections:
           - {label: "Prospectus Document (PDF Upload)", name: "prospectus_pdf", widget: "file"}
           - {label: "Faculty Board Email Address", name: "contact_email", widget: "string"}
           - {label: "Default Email Subject Line", name: "email_subject", widget: "string", default: "Corporate Partnership Inquiry - Aerial Martial"}
+
+  - name: "page_sponsors"
+    label: "Page: Sponsors (Roster)"
+    files:
+      - label: "Sponsors Roster Editor"
+        name: "sponsors"
+        file: "content/pages/sponsors.md"
+        fields:
+          - {name: "permalink", widget: "hidden", default: false}
+          - label: "Sponsorship Tiers"
+            name: "tiers"
+            widget: "list"
+            fields:
+              - {label: "Tier Eyebrow (e.g. TIER 1 ALLIANCES)", name: "eyebrow", widget: "string"}
+              - {label: "Tier Title (e.g. Titanium Partners)", name: "title", widget: "string"}
+              - label: "Sponsors in this Tier"
+                name: "sponsors_list"
+                widget: "list"
+                summary: '{{fields.type}} Card'
+                types:
+                  - label: "Detailed Card (Logo, Text, Link)"
+                    name: "detailed_card"
+                    widget: "object"
+                    fields:
+                      - {label: "Sponsor Name (Required)", name: "name", widget: "string"}
+                      - {label: "Sponsor Logo (Transparent PNG)", name: "logo", widget: "image", required: false}
+                      - {label: "Contribution Details", name: "desc", widget: "text"}
+                      - {label: "Website URL", name: "url", widget: "string"}
+                  - label: "Logo Only Card"
+                    name: "logo_card"
+                    widget: "object"
+                    fields:
+                      - {label: "Sponsor Name (Alt text)", name: "name", widget: "string"}
+                      - {label: "Sponsor Logo (Transparent PNG)", name: "logo", widget: "image"}
+                      - {label: "Website URL (Optional)", name: "url", widget: "string", required: false}
                 
