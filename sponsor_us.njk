@@ -136,10 +136,10 @@
 
                 <!-- Right: Action Cards -->
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    {% for page in collections.all %}
-                        {% if page.fileSlug == 'sponsor_us' %}
+                    {% for item in collections.all %}
+                        {% if item.fileSlug == 'sponsor_us' and item.data.contact_email %}
                         <!-- PDF Download Action -->
-                        <a href="{{ page.data.prospectus_pdf }}" target="_blank" rel="noopener noreferrer" class="action-card">
+                        <a href="{{ item.data.prospectus_pdf }}" target="_blank" rel="noopener noreferrer" class="action-card">
                             <div class="action-icon">↓</div>
                             <div class="action-content">
                                 <h3>Download Prospectus</h3>
@@ -148,7 +148,7 @@
                         </a>
 
                         <!-- Direct Email Action -->
-                        <a href="mailto:{{ page.data.contact_email }}?subject={{ page.data.email_subject | urlencode }}" class="action-card">
+                        <a href="mailto:{{ item.data.contact_email }}?subject={{ item.data.email_subject | urlencode }}" class="action-card">
                             <div class="action-icon">✉</div>
                             <div class="action-content">
                                 <h3>Contact Faculty Board</h3>
