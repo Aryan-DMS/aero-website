@@ -187,10 +187,10 @@
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
         
         /* Dynamic Sponsor Cards */
-        .sponsor-card-detailed { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 40px; display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease; height: 100%; }
+        .sponsor-card-detailed { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 40px; display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease; aspect-ratio: 1 / 1; min-height: 380px; }
         .sponsor-card-detailed:hover { border-color: var(--text-light); }
-        .sponsor-brand { min-height: 60px; display: flex; align-items: flex-start; margin-bottom: 24px; }
-        .sponsor-logo-detailed { max-height: 48px; max-width: 80%; object-fit: contain; filter: brightness(0) invert(1); }
+        .sponsor-brand { height: 72px; display: flex; align-items: flex-start; margin-bottom: 24px; flex-shrink: 0; }
+        .sponsor-logo-detailed { max-height: 100%; max-width: 200px; object-fit: contain; filter: brightness(0) invert(1); }
         .sponsor-divider { width: 24px; height: 2px; background: var(--accent-cyan); margin-bottom: 24px; }
         .sponsor-desc { color: var(--text-muted); font-size: 15px; line-height: 1.6; flex-grow: 1; margin-bottom: 32px; }
         .sponsor-link { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-top: auto; display: flex; align-items: center; gap: 6px; }
@@ -246,7 +246,7 @@
                             <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ tier.title }}</h3>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px;">
                             {% for sponsor in tier.sponsors_list %}
                                 
                                 {% if sponsor.type == 'detailed_card' %}
