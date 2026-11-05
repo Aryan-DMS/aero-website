@@ -146,21 +146,24 @@ title: "AeroClub | Contact"
             const inquiry = document.getElementById('inquiryType').value;
             const message = document.getElementById('senderMessage').value;
             
-            // Construct a highly structured, professional email body
-            const body = `Sender Designation: ${name}
-Return Email: ${email}
-Inquiry Classification: ${inquiry}
+            // Construct a natural, professional letter template
+            const body = `Dear Aerial Martial Team,
 
---- TRANSMISSION MESSAGE ---
+My name is ${name}, and I am reaching out to you today regarding: ${inquiry}.
 
 ${message}
 
-----------------------------`;
+Thank you for your time and consideration. I look forward to connecting with you soon.
+
+Best regards,
+
+${name}
+${email}`;
             
             const encodedBody = encodeURIComponent(body);
             const targetEmail = "contact@aerialmartial.edu.in"; 
             
-            // Dynamically set the subject line based on their inquiry type
+            // Dynamically set the subject line
             const subject = encodeURIComponent(`Aerial Martial Inquiry: ${inquiry} - ${name}`);
             
             // Fire the mailto protocol to open default mail app
