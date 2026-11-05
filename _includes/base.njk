@@ -155,8 +155,9 @@
             
             .nav-links a { font-size: 18px; width: 80%; text-align: center; padding: 12px; }
             
-            /* Hide the desktop header "Sponsor Us" button inside mobile drawer if desired, or let it stack */
-            header .btn-join { display: none; } 
+            /* Hide the desktop header button and reveal the drawer version */
+            header > .btn-join { display: none; } 
+            .mobile-sponsor-item { display: block !important; }
 
             /* Collapse multi-column grids into single columns */
             .footer-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 0 30px; }
@@ -194,7 +195,7 @@
                 <li><a href="/sponsors/" {% if '/sponsors/' in page.url %}class="active"{% endif %}>Sponsors</a></li>
                 <li><a href="/contact/" {% if '/contact/' in page.url %}class="active"{% endif %}>Contact</a></li>
                 <!-- Mobile Only Sponsor Button inside drawer -->
-                <li style="width: 80%; text-align: center; margin-top: 12px;"><a href="/sponsor_us/" class="btn-join" style="display: block; width: 100%;">Sponsor Us</a></li>
+                <li class="mobile-sponsor-item" style="width: 80%; text-align: center; margin-top: 12px; display: none;"><a href="/sponsor_us/" class="btn-join" style="display: block; width: 100%;">Sponsor Us</a></li>
             </ul>
         </nav>
         <a href="/sponsor_us/" class="btn-join">Sponsor Us</a>
