@@ -199,15 +199,14 @@
             font-size: 72px; 
             font-weight: 900; 
             line-height: 0.9; 
-            color: rgba(255, 255, 255, 0.05); /* Dim but visible solid fill */
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4); /* Stronger, highly visible architectural stroke */
+            color: rgba(255, 255, 255, 0.15); /* Solid, readable muted slate */
+            -webkit-text-stroke: 0; /* Completely ditching the outline */
             text-transform: uppercase; 
             transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
             cursor: default; 
         }
         .mission-typo h3:hover { 
             color: var(--accent-cyan); 
-            -webkit-text-stroke: 1.5px var(--accent-cyan); /* Prevents jitter by matching baseline stroke width */
             transform: translateX(12px); 
         }
         
