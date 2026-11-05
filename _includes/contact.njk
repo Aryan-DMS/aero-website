@@ -118,10 +118,17 @@ title: "AeroClub | Contact"
                             <label class="form-label">Full Name</label>
                             <input type="text" id="senderName" class="form-input" placeholder="Enter your designation" required>
                         </div>
-                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="senderEmail" class="form-input" placeholder="Enter routing email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Inquiry Type</label>
+                            <input type="text" id="inquiryType" class="form-input" placeholder="e.g. Sponsorship, Recruitment, General" required>
+                        </div>
                         <div class="form-group" style="margin-bottom: 32px;">
                             <label class="form-label">Transmission Message</label>
-                            <textarea id="senderMessage" rows="6" class="form-input" style="resize: vertical;" placeholder="Enter your transmission..." required></textarea>
+                            <textarea id="senderMessage" rows="4" class="form-input" style="resize: vertical;" placeholder="How can we assist your operations?" required></textarea>
                         </div>
                         <button type="submit" class="btn-join" style="width: 100%; border: none;">Transmit Message</button>
                     </form>
@@ -132,18 +139,29 @@ title: "AeroClub | Contact"
 
     <script>
         function sendEmail(event) {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault(); 
             
             const name = document.getElementById('senderName').value;
+            const email = document.getElementById('senderEmail').value;
+            const inquiry = document.getElementById('inquiryType').value;
             const message = document.getElementById('senderMessage').value;
             
-            // Format the body exactly as requested
-            const body = `My name is ${name}.\n\n${message}`;
-            const encodedBody = encodeURIComponent(body);
+            // Construct a highly structured, professional email body
+            const body = `Sender Designation: ${name}
+Return Email: ${email}
+Inquiry Classification: ${inquiry}
+
+--- TRANSMISSION MESSAGE ---
+
+${message}
+
+----------------------------`;
             
-            // Replace with your actual club email if different
+            const encodedBody = encodeURIComponent(body);
             const targetEmail = "contact@aerialmartial.edu.in"; 
-            const subject = encodeURIComponent("Direct Inquiry: Aerial Martial Website");
+            
+            // Dynamically set the subject line based on their inquiry type
+            const subject = encodeURIComponent(`Aerial Martial Inquiry: ${inquiry} - ${name}`);
             
             // Fire the mailto protocol to open default mail app
             window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${encodedBody}`;
