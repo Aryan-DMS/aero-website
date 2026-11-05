@@ -1,79 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AeroClub | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-deep: #0B1121;
-            --bg-panel-dark: #151E32;
-            --bg-light: #F8FAFC;
-            --bg-white: #FFFFFF;
-            
-            --accent-cyan: #0EA5E9;
-            
-            --text-light: #F8FAFC;
-            --text-muted: #94A3B8;
-            --text-dark: #0F172A;
-            
-            --border-dark: rgba(255, 255, 255, 0.1);
-            
-            --font-ui: 'Inter', sans-serif;
-            --font-data: 'Roboto Mono', monospace;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: var(--font-ui); background: var(--bg-deep); color: var(--text-light); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        main { flex: 1; }
-
-        /* ==========================================
-           CLEAN, FLAT, HIGH-CONTRAST NAVIGATION
-        ========================================== */
-        header {
-            background: var(--bg-deep); /* Solid, integrated background */
-            border-bottom: 1px solid var(--border-dark);
-            height: 80px; /* Taller for better breathing room */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .nav-logo { font-weight: 800; font-size: 24px; letter-spacing: -0.5px; }
-        .nav-logo span { color: var(--accent-cyan); }
-        
-        /* Removed the pill container styling completely */
-        .nav-links { 
-            display: flex; 
-            gap: 4px; 
-        }
-        
-        /* Larger, bolder, more readable links */
-        .nav-links a { 
-            color: var(--text-light); 
-            font-size: 16px; 
-            font-weight: 600; 
-            padding: 10px 18px; 
-            border-radius: 4px; /* Subtle architectural rounding */
-            transition: all 0.2s ease;
-        }
-        
-        /* High contrast DW.com style hover & active states */
-        .nav-links a:hover, 
-        .nav-links a.active {
-            background-color: var(--bg-white); 
-            color: var(--bg-deep); 
-        }
+---
+layout: base.njk
+title: "AeroClub | Achievements"
+---
+<style>
 
         /* High-Contrast, Dual-Color Buttons */
         .btn-join { display: inline-block; background: var(--accent-cyan); color: var(--bg-deep); padding: 12px 28px; border-radius: 4px; font-size: 15px; font-weight: 800; border: 1px solid var(--accent-cyan); transition: all 0.2s ease; }
@@ -155,35 +84,12 @@
         .footer-bottom { padding-bottom: 40px; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 14px; }
         
         /* Layout for Content Sections */
-        .page-section { padding: 120px 0; min-height: 80vh; border-bottom: 1px solid var(--border-dark); }
-        .page-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-light); }
-        .page-section p { font-size: 18px; color: var(--text-muted); }
-    </style>
-</head>
-<body>
+    .page-section { padding: 120px 0; min-height: 80vh; border-bottom: 1px solid var(--border-dark); }
+    .page-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-light); }
+    .page-section p { font-size: 18px; color: var(--text-muted); }
+</style>
 
-    <!-- Integrated, High-Contrast Navigation -->
-    <header>
-        <a href="/" class="nav-logo">Aerial<span>Martial</span></a>
-        
-        <nav>
-            <ul class="nav-links">
-                <li><a href="/about/" {% if '/about/' in page.url %}class="active"{% endif %}>About</a></li>
-                <li><a href="/achievements/" {% if '/achievements/' in page.url %}class="active"{% endif %}>Achievements</a></li>
-                <li><a href="/gallery/" {% if '/gallery/' in page.url %}class="active"{% endif %}>Gallery</a></li>
-                <li><a href="/models/" {% if '/models/' in page.url %}class="active"{% endif %}>Models</a></li>
-                <li><a href="/events/" {% if '/events/' in page.url %}class="active"{% endif %}>Events</a></li>
-                <li><a href="/team/" {% if '/team/' in page.url %}class="active"{% endif %}>Team</a></li>
-                <li><a href="/sponsors/" {% if '/sponsors/' in page.url %}class="active"{% endif %}>Sponsors</a></li>
-                <li><a href="/contact/" {% if '/contact/' in page.url %}class="active"{% endif %}>Contact</a></li>
-            </ul>
-        </nav>
-        
-        <a href="/sponsor_us/" class="btn-join">Sponsor Us</a>
-    </header>
-
-    <!-- Page Specific Content Wrapper -->
-    <main id="achievements-page">
+<main id="achievements-page">
         
         <!-- Standardized Page Header -->
         <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark);">
@@ -244,68 +150,4 @@
                 </div>
             </div>
         </section>
-                </div>
-            </div>
-        </section>
     </main>
-
-    <!-- Global Footer -->
-    <footer style="background: var(--bg-deep); border-top: 1px solid var(--border-dark); padding: 80px 0 40px; margin-top: auto;">
-        <div class="container" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px;">
-            
-            <!-- Brand & Typographic Contact -->
-            <div>
-                <div class="logo" style="font-size: 24px; font-weight: 800; margin-bottom: 16px;">Aerial<span style="color: var(--accent-cyan);">Martial</span></div>
-                <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; max-width: 280px; line-height: 1.6;">A student-led aerospace and robotics club competing at national levels. INNOVATE. BUILD. FLY.</p>
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">EMAIL</strong> contact@aerialmartial.edu.in</span>
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">HQ</strong> Engineering College, Pune</span>
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">COMMS</strong> +91 98765 43210</span>
-                </div>
-            </div>
-            
-            <!-- Navigation -->
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Club</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/about/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">About Us</a></li>
-                    <li><a href="/team/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Our Team</a></li>
-                    <li><a href="/gallery/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Gallery</a></li>
-                </ul>
-            </div>
-            
-            <!-- Operations -->
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Compete</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/achievements/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Achievements</a></li>
-                    <li><a href="/models/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">The Fleet</a></li>
-                    <li><a href="/events/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Upcoming Events</a></li>
-                </ul>
-            </div>
-            
-            <!-- Connect -->
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Connect</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/contact/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Contact Us</a></li>
-                    <li><a href="/sponsor_us/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Partner With Us</a></li>
-                    <li><a href="/sponsors/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Sponsors</a></li>
-                </ul>
-            </div>
-
-        </div>
-        
-        <!-- Legal & Social Row -->
-        <div class="container" style="border-top: 1px solid var(--border-dark); padding-top: 24px; display: flex; justify-content: space-between; align-items: center;">
-            <p style="color: var(--text-muted); font-size: 13px;">&copy; 2026 Aerial Martial. All rights reserved.</p>
-            <div style="display: flex; gap: 24px;">
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.2s;">Instagram</a>
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.2s;">LinkedIn</a>
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.2s;">YouTube</a>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
