@@ -88,18 +88,18 @@
             align-items: center;
             overflow: hidden;
             background-color: var(--bg-deep);
-            /* Engineering/Blueprint structure background */
-            background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1920'); 
+            /* Structural aerospace hardware background */
+            background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1920'); 
             background-size: cover;
-            background-position: center center;
+            background-position: center right;
         }
         
-        /* Dark gradient overlay for text readability */
+        /* Cinematic left-to-right dark gradient overlay */
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, rgba(11, 17, 33, 0.98) 0%, rgba(11, 17, 33, 0.85) 45%, rgba(11, 17, 33, 0.1) 100%);
+            background: linear-gradient(90deg, var(--bg-deep) 0%, rgba(11, 17, 33, 0.95) 45%, rgba(11, 17, 33, 0.1) 85%, transparent 100%);
             z-index: 1;
         }
 
@@ -107,7 +107,7 @@
             position: relative;
             z-index: 3;
             width: 100%;
-            max-width: 700px;
+            max-width: 650px;
         }
 
         .hero-overline {
@@ -115,7 +115,7 @@
             align-items: center;
             gap: 16px;
             font-family: var(--font-data);
-            font-size: 13px;
+            font-size: 12px;
             color: var(--accent-cyan);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -124,14 +124,14 @@
         
         .hero-overline::after {
             content: '';
-            width: 40px;
+            width: 48px;
             height: 1px;
             background-color: var(--accent-cyan);
         }
 
         .hero-text h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -2px; color: var(--text-light); }
         .hero-text h1 span { color: var(--accent-cyan); }
-        .hero-text p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6; max-width: 550px; }
+        .hero-text p { font-size: 17px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6; max-width: 500px; }
 
         .hero-footer-line {
             display: flex;
@@ -139,7 +139,7 @@
             gap: 16px;
             margin-top: 60px;
             font-family: var(--font-data);
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -273,24 +273,26 @@
     <!-- Page Specific Content Wrapper -->
     <main id="home">
         <section class="hero">
-            <div class="container hero-content">
-                
-                <div class="hero-overline">Aerial Martial</div>
-                
-                <div class="hero-text">
-                    <h1>Engineering the future of <span>unmanned</span> flight.</h1>
-                    <p>A student aerospace team designing, fabricating, and deploying high-performance unmanned aerial systems.</p>
+            <div class="container">
+                <div class="hero-content">
                     
-                    <div style="display: flex; gap: 16px; margin-top: 40px;">
-                        <a href="/models/" class="btn-join" style="padding: 14px 32px; font-size: 15px; display: flex; align-items: center; gap: 8px;">View The Fleet &rarr;</a>
-                        <a href="/about/" class="btn-outline" style="padding: 14px 32px; font-size: 15px;">Our Mission</a>
+                    <div class="hero-overline">AERIAL MARTIAL</div>
+                    
+                    <div class="hero-text">
+                        <h1>Engineering the future of <span>unmanned</span> flight.</h1>
+                        <p>A student aerospace team designing, fabricating, and deploying high-performance unmanned aerial systems.</p>
+                        
+                        <div style="display: flex; gap: 16px; margin-top: 40px;">
+                            <a href="/models/" class="btn-join" style="padding: 14px 32px; font-size: 15px; display: flex; align-items: center; gap: 8px;">View The Fleet &rarr;</a>
+                            <a href="/about/" class="btn-outline" style="padding: 14px 32px; font-size: 15px;">Our Mission</a>
+                        </div>
+                        
+                        <div class="hero-footer-line">
+                            DESIGN / FABRICATION / TESTING / DEPLOYMENT
+                        </div>
                     </div>
                     
-                    <div class="hero-footer-line">
-                        Design / Fabrication / Testing / Deployment
-                    </div>
                 </div>
-                
             </div>
         </section>
         
