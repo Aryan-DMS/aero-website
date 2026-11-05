@@ -85,10 +85,10 @@
         .footer-brand p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; max-width: 300px; }
         .contact-info li { display: flex; align-items: center; gap: 12px; color: var(--text-muted); font-size: 14px; margin-bottom: 12px; }
         
-        .footer-links h4 { font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; color: var(--text-light); text-transform: uppercase; }
-        .footer-links ul li { margin-bottom: 12px; }
-        .footer-links ul a { color: var(--text-muted); font-size: 14px; transition: color 0.2s; }
-        .footer-links ul a:hover { color: var(--accent-cyan); }
+        .footer-links h4 { font-family: var(--font-data); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 24px; color: var(--text-light); text-transform: uppercase; }
+        .footer-links ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s ease; }
+        .footer-links a:hover { color: var(--accent-cyan); }
         
         .footer-contact-link { color: var(--text-light); text-decoration: none; transition: color 0.2s ease; }
         .footer-contact-link:hover { color: var(--accent-cyan); }
@@ -140,30 +140,33 @@
                 </div>
             </div>
             
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Club</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/about/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">About Us</a></li>
-                    <li><a href="/team/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Our Team</a></li>
-                    <li><a href="/gallery/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Gallery</a></li>
+            <!-- Navigation -->
+            <div class="footer-links" style="padding-top: 10px;">
+                <h4>Club</h4>
+                <ul>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/team/">Our Team</a></li>
+                    <li><a href="/gallery/">Gallery</a></li>
                 </ul>
             </div>
             
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Compete</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/achievements/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Achievements</a></li>
-                    <li><a href="/models/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">The Fleet</a></li>
-                    <li><a href="/events/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Upcoming Events</a></li>
+            <!-- Operations -->
+            <div class="footer-links" style="padding-top: 10px;">
+                <h4>Compete</h4>
+                <ul>
+                    <li><a href="/achievements/">Achievements</a></li>
+                    <li><a href="/models/">The Fleet</a></li>
+                    <li><a href="/events/">Upcoming Events</a></li>
                 </ul>
             </div>
             
-            <div style="padding-top: 10px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Connect</h4>
-                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
-                    <li><a href="/contact/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Contact Us</a></li>
-                    <li><a href="/sponsor_us/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Partner With Us</a></li>
-                    <li><a href="/sponsors/" style="color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s;">Sponsors</a></li>
+            <!-- Connect -->
+            <div class="footer-links" style="padding-top: 10px;">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="/contact/">Contact Us</a></li>
+                    <li><a href="/sponsor_us/">Partner With Us</a></li>
+                    <li><a href="/sponsors/">Sponsors</a></li>
                 </ul>
             </div>
 
