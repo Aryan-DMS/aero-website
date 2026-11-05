@@ -162,15 +162,23 @@ title: "AeroClub | Home"
 </style>
 
 <main id="home">
+    {% set homeData = null %}
+    {% for page in collections.all %}
+        {% if page.fileSlug == 'home' %}
+            {% set homeData = page.data %}
+        {% endif %}
+    {% endfor %}
+
+    {% if homeData %}
     <section class="hero">
         <div class="container" style="width: 100%; display: flex; justify-content: flex-start;">
             <div class="hero-content">
                 
-                <div class="hero-overline">AERIAL MARTIAL</div>
+                <div class="hero-overline">{{ homeData.hero.overline }}</div>
                 
                 <div class="hero-text">
-                    <h1>Engineering the future of <span>unmanned</span> flight.</h1>
-                    <p>A student aerospace team designing, fabricating, and deploying high-performance unmanned aerial systems.</p>
+                    <h1>{{ homeData.hero.headline | safe }}</h1>
+                    <p>{{ homeData.hero.desc }}</p>
                     
                     <div style="display: flex; gap: 16px; margin-top: 40px;">
                         <a href="/models/" class="btn-join" style="padding: 14px 32px; font-size: 15px; display: flex; align-items: center; gap: 8px;">View The Fleet &rarr;</a>
@@ -178,7 +186,7 @@ title: "AeroClub | Home"
                     </div>
                     
                     <div class="hero-footer-line">
-                        DESIGN / FABRICATION / TESTING / DEPLOYMENT
+                        {{ homeData.hero.footer_line }}
                     </div>
                 </div>
                 
@@ -188,30 +196,20 @@ title: "AeroClub | Home"
     
     <section class="stats-bar">
         <div class="container stats-grid">
+            {% for stat in homeData.stats %}
             <div>
-                <div class="stat-value">AIR 5</div>
-                <div class="stat-label">Peak National Standing</div>
+                <div class="stat-value">{{ stat.value }}</div>
+                <div class="stat-label">{{ stat.label }}</div>
             </div>
-            <div>
-                <div class="stat-value">20+</div>
-                <div class="stat-label">Mission Deployments</div>
-            </div>
-            <div>
-                <div class="stat-value">50+</div>
-                <div class="stat-label">Active Personnel</div>
-            </div>
-            <div>
-                <div class="stat-value">15+</div>
-                <div class="stat-label">Years Operational</div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
     <section class="home-section container mission-split">
         <div class="mission-text">
-            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">WHO WE ARE</h4>
-            <h2>Engineering the <span>future</span>,<br>one flight at a time.</h2>
-            <p>Aerial Martial is a student-led engineering division focused on design, manufacturing, embedded systems, and autonomous control. We build competition-ready aircraft that perform on national stages while mentoring the next generation of aerospace innovators.</p>
+            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">{{ homeData.mission.overline }}</h4>
+            <h2>{{ homeData.mission.headline | safe }}</h2>
+            <p>{{ homeData.mission.body }}</p>
             <a href="/about/" class="btn-outline">Learn More</a>
         </div>
         <div class="mission-typo">
@@ -220,6 +218,7 @@ title: "AeroClub | Home"
             <h3>FLY.</h3>
         </div>
     </section>
+    {% endif %}
 
     <section class="home-section container">
         <div style="margin-bottom: 40px;">
@@ -245,18 +244,15 @@ title: "AeroClub | Home"
 
     <div class="marquee-wrapper">
         <div class="marquee-content">
-            <span>SOLIDWORKS</span><span>•</span>
-            <span>ANSYS FLUENT</span><span>•</span>
-            <span>MATLAB</span><span>•</span>
-            <span>ARDUINO</span><span>•</span>
-            <span>PIXHAWK</span><span>•</span>
-            <span>ROS</span><span>•</span>
-            <span>SOLIDWORKS</span><span>•</span>
-            <span>ANSYS FLUENT</span><span>•</span>
-            <span>MATLAB</span><span>•</span>
-            <span>ARDUINO</span><span>•</span>
-            <span>PIXHAWK</span><span>•</span>
-            <span>ROS</span>
+            {% if homeData %}
+                {% for item in homeData.marquee %}
+                <span>{{ item }}</span><span>•</span>
+                {% endfor %}
+                <!-- Duplicate array for infinite scroll illusion -->
+                {% for item in homeData.marquee %}
+                <span>{{ item }}</span><span>•</span>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 

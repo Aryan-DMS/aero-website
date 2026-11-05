@@ -153,6 +153,47 @@ collections:
   # ==========================================
   # MASTER PAGES (Single File Configuration)
   # ==========================================
+  - name: "page_home"
+    label: "Page: Home"
+    files:
+      - label: "Homepage Editor"
+        name: "home"
+        file: "content/pages/home.md"
+        fields:
+          - {name: "permalink", widget: "hidden", default: false}
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Overline (e.g. AERIAL MARTIAL)", name: "overline", widget: "string"}
+              - {label: "Headline (Use <span> tag for cyan text)", name: "headline", widget: "string"}
+              - {label: "Sub-headline / Description", name: "desc", widget: "text"}
+              - {label: "Footer Line (e.g. DESIGN / FABRICATION...)", name: "footer_line", widget: "string"}
+          - label: "Stats Bar (Exactly 4 items)"
+            name: "stats"
+            widget: "list"
+            min: 4
+            max: 4
+            fields:
+              - {label: "Value (e.g. AIR 5)", name: "value", widget: "string"}
+              - {label: "Label (e.g. Peak National Standing)", name: "label", widget: "string"}
+          - label: "Mission Section"
+            name: "mission"
+            widget: "object"
+            fields:
+              - {label: "Overline", name: "overline", widget: "string"}
+              - {label: "Headline (Use <span> tag for cyan text)", name: "headline", widget: "string"}
+              - {label: "Body Text", name: "body", widget: "text"}
+          - label: "Software Marquee Items"
+            name: "marquee"
+            widget: "list"
+            field: {label: "Software Name", name: "item", widget: "string"}
+          - label: "Bottom CTA"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Description", name: "desc", widget: "string"}
   - name: "page_gallery"
     label: "Page: Gallery"
     files:
