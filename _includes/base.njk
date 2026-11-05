@@ -89,6 +89,9 @@
         .footer-links ul li { margin-bottom: 12px; }
         .footer-links ul a { color: var(--text-muted); font-size: 14px; transition: color 0.2s; }
         .footer-links ul a:hover { color: var(--accent-cyan); }
+        
+        .footer-contact-link { color: var(--text-light); text-decoration: none; transition: color 0.2s ease; }
+        .footer-contact-link:hover { color: var(--accent-cyan); }
 
         .footer-bottom { padding-bottom: 40px; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 14px; }
     </style>
@@ -122,9 +125,18 @@
                 <div class="logo" style="font-size: 24px; font-weight: 800; margin-bottom: 16px;">Aerial<span style="color: var(--accent-cyan);">Martial</span></div>
                 <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; max-width: 280px; line-height: 1.6;">A student-led aerospace and robotics club competing at national levels. INNOVATE. BUILD. FLY.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">EMAIL</strong> contact@aerialmartial.edu.in</span>
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">COLLEGE</strong> <a href="https://www.moderncoe.edu.in/" target="_blank" rel="noopener noreferrer" style="color: var(--text-light); text-decoration: underline; text-decoration-color: var(--border-dark); text-underline-offset: 4px; transition: text-decoration-color 0.2s;" onmouseover="this.style.textDecorationColor='var(--accent-cyan)'" onmouseout="this.style.textDecorationColor='var(--border-dark)'">PES's Modern College of Engineering, Pune</a></span>
-                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;"><strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">PHONE</strong> +91 98765 43210</span>
+                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;">
+                        <strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">EMAIL</strong> 
+                        <a href="mailto:contact@aerialmartial.edu.in" class="footer-contact-link">contact@aerialmartial.edu.in</a>
+                    </span>
+                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;">
+                        <strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">CAMPUS</strong> 
+                        <a href="https://yourcollege.edu" target="_blank" rel="noopener noreferrer" class="footer-contact-link"> PES MCOE, Pune</a>
+                    </span>
+                    <span style="font-size: 14px; color: var(--text-light); display: flex; align-items: center;">
+                        <strong style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1px; width: 60px;">PHONE</strong> 
+                        <a href="tel:+919876543210" class="footer-contact-link">+91 98765 43210</a>
+                    </span>
                 </div>
             </div>
             
