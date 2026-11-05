@@ -4,13 +4,6 @@ title: "AeroClub | Contact"
 ---
 <style>
 
-        /* High-Contrast, Dual-Color Buttons */
-        .btn-join { display: inline-block; background: var(--accent-cyan); color: var(--bg-deep); padding: 12px 28px; border-radius: 4px; font-size: 15px; font-weight: 800; border: 1px solid var(--accent-cyan); transition: all 0.2s ease; cursor: pointer; text-align: center; text-decoration: none; }
-        .btn-join:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
-
-        .btn-outline { display: inline-block; padding: 12px 28px; border: 1px solid var(--border-dark); background: transparent; color: var(--text-light); border-radius: 4px; font-size: 15px; font-weight: 800; transition: all 0.2s ease; text-decoration: none; text-align: center; }
-        .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
-
         /* Contact Typographic Lists */
         .contact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
         .contact-item { display: flex; flex-direction: column; gap: 6px; }
@@ -118,33 +111,41 @@ title: "AeroClub | Contact"
                     </div>
                 </div>
                 
-                <!-- Right: High-End Form -->
+                <!-- Right: High-End Form (Mailto Integration) -->
                 <div style="background: var(--bg-panel-dark); padding: 48px; border-radius: 4px; border: 1px solid var(--border-dark);">
-                    <form>
+                    <form id="contactForm" onsubmit="sendEmail(event)">
                         <div class="form-group">
                             <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your designation">
+                            <input type="text" id="senderName" class="form-input" placeholder="Enter your designation" required>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" placeholder="Enter routing email">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Inquiry Type</label>
-                            <select class="form-input" style="appearance: none; cursor: pointer; color: var(--text-muted);">
-                                <option>Sponsorship & Partnership</option>
-                                <option>Recruitment</option>
-                                <option>Press & Media</option>
-                                <option>General Inquiry</option>
-                            </select>
-                        </div>
+                        
                         <div class="form-group" style="margin-bottom: 32px;">
                             <label class="form-label">Transmission Message</label>
-                            <textarea rows="4" class="form-input" style="resize: vertical;" placeholder="How can we assist your operations?"></textarea>
+                            <textarea id="senderMessage" rows="6" class="form-input" style="resize: vertical;" placeholder="Enter your transmission..." required></textarea>
                         </div>
-                        <button type="submit" class="btn-join" style="width: 100%;">Transmit Message</button>
+                        <button type="submit" class="btn-join" style="width: 100%; border: none;">Transmit Message</button>
                     </form>
                 </div>
             </div>
         </section>
     </main>
+
+    <script>
+        function sendEmail(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const name = document.getElementById('senderName').value;
+            const message = document.getElementById('senderMessage').value;
+            
+            // Format the body exactly as requested
+            const body = `My name is ${name}.\n\n${message}`;
+            const encodedBody = encodeURIComponent(body);
+            
+            // Replace with your actual club email if different
+            const targetEmail = "contact@aerialmartial.edu.in"; 
+            const subject = encodeURIComponent("Direct Inquiry: Aerial Martial Website");
+            
+            // Fire the mailto protocol to open default mail app
+            window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${encodedBody}`;
+        }
+    </script>
