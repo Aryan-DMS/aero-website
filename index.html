@@ -199,23 +199,16 @@
             font-size: 72px; 
             font-weight: 900; 
             line-height: 0.9; 
-            color: transparent; 
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25); /* Subtle, elegant outline */
+            /* The Sweet Spot: Soft dim fill + delicate crisp edge */
+            color: rgba(255, 255, 255, 0.08); 
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
             text-transform: uppercase; 
             transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
             cursor: default; 
         }
-        
-        /* The Always-On Anchor */
-        .mission-typo h3.active { 
-            color: var(--accent-cyan); 
-            -webkit-text-stroke: 0; 
-            transform: translateX(12px); 
-        }
-        
         .mission-typo h3:hover { 
             color: var(--accent-cyan); 
-            -webkit-text-stroke: 0; 
+            -webkit-text-stroke: 1px var(--accent-cyan); 
             transform: translateX(12px); 
         }
         
@@ -350,7 +343,7 @@
                 <a href="/about/" class="btn-outline">Learn More</a>
             </div>
             <div class="mission-typo">
-                <h3 class="active">INNOVATE.</h3>
+                <h3>INNOVATE.</h3>
                 <h3>BUILD.</h3>
                 <h3>FLY.</h3>
             </div>
