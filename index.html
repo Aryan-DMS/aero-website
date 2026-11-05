@@ -195,9 +195,21 @@
         .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
         
         .mission-typo { display: flex; flex-direction: column; gap: 12px; }
-        .mission-typo h3 { font-size: 72px; font-weight: 900; line-height: 0.9; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.15); text-transform: uppercase; transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); cursor: default; }
-        .mission-typo h3.active { color: rgba(255,255,255,0.05); -webkit-text-stroke: 0; }
-        .mission-typo h3:hover { color: var(--accent-cyan); -webkit-text-stroke: 0; transform: translateX(12px); }
+        .mission-typo h3 { 
+            font-size: 72px; 
+            font-weight: 900; 
+            line-height: 0.9; 
+            color: rgba(255, 255, 255, 0.05); /* Dim but visible solid fill */
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4); /* Stronger, highly visible architectural stroke */
+            text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
+            cursor: default; 
+        }
+        .mission-typo h3:hover { 
+            color: var(--accent-cyan); 
+            -webkit-text-stroke: 1.5px var(--accent-cyan); /* Prevents jitter by matching baseline stroke width */
+            transform: translateX(12px); 
+        }
         
         /* Fleet Carousel */
         .fleet-carousel { position: relative; display: flex; align-items: center; background: var(--bg-panel-dark); border-radius: 12px; border: 1px solid var(--border-dark); overflow: hidden; }
