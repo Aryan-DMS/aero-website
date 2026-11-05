@@ -86,10 +86,11 @@
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: flex-start; /* Forces content to the left */
             overflow: hidden;
             background-color: var(--bg-deep);
-            /* Structural aerospace hardware background */
-            background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1920'); 
+            /* Exact reference blueprint background */
+            background-image: url('https://images.unsplash.com/photo-1503694978374-8a2fa686963a?auto=format&fit=crop&q=80&w=1920'); 
             background-size: cover;
             background-position: center right;
         }
@@ -108,6 +109,7 @@
             z-index: 3;
             width: 100%;
             max-width: 650px;
+            margin-left: 0; /* Ensures no auto-margin centering */
         }
 
         .hero-overline {
@@ -273,7 +275,7 @@
     <!-- Page Specific Content Wrapper -->
     <main id="home">
         <section class="hero">
-            <div class="container">
+            <div class="container" style="width: 100%; display: flex; justify-content: flex-start;">
                 <div class="hero-content">
                     
                     <div class="hero-overline">AERIAL MARTIAL</div>
