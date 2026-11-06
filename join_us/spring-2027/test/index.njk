@@ -3,16 +3,47 @@ layout: base.njk
 title: "AeroClub | Phase 02: Technical Test"
 ---
 <style>
-    .report-container { max-width: 800px; margin: 0 auto; padding: 80px 20px 140px; }
+    /* Widened container for the 2-column layout */
+    .report-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 140px; }
     .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
     .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
     
-    .report-content h3 { font-size: 24px; font-weight: 700; color: var(--text-light); margin: 48px 0 16px; border-bottom: 1px solid var(--border-dark); padding-bottom: 12px; }
-    .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
+    /* 2-Column Grid matching Phase 1 */
+    .report-grid {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: clamp(40px, 6vw, 80px);
+        align-items: start;
+    }
+    @media (max-width: 900px) {
+        .report-grid { grid-template-columns: 1fr; }
+    }
+
+    /* LEFT COLUMN: Sidebar Styling */
+    .data-box {
+        background: var(--bg-panel-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 4px;
+        padding: 32px;
+        margin-bottom: 24px;
+    }
+    .data-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 14px;
+        gap: 16px;
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { color: var(--text-muted); font-family: var(--font-data); flex-shrink: 0; }
+    .data-value { color: var(--text-light); font-weight: 500; text-align: right; }
     
-    .logistics-box { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-left: 4px solid var(--accent-cyan); padding: 32px; border-radius: 4px; margin-bottom: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .logistics-item span { display: block; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-    .logistics-item strong { display: block; font-size: 18px; color: var(--text-light); }
+    /* RIGHT COLUMN: Markdown Content Styling */
+    .report-content h3 { font-size: 32px; font-weight: 700; color: var(--text-light); margin: 0 0 24px 0; letter-spacing: -0.5px; }
+    .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
+    .report-content ul { margin-left: 20px; margin-bottom: 32px; color: var(--text-muted); font-size: 16px; line-height: 1.7; }
+    .report-content li { margin-bottom: 8px; }
 </style>
 
 <main>
@@ -25,20 +56,52 @@ title: "AeroClub | Phase 02: Technical Test"
     {% endfor %}
 
     <div class="report-container">
+        <!-- Header (Full Width) -->
         <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
-
         <span class="report-meta">PHASE 02 // {{ drive.phase2.status | default('EVALUATION') | upper }}</span>
         <h1 class="report-title">Technical Test Briefing</h1>
 
-        <div class="logistics-box">
-            <div class="logistics-item"><span>Date</span><strong>{{ drive.phase2.date | default('TBA') }}</strong></div>
-            <div class="logistics-item"><span>Time</span><strong>{{ drive.phase2.time | default('TBA') }}</strong></div>
-            <div class="logistics-item"><span>Venue</span><strong>{{ drive.phase2.venue | default('TBA') }}</strong></div>
-            <div class="logistics-item"><span>Format</span><strong>{{ drive.phase2.format | default('TBA') }}</strong></div>
-        </div>
+        <!-- 2-Column Split -->
+        <div class="report-grid">
+            
+            <!-- LEFT COLUMN: Logistics Sidebar -->
+            <aside>
+                <span style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; display: block;">TEST LOGISTICS</span>
+                
+                <div class="data-box">
+                    <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">DEPLOYMENT DATA</span>
+                    <div class="data-row">
+                        <span class="data-label">Date</span>
+                        <span class="data-value">{{ drive.phase2.date | default('TBA') }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Time</span>
+                        <span class="data-value">{{ drive.phase2.time | default('TBA') }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Venue</span>
+                        <span class="data-value">{{ drive.phase2.venue | default('TBA') }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Format</span>
+                        <span class="data-value">{{ drive.phase2.format | default('TBA') }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Status</span>
+                        <span class="data-value" {% if drive.phase2.status == 'Open' %}style="color: #10B981;"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
+                    </div>
+                </div>
+            </aside>
 
-        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">
-            {{ drive.phase2.report | default("Syllabus details will appear here once published in CMS.") }}
+            <!-- RIGHT COLUMN: Detailed Markdown Report -->
+            <article>
+                <div class="report-content" style="white-space: pre-wrap;">
+                    <!-- Injecting the cinematic H3 Title to match Phase 1 -->
+                    <h3>Evaluation Criteria</h3>
+                    {{ drive.phase2.report | default("Syllabus details will appear here once published in CMS.") }}
+                </div>
+            </article>
+
         </div>
     </div>
 </main>
