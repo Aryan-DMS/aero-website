@@ -5,10 +5,11 @@ overview:
   subtitle: EST. 2016–17 // PUNE, MAHARASHTRA
   image: https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
   body: >-
-    # Engineering Flight. Building Possibilities.
-
-
-    Aerial Martial is the Aeromodelling Club of PES's Modern College of Engineering, Pune, established in 2016–17. We are a student-led engineering team dedicated to the design, development, and fabrication of unmanned aerial vehicles, bridging the gap between theoretical aerodynamics and practical aircraft engineering.
+    Aerial Martial is the Aeromodelling Club of PES's Modern College of
+    Engineering, Pune, established in 2016–17. We are a student-led engineering
+    team dedicated to the design, development, and fabrication of unmanned
+    aerial vehicles, bridging the gap between theoretical aerodynamics and
+    practical aircraft engineering.
 
 
     Driven by technical curiosity and competitive ambition, we continually challenge ourselves through national-level engineering competitions, including SAEISS Design, Development and Competition (DDC). We strive to build more than aircraft — we build engineering capabilities, practical expertise, and a culture of innovation.
