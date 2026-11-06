@@ -52,16 +52,25 @@ title: "AeroClub | Phase 01: Application"
             </div>
         </div>
 
-        <!-- The Success State -->
+        <!-- STATE 2: The Tracking State (Waiting on CSV Sync) -->
         <div id="auth-success" class="setup-box success-state">
             <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Tracking Enabled for: <span id="display-name" style="color: #10B981;"></span></h4>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your browser is now configured to track your application status. You may now proceed to the official submission form.</p>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your browser is now configured to track your application. Please proceed to the official submission form.</p>
             
-            <!-- Link dynamically pulled from CMS -->
             <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: inline-block; background: var(--text-light); color: var(--bg-deep); padding: 12px 28px; text-decoration: none;">Open Application Form ↗</a>
-            
-            <button onclick="resetApplicant()" style="display: block; background: none; border: none; color: var(--text-muted); font-family: var(--font-data); font-size: 11px; margin-top: 24px; cursor: pointer; text-decoration: underline;">Reset tracking name</button>
         </div>
+
+        <!-- STATE 3: The Verified State (Name found in CSV) -->
+        <div id="auth-verified" class="setup-box" style="display: none; border-left: 4px solid var(--accent-cyan); background: rgba(14, 165, 233, 0.05);">
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; box-shadow: 0 0 12px var(--accent-cyan);"></span>
+                APPLICATION VERIFIED: <span id="verified-name" style="color: var(--text-light);"></span>
+            </h4>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your application dossier has been securely synced with the command database. No further action is required at this time.</p>
+            
+            <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: inline-block; background: transparent; border: 1px solid var(--border-dark); color: var(--text-light); padding: 12px 28px; text-decoration: none;">Edit Submission ↗</a>
+        </div>
+
         {% else %}
         <div class="setup-box" style="border-left: 4px solid var(--border-dark); opacity: 0.6;">
             <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Portal Closed</h4>
@@ -72,22 +81,50 @@ title: "AeroClub | Phase 01: Application"
 </main>
 
 <script>
+    // 1. We dump the names from Eleventy's CSV into a JavaScript array
+    const verifiedApplicants = [
+        {% for applicant in csvData %}
+        "{{ applicant['Full Name'] | trim | lower }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
     function checkStatus() {
         const savedName = localStorage.getItem('aeroclub_sp27_applicant');
+        
         if (savedName) {
-            document.getElementById('auth-gate').style.display = 'none';
-            document.getElementById('auth-success').style.display = 'block';
-            document.getElementById('display-name').innerText = savedName;
+            const normalizedName = savedName.trim().toLowerCase();
+            
+            // 2. Check if the name in localStorage matches any name in the CSV
+            if (verifiedApplicants.includes(normalizedName)) {
+                // STATE 3: Verified in Database!
+                document.getElementById('auth-gate').style.display = 'none';
+                document.getElementById('auth-success').style.display = 'none';
+                document.getElementById('auth-verified').style.display = 'block';
+                document.getElementById('verified-name').innerText = savedName;
+            } else {
+                // STATE 2: Local tracking on, but not synced to CSV yet
+                document.getElementById('auth-gate').style.display = 'none';
+                document.getElementById('auth-verified').style.display = 'none';
+                document.getElementById('auth-success').style.display = 'block';
+                document.getElementById('display-name').innerText = savedName;
+            }
         } else {
+            // STATE 1: Enter Name
             document.getElementById('auth-gate').style.display = 'block';
             document.getElementById('auth-success').style.display = 'none';
+            document.getElementById('auth-verified').style.display = 'none';
         }
     }
+
     function registerApplicant() {
         const nameInput = document.getElementById('applicant-name').value;
-        if (nameInput.trim().length > 2) { localStorage.setItem('aeroclub_sp27_applicant', nameInput.trim()); checkStatus(); } 
-        else { alert("Please enter your name to proceed."); }
+        if (nameInput.trim().length > 2) { 
+            localStorage.setItem('aeroclub_sp27_applicant', nameInput.trim()); 
+            checkStatus(); 
+        } else { 
+            alert("Please enter your name to proceed."); 
+        }
     }
-    function resetApplicant() { localStorage.removeItem('aeroclub_sp27_applicant'); checkStatus(); }
+
     document.addEventListener("DOMContentLoaded", checkStatus);
 </script>

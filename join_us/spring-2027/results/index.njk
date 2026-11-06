@@ -39,7 +39,8 @@ title: "AeroClub | Phase 05: Results"
                 <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
                 <tbody>
                     {% for applicant in csvData %}
-                        {% if applicant['Final Status'] == 'Inducted' %}
+                        <!-- Looking for "Yes" or "Inducted" so the Captain has flexibility -->
+                        {% if applicant['Final Status'] == 'Yes' or applicant['Final Status'] == 'Inducted' %}
                         <tr>
                             <td>{{ applicant['Full Name'] }}</td>
                             <td>{{ applicant['Division Preference'] }}</td>
