@@ -3,7 +3,7 @@ title: "SAEISS DDC 2026: Engineering a Competition-Ready Fixed-Wing UAV"
 card_title: SAEISS DDC 2026
 hero_meta: SAEISS // 2026 // CHENNAI, INDIA
 card_meta: "SAEISS // DEC 2026 // OVERALL RANK: AIR 5"
-image: https://images.unsplash.com/photo-1611566573326-4f6eaff5894a?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+image: https://images.unsplash.com/photo-1597863417549-9c5705bd69c9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
 summary: Secured AIR 2 in SAEISS DDC2026
 hardware: Project Trident (Aircraft)
 result: " All India Rank 2 (out of 102) "
