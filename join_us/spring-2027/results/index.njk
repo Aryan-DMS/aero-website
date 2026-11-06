@@ -27,9 +27,15 @@ title: "AeroClub | Phase 05: Results"
             <table style="border-left: 4px solid #10B981;">
                 <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
                 <tbody>
-                    <tr><td>Aryan Sharma</td><td>Web Design</td><td style="color: #10B981; font-weight: 700;">INDUCTED</td></tr>
-                    <tr><td>Priya Patel</td><td>Embedded Systems</td><td style="color: #10B981; font-weight: 700;">INDUCTED</td></tr>
-                    <tr><td>Ananya Desai</td><td>Aerodynamics</td><td style="color: #10B981; font-weight: 700;">INDUCTED</td></tr>
+                    {% for applicant in csvData %}
+                        {% if applicant['Final Status'] == 'Inducted' %}
+                        <tr>
+                            <td>{{ applicant['Full Name'] }}</td>
+                            <td>{{ applicant['Division Preference'] }}</td>
+                            <td style="color: #10B981; font-weight: 700;">INDUCTED</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

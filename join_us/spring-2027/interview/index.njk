@@ -27,12 +27,15 @@ title: "AeroClub | Phase 04: Interviews"
             <table>
                 <thead><tr><th>Time Slot (Mar 01)</th><th>Candidate Name</th><th>Panel Room</th></tr></thead>
                 <tbody>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">09:00 - 09:20</td><td>Aryan Sharma</td><td>Lab 1 (Web)</td></tr>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">09:30 - 09:50</td><td>Rahul Verma</td><td>Lab 3 (Aero)</td></tr>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">10:00 - 10:20</td><td>Priya Patel</td><td>Lab 2 (Embedded)</td></tr>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">10:30 - 10:50</td><td>Vikram Singh</td><td>Lab 3 (Aero)</td></tr>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">11:00 - 11:20</td><td>Ananya Desai</td><td>Lab 3 (Aero)</td></tr>
-                    <tr><td style="font-family: var(--font-data); color: var(--accent-cyan);">11:30 - 11:50</td><td>Karan Malhotra</td><td>Lab 2 (Embedded)</td></tr>
+                    {% for applicant in csvData %}
+                        {% if applicant['Interview Time'] and applicant['Interview Time'] != '' %}
+                        <tr>
+                            <td style="font-family: var(--font-data); color: var(--accent-cyan);">{{ applicant['Interview Time'] }}</td>
+                            <td>{{ applicant['Full Name'] }}</td>
+                            <td>{{ applicant['Division Preference'] }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
