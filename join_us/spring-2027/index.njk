@@ -3,18 +3,96 @@ layout: base.njk
 title: "AeroClub | Spring 2027 Command Dashboard"
 ---
 <style>
-    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(24px, 4vw, 40px); }
-    .phase-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-top: 4px solid var(--accent-cyan); padding: 40px; display: flex; flex-direction: column; transition: all 0.3s ease; border-radius: 4px; text-decoration: none; position: relative; overflow: hidden; }
-    .phase-card:hover { border-color: var(--text-light); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
-    .phase-number { position: absolute; top: -20px; right: -10px; font-size: 140px; font-weight: 900; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.05); z-index: 0; pointer-events: none; transition: all 0.3s ease; }
-    .phase-card:hover .phase-number { -webkit-text-stroke: 1px rgba(14, 165, 233, 0.15); transform: translateX(-10px); }
-    .phase-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
-    .phase-meta { font-family: var(--font-data); font-size: 12px; margin-bottom: 24px; display: inline-block; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; width: fit-content; background: rgba(14, 165, 233, 0.1); color: var(--accent-cyan); border: 1px solid rgba(14, 165, 233, 0.2); }
-    .phase-card h4 { font-size: 24px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -0.5px; }
-    .phase-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; flex: 1; }
-    .view-report { font-size: 13px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--border-dark); padding-top: 24px; margin-top: auto; transition: color 0.2s; }
-    .view-report::after { content: '→'; transition: transform 0.2s; }
-    .phase-card:hover .view-report::after { transform: translateX(6px); }
+    /* ==========================================
+       CLEAN NATIVE UI - COMMAND DASHBOARD
+    ========================================== */
+    .dashboard-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+        gap: 32px; 
+    }
+    
+    .mission-card {
+        background: var(--bg-deep);
+        border: 1px solid var(--border-dark);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mission-card:hover {
+        border-color: var(--text-muted);
+        transform: translateY(-4px);
+    }
+
+    /* Lock down pending cards smoothly */
+    .mission-card.status-pending {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .card-content {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-meta {
+        font-family: var(--font-data);
+        font-size: 13px;
+        color: var(--accent-cyan);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .card-desc {
+        color: var(--text-muted);
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 32px;
+        flex-grow: 1;
+    }
+
+    .card-footer {
+        border-top: 1px solid var(--border-dark);
+        padding-top: 24px;
+        margin-top: auto;
+    }
+
+    .card-cta {
+        font-family: var(--font-data);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-light);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card-cta span {
+        color: var(--accent-cyan);
+        transition: transform 0.2s;
+    }
+
+    .mission-card:hover .card-cta span {
+        transform: translateX(6px);
+    }
 </style>
 
 <main id="command-dashboard">
@@ -26,86 +104,88 @@ title: "AeroClub | Spring 2027 Command Dashboard"
         {% endif %}
     {% endfor %}
 
+    <!-- Clean Header mirroring the "Our Team" aesthetic -->
     <section style="padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 60px); border-bottom: 1px solid var(--border-dark);">
         <div class="container">
-            <a href="/join_us/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 32px; transition: color 0.2s;">← Back to Archives</a>
+            <a href="/join_us/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Archives</a>
             
-            {% if drive.status == 'Live' %}
-            <h4 style="font-family: var(--font-data); color: #10B981; font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block; box-shadow: 0 0 12px #10B981;"></span>
-                STATUS: LIVE DATASTREAM
-            </h4>
-            {% else %}
-            <h4 style="font-family: var(--font-data); color: var(--text-muted); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">STATUS: ARCHIVED</h4>
-            {% endif %}
+            <span style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block;">
+                RECRUITMENT CYCLE
+            </span>
             
-            <h2 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; margin-bottom: 24px; color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">{{ drive.title | default("Spring 2027 Dashboard") }}</h2>
+            <h1 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 24px; line-height: 1.1;">
+                {{ drive.title | default("Spring 2027 Induction") }}
+            </h1>
             
-            <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
-                <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px;">ACTIVE RECRUITMENT ROLES</h4>
-                <p style="color: var(--text-light); font-size: 16px; line-height: 1.6; font-weight: 500;">
-                    {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
-                </p>
-            </div>
+            <!-- Roles organically integrated into the description -->
+            <p style="color: var(--text-muted); font-size: 18px; line-height: 1.6; max-width: 800px;">
+                Currently recruiting for: {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, and Web Design") }}. Track phase progressions and access required materials below.
+            </p>
         </div>
     </section>
 
+    <!-- Clean Card Grid mirroring the Archive aesthetic -->
     <section style="padding: clamp(60px, 8vw, 100px) 0;">
         <div class="container">
             <div class="dashboard-grid">
                 
-                <!-- PHASE 1: Linked to CMS Status -->
-                <a href="/join_us/spring-2027/application/" class="phase-card status-{{ (drive.phase1.status | default('Open')) | lower }}" {% if drive.phase1.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
-                    <span class="phase-number">01</span>
-                    <div class="phase-content">
-                        <span class="phase-meta">STATUS // {{ drive.phase1.status | default('Open') | upper }}</span>
-                        <h4>Initial Applications</h4>
-                        <p>Role breakdowns, technical expectations, and the primary application portal.</p>
-                        <span class="view-report">Access Portal</span>
+                <!-- PHASE 01 -->
+                <a href="/join_us/spring-2027/application/" class="mission-card status-{{ (drive.phase1.status | default('Open')) | lower }}">
+                    <div class="card-content">
+                        <span class="card-meta">PHASE 01 // {{ drive.phase1.status | default('Open') }}</span>
+                        <h3 class="card-title">Initial Applications</h3>
+                        <p class="card-desc">Role breakdowns, technical expectations, and the primary application portal.</p>
+                        <div class="card-footer">
+                            <span class="card-cta">ACCESS PORTAL <span>→</span></span>
+                        </div>
                     </div>
                 </a>
 
-                <!-- PHASE 2: Linked to CMS Status -->
-                <a href="/join_us/spring-2027/test/" class="phase-card status-{{ (drive.phase2.status | default('Pending')) | lower }}" {% if drive.phase2.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
-                    <span class="phase-number">02</span>
-                    <div class="phase-content">
-                        <span class="phase-meta">STATUS // {{ drive.phase2.status | default('Pending') | upper }}</span>
-                        <h4>Technical Test</h4>
-                        <p>Syllabus breakdown, evaluation metrics, and logistical details for the written examination.</p>
-                        <span class="view-report">Read Report</span>
+                <!-- PHASE 02 -->
+                <a href="/join_us/spring-2027/test/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
+                    <div class="card-content">
+                        <span class="card-meta">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
+                        <h3 class="card-title">Technical Test</h3>
+                        <p class="card-desc">Syllabus breakdown, evaluation metrics, and logistical details for the written examination.</p>
+                        <div class="card-footer">
+                            <span class="card-cta">READ REPORT <span>→</span></span>
+                        </div>
                     </div>
                 </a>
 
-                <!-- PHASE 3: Linked to CMS Status -->
-                <a href="/join_us/spring-2027/shortlist/" class="phase-card status-{{ (drive.phase3.status | default('Pending')) | lower }}" {% if drive.phase3.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
-                    <span class="phase-number">03</span>
-                    <div class="phase-content">
-                        <span class="phase-meta">STATUS // {{ drive.phase3.status | default('Pending') | upper }}</span>
-                        <h4>Test Shortlist</h4>
-                        <p>Official roster of candidates advancing to the technical interview rounds.</p>
-                        <span class="view-report">View Data</span>
+                <!-- PHASE 03 -->
+                <a href="/join_us/spring-2027/shortlist/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
+                    <div class="card-content">
+                        <span class="card-meta">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
+                        <h3 class="card-title">Test Shortlist</h3>
+                        <p class="card-desc">Official roster of candidates advancing to the technical interview rounds.</p>
+                        <div class="card-footer">
+                            <span class="card-cta">VIEW DATA <span>→</span></span>
+                        </div>
                     </div>
                 </a>
 
-                <!-- PHASE 4: Linked to CMS Status -->
-                <a href="/join_us/spring-2027/interview/" class="phase-card status-{{ (drive.phase4.status | default('Pending')) | lower }}" {% if drive.phase4.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
-                    <span class="phase-number">04</span>
-                    <div class="phase-content">
-                        <span class="phase-meta">STATUS // {{ drive.phase4.status | default('Pending') | upper }}</span>
-                        <h4>Interviews</h4>
-                        <p>Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
-                        <span class="view-report">View Logistics</span>
+                <!-- PHASE 04 -->
+                <a href="/join_us/spring-2027/interview/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
+                    <div class="card-content">
+                        <span class="card-meta">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
+                        <h3 class="card-title">Interviews</h3>
+                        <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
+                        <div class="card-footer">
+                            <span class="card-cta">VIEW LOGISTICS <span>→</span></span>
+                        </div>
                     </div>
                 </a>
 
-                <!-- PHASE 5: Linked to CMS Status -->
-                <a href="/join_us/spring-2027/results/" class="phase-card status-{{ (drive.phase5.status | default('Pending')) | lower }}" {% if drive.phase5.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
-                    <span class="phase-number">05</span>
-                    <div class="phase-content">
-                        <span class="phase-meta">STATUS // {{ drive.phase5.status | default('Pending') | upper }}</span>
-                        <h4>Final Results</h4>
-                        <p>The finalized list of inducted members for the Spring 2027 competition cycle.</p>
-                        <span class="view-report">View Roster</span>
+                <!-- PHASE 05 -->
+                <a href="/join_us/spring-2027/results/" class="mission-card status-{{ (drive.phase5.status | default('Pending')) | lower }}">
+                    <div class="card-content">
+                        <span class="card-meta">PHASE 05 // {{ drive.phase5.status | default('Pending') }}</span>
+                        <h3 class="card-title">Final Results</h3>
+                        <p class="card-desc">The finalized list of inducted members for the Spring 2027 competition cycle.</p>
+                        <div class="card-footer">
+                            <span class="card-cta">VIEW ROSTER <span>→</span></span>
+                        </div>
                     </div>
                 </a>
 
