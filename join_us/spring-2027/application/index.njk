@@ -3,19 +3,61 @@ layout: base.njk
 title: "AeroClub | Phase 01: Application"
 ---
 <style>
-    .report-container { max-width: 800px; margin: 0 auto; padding: 80px 20px 140px; }
+    /* Widened container for the 2-column layout */
+    .report-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 140px; }
     .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
     .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
     
-    .report-content h3 { font-size: 24px; font-weight: 700; color: var(--text-light); margin: 48px 0 16px; border-bottom: 1px solid var(--border-dark); padding-bottom: 12px; }
+    /* 2-Column Grid matching the "Hardware Data" layout */
+    .report-grid {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: clamp(40px, 6vw, 80px);
+        align-items: start;
+    }
+    @media (max-width: 900px) {
+        .report-grid { grid-template-columns: 1fr; }
+    }
+
+    /* LEFT COLUMN: Sidebar Styling */
+    .data-box {
+        background: var(--bg-panel-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 4px;
+        padding: 32px;
+        margin-bottom: 24px;
+    }
+    .data-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 14px;
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { color: var(--text-muted); font-family: var(--font-data); }
+    .data-value { color: var(--text-light); font-weight: 500; text-align: right; }
+
+    .setup-box {
+        background: var(--bg-panel-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 4px;
+        padding: 32px;
+        margin-bottom: 24px;
+    }
+    .input-field {
+        width: 100%; padding: 12px 16px; background: var(--bg-deep);
+        border: 1px solid var(--border-dark); color: var(--text-light);
+        font-family: var(--font-ui); font-size: 15px; border-radius: 4px;
+        margin-bottom: 16px; outline: none; transition: border-color 0.2s;
+    }
+    .input-field:focus { border-color: var(--accent-cyan); }
+    
+    /* RIGHT COLUMN: Markdown Content Styling */
+    .report-content h3 { font-size: 32px; font-weight: 700; color: var(--text-light); margin: 0 0 24px 0; letter-spacing: -0.5px; }
     .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
     .report-content ul { margin-left: 20px; margin-bottom: 32px; color: var(--text-muted); font-size: 16px; line-height: 1.7; }
     .report-content li { margin-bottom: 8px; }
-
-    .setup-box { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 40px; border-radius: 4px; margin-top: 60px; }
-    .input-field { width: 100%; padding: 12px 16px; background: var(--bg-deep); border: 1px solid var(--border-dark); color: var(--text-light); font-family: var(--font-ui); font-size: 15px; border-radius: 4px; margin-bottom: 16px; outline: none; transition: border-color 0.2s; }
-    .input-field:focus { border-color: var(--accent-cyan); }
-    .success-state { display: none; border-left: 4px solid #10B981; }
 </style>
 
 <main>
@@ -28,57 +70,76 @@ title: "AeroClub | Phase 01: Application"
     {% endfor %}
 
     <div class="report-container">
+        <!-- Header (Full Width) -->
         <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
-
         <span class="report-meta">PHASE 01 // {{ drive.phase1.status | default('OVERVIEW') | upper }}</span>
         <h1 class="report-title">Initial Applications</h1>
 
-        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">
-            {{ drive.phase1.report | default("Report data will appear here once published in CMS.") }}
-        </div>
-
-        {% if drive.phase1.status == 'Open' %}
-        <!-- The Clean Form Tracker -->
-        <div id="auth-gate" class="setup-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light);">Application Tracking</h4>
-                <span style="background: rgba(14, 165, 233, 0.1); color: var(--accent-cyan); padding: 4px 8px; border-radius: 4px; font-family: var(--font-data); font-size: 11px; font-weight: 700;">DEADLINE: {{ drive.phase1.deadline | default("TBA") }}</span>
-            </div>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; line-height: 1.6;">To allow you to track your application status directly on this website, please enter your name exactly as you will type it into the Google Form.</p>
+        <!-- 2-Column Split -->
+        <div class="report-grid">
             
-            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                <input type="text" id="applicant-name" class="input-field" style="flex: 1; min-width: 250px; margin-bottom: 0;" placeholder="Enter your full name">
-                <button onclick="registerApplicant()" class="btn-join" style="padding: 12px 24px; border: none; cursor: pointer; white-space: nowrap;">Continue to Form</button>
-            </div>
-        </div>
+            <!-- LEFT COLUMN: Logistics & Tracker -->
+            <aside>
+                <span style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; display: block;">PHASE DATA</span>
+                
+                <div class="data-box">
+                    <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">LOGISTICS</span>
+                    <div class="data-row">
+                        <span class="data-label">Deadline</span>
+                        <span class="data-value">{{ drive.phase1.deadline | default("TBA") }}</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Status</span>
+                        <span class="data-value" {% if drive.phase1.status == 'Open' %}style="color: #10B981;"{% endif %}>{{ drive.phase1.status | default("Pending") }}</span>
+                    </div>
+                </div>
 
-        <!-- STATE 2: The Tracking State (Waiting on CSV Sync) -->
-        <div id="auth-success" class="setup-box success-state">
-            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Tracking Enabled for: <span id="display-name" style="color: #10B981;"></span></h4>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your browser is now configured to track your application. Please proceed to the official submission form.</p>
-            
-            <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: inline-block; background: var(--text-light); color: var(--bg-deep); padding: 12px 28px; text-decoration: none;">Open Application Form ↗</a>
-        </div>
+                {% if drive.phase1.status == 'Open' %}
+                    <!-- STATE 1: Enter Name -->
+                    <div id="auth-gate" class="setup-box">
+                        <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">APPLICATION TRACKER</span>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">Enter your exact name used in the Google Form to sync your local dossier.</p>
+                        <input type="text" id="applicant-name" class="input-field" placeholder="Full Legal Name">
+                        <button onclick="registerApplicant()" class="btn-join" style="width: 100%; border: none; cursor: pointer;">Initialize Session</button>
+                    </div>
 
-        <!-- STATE 3: The Verified State (Name found in CSV) -->
-        <div id="auth-verified" class="setup-box" style="display: none; border-left: 4px solid var(--accent-cyan); background: rgba(14, 165, 233, 0.05);">
-            <h4 style="font-size: 18px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; box-shadow: 0 0 12px var(--accent-cyan);"></span>
-                APPLICATION VERIFIED: <span id="verified-name" style="color: var(--text-light);"></span>
-            </h4>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your application dossier has been securely synced with the command database. No further action is required at this time.</p>
-            
-            <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: inline-block; background: transparent; border: 1px solid var(--border-dark); color: var(--text-light); padding: 12px 28px; text-decoration: none;">Edit Submission ↗</a>
-        </div>
+                    <!-- STATE 2: Tracking Active (Waiting on CSV) -->
+                    <div id="auth-success" class="setup-box" style="display: none; border-top: 4px solid var(--border-dark);">
+                        <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">SESSION ACTIVE</span>
+                        <p style="color: var(--text-light); font-size: 16px; font-weight: 500; margin-bottom: 8px;" id="display-name"></p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6;">Proceed to the official portal to complete your submission.</p>
+                        <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: block; text-align: center; background: var(--text-light); color: var(--bg-deep); text-decoration: none;">Open Form ↗</a>
+                    </div>
 
-        {% else %}
-        <div class="setup-box" style="border-left: 4px solid var(--border-dark); opacity: 0.6;">
-            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Portal Closed</h4>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 0; line-height: 1.6;">The application portal is not currently accepting submissions. Phase status: {{ drive.phase1.status | default("Pending") }}.</p>
+                    <!-- STATE 3: Verified in CSV -->
+                    <div id="auth-verified" class="setup-box" style="display: none; border-top: 4px solid #10B981; background: rgba(16, 185, 129, 0.05);">
+                        <span style="font-family: var(--font-data); font-size: 10px; color: #10B981; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">VERIFIED DOSSIER</span>
+                        <p style="color: var(--text-light); font-size: 16px; font-weight: 500; margin-bottom: 8px;" id="verified-name"></p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6;">Application successfully synced with the command database.</p>
+                        <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: block; text-align: center; background: transparent; border: 1px solid var(--border-dark); color: var(--text-light); text-decoration: none;">Edit Submission ↗</a>
+                    </div>
+                {% else %}
+                    <!-- CLOSED STATE -->
+                    <div class="setup-box" style="border-left: 4px solid var(--border-dark); opacity: 0.6;">
+                        <span style="font-family: var(--font-data); font-size: 10px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">PORTAL CLOSED</span>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 0; line-height: 1.6;">The application portal is not currently accepting submissions.</p>
+                    </div>
+                {% endif %}
+            </aside>
+
+            <!-- RIGHT COLUMN: Detailed Markdown Report -->
+            <article>
+                <div class="report-content" style="white-space: pre-wrap;">
+                    <!-- Injecting the cinematic H3 Title to match reference -->
+                    <h3>Engineering Summary</h3>
+                    {{ drive.phase1.report | default("Report data will appear here once published in CMS.") }}
+                </div>
+            </article>
+
         </div>
-        {% endif %}
     </div>
 </main>
+
 
 <script>
     // 1. We dump the names from Eleventy's CSV into a JavaScript array
