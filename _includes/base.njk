@@ -122,12 +122,11 @@
            MOBILE RESPONSIVE OVERRIDES (TABLETS & PHONES)
         ========================================== */
         @media (max-width: 960px) {
-            /* Fix Header Layout & Reposition Hamburger */
-            header { padding: 0 20px; height: 70px; }
+            /* 1. Header & Mobile Drawer */
+            header { padding: 0 24px; height: 70px; }
             .nav-logo { flex: 1; }
             .menu-toggle { display: flex; margin-left: auto; }
             
-            /* Mobile Navigation Drawer */
             .nav-links {
                 position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px);
                 background-color: var(--bg-deep); flex-direction: column; align-items: center;
@@ -140,63 +139,69 @@
             header > .btn-join { display: none; } 
             .mobile-sponsor-item { display: block !important; }
 
-            /* Global Typography & Spacing Fixes */
-            .container { padding: 0 20px; }
-            h1, .hero-text h1 { font-size: 44px !important; letter-spacing: -1px !important; line-height: 1.1; }
-            h2, .mission-text h2, .page-section h2, .launch-cta h2, .news-header h2, .partners-header h2 { font-size: 32px !important; line-height: 1.2; }
-            .hero-text p, .mission-text p, .launch-cta p { font-size: 16px !important; line-height: 1.6; }
-            .home-section, .page-section, .launch-cta { padding-top: 60px !important; padding-bottom: 60px !important; }
+            /* 2. Global Padding & Typography (Fixes edge-kissing) */
+            .container { padding-left: 24px !important; padding-right: 24px !important; width: 100% !important; box-sizing: border-box; }
+            h1, .hero-text h1 { font-size: 42px !important; letter-spacing: -1px !important; line-height: 1.1; margin-bottom: 16px !important; }
+            h2, .mission-text h2, .page-section h2, .launch-cta h2, .news-header h2, .partners-header h2 { font-size: 32px !important; line-height: 1.2; margin-bottom: 16px !important; }
+            .hero-text p, .mission-text p, .launch-cta p { font-size: 16px !important; line-height: 1.6; margin-bottom: 32px !important; }
+            .home-section, .page-section, .launch-cta { padding-top: 64px !important; padding-bottom: 64px !important; }
 
-            /* Hero Button & Line Fixes */
-            div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column; align-items: flex-start; width: auto; }
-            .btn-join, .btn-outline { width: auto !important; display: inline-flex; align-items: center; justify-content: center; }
-            .hero-footer-line { flex-direction: row !important; align-items: flex-start !important; margin-top: 40px !important; }
-            .hero-footer-line::before { width: 2px !important; height: auto !important; min-height: 40px; }
+            /* 3. Button Sizing (Fixes horizontal expansion) */
+            .btn-join, .btn-outline { width: fit-content !important; display: inline-flex !important; padding: 12px 28px !important; }
+            div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; margin-top: 0 !important; gap: 16px !important; }
+            
+            /* 4. Hero Footer Line */
+            .hero-footer-line { flex-direction: column !important; align-items: flex-start !important; margin-top: 48px !important; gap: 12px !important; }
+            .hero-footer-line::before { width: 40px !important; height: 2px !important; }
 
-            /* Stats Grid */
-            .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 32px; }
+            /* 5. Stats Grid */
+            .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 32px 16px !important; }
 
-            /* Mission Split (Left Aligned Text & Typography) */
-            .mission-split { grid-template-columns: 1fr !important; gap: 40px; text-align: left; }
-            .mission-typo { align-items: flex-start; }
-            .mission-typo h3 { font-size: 56px !important; text-align: left; transform: none !important; }
-            
-            /* Fix Fleet Carousel (Breathing Room) */
-            .fleet-carousel { margin: 0; border-radius: 8px; }
-            .fleet-slide { flex-direction: column-reverse; padding: 40px 24px !important; text-align: left; gap: 24px; }
-            .fleet-image img { max-height: 220px !important; }
-            .carousel-btn { width: 40px; height: 40px; font-size: 14px; background: rgba(11, 17, 33, 0.8); }
-            
-            /* Reorder News & Partner Headers */
-            .news-header, .partners-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
-            
-            /* HORIZONTAL SWIPE SCROLL for News & Partners */
+            /* 6. Mission Split (Who We Are) */
+            .mission-split { grid-template-columns: 1fr !important; gap: 48px !important; }
+            .mission-text { text-align: left !important; align-items: flex-start !important; display: flex; flex-direction: column; }
+            .mission-typo { align-items: flex-start !important; gap: 8px !important; }
+            .mission-typo h3 { font-size: 52px !important; text-align: left !important; transform: none !important; margin: 0; }
+
+            /* 7. Aircraft Showcase / Fleet Carousel */
+            .fleet-carousel { margin: 0 !important; width: 100% !important; border-radius: 12px !important; }
+            .fleet-slide { flex-direction: column-reverse !important; padding: 32px 24px !important; text-align: left !important; align-items: flex-start !important; gap: 24px !important; }
+            .fleet-info h3 { font-size: 28px !important; }
+            .fleet-image { width: 100% !important; justify-content: center !important; }
+            .fleet-image img { max-height: 200px !important; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 14px; background: rgba(11, 17, 33, 0.9); }
+
+            /* 8. Native Horizontal Swipe Carousels (News & Partners) */
+            .news-header, .partners-header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 24px !important; }
             .news-grid, .partners-grid { 
                 display: flex !important; 
                 flex-wrap: nowrap !important; 
-                overflow-x: auto; 
-                scroll-snap-type: x mandatory; 
-                -webkit-overflow-scrolling: touch; 
+                overflow-x: auto !important; 
+                scroll-snap-type: x mandatory !important; 
+                -webkit-overflow-scrolling: touch !important; 
                 gap: 16px !important;
-                padding-bottom: 24px;
-                /* Hide scrollbar */
+                padding-bottom: 24px !important;
                 -ms-overflow-style: none; 
                 scrollbar-width: none;
+                /* Break out of container to bleed cleanly to screen edges */
+                margin-left: -24px !important;
+                margin-right: -24px !important;
+                padding-left: 24px !important;
+                padding-right: 24px !important;
             }
             .news-grid::-webkit-scrollbar, .partners-grid::-webkit-scrollbar { display: none; }
             .news-card, .partner-logo { 
-                flex: 0 0 85% !important; /* 85% width lets them see the next card peeking */
-                scroll-snap-align: center;
-                height: auto;
+                flex: 0 0 85% !important; /* Shows 85% of card so next card naturally peeks out */
+                scroll-snap-align: center !important;
+                height: auto !important;
             }
-            .news-card .news-img { height: 200px; }
-            .partner-logo { height: 180px; }
-            
-            /* Fix Footer Layout (Left Aligned) */
-            .footer-content { grid-template-columns: 1fr; gap: 48px; padding: 60px 0 40px; text-align: left; }
-            .footer-content > div { display: flex; flex-direction: column; align-items: flex-start; }
-            .contact-info li, .footer-content span { flex-direction: column; gap: 4px; text-align: left; align-items: flex-start !important; }
-            .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
+            .news-card .news-img { height: 200px !important; }
+            .partner-logo { height: 180px !important; }
+
+            /* 9. Footer Cleanup */
+            .footer-content { grid-template-columns: 1fr !important; gap: 48px !important; padding: 48px 0 32px !important; }
+            .footer-content > div, .contact-info li, .footer-content span { flex-direction: column !important; align-items: flex-start !important; text-align: left !important; gap: 8px !important; }
+            .footer-bottom { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; }
         }
     </style>
 </head>
