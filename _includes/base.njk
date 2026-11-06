@@ -122,10 +122,12 @@
            MOBILE RESPONSIVE OVERRIDES (TABLETS & PHONES)
         ========================================== */
         @media (max-width: 960px) {
+            /* Fix Header Layout & Reposition Hamburger */
             header { padding: 0 20px; height: 70px; }
-            .menu-toggle { display: flex; }
+            .nav-logo { flex: 1; }
+            .menu-toggle { display: flex; margin-left: auto; }
             
-            /* Transform .nav-links into a slide-down mobile drawer */
+            /* Mobile Navigation Drawer */
             .nav-links {
                 position: fixed;
                 top: 70px;
@@ -145,30 +147,44 @@
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 999;
             }
-            
-            /* Active state toggled via JS */
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
+            .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
             .nav-links a { font-size: 18px; width: 80%; text-align: center; padding: 12px; }
-            
-            /* Hide the desktop header button and reveal the drawer version */
             header > .btn-join { display: none; } 
             .mobile-sponsor-item { display: block !important; }
 
-            /* Collapse multi-column grids into single columns */
-            .footer-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 0 30px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px; }
-            .mission-split { grid-template-columns: 1fr !important; gap: 40px; }
+            /* Global Typography & Spacing Fixes */
+            .container { padding: 0 20px; }
+            h1, .hero-text h1 { font-size: 40px !important; letter-spacing: -1px !important; line-height: 1.2; }
+            h2, .mission-text h2, .page-section h2, .launch-cta h2, .news-header h2, .partners-header h2 { font-size: 32px !important; line-height: 1.2; }
+            .hero-text p, .mission-text p, .launch-cta p { font-size: 16px !important; line-height: 1.6; }
+            .home-section, .page-section, .launch-cta, .hero-footer-line { padding-top: 60px !important; padding-bottom: 60px !important; }
+            .hero-footer-line { margin-top: 40px !important; flex-direction: column; align-items: flex-start; gap: 8px; }
+            .hero-footer-line::before { width: 100%; height: 2px; }
+
+            /* Force ALL Grids to Single Column */
+            .stats-grid { grid-template-columns: 1fr !important; gap: 32px; }
+            .mission-split { grid-template-columns: 1fr !important; gap: 40px; text-align: center; }
+            .mission-typo h3 { font-size: 48px !important; }
+            .news-grid, .partners-grid, .team-grid { grid-template-columns: 1fr !important; gap: 24px; }
             
-            /* Scale down massive hero text on mobile */
-            .hero-text h1, h1 { font-size: 38px !important; letter-spacing: -1px !important; }
-            .page-section h2, .mission-text h2 { font-size: 30px !important; }
+            /* Fix Fleet Carousel Squishing */
+            .fleet-slide { flex-direction: column-reverse; padding: 40px 20px !important; text-align: center; gap: 32px; }
+            .fleet-image img { max-height: 200px !important; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 14px; background: var(--bg-deep); }
             
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            /* Reorder News & Partner Headers */
+            .news-header, .partners-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+            .news-card .news-img { height: 220px; }
+            
+            /* Fix Footer Expansion */
+            .footer-content { grid-template-columns: 1fr; gap: 48px; padding: 60px 0 40px; text-align: center; }
+            .footer-content > div { display: flex; flex-direction: column; align-items: center; }
+            .contact-info li, .footer-content span { flex-direction: column; gap: 4px; text-align: center; }
+            .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
+            
+            /* General utility */
+            div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column; width: 100%; }
+            .btn-join, .btn-outline { width: 100%; text-align: center; }
         }
     </style>
 </head>
