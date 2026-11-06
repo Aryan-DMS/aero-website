@@ -14,11 +14,79 @@ title: "AeroClub | Contact"
         .social-link { color: var(--accent-cyan); font-weight: 700; font-size: 15px; transition: color 0.2s; text-decoration: none; display: inline-block; }
         .social-link:hover { color: var(--text-light); }
 
-        /* Modern Architectural Form */
+        /* ==========================================
+           NATIVE-APP CONTACT FORM
+        ========================================== */
+        .contact-form-card {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
         .form-group { margin-bottom: 24px; }
-        .form-label { display: block; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
-        .form-input { width: 100%; padding: 16px; border-radius: 4px; border: 1px solid var(--border-dark); background: var(--bg-deep); color: var(--text-light); font-family: var(--font-ui); font-size: 16px; transition: border-color 0.2s ease, box-shadow 0.2s ease; outline: none; }
-        .form-input:focus { border-color: var(--text-light); box-shadow: 0 0 0 1px var(--text-light); }
+        
+        .form-label {
+            font-family: var(--font-data); 
+            font-size: 11px; 
+            color: var(--text-muted);
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            margin-bottom: 8px; 
+            display: block;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%; 
+            background: var(--bg-deep); 
+            border: 1px solid var(--border-dark);
+            color: var(--text-light); 
+            font-family: var(--font-ui), sans-serif;
+            font-size: 15px; 
+            padding: 14px 16px; 
+            border-radius: 8px; 
+            outline: none;
+            transition: all 0.2s ease; 
+            box-sizing: border-box;
+        }
+        
+        .form-input::placeholder, .form-textarea::placeholder { 
+            color: rgba(255,255,255,0.2); 
+        }
+        
+        /* The Native Focus Ring */
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent-cyan);
+            background: rgba(14, 165, 233, 0.02);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        }
+        
+        .form-textarea { 
+            resize: vertical; 
+            min-height: 120px; 
+        }
+        
+        .form-submit {
+            width: 100%; 
+            background: var(--text-light); 
+            color: var(--bg-deep);
+            border: none; 
+            padding: 16px; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 800;
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); 
+            margin-top: 8px;
+        }
+        
+        .form-submit:hover {
+            background: var(--accent-cyan); 
+            color: var(--bg-deep); 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
 
         /* ==========================================
            PAGE CONTENT (HOME PAGE)
@@ -112,25 +180,29 @@ title: "AeroClub | Contact"
                 </div>
                 
                 <!-- Right: High-End Form (Mailto Integration) -->
-                <div style="background: var(--bg-panel-dark); padding: 48px; border-radius: 4px; border: 1px solid var(--border-dark);">
+                <div class="contact-form-card">
                     <form id="contactForm" onsubmit="sendEmail(event)">
                         <div class="form-group">
                             <label class="form-label">Full Name</label>
                             <input type="text" id="senderName" class="form-input" placeholder="Enter your designation" required>
                         </div>
+                        
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <input type="email" id="senderEmail" class="form-input" placeholder="Enter routing email" required>
                         </div>
+                        
                         <div class="form-group">
                             <label class="form-label">Inquiry Type</label>
-                            <input type="text" id="inquiryType" class="form-input" placeholder="e.g. Recruitment,Doubts, General" required>
+                            <input type="text" id="inquiryType" class="form-input" placeholder="e.g. Recruitment, Doubts, General" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 32px;">
+                        
+                        <div class="form-group">
                             <label class="form-label">Transmission Message</label>
-                            <textarea id="senderMessage" rows="4" class="form-input" style="resize: vertical;" placeholder="How can we assist your operations?" required></textarea>
+                            <textarea id="senderMessage" class="form-textarea" placeholder="How can we assist your operations?" required></textarea>
                         </div>
-                        <button type="submit" class="btn-join" style="width: 100%; border: none;">Transmit Message</button>
+                        
+                        <button type="submit" class="form-submit">Transmit Message</button>
                     </form>
                 </div>
             </div>
