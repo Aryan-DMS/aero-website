@@ -1,0 +1,100 @@
+---
+layout: base.njk
+title: "AeroClub | Phase 01: Application"
+---
+<style>
+    .report-container { max-width: 800px; margin: 0 auto; padding: 100px 20px 140px; }
+    .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
+    
+    .info-block { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 4px; margin-bottom: 24px; }
+    .info-block h4 { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 1px; }
+    .info-block p, .info-block li { color: var(--text-light); font-size: 16px; line-height: 1.6; }
+    .info-block ul { margin-left: 20px; margin-top: 12px; }
+
+    /* The Identity Gate Styles */
+    .identity-gate { border: 1px solid var(--accent-cyan); border-left: 4px solid var(--accent-cyan); background: rgba(14, 165, 233, 0.05); padding: 40px; border-radius: 4px; margin-top: 40px; }
+    .input-field { width: 100%; padding: 16px; background: var(--bg-deep); border: 1px solid var(--border-dark); color: var(--text-light); font-family: var(--font-ui); font-size: 16px; border-radius: 4px; margin-bottom: 16px; outline: none; }
+    .input-field:focus { border-color: var(--accent-cyan); }
+    
+    .success-state { display: none; border-left-color: #10B981; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); }
+</style>
+
+<main>
+    <div class="report-container">
+        <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">
+            ← Back to Dashboard
+        </a>
+
+        <span class="report-meta">PHASE 01 // OPEN</span>
+        <h1 class="report-title">Initial Applications</h1>
+
+        <div class="info-block">
+            <h4>REQUIREMENTS & ELIGIBILITY</h4>
+            <p>Candidates are evaluated based on their technical baseline and problem-solving methodology. Prior experience is beneficial but not mandatory. We are looking for dedication, rapid learning capability, and engineering intuition.</p>
+            <ul>
+                <li>Must be currently enrolled in an undergraduate program.</li>
+                <li>Able to commit 10-12 hours per week to division operations.</li>
+                <li>Familiarity with basic physics and mathematics.</li>
+            </ul>
+        </div>
+
+        <!-- STATE 1: Identity Gate (Unregistered) -->
+        <div id="auth-gate" class="identity-gate">
+            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; margin-bottom: 16px; letter-spacing: 1px;">GENERATE APPLICANT DOSSIER</h4>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 15px;">To ensure accurate tracking across the recruitment pipeline, please register your official name exactly as it will appear on your application.</p>
+            
+            <input type="text" id="applicant-name" class="input-field" placeholder="Full Legal Name">
+            <button onclick="registerApplicant()" class="btn-join" style="width: 100%; border: none; cursor: pointer;">Initialize Dossier & Continue →</button>
+        </div>
+
+        <!-- STATE 2: Authorized (Registered) -->
+        <div id="auth-success" class="identity-gate success-state">
+            <h4 style="font-family: var(--font-data); color: #10B981; font-size: 13px; margin-bottom: 16px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block;"></span> IDENTITY VERIFIED
+            </h4>
+            <p style="color: var(--text-light); font-size: 18px; margin-bottom: 8px;">Applicant ID generated for: <strong id="display-name" style="color: #10B981;"></strong></p>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px;">Your local session is now active. Please proceed to the official external form to complete your application submission.</p>
+            
+            <a href="https://forms.google.com/your-link-here" target="_blank" class="btn-join" style="display: block; text-align: center; border: none; background: #10B981;">
+                Access Application Form ↗
+            </a>
+            
+            <!-- A subtle reset button for testing -->
+            <button onclick="resetApplicant()" style="background: none; border: none; color: var(--text-muted); font-family: var(--font-data); font-size: 11px; margin-top: 24px; cursor: pointer; text-decoration: underline;">Clear Local Session</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    // The Tracking Logic
+    function checkStatus() {
+        const savedName = localStorage.getItem('aeroclub_sp27_applicant');
+        if (savedName) {
+            document.getElementById('auth-gate').style.display = 'none';
+            document.getElementById('auth-success').style.display = 'block';
+            document.getElementById('display-name').innerText = savedName;
+        } else {
+            document.getElementById('auth-gate').style.display = 'block';
+            document.getElementById('auth-success').style.display = 'none';
+        }
+    }
+
+    function registerApplicant() {
+        const nameInput = document.getElementById('applicant-name').value;
+        if (nameInput.trim().length > 2) {
+            localStorage.setItem('aeroclub_sp27_applicant', nameInput.trim());
+            checkStatus();
+        } else {
+            alert("Please enter your full name to proceed.");
+        }
+    }
+
+    function resetApplicant() {
+        localStorage.removeItem('aeroclub_sp27_applicant');
+        checkStatus();
+    }
+
+    // Run on page load
+    document.addEventListener("DOMContentLoaded", checkStatus);
+</script>

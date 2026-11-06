@@ -1,0 +1,72 @@
+---
+layout: base.njk
+title: "AeroClub | Phase 03: Shortlist"
+---
+<style>
+    .report-container { max-width: 900px; margin: 0 auto; padding: 100px 20px 140px; }
+    .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
+    
+    /* Clean, highly technical data tables */
+    .data-table-wrapper { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 20px 24px; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); border-bottom: 1px solid var(--border-dark); text-transform: uppercase; letter-spacing: 1px; background: rgba(0,0,0,0.2); }
+    td { padding: 16px 24px; font-size: 15px; color: var(--text-light); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    
+    .status-pass { color: #10B981; font-weight: 700; font-family: var(--font-data); font-size: 13px; }
+    .id-hash { font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; }
+</style>
+
+<main>
+    <div class="report-container">
+        <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">
+            ← Back to Dashboard
+        </a>
+
+        <span class="report-meta">PHASE 03 // DECLASSIFIED</span>
+        <h1 class="report-title">Test Shortlist</h1>
+        <p style="color: var(--text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 40px;">The following candidates have successfully cleared the technical evaluation. Phase 04 interview time-slots will be updated shortly.</p>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Applicant ID</th>
+                        <th>Name</th>
+                        <th>Division Preference</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- When CMS is active, we will loop these table rows! -->
+                    <tr>
+                        <td class="id-hash">SP27-0104</td>
+                        <td>Aryan Sharma</td>
+                        <td>Web Design</td>
+                        <td class="status-pass">CLEARED</td>
+                    </tr>
+                    <tr>
+                        <td class="id-hash">SP27-0188</td>
+                        <td>Rahul Verma</td>
+                        <td>Aerodynamics</td>
+                        <td class="status-pass">CLEARED</td>
+                    </tr>
+                    <tr>
+                        <td class="id-hash">SP27-0205</td>
+                        <td>Priya Patel</td>
+                        <td>Embedded Systems</td>
+                        <td class="status-pass">CLEARED</td>
+                    </tr>
+                    <tr>
+                        <td class="id-hash">SP27-0312</td>
+                        <td>Vikram Singh</td>
+                        <td>Payload Integration</td>
+                        <td class="status-pass">CLEARED</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
