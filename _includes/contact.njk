@@ -15,29 +15,33 @@ title: "AeroClub | Contact"
         .social-link:hover { color: var(--text-light); }
 
         /* ==========================================
-           NATIVE-APP CONTACT FORM
+           CLEAN ARCHITECTURAL CONTACT FORM
         ========================================== */
         .contact-form-card {
             background: var(--bg-panel-dark);
             border: 1px solid var(--border-dark);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
+        
+        .card-header { margin-bottom: 32px; }
+        .card-header h4 { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+        .card-header h2 { font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 8px; letter-spacing: -0.5px; }
+        .card-header p { font-size: 15px; color: var(--text-muted); line-height: 1.5; margin: 0; }
         
         .form-group { margin-bottom: 24px; }
         
         .form-label {
             font-family: var(--font-data); 
-            font-size: 11px; 
-            color: var(--text-muted);
+            font-size: 12px; 
+            color: var(--text-light);
             letter-spacing: 1px; 
             text-transform: uppercase; 
-            margin-bottom: 8px; 
+            margin-bottom: 10px; 
             display: block;
         }
         
-        .form-input, .form-textarea {
+        .form-input, .form-textarea, .form-select {
             width: 100%; 
             background: var(--bg-deep); 
             border: 1px solid var(--border-dark);
@@ -45,21 +49,33 @@ title: "AeroClub | Contact"
             font-family: var(--font-ui), sans-serif;
             font-size: 15px; 
             padding: 14px 16px; 
-            border-radius: 8px; 
+            border-radius: 4px; 
             outline: none;
-            transition: all 0.2s ease; 
+            transition: border-color 0.2s ease; 
             box-sizing: border-box;
+            appearance: none;
         }
         
-        .form-input::placeholder, .form-textarea::placeholder { 
-            color: rgba(255,255,255,0.2); 
+        .form-input::placeholder, .form-textarea::placeholder, .form-select:invalid { 
+            color: rgba(255,255,255,0.4); 
         }
         
-        /* The Native Focus Ring */
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--accent-cyan);
-            background: rgba(14, 165, 233, 0.02);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        /* Clean Flat Focus - NO GLOW */
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        /* Custom Select Arrow */
+        .select-wrapper { position: relative; }
+        .select-wrapper::after {
+            content: '⌄';
+            font-size: 20px;
+            color: var(--text-muted);
+            position: absolute;
+            right: 16px;
+            top: 45%;
+            transform: translateY(-50%);
+            pointer-events: none;
         }
         
         .form-textarea { 
@@ -69,23 +85,20 @@ title: "AeroClub | Contact"
         
         .form-submit {
             width: 100%; 
-            background: var(--text-light); 
+            background: var(--accent-cyan); 
             color: var(--bg-deep);
             border: none; 
             padding: 16px; 
-            border-radius: 8px; 
-            font-size: 15px; 
+            border-radius: 4px; 
+            font-size: 16px; 
             font-weight: 800;
             cursor: pointer; 
-            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: background 0.2s ease; 
             margin-top: 8px;
         }
         
         .form-submit:hover {
-            background: var(--accent-cyan); 
-            color: var(--bg-deep); 
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+            background: var(--text-light); 
         }
 
         /* ==========================================
@@ -181,28 +194,41 @@ title: "AeroClub | Contact"
                 
                 <!-- Right: High-End Form (Mailto Integration) -->
                 <div class="contact-form-card">
+                    <div class="card-header">
+                        <h4>GET IN TOUCH</h4>
+                        <h2>Contact Our Team</h2>
+                        <p>Have a question, collaboration idea, or general inquiry? We'd love to hear from you.</p>
+                    </div>
+                    
                     <form id="contactForm" onsubmit="sendEmail(event)">
                         <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" id="senderName" class="form-input" placeholder="Enter your designation" required>
+                            <label class="form-label">FULL NAME</label>
+                            <input type="text" id="senderName" class="form-input" placeholder="Enter your name" required>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" id="senderEmail" class="form-input" placeholder="Enter routing email" required>
+                            <label class="form-label">EMAIL ADDRESS</label>
+                            <input type="email" id="senderEmail" class="form-input" placeholder="Enter your email" required>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Inquiry Type</label>
-                            <input type="text" id="inquiryType" class="form-input" placeholder="e.g. Recruitment, Doubts, General" required>
+                            <label class="form-label">INQUIRY TYPE</label>
+                            <div class="select-wrapper">
+                                <select id="inquiryType" class="form-select" required defaultValue="">
+                                    <option value="" disabled selected hidden>Select an inquiry type</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Recruitment">Recruitment & Joining</option>
+                                    <option value="Sponsorship">Sponsorship & Partnership</option>
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Transmission Message</label>
-                            <textarea id="senderMessage" class="form-textarea" placeholder="How can we assist your operations?" required></textarea>
+                            <label class="form-label">MESSAGE</label>
+                            <textarea id="senderMessage" class="form-textarea" placeholder="How can we assist you?" required></textarea>
                         </div>
                         
-                        <button type="submit" class="form-submit">Transmit Message</button>
+                        <button type="submit" class="form-submit">Send Message</button>
                     </form>
                 </div>
             </div>
