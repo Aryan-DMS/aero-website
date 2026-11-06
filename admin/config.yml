@@ -210,7 +210,7 @@ collections:
               - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
               - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
               - {label: "Video Thumbnail (Required if media is a video)", name: "thumbnail", widget: "image", required: false}
-              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "standard"}
+              - {label: "Media Format", name: "media_format", widget: "select", options: ["16:9 Cinematic", "9:16 Vertical"], default: "16:9 Cinematic"}
               - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
           - label: "Hall of Records (Awards)"
@@ -221,7 +221,7 @@ collections:
               - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
               - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
               - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
-              - {label: "Grid Layout Size", name: "grid_span", widget: "select", options: [{label: "Standard Box (1x1)", value: "standard"}, {label: "Wide Horizontal (2x1)", value: "span-2-col"}, {label: "Tall Vertical (1x2)", value: "span-2-row"}, {label: "Massive Feature (2x2)", value: "featured-item"}], default: "span-2-col"}
+              - {label: "Media Format", name: "media_format", widget: "select", options: ["16:9 Cinematic", "9:16 Vertical"], default: "16:9 Cinematic"}
               - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
 

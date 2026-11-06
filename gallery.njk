@@ -12,28 +12,33 @@ title: "AeroClub | Gallery"
         .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
 
         /* ==========================================
-           FIXED BENTO-BOX GALLERY GRID
+           STRICT ASPECT FEEDS (YOUTUBE-STYLE)
         ========================================== */
         .gallery-section { padding: 80px 0; border-bottom: 1px solid var(--border-dark); }
         .gallery-header { margin-bottom: 40px; }
         .gallery-header h4 { font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
         .gallery-header h2 { font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px; }
         
-        .bento-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            grid-auto-rows: 300px; /* Fixed height for uniformity */
-            gap: 24px; 
+        .media-tabs { display: flex; gap: 12px; margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px; flex-wrap: wrap; }
+        .tab-btn { background: transparent; border: 1px solid transparent; color: var(--text-muted); font-family: var(--font-data); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 10px 20px; cursor: pointer; transition: all 0.2s ease; border-radius: 4px; }
+        .tab-btn:hover { color: var(--text-light); background: rgba(255,255,255,0.05); }
+        .tab-btn.active { color: var(--accent-cyan); background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.2); }
+        
+        .feed-grid { display: grid; gap: 24px; transition: opacity 0.3s ease; }
+        .feed-grid.hidden { display: none; }
+        
+        /* 16:9 Cinematic Feed */
+        .grid-cinematic { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+        .grid-cinematic .gallery-item { aspect-ratio: 16 / 9; }
+        
+        /* 9:16 Vertical Feed */
+        .grid-vertical { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        .grid-vertical .gallery-item { aspect-ratio: 9 / 16; }
+
+        @media (max-width: 600px) {
+            .grid-cinematic { grid-template-columns: 1fr; }
+            .grid-vertical { grid-template-columns: repeat(2, 1fr); }
         }
-        
-        /* Responsive Breakpoints */
-        @media (max-width: 1024px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; } .bento-grid > div { grid-column: span 1 !important; grid-row: span 1 !important; } }
-        
-        /* Grid Span Utilities */
-        .span-2-col { grid-column: span 2; }
-        .span-2-row { grid-row: span 2; }
-        .featured-item { grid-column: span 2; grid-row: span 2; }
         
         .gallery-item { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-dark); background: var(--bg-panel-dark); cursor: pointer; display: block; }
         
@@ -126,23 +131,48 @@ title: "AeroClub | Gallery"
             </div>
         </section>
 
-        <!-- Section 1: Field Operations & Flight Logs (Mixed Media) -->
+        <!-- Section 1: Field Operations & Flight Logs -->
         <section class="gallery-section">
-            <div class="container">
+            <div class="container" id="ops-container">
                 <div class="gallery-header">
                     <h4>MEDIA ARCHIVE</h4>
                     <h2>Project & Flight Media</h2>
                 </div>
+
+                <div class="media-tabs">
+                    <button class="tab-btn active" onclick="switchFeed('ops', 'cinematic', event)">Mission Broadcasts</button>
+                    <button class="tab-btn" onclick="switchFeed('ops', 'vertical', event)">Field Shorts</button>
+                </div>
                 
-                <div class="bento-grid">
+                <!-- 16:9 Cinematic Feed -->
+                <div id="ops-cinematic" class="feed-grid grid-cinematic">
                     {% for page in collections.all %}
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.operations %}
-                            <div class="gallery-item {% if item.grid_span != 'standard' %}{{ item.grid_span }}{% endif %}" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
-                                <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
-                                {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
-                                <div class="gallery-caption">{{ item.caption }}</div>
-                            </div>
+                                {% if item.media_format != '9:16 Vertical' %}
+                                <div class="gallery-item" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                    <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                    {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                    <div class="gallery-caption">{{ item.caption }}</div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- 9:16 Vertical Feed -->
+                <div id="ops-vertical" class="feed-grid grid-vertical hidden">
+                    {% for page in collections.all %}
+                        {% if page.fileSlug == 'gallery' %}
+                            {% for item in page.data.operations %}
+                                {% if item.media_format == '9:16 Vertical' %}
+                                <div class="gallery-item" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                    <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                    {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                    <div class="gallery-caption">{{ item.caption }}</div>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     {% endfor %}
@@ -152,21 +182,46 @@ title: "AeroClub | Gallery"
 
         <!-- Section 2: Hall of Records / Ceremonial -->
         <section class="gallery-section" style="border-bottom: none; background: var(--bg-panel-dark);">
-            <div class="container">
+            <div class="container" id="awards-container">
                 <div class="gallery-header">
                     <h4>ACCOLADES</h4>
                     <h2>Hall of Records</h2>
                 </div>
+
+                <div class="media-tabs">
+                    <button class="tab-btn active" onclick="switchFeed('awards', 'cinematic', event)">Ceremonial Features</button>
+                    <button class="tab-btn" onclick="switchFeed('awards', 'vertical', event)">Tactical Verticals</button>
+                </div>
                 
-                <div class="bento-grid" style="grid-auto-rows: 250px;">
+                <!-- 16:9 Cinematic Feed -->
+                <div id="awards-cinematic" class="feed-grid grid-cinematic">
                     {% for page in collections.all %}
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.awards %}
-                            <div class="gallery-item {% if item.grid_span != 'standard' %}{{ item.grid_span }}{% endif %}" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
-                                <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
-                                {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
-                                <div class="gallery-caption">{{ item.caption }}</div>
-                            </div>
+                                {% if item.media_format != '9:16 Vertical' %}
+                                <div class="gallery-item" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                    <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                    {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                    <div class="gallery-caption">{{ item.caption }}</div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- 9:16 Vertical Feed -->
+                <div id="awards-vertical" class="feed-grid grid-vertical hidden">
+                    {% for page in collections.all %}
+                        {% if page.fileSlug == 'gallery' %}
+                            {% for item in page.data.awards %}
+                                {% if item.media_format == '9:16 Vertical' %}
+                                <div class="gallery-item" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}">
+                                    <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
+                                    {% if item.type == 'video' %}<div class="play-btn"></div>{% endif %}
+                                    <div class="gallery-caption">{{ item.caption }}</div>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     {% endfor %}
@@ -174,6 +229,21 @@ title: "AeroClub | Gallery"
             </div>
         </section>
 
+        <script>
+            function switchFeed(section, format, event) {
+                // Hide both grids in the targeted section
+                document.getElementById(section + '-cinematic').classList.add('hidden');
+                document.getElementById(section + '-vertical').classList.add('hidden');
+                
+                // Remove 'active' class from all buttons in the section's tab group
+                const container = document.getElementById(section + '-container');
+                container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                
+                // Show the selected grid and highlight the button
+                document.getElementById(section + '-' + format).classList.remove('hidden');
+                event.currentTarget.classList.add('active');
+            }
+        </script>
     </main>
     
 
