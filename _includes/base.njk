@@ -129,23 +129,11 @@
             
             /* Mobile Navigation Drawer */
             .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background-color: var(--bg-deep);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
-                gap: 16px;
-                border-bottom: 1px solid var(--border-dark);
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 999;
+                position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px);
+                background-color: var(--bg-deep); flex-direction: column; align-items: center;
+                justify-content: flex-start; padding-top: 40px; gap: 16px;
+                border-bottom: 1px solid var(--border-dark); transform: translateY(-100%);
+                opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999;
             }
             .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
             .nav-links a { font-size: 18px; width: 80%; text-align: center; padding: 12px; }
@@ -154,37 +142,61 @@
 
             /* Global Typography & Spacing Fixes */
             .container { padding: 0 20px; }
-            h1, .hero-text h1 { font-size: 40px !important; letter-spacing: -1px !important; line-height: 1.2; }
+            h1, .hero-text h1 { font-size: 44px !important; letter-spacing: -1px !important; line-height: 1.1; }
             h2, .mission-text h2, .page-section h2, .launch-cta h2, .news-header h2, .partners-header h2 { font-size: 32px !important; line-height: 1.2; }
             .hero-text p, .mission-text p, .launch-cta p { font-size: 16px !important; line-height: 1.6; }
-            .home-section, .page-section, .launch-cta, .hero-footer-line { padding-top: 60px !important; padding-bottom: 60px !important; }
-            .hero-footer-line { margin-top: 40px !important; flex-direction: column; align-items: flex-start; gap: 8px; }
-            .hero-footer-line::before { width: 100%; height: 2px; }
+            .home-section, .page-section, .launch-cta { padding-top: 60px !important; padding-bottom: 60px !important; }
 
-            /* Force ALL Grids to Single Column */
-            .stats-grid { grid-template-columns: 1fr !important; gap: 32px; }
-            .mission-split { grid-template-columns: 1fr !important; gap: 40px; text-align: center; }
-            .mission-typo h3 { font-size: 48px !important; }
-            .news-grid, .partners-grid, .team-grid { grid-template-columns: 1fr !important; gap: 24px; }
+            /* Hero Button & Line Fixes */
+            div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column; align-items: flex-start; width: auto; }
+            .btn-join, .btn-outline { width: auto !important; display: inline-flex; align-items: center; justify-content: center; }
+            .hero-footer-line { flex-direction: row !important; align-items: flex-start !important; margin-top: 40px !important; }
+            .hero-footer-line::before { width: 2px !important; height: auto !important; min-height: 40px; }
+
+            /* Stats Grid */
+            .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 32px; }
+
+            /* Mission Split (Left Aligned Text & Typography) */
+            .mission-split { grid-template-columns: 1fr !important; gap: 40px; text-align: left; }
+            .mission-typo { align-items: flex-start; }
+            .mission-typo h3 { font-size: 56px !important; text-align: left; transform: none !important; }
             
-            /* Fix Fleet Carousel Squishing */
-            .fleet-slide { flex-direction: column-reverse; padding: 40px 20px !important; text-align: center; gap: 32px; }
-            .fleet-image img { max-height: 200px !important; }
-            .carousel-btn { width: 40px; height: 40px; font-size: 14px; background: var(--bg-deep); }
+            /* Fix Fleet Carousel (Breathing Room) */
+            .fleet-carousel { margin: 0; border-radius: 8px; }
+            .fleet-slide { flex-direction: column-reverse; padding: 40px 24px !important; text-align: left; gap: 24px; }
+            .fleet-image img { max-height: 220px !important; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 14px; background: rgba(11, 17, 33, 0.8); }
             
             /* Reorder News & Partner Headers */
             .news-header, .partners-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
-            .news-card .news-img { height: 220px; }
             
-            /* Fix Footer Expansion */
-            .footer-content { grid-template-columns: 1fr; gap: 48px; padding: 60px 0 40px; text-align: center; }
-            .footer-content > div { display: flex; flex-direction: column; align-items: center; }
-            .contact-info li, .footer-content span { flex-direction: column; gap: 4px; text-align: center; }
+            /* HORIZONTAL SWIPE SCROLL for News & Partners */
+            .news-grid, .partners-grid { 
+                display: flex !important; 
+                flex-wrap: nowrap !important; 
+                overflow-x: auto; 
+                scroll-snap-type: x mandatory; 
+                -webkit-overflow-scrolling: touch; 
+                gap: 16px !important;
+                padding-bottom: 24px;
+                /* Hide scrollbar */
+                -ms-overflow-style: none; 
+                scrollbar-width: none;
+            }
+            .news-grid::-webkit-scrollbar, .partners-grid::-webkit-scrollbar { display: none; }
+            .news-card, .partner-logo { 
+                flex: 0 0 85% !important; /* 85% width lets them see the next card peeking */
+                scroll-snap-align: center;
+                height: auto;
+            }
+            .news-card .news-img { height: 200px; }
+            .partner-logo { height: 180px; }
+            
+            /* Fix Footer Layout (Left Aligned) */
+            .footer-content { grid-template-columns: 1fr; gap: 48px; padding: 60px 0 40px; text-align: left; }
+            .footer-content > div { display: flex; flex-direction: column; align-items: flex-start; }
+            .contact-info li, .footer-content span { flex-direction: column; gap: 4px; text-align: left; align-items: flex-start !important; }
             .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
-            
-            /* General utility */
-            div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column; width: 100%; }
-            .btn-join, .btn-outline { width: 100%; text-align: center; }
         }
     </style>
 </head>
