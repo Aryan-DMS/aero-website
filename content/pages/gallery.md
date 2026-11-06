@@ -7,6 +7,11 @@ operations:
     meta: This is an Aeroplane
     caption: This is a Cinematic Photo
     media_format: 16:9 Cinematic
+  - media_format: 16:9 Cinematic
+    type: image
+    src: https://images.unsplash.com/photo-1668193184151-6c3b93f39e34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+    meta: FLIGHT LOG
+    caption: Camera
 awards:
   - type: image
     grid_span: span-2-col
