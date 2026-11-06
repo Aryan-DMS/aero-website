@@ -122,6 +122,9 @@
            FLUID RESPONSIVE OVERRIDES (ALL SCREENS)
         ========================================== */
         @media (max-width: 960px) {
+            /* Scroll Lock Utility */
+            body.no-scroll { overflow: hidden !important; touch-action: none; }
+
             /* 1. Header & Mobile Drawer */
             header { padding: 0 max(4vw, 16px); height: 70px; display: flex; align-items: center; position: relative; }
             .nav-logo { flex: 1; }
@@ -340,6 +343,7 @@
         const nav = document.getElementById('navLinks');
         toggle.addEventListener('click', () => {
             nav.classList.toggle('active');
+            document.body.classList.toggle('no-scroll'); // Freezes background scrolling
         });
     </script>
 </body>
