@@ -3,71 +3,73 @@ layout: base.njk
 title: "AeroClub | Phase 01: Application"
 ---
 <style>
-    .report-container { max-width: 800px; margin: 0 auto; padding: 100px 20px 140px; }
+    .report-container { max-width: 800px; margin: 0 auto; padding: 80px 20px 140px; }
     .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
     .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
     
-    .info-block { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 4px; margin-bottom: 24px; }
-    .info-block h4 { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 1px; }
-    .info-block p, .info-block li { color: var(--text-light); font-size: 16px; line-height: 1.6; }
-    .info-block ul { margin-left: 20px; margin-top: 12px; }
+    .report-content h3 { font-size: 24px; font-weight: 700; color: var(--text-light); margin: 48px 0 16px; border-bottom: 1px solid var(--border-dark); padding-bottom: 12px; }
+    .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
+    .report-content ul { margin-left: 20px; margin-bottom: 32px; color: var(--text-muted); font-size: 16px; line-height: 1.7; }
+    .report-content li { margin-bottom: 8px; }
 
-    /* The Identity Gate Styles */
-    .identity-gate { border: 1px solid var(--accent-cyan); border-left: 4px solid var(--accent-cyan); background: rgba(14, 165, 233, 0.05); padding: 40px; border-radius: 4px; margin-top: 40px; }
-    .input-field { width: 100%; padding: 16px; background: var(--bg-deep); border: 1px solid var(--border-dark); color: var(--text-light); font-family: var(--font-ui); font-size: 16px; border-radius: 4px; margin-bottom: 16px; outline: none; }
+    .setup-box { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 40px; border-radius: 4px; margin-top: 60px; }
+    .input-field { width: 100%; padding: 12px 16px; background: var(--bg-deep); border: 1px solid var(--border-dark); color: var(--text-light); font-family: var(--font-ui); font-size: 15px; border-radius: 4px; margin-bottom: 16px; outline: none; transition: border-color 0.2s; }
     .input-field:focus { border-color: var(--accent-cyan); }
-    
-    .success-state { display: none; border-left-color: #10B981; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .success-state { display: none; border-left: 4px solid #10B981; }
 </style>
 
 <main>
     <div class="report-container">
-        <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">
-            ← Back to Dashboard
-        </a>
+        <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
 
-        <span class="report-meta">PHASE 01 // OPEN</span>
+        <span class="report-meta">PHASE 01 // OVERVIEW</span>
         <h1 class="report-title">Initial Applications</h1>
 
-        <div class="info-block">
-            <h4>REQUIREMENTS & ELIGIBILITY</h4>
-            <p>Candidates are evaluated based on their technical baseline and problem-solving methodology. Prior experience is beneficial but not mandatory. We are looking for dedication, rapid learning capability, and engineering intuition.</p>
+        <div class="report-content">
+            <p>The Spring 2027 recruitment cycle is strictly focused on expanding our core technical divisions ahead of the national qualifiers. We are seeking individuals who demonstrate strong first-principles thinking, adaptability, and a willingness to commit to rigorous engineering cycles.</p>
+
+            <h3>Aerodynamics & Structures</h3>
+            <p>This division is responsible for the physical manifestation of the aircraft. Members will utilize CAD software (SolidWorks/Fusion360) and perform fluid dynamic simulations to optimize chassis drag coefficients.</p>
             <ul>
-                <li>Must be currently enrolled in an undergraduate program.</li>
-                <li>Able to commit 10-12 hours per week to division operations.</li>
-                <li>Familiarity with basic physics and mathematics.</li>
+                <li>Understanding of basic material science (carbon fiber, 3D printed polymers).</li>
+                <li>Familiarity with structural load testing and weight optimization.</li>
             </ul>
+
+            <h3>Embedded Systems & Autonomous Control</h3>
+            <p>The brain of the fleet. This team programs the flight controllers, manages sensor integration (LIDAR, GPS, Gyros), and develops the autonomous navigation algorithms.</p>
+            <ul>
+                <li>Proficiency in C++ or Python.</li>
+                <li>Basic understanding of microcontrollers (Arduino, Raspberry Pi, Pixhawk).</li>
+            </ul>
+
+            <h3>Application Guidelines</h3>
+            <p>Your initial application serves as your baseline introduction to the team. Please ensure all academic details and project links are accurate. The subsequent aptitude test will be calibrated based on the division you select in your application.</p>
         </div>
 
-        <!-- STATE 1: Identity Gate (Unregistered) -->
-        <div id="auth-gate" class="identity-gate">
-            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; margin-bottom: 16px; letter-spacing: 1px;">GENERATE APPLICANT DOSSIER</h4>
-            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 15px;">To ensure accurate tracking across the recruitment pipeline, please register your official name exactly as it will appear on your application.</p>
+        <!-- The Clean Form Tracker -->
+        <div id="auth-gate" class="setup-box">
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Application Tracking</h4>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; line-height: 1.6;">To allow you to track your application status directly on this website, please enter your name exactly as you will type it into the Google Form.</p>
             
-            <input type="text" id="applicant-name" class="input-field" placeholder="Full Legal Name">
-            <button onclick="registerApplicant()" class="btn-join" style="width: 100%; border: none; cursor: pointer;">Initialize Dossier & Continue →</button>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <input type="text" id="applicant-name" class="input-field" style="flex: 1; min-width: 250px; margin-bottom: 0;" placeholder="Enter your full name">
+                <button onclick="registerApplicant()" class="btn-join" style="padding: 12px 24px; border: none; cursor: pointer; white-space: nowrap;">Continue to Form</button>
+            </div>
         </div>
 
-        <!-- STATE 2: Authorized (Registered) -->
-        <div id="auth-success" class="identity-gate success-state">
-            <h4 style="font-family: var(--font-data); color: #10B981; font-size: 13px; margin-bottom: 16px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block;"></span> IDENTITY VERIFIED
-            </h4>
-            <p style="color: var(--text-light); font-size: 18px; margin-bottom: 8px;">Applicant ID generated for: <strong id="display-name" style="color: #10B981;"></strong></p>
-            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px;">Your local session is now active. Please proceed to the official external form to complete your application submission.</p>
+        <!-- The Success State -->
+        <div id="auth-success" class="setup-box success-state">
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Tracking Enabled for: <span id="display-name" style="color: #10B981;"></span></h4>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your browser is now configured to track your application status. You may now proceed to the official submission form.</p>
             
-            <a href="https://forms.google.com/your-link-here" target="_blank" class="btn-join" style="display: block; text-align: center; border: none; background: #10B981;">
-                Access Application Form ↗
-            </a>
+            <a href="#" class="btn-join" style="display: inline-block; background: var(--text-light); color: var(--bg-deep); padding: 12px 28px; text-decoration: none;">Open Application Form ↗</a>
             
-            <!-- A subtle reset button for testing -->
-            <button onclick="resetApplicant()" style="background: none; border: none; color: var(--text-muted); font-family: var(--font-data); font-size: 11px; margin-top: 24px; cursor: pointer; text-decoration: underline;">Clear Local Session</button>
+            <button onclick="resetApplicant()" style="display: block; background: none; border: none; color: var(--text-muted); font-family: var(--font-data); font-size: 11px; margin-top: 24px; cursor: pointer; text-decoration: underline;">Reset tracking name</button>
         </div>
     </div>
 </main>
 
 <script>
-    // The Tracking Logic
     function checkStatus() {
         const savedName = localStorage.getItem('aeroclub_sp27_applicant');
         if (savedName) {
@@ -79,22 +81,11 @@ title: "AeroClub | Phase 01: Application"
             document.getElementById('auth-success').style.display = 'none';
         }
     }
-
     function registerApplicant() {
         const nameInput = document.getElementById('applicant-name').value;
-        if (nameInput.trim().length > 2) {
-            localStorage.setItem('aeroclub_sp27_applicant', nameInput.trim());
-            checkStatus();
-        } else {
-            alert("Please enter your full name to proceed.");
-        }
+        if (nameInput.trim().length > 2) { localStorage.setItem('aeroclub_sp27_applicant', nameInput.trim()); checkStatus(); } 
+        else { alert("Please enter your name to proceed."); }
     }
-
-    function resetApplicant() {
-        localStorage.removeItem('aeroclub_sp27_applicant');
-        checkStatus();
-    }
-
-    // Run on page load
+    function resetApplicant() { localStorage.removeItem('aeroclub_sp27_applicant'); checkStatus(); }
     document.addEventListener("DOMContentLoaded", checkStatus);
 </script>
