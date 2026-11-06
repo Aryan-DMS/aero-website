@@ -123,9 +123,9 @@
         ========================================== */
         @media (max-width: 960px) {
             /* 1. Header & Mobile Drawer */
-            header { padding: 0 max(4vw, 16px); height: 70px; display: flex; justify-content: space-between; align-items: center; }
-            .nav-logo { flex: unset; }
-            .menu-toggle { display: flex; margin-left: 0; }
+            header { padding: 0 max(4vw, 16px); height: 70px; display: flex; align-items: center; position: relative; }
+            .nav-logo { flex: 1; }
+            .menu-toggle { display: flex; position: absolute; right: max(4vw, 16px); top: 50%; transform: translateY(-50%); }
             
             /* FORCE hide the desktop sponsor button on mobile */
             header > .btn-join { display: none !important; } 
