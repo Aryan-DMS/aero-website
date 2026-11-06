@@ -115,19 +115,19 @@ title: "AeroClub | Sponsors"
         .launch-cta h2 { font-size: 48px; font-weight: 800; margin-bottom: 24px; }
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
         
-        /* Dynamic Sponsor Cards */
-        .sponsor-card-detailed { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 40px; display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease; aspect-ratio: 1 / 1; min-height: 380px; }
-        .sponsor-card-detailed:hover { border-color: var(--text-light); }
-        .sponsor-brand { height: 120px; width: 100%; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 32px; flex-shrink: 0; }
-        .sponsor-logo-detailed { width: 100%; height: 100%; max-height: 120px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
-        .sponsor-divider { width: 24px; height: 2px; background: var(--accent-cyan); margin-bottom: 24px; }
-        .sponsor-desc { color: var(--text-muted); font-size: 15px; line-height: 1.6; flex-grow: 1; margin-bottom: 32px; }
-        .sponsor-link { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-top: auto; display: flex; align-items: center; gap: 6px; }
-
-        .sponsor-card-logo { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 32px; transition: border-color 0.2s ease; text-decoration: none; }
-        .sponsor-card-logo:hover { border-color: var(--text-light); }
-        .sponsor-card-logo img { max-width: 100%; max-height: 50px; filter: brightness(0) invert(1); transition: transform 0.2s ease; }
-        .sponsor-card-logo:hover img { transform: scale(1.05); }
+        /* Unified Logo Wall Architecture */
+        .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+        
+        .sponsor-logo-box { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 8px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 40px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; }
+        a.sponsor-logo-box:hover { border-color: rgba(255,255,255,0.2); background: var(--bg-panel-dark); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* Forces all logos to white, slightly dimmed, brightening on hover */
+        .sponsor-logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.65; transition: opacity 0.3s ease, transform 0.3s ease; }
+        a.sponsor-logo-box:hover img { opacity: 1; transform: scale(1.05); }
+        
+        /* Fallback if Captain forgets to upload a logo */
+        .sponsor-fallback-text { font-size: 20px; font-weight: 800; color: var(--text-muted); margin: 0; text-align: center; transition: color 0.3s ease; letter-spacing: -0.5px; }
+        a.sponsor-logo-box:hover .sponsor-fallback-text { color: var(--text-light); }
 </style>
 
 <main id="sponsors">
@@ -147,39 +147,37 @@ title: "AeroClub | Sponsors"
                 {% for tier in item.data.tiers %}
                 <section style="padding: {% if loop.first %}80px 0{% else %}0 0 80px{% endif %};">
                     <div class="container">
-                        <div style="margin-bottom: 40px;">
-                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">{{ tier.eyebrow }}</h4>
-                            <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ tier.title }}</h3>
+                        <!-- Centered Tier Headers for a premium keynote aesthetic -->
+                        <div style="margin-bottom: 48px; text-align: center;">
+                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1.5px; text-transform: uppercase;">{{ tier.eyebrow }}</h4>
+                            <h3 style="font-size: 40px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0;">{{ tier.title }}</h3>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px;">
+                        <div class="sponsor-logo-grid">
                             {% for sponsor in tier.sponsors_list %}
                                 
-                                {% if sponsor.type == 'detailed_card' %}
-                                <a href="{% if '://' in sponsor.url %}{{ sponsor.url }}{% else %}https://{{ sponsor.url }}{% endif %}" target="_blank" rel="noopener noreferrer" class="sponsor-card-detailed">
-                                    <div class="sponsor-brand">
-                                        {% if sponsor.logo %}
-                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}" class="sponsor-logo-detailed">
-                                        {% else %}
-                                        <h4 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0;">{{ sponsor.name }}</h4>
-                                        {% endif %}
-                                    </div>
-                                    <div class="sponsor-divider"></div>
-                                    <p class="sponsor-desc">{{ sponsor.desc }}</p>
-                                    <span class="sponsor-link">VISIT SPONSOR ↗</span>
-                                </a>
+                                {% set sponsorUrl = sponsor.url %}
+                                {% if sponsorUrl and not '://' in sponsorUrl %}
+                                    {% set sponsorUrl = 'https://' + sponsorUrl %}
                                 {% endif %}
 
-                                {% if sponsor.type == 'logo_card' %}
-                                    {% if sponsor.url %}
-                                    <a href="{% if '://' in sponsor.url %}{{ sponsor.url }}{% else %}https://{{ sponsor.url }}{% endif %}" target="_blank" rel="noopener noreferrer" class="sponsor-card-logo">
-                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                                    </a>
+                                {% if sponsorUrl %}
+                                <a href="{{ sponsorUrl }}" target="_blank" rel="noopener noreferrer" class="sponsor-logo-box">
+                                {% else %}
+                                <div class="sponsor-logo-box" style="cursor: default;">
+                                {% endif %}
+                                    
+                                    {% if sponsor.logo %}
+                                    <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
                                     {% else %}
-                                    <div class="sponsor-card-logo" style="cursor: default;">
-                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                                    </div>
+                                    <!-- Bulletproof fallback if CMS lacks an image -->
+                                    <h4 class="sponsor-fallback-text">{{ sponsor.name }}</h4>
                                     {% endif %}
+
+                                {% if sponsorUrl %}
+                                </a>
+                                {% else %}
+                                </div>
                                 {% endif %}
 
                             {% endfor %}
