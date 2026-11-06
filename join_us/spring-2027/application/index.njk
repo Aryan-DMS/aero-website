@@ -19,36 +19,31 @@ title: "AeroClub | Phase 01: Application"
 </style>
 
 <main>
+    <!-- Fetch the CMS Data specifically for Spring 2027 -->
+    {% set drive = null %}
+    {% for item in collections.drives %}
+        {% if item.fileSlug == 'spring-2027' %}
+            {% set drive = item.data %}
+        {% endif %}
+    {% endfor %}
+
     <div class="report-container">
         <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
 
-        <span class="report-meta">PHASE 01 // OVERVIEW</span>
+        <span class="report-meta">PHASE 01 // {{ drive.phase1.status | default('OVERVIEW') | upper }}</span>
         <h1 class="report-title">Initial Applications</h1>
 
-        <div class="report-content">
-            <p>The Spring 2027 recruitment cycle is strictly focused on expanding our core technical divisions ahead of the national qualifiers. We are seeking individuals who demonstrate strong first-principles thinking, adaptability, and a willingness to commit to rigorous engineering cycles.</p>
-
-            <h3>Aerodynamics & Structures</h3>
-            <p>This division is responsible for the physical manifestation of the aircraft. Members will utilize CAD software (SolidWorks/Fusion360) and perform fluid dynamic simulations to optimize chassis drag coefficients.</p>
-            <ul>
-                <li>Understanding of basic material science (carbon fiber, 3D printed polymers).</li>
-                <li>Familiarity with structural load testing and weight optimization.</li>
-            </ul>
-
-            <h3>Embedded Systems & Autonomous Control</h3>
-            <p>The brain of the fleet. This team programs the flight controllers, manages sensor integration (LIDAR, GPS, Gyros), and develops the autonomous navigation algorithms.</p>
-            <ul>
-                <li>Proficiency in C++ or Python.</li>
-                <li>Basic understanding of microcontrollers (Arduino, Raspberry Pi, Pixhawk).</li>
-            </ul>
-
-            <h3>Application Guidelines</h3>
-            <p>Your initial application serves as your baseline introduction to the team. Please ensure all academic details and project links are accurate. The subsequent aptitude test will be calibrated based on the division you select in your application.</p>
+        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">
+            {{ drive.phase1.report | default("Report data will appear here once published in CMS.") }}
         </div>
 
+        {% if drive.phase1.status == 'Open' %}
         <!-- The Clean Form Tracker -->
         <div id="auth-gate" class="setup-box">
-            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Application Tracking</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light);">Application Tracking</h4>
+                <span style="background: rgba(14, 165, 233, 0.1); color: var(--accent-cyan); padding: 4px 8px; border-radius: 4px; font-family: var(--font-data); font-size: 11px; font-weight: 700;">DEADLINE: {{ drive.phase1.deadline | default("TBA") }}</span>
+            </div>
             <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; line-height: 1.6;">To allow you to track your application status directly on this website, please enter your name exactly as you will type it into the Google Form.</p>
             
             <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -62,10 +57,17 @@ title: "AeroClub | Phase 01: Application"
             <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Tracking Enabled for: <span id="display-name" style="color: #10B981;"></span></h4>
             <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6;">Your browser is now configured to track your application status. You may now proceed to the official submission form.</p>
             
-            <a href="#" class="btn-join" style="display: inline-block; background: var(--text-light); color: var(--bg-deep); padding: 12px 28px; text-decoration: none;">Open Application Form ↗</a>
+            <!-- Link dynamically pulled from CMS -->
+            <a href="{{ drive.phase1.form_link | default('#') }}" target="_blank" rel="noopener noreferrer" class="btn-join" style="display: inline-block; background: var(--text-light); color: var(--bg-deep); padding: 12px 28px; text-decoration: none;">Open Application Form ↗</a>
             
             <button onclick="resetApplicant()" style="display: block; background: none; border: none; color: var(--text-muted); font-family: var(--font-data); font-size: 11px; margin-top: 24px; cursor: pointer; text-decoration: underline;">Reset tracking name</button>
         </div>
+        {% else %}
+        <div class="setup-box" style="border-left: 4px solid var(--border-dark); opacity: 0.6;">
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">Portal Closed</h4>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 0; line-height: 1.6;">The application portal is not currently accepting submissions. Phase status: {{ drive.phase1.status | default("Pending") }}.</p>
+        </div>
+        {% endif %}
     </div>
 </main>
 

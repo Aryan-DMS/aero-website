@@ -16,30 +16,29 @@ title: "AeroClub | Phase 02: Technical Test"
 </style>
 
 <main>
+    <!-- Fetch the CMS Data specifically for Spring 2027 -->
+    {% set drive = null %}
+    {% for item in collections.drives %}
+        {% if item.fileSlug == 'spring-2027' %}
+            {% set drive = item.data %}
+        {% endif %}
+    {% endfor %}
+
     <div class="report-container">
         <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
 
-        <span class="report-meta">PHASE 02 // EVALUATION</span>
+        <span class="report-meta">PHASE 02 // {{ drive.phase2.status | default('EVALUATION') | upper }}</span>
         <h1 class="report-title">Technical Test Briefing</h1>
 
         <div class="logistics-box">
-            <div class="logistics-item"><span>Date</span><strong>February 20, 2027</strong></div>
-            <div class="logistics-item"><span>Time</span><strong>14:00 - 15:30 HRS</strong></div>
-            <div class="logistics-item"><span>Venue</span><strong>Main Auditorium, Block C</strong></div>
-            <div class="logistics-item"><span>Format</span><strong>Pen & Paper (Closed Book)</strong></div>
+            <div class="logistics-item"><span>Date</span><strong>{{ drive.phase2.date | default('TBA') }}</strong></div>
+            <div class="logistics-item"><span>Time</span><strong>{{ drive.phase2.time | default('TBA') }}</strong></div>
+            <div class="logistics-item"><span>Venue</span><strong>{{ drive.phase2.venue | default('TBA') }}</strong></div>
+            <div class="logistics-item"><span>Format</span><strong>{{ drive.phase2.format | default('TBA') }}</strong></div>
         </div>
 
-        <div class="report-content">
-            <p>The Phase 02 Technical Evaluation is designed to test first-principles thinking rather than rote memorization. The paper is divided into a Common Core section mandatory for all applicants, and a Domain Specific section based on your chosen division.</p>
-
-            <h3>Common Core Syllabus (40 Marks)</h3>
-            <p>All candidates will be tested on fundamental physics (kinematics, basic fluid dynamics) and quantitative reasoning. Calculators are permitted, but no programmable devices or smartphones will be allowed in the hall.</p>
-
-            <h3>Domain Specific Sections (60 Marks)</h3>
-            <p><strong>Aerodynamics:</strong> Questions will focus on lift/drag equations, structural integrity scenarios, and basic material properties.</p>
-            <p><strong>Embedded Systems:</strong> Expect pseudocode evaluation, basic circuit analysis (Kirchhoff's laws, resistor networks), and logic gate problem-solving.</p>
-            
-            <p>Please arrive at the venue 15 minutes prior to the commencement of the exam. Candidates arriving late will not be granted additional time.</p>
+        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">
+            {{ drive.phase2.report | default("Syllabus details will appear here once published in CMS.") }}
         </div>
     </div>
 </main>

@@ -18,15 +18,33 @@ title: "AeroClub | Spring 2027 Command Dashboard"
 </style>
 
 <main id="command-dashboard">
+    <!-- Fetch the CMS Data specifically for Spring 2027 -->
+    {% set drive = null %}
+    {% for item in collections.drives %}
+        {% if item.fileSlug == 'spring-2027' %}
+            {% set drive = item.data %}
+        {% endif %}
+    {% endfor %}
+
     <section style="padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 60px); border-bottom: 1px solid var(--border-dark);">
         <div class="container">
             <a href="/join_us/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 32px; transition: color 0.2s;">← Back to Archives</a>
-            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">TESTING MODE: ALL PHASES UNLOCKED</h4>
-            <h2 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; margin-bottom: 24px; color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">Spring 2027 Dashboard</h2>
+            
+            {% if drive.status == 'Live' %}
+            <h4 style="font-family: var(--font-data); color: #10B981; font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block; box-shadow: 0 0 12px #10B981;"></span>
+                STATUS: LIVE DATASTREAM
+            </h4>
+            {% else %}
+            <h4 style="font-family: var(--font-data); color: var(--text-muted); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">STATUS: ARCHIVED</h4>
+            {% endif %}
+            
+            <h2 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; margin-bottom: 24px; color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">{{ drive.title | default("Spring 2027 Dashboard") }}</h2>
+            
             <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
                 <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px;">ACTIVE RECRUITMENT ROLES</h4>
                 <p style="color: var(--text-light); font-size: 16px; line-height: 1.6; font-weight: 500;">
-                    Aerodynamics <span style="color: var(--border-dark);">//</span> Embedded Systems <span style="color: var(--border-dark);">//</span> Payload Integration <span style="color: var(--border-dark);">//</span> Web Design
+                    {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
                 </p>
             </div>
         </div>
@@ -35,11 +53,62 @@ title: "AeroClub | Spring 2027 Command Dashboard"
     <section style="padding: clamp(60px, 8vw, 100px) 0;">
         <div class="container">
             <div class="dashboard-grid">
-                <a href="/join_us/spring-2027/application/" class="phase-card"><span class="phase-number">01</span><div class="phase-content"><span class="phase-meta">PHASE 01</span><h4>Initial Applications</h4><p>Role breakdowns, technical expectations, and the primary application portal.</p><span class="view-report">Read Report</span></div></a>
-                <a href="/join_us/spring-2027/test/" class="phase-card"><span class="phase-number">02</span><div class="phase-content"><span class="phase-meta">PHASE 02</span><h4>Technical Test</h4><p>Syllabus breakdown, evaluation metrics, and logistical details for the written examination.</p><span class="view-report">Read Report</span></div></a>
-                <a href="/join_us/spring-2027/shortlist/" class="phase-card"><span class="phase-number">03</span><div class="phase-content"><span class="phase-meta">PHASE 03</span><h4>Test Shortlist</h4><p>Official roster of candidates advancing to the technical interview rounds.</p><span class="view-report">Read Report</span></div></a>
-                <a href="/join_us/spring-2027/interview/" class="phase-card"><span class="phase-number">04</span><div class="phase-content"><span class="phase-meta">PHASE 04</span><h4>Interviews</h4><p>Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p><span class="view-report">Read Report</span></div></a>
-                <a href="/join_us/spring-2027/results/" class="phase-card"><span class="phase-number">05</span><div class="phase-content"><span class="phase-meta">PHASE 05</span><h4>Final Results</h4><p>The finalized list of inducted members for the Spring 2027 competition cycle.</p><span class="view-report">Read Report</span></div></a>
+                
+                <!-- PHASE 1: Linked to CMS Status -->
+                <a href="/join_us/spring-2027/application/" class="phase-card status-{{ (drive.phase1.status | default('Open')) | lower }}" {% if drive.phase1.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
+                    <span class="phase-number">01</span>
+                    <div class="phase-content">
+                        <span class="phase-meta">STATUS // {{ drive.phase1.status | default('Open') | upper }}</span>
+                        <h4>Initial Applications</h4>
+                        <p>Role breakdowns, technical expectations, and the primary application portal.</p>
+                        <span class="view-report">Access Portal</span>
+                    </div>
+                </a>
+
+                <!-- PHASE 2: Linked to CMS Status -->
+                <a href="/join_us/spring-2027/test/" class="phase-card status-{{ (drive.phase2.status | default('Pending')) | lower }}" {% if drive.phase2.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
+                    <span class="phase-number">02</span>
+                    <div class="phase-content">
+                        <span class="phase-meta">STATUS // {{ drive.phase2.status | default('Pending') | upper }}</span>
+                        <h4>Technical Test</h4>
+                        <p>Syllabus breakdown, evaluation metrics, and logistical details for the written examination.</p>
+                        <span class="view-report">Read Report</span>
+                    </div>
+                </a>
+
+                <!-- PHASE 3: Linked to CMS Status -->
+                <a href="/join_us/spring-2027/shortlist/" class="phase-card status-{{ (drive.phase3.status | default('Pending')) | lower }}" {% if drive.phase3.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
+                    <span class="phase-number">03</span>
+                    <div class="phase-content">
+                        <span class="phase-meta">STATUS // {{ drive.phase3.status | default('Pending') | upper }}</span>
+                        <h4>Test Shortlist</h4>
+                        <p>Official roster of candidates advancing to the technical interview rounds.</p>
+                        <span class="view-report">View Data</span>
+                    </div>
+                </a>
+
+                <!-- PHASE 4: Linked to CMS Status -->
+                <a href="/join_us/spring-2027/interview/" class="phase-card status-{{ (drive.phase4.status | default('Pending')) | lower }}" {% if drive.phase4.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
+                    <span class="phase-number">04</span>
+                    <div class="phase-content">
+                        <span class="phase-meta">STATUS // {{ drive.phase4.status | default('Pending') | upper }}</span>
+                        <h4>Interviews</h4>
+                        <p>Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
+                        <span class="view-report">View Logistics</span>
+                    </div>
+                </a>
+
+                <!-- PHASE 5: Linked to CMS Status -->
+                <a href="/join_us/spring-2027/results/" class="phase-card status-{{ (drive.phase5.status | default('Pending')) | lower }}" {% if drive.phase5.status == 'Pending' %}onclick="event.preventDefault();"{% endif %}>
+                    <span class="phase-number">05</span>
+                    <div class="phase-content">
+                        <span class="phase-meta">STATUS // {{ drive.phase5.status | default('Pending') | upper }}</span>
+                        <h4>Final Results</h4>
+                        <p>The finalized list of inducted members for the Spring 2027 competition cycle.</p>
+                        <span class="view-report">View Roster</span>
+                    </div>
+                </a>
+
             </div>
         </div>
     </section>

@@ -16,12 +16,23 @@ title: "AeroClub | Phase 04: Interviews"
 </style>
 
 <main>
+    <!-- Fetch the CMS Data specifically for Spring 2027 -->
+    {% set drive = null %}
+    {% for item in collections.drives %}
+        {% if item.fileSlug == 'spring-2027' %}
+            {% set drive = item.data %}
+        {% endif %}
+    {% endfor %}
+
     <div class="report-container">
         <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
 
-        <span class="report-meta">PHASE 04 // LOGISTICS</span>
+        <span class="report-meta">PHASE 04 // {{ drive.phase4.status | default('LOGISTICS') | upper }}</span>
         <h1 class="report-title">Interview Schedules</h1>
-        <p style="color: var(--text-muted); font-size: 16px; line-height: 1.7; max-width: 800px;">Candidates are expected to defend their technical choices from the written test and demonstrate problem-solving under pressure. Please bring a physical copy of your resume and any relevant project portfolios (Github links, CAD renderings). Wait in Room 204 prior to your assigned slot.</p>
+        
+        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 800px; margin-bottom: 40px;">
+            {{ drive.phase4.report | default("Interview schedules will appear here once published in CMS.") }}
+        </div>
 
         <div class="data-table-wrapper">
             <table>
