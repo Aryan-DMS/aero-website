@@ -20,8 +20,8 @@ title: "AeroClub | Gallery"
         .gallery-header h2 { font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px; }
         
         /* Clean Apple/YT style pills - NO NEON */
-        .media-tabs { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
-        .tab-btn { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); color: var(--text-light); font-size: 14px; font-weight: 500; padding: 8px 20px; cursor: pointer; transition: all 0.2s ease; border-radius: 24px; }
+        .media-tabs { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); color: var(--text-light); font-size: 14px; font-weight: 500; padding: 8px 24px; cursor: pointer; transition: all 0.2s ease; border-radius: 8px; }
         .tab-btn:hover { background: rgba(255,255,255,0.1); }
         .tab-btn.active { color: var(--bg-deep); background: var(--text-light); border-color: var(--text-light); font-weight: 700; }
         
@@ -43,7 +43,7 @@ title: "AeroClub | Gallery"
         
         /* Separate Thumbnail and Text */
         .gallery-card { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; }
-        .thumb-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: var(--bg-panel-dark); border: 1px solid rgba(255,255,255,0.05); }
+        .thumb-wrapper { position: relative; width: 100%; border-radius: 8px; overflow: hidden; background: var(--bg-panel-dark); border: 1px solid rgba(255,255,255,0.05); }
         
         .thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
         .gallery-card:hover .thumb-wrapper img { transform: scale(1.03); }
@@ -64,14 +64,14 @@ title: "AeroClub | Gallery"
         .lightbox-close { background: transparent; border: none; color: var(--text-light); font-size: 32px; cursor: pointer; transition: color 0.2s ease; display: flex; align-items: center; }
         .lightbox-close:hover { color: var(--text-muted); }
         
-        /* 2-Column Split (Main + Sidebar) */
-        .yt-layout { width: 100%; height: 100vh; display: grid; grid-template-columns: 1fr 400px; padding: 80px 24px 24px; gap: 24px; box-sizing: border-box; }
+        /* 2-Column Split (Main + Sidebar) - Scaled Up Player Area */
+        .yt-layout { width: 100%; height: 100vh; display: grid; grid-template-columns: 1fr 360px; padding: 70px 32px 32px; gap: 32px; box-sizing: border-box; }
         @media (max-width: 1024px) { .yt-layout { grid-template-columns: 1fr; overflow-y: auto; } }
         
         .yt-main { display: flex; flex-direction: column; max-height: calc(100vh - 100px); }
         
-        /* Main Player Area */
-        .yt-player-box { width: 100%; background: black; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; flex: 1; min-height: 0; }
+        /* Main Player Area - Subtly Rounded */
+        .yt-player-box { width: 100%; background: black; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; flex: 1; min-height: 0; }
         .lightbox-img, .lightbox-video { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
         
         .yt-meta-box { padding: 20px 0; flex-shrink: 0; }
@@ -84,7 +84,7 @@ title: "AeroClub | Gallery"
         .yt-sidebar::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 4px; }
         
         .sidebar-card { display: grid; grid-template-columns: 160px 1fr; gap: 12px; cursor: pointer; }
-        .sidebar-thumb { width: 100%; aspect-ratio: 16/9; border-radius: 8px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.05); }
+        .sidebar-thumb { width: 100%; aspect-ratio: 16/9; border-radius: 6px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.05); }
         .sidebar-info { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
         .sidebar-info h4 { font-size: 14px; font-weight: 600; color: var(--text-light); line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .sidebar-info span { font-family: var(--font-data); font-size: 11px; color: var(--text-muted); }
@@ -137,11 +137,16 @@ title: "AeroClub | Gallery"
 
 <main id="gallery-page">
         
-        <!-- Header -->
+        <!-- Header with Universal Toggle -->
         <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark);">
             <div class="container">
                 <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">Media & Archives</h2>
-                <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">A visual record of our engineering process, testing deployments, and competition history.</p>
+                <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px; margin-bottom: 12px;">A visual record of our engineering process, testing deployments, and competition history.</p>
+                
+                <div class="media-tabs">
+                    <button class="tab-btn active" onclick="switchGlobalFeed('horizontal', event)">Horizontal</button>
+                    <button class="tab-btn" onclick="switchGlobalFeed('vertical', event)">Vertical</button>
+                </div>
             </div>
         </section>
 
@@ -151,11 +156,6 @@ title: "AeroClub | Gallery"
                 <div class="gallery-header">
                     <h4>MEDIA ARCHIVE</h4>
                     <h2>Project & Flight Media</h2>
-                </div>
-
-                <div class="media-tabs">
-                    <button class="tab-btn active" onclick="switchFeed('ops', 'horizontal', event)">Horizontal</button>
-                    <button class="tab-btn" onclick="switchFeed('ops', 'vertical', event)">Vertical</button>
                 </div>
                 
                 <!-- Horizontal Feed -->
@@ -264,18 +264,16 @@ title: "AeroClub | Gallery"
         </section>
 
         <script>
-            function switchFeed(section, format, event) {
-                // Hide both grids in the targeted section
-                document.getElementById(section + '-horizontal').classList.add('hidden');
-                document.getElementById(section + '-vertical').classList.add('hidden');
-                
-                // Remove 'active' class from all buttons in the section's tab group
-                const container = document.getElementById(section + '-container');
-                container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                
-                // Show the selected grid and highlight the button
-                document.getElementById(section + '-' + format).classList.remove('hidden');
+            function switchGlobalFeed(format, event) {
+                // Remove active class from all tabs, add to clicked
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
                 event.currentTarget.classList.add('active');
+                
+                // Hide ALL grids on the page
+                document.querySelectorAll('.feed-grid').forEach(grid => grid.classList.add('hidden'));
+                
+                // Show only the requested format for ALL sections
+                document.querySelectorAll('.grid-' + format).forEach(grid => grid.classList.remove('hidden'));
             }
         </script>
     </main>
@@ -318,6 +316,7 @@ title: "AeroClub | Gallery"
     </div>
 
     <!-- Advanced Lightbox Logic -->
+    <!-- Advanced Lightbox Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const lightbox = document.getElementById('media-lightbox');
@@ -334,8 +333,18 @@ title: "AeroClub | Gallery"
             const timeDisplay = document.getElementById('time-display');
             const muteBtn = document.getElementById('mute-btn');
 
-            // Global function so sidebar items can call it
-            window.loadMedia = function(src, type, caption, meta, thumbSrc) {
+            // The Master Function: Loads media and dynamically builds the sidebar relative to the clicked card
+            window.openLightbox = function(card) {
+                // Pause existing video if playing before swapping
+                lbVid.pause();
+                
+                const src = card.getAttribute('data-src');
+                const type = card.getAttribute('data-type');
+                const meta = card.getAttribute('data-meta') || 'ARCHIVE';
+                const caption = card.getAttribute('data-caption');
+                const thumb = card.getAttribute('data-thumb');
+
+                // 1. Load Main Item
                 lbCaption.textContent = caption;
                 lbTag.textContent = meta;
 
@@ -352,58 +361,48 @@ title: "AeroClub | Gallery"
                     lbImg.src = src;
                     lbImg.style.display = 'block';
                 }
+
+                // 2. Rebuild the Sidebar dynamically
+                sidebar.innerHTML = ''; 
+                const currentGrid = card.closest('.feed-grid');
+                const allCards = currentGrid.querySelectorAll('.gallery-card');
+                
+                allCards.forEach(otherCard => {
+                    // Only add cards to sidebar if they are NOT the one currently playing
+                    if (otherCard !== card) {
+                        const oMeta = otherCard.getAttribute('data-meta') || 'ARCHIVE';
+                        const oCaption = otherCard.getAttribute('data-caption');
+                        const oThumb = otherCard.getAttribute('data-thumb');
+                        
+                        const sideCard = document.createElement('div');
+                        sideCard.className = 'sidebar-card';
+                        sideCard.innerHTML = `
+                            <div class="sidebar-thumb" style="background-image: url('${oThumb}')"></div>
+                            <div class="sidebar-info">
+                                <h4>${oCaption}</h4>
+                                <span>${oMeta}</span>
+                            </div>
+                        `;
+                        
+                        // When a sidebar card is clicked, run this master function on IT
+                        sideCard.addEventListener('click', () => {
+                            window.openLightbox(otherCard);
+                            // Scroll main viewer to top
+                            document.querySelector('.yt-layout').scrollTop = 0;
+                        });
+                        
+                        sidebar.appendChild(sideCard);
+                    }
+                });
+
+                lightbox.classList.add('active');
             };
 
-            // Main Click Event for Gallery Cards
+            // Attach click event to all cards on the main page
             document.querySelectorAll('.gallery-card').forEach(card => {
                 card.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
-                    const src = card.getAttribute('data-src');
-                    const type = card.getAttribute('data-type');
-                    const meta = card.getAttribute('data-meta') || 'ARCHIVE';
-                    const caption = card.getAttribute('data-caption');
-                    const thumb = card.getAttribute('data-thumb');
-
-                    // Load Main Item
-                    window.loadMedia(src, type, caption, meta, thumb);
-                    
-                    // Build the Sidebar (Grab all OTHER cards in the current grid)
-                    sidebar.innerHTML = ''; 
-                    const currentGrid = card.closest('.feed-grid');
-                    const allCards = currentGrid.querySelectorAll('.gallery-card');
-                    
-                    allCards.forEach(otherCard => {
-                        if (otherCard !== card) {
-                            const oSrc = otherCard.getAttribute('data-src');
-                            const oType = otherCard.getAttribute('data-type');
-                            const oMeta = otherCard.getAttribute('data-meta') || 'ARCHIVE';
-                            const oCaption = otherCard.getAttribute('data-caption');
-                            const oThumb = otherCard.getAttribute('data-thumb');
-                            
-                            // Build YT-style Sidebar Card
-                            const sideCard = document.createElement('div');
-                            sideCard.className = 'sidebar-card';
-                            sideCard.innerHTML = `
-                                <div class="sidebar-thumb" style="background-image: url('${oThumb}')"></div>
-                                <div class="sidebar-info">
-                                    <h4>${oCaption}</h4>
-                                    <span>${oMeta}</span>
-                                </div>
-                            `;
-                            
-                            // On click, load this one into the main player!
-                            sideCard.addEventListener('click', () => {
-                                window.loadMedia(oSrc, oType, oCaption, oMeta, oThumb);
-                                // Scroll to top of player on mobile
-                                document.querySelector('.yt-layout').scrollTop = 0;
-                            });
-                            
-                            sidebar.appendChild(sideCard);
-                        }
-                    });
-
-                    lightbox.classList.add('active');
+                    window.openLightbox(card);
                 });
             });
 
@@ -435,7 +434,7 @@ title: "AeroClub | Gallery"
                 muteBtn.textContent = lbVid.muted ? '🔇' : '🔊';
             });
 
-            // Close & Hard-Clear Cache Logic
+            // Close & Hard-Clear Logic
             const closeLightbox = () => {
                 lightbox.classList.remove('active');
                 lbVid.pause();
@@ -451,7 +450,6 @@ title: "AeroClub | Gallery"
 
             closeBtn.addEventListener('click', closeLightbox);
             
-            // Close if clicking outside the player/sidebar
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox || e.target.classList.contains('yt-layout')) {
                     closeLightbox();
