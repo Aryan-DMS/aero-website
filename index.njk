@@ -226,22 +226,23 @@ title: "AeroClub | Home"
             <h2 style="font-size: 32px; font-weight: 800;">The Fleet</h2>
         </div>
         <div class="fleet-carousel">
-            <button class="carousel-btn carousel-prev">&#10094;</button>
-            <div class="fleet-slide">
+            {% set flagship = collections.models | reverse | first %}
+            {% if flagship %}
+            <div class="fleet-slide" style="width: 100%;">
                 <div class="fleet-info">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">FLAGSHIP HARDWARE</h4>
-                    <h3>Project Valkyrie</h3>
-                    <p>Our most advanced autonomous quadcopter, featuring a custom carbon-fiber chassis, real-time telemetry, and AI-assisted payload deployment.</p>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">{{ flagship.data.card_meta | default('FLAGSHIP HARDWARE') }}</h4>
+                    <h3>{{ flagship.data.title }}</h3>
+                    <p>{{ flagship.data.hero_meta }}</p>
                     <a href="/models/" class="btn-join">View Full Fleet</a>
                 </div>
                 <div class="fleet-image">
-                    <img src="https://images.unsplash.com/photo-1579825633390-2e45bbd4fb63?auto=format&fit=crop&q=80&w=800&bg=transparent" alt="Project Valkyrie">
+                    <img src="{{ flagship.data.image }}" alt="{{ flagship.data.title }}">
                 </div>
             </div>
-            <button class="carousel-btn carousel-next">&#10095;</button>
+            {% endif %}
         </div>
     </section>
-
+    
     <div class="marquee-wrapper">
         <div class="marquee-content">
             {% if homeData %}
@@ -265,35 +266,28 @@ title: "AeroClub | Home"
             <a href="/achievements/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Logs</a>
         </div>
         <div class="news-grid">
-            <a href="/achievements/" class="news-card">
-                <div class="news-img"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600" alt="Techfest"></div>
+            {% for log in collections.achievements | reverse %}
+            {% if loop.index <= 3 %}
+            <a href="{{ log.url }}" class="news-card">
+                <div class="news-img"><img src="{{ log.data.image }}" alt="{{ log.data.card_title }}"></div>
                 <div class="news-content">
-                    <span class="news-meta">ACHIEVEMENT // 2026</span>
-                    <h4>National Drone Techfest</h4>
-                    <p>Secured top honors for autonomous navigation and structural efficiency against 100+ university teams.</p>
+                    <span class="news-meta">{{ log.data.card_meta }}</span>
+                    <h4>{{ log.data.card_title }}</h4>
+                    <p>{{ log.data.summary }}</p>
                     <span class="learn-more">Learn More</span>
                 </div>
             </a>
-            <a href="/events/" class="news-card">
-                <div class="news-img"><img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=600" alt="Expo"></div>
-                <div class="news-content">
-                    <span class="news-meta">UPCOMING DEPLOYMENT</span>
-                    <h4>Aero India Student Expo</h4>
-                    <p>Preparing to showcase our fixed-wing thermal glider prototype to industry professionals in Bangalore.</p>
-                    <span class="learn-more">Learn More</span>
-                </div>
-            </a>
-            <a href="/models/" class="news-card">
-                <div class="news-img"><img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=600" alt="Hardware Update"></div>
-                <div class="news-content">
-                    <span class="news-meta">HARDWARE UPDATE</span>
-                    <h4>Valkyrie v2.0 Rollout</h4>
-                    <p>Successful maiden flight of the upgraded quadcopter chassis with a 15% reduction in drag coefficient.</p>
-                    <span class="learn-more">Learn More</span>
-                </div>
-            </a>
+            {% endif %}
+            {% endfor %}
         </div>
     </section>
+
+    {% set sponsorData = null %}
+    {% for page in collections.all %}
+        {% if page.fileSlug == 'sponsors' %}
+            {% set sponsorData = page.data %}
+        {% endif %}
+    {% endfor %}
 
     <section class="home-section container" style="padding-top: 0;">
         <div class="partners-header">
@@ -304,18 +298,15 @@ title: "AeroClub | Home"
             <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Partners</a>
         </div>
         <div class="partners-grid">
-            <a href="/sponsors/" class="partner-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Lockheed_Martin_logo.svg/320px-Lockheed_Martin_logo.svg.png" alt="Lockheed Martin">
-            </a>
-            <a href="/sponsors/" class="partner-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Boeing_Logo.svg/320px-Boeing_Logo.svg.png" alt="Boeing">
-            </a>
-            <a href="/sponsors/" class="partner-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/SpaceX_Logo_Black.svg/320px-SpaceX_Logo_Black.svg.png" alt="SpaceX">
-            </a>
-            <a href="/sponsors/" class="partner-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/320px-Amazon_logo.svg.png" alt="Amazon">
-            </a>
+            {% if sponsorData and sponsorData.tiers[0] %}
+                {% for sponsor in sponsorData.tiers[0].sponsors_list %}
+                {% if loop.index <= 4 %}
+                <a href="{{ sponsor.url | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                </a>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 
