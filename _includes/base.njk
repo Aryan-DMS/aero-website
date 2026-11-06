@@ -205,12 +205,38 @@
             .news-card .news-img { height: clamp(180px, 45vw, 240px) !important; }
             .partner-logo { height: clamp(140px, 35vw, 200px) !important; padding: clamp(20px, 5vw, 40px) !important; }
 
-            /* 9. Footer Cleanup (Fixing width overflow) */
-            footer { overflow-x: hidden; width: 100vw; }
-            .footer-content { grid-template-columns: 1fr !important; gap: clamp(32px, 8vw, 64px) !important; padding: clamp(40px, 10vw, 64px) 0 32px !important; width: 100%; }
-            .footer-content > div, .contact-info li, .footer-content span { flex-direction: column !important; align-items: flex-start !important; text-align: left !important; gap: 8px !important; max-width: 100%; word-break: break-word; }
-            .footer-bottom { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; width: 100%; }
-        }
+            /* 9. Footer Cleanup (Overriding Inline HTML Styles) */
+            footer { overflow-x: hidden; width: 100%; padding-top: clamp(40px, 10vw, 64px) !important; }
+            
+            /* Target the top footer container and obliterate the 4-column inline style */
+            footer > .container:nth-of-type(1) {
+                grid-template-columns: 1fr !important;
+                gap: clamp(32px, 8vw, 48px) !important;
+                margin-bottom: 32px !important;
+            }
+            
+            /* Force all footer link blocks to stack vertically and align left */
+            footer > .container:nth-of-type(1) > div {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                text-align: left !important;
+                width: 100%;
+            }
+            
+            /* Fix the bottom copyright and social links row */
+            footer > .container:nth-of-type(2) {
+                flex-direction: column !important;
+                gap: 24px !important;
+                align-items: flex-start !important;
+            }
+            
+            /* Prevent long emails or links from breaking the layout */
+            .footer-contact-link, footer span {
+                word-break: break-word;
+                white-space: normal !important;
+                line-height: 1.6;
+            }
     </style>
 </head>
 <body>
