@@ -1,12 +1,12 @@
 ---
-title: "National Drone Techfest: Securing AIR 5"
-card_title: National Drone Techfest
-hero_meta: MISSION LOG // DEC 2026 // PUNE, INDIA
-card_meta: MISSION LOG // DEC 2026 // PUNE, INDIA
-image: https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=2000
-summary: Secured AIR 5 in Aeorothon
-hardware: Project Valkyrie (Quadcopter)
-result: " All India Rank 5 (out of 102) "
+title: "SAEISS DDC 2026: Engineering a Competition-Ready Fixed-Wing UAV"
+card_title: SAEISS DDC 2026
+hero_meta: SAEISS // 2026 // CHENNAI, INDIA
+card_meta: "SAEISS // DEC 2026 // OVERALL RANK: AIR 5"
+image: https://images.unsplash.com/photo-1760448676945-334db40d64fa?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+summary: Secured AIR 2 in SAEISS DDC2026
+hardware: Project Trident (Aircraft)
+result: " All India Rank 2 (out of 102) "
 blocks:
   - type: text_block
     content: The 2026 National Drone Techfest presented one of the most rigorous
