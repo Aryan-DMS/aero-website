@@ -332,34 +332,35 @@ title: "AeroClub | Home"
         <div class="partners-header">
             <div>
                 <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px;">INDUSTRY ALLIANCES</h4>
-                <h2>Tier 1 Partners</h2>
+                <h2>Featured Partners</h2>
             </div>
             <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Sponsors</a>
         </div>
         <div class="partners-grid">
-            {% if sponsorData and sponsorData.tiers[0] %}
-                {% for item in sponsorData.tiers[0].sponsors_list %}
-                {% if loop.index <= 4 %}
-                    
-                    {# Extract data based on the CMS variable type #}
-                    {% set sponsor = item.detailed_card if item.type == 'detailed_card' else item.logo_card %}
-                    
-                    {% if sponsor %}
-                        {% set sponsorUrl = sponsor.url %}
-                        {% if sponsorUrl and not '://' in sponsorUrl %}
-                            {% set sponsorUrl = 'https://' + sponsorUrl %}
-                        {% endif %}
-
-                        <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                            {% if sponsor.logo %}
-                            <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                            {% else %}
-                            <span class="partner-fallback">{{ sponsor.name }}</span>
+            {% set renderCount = namespace(val=0) %}
+            {% if sponsorData and sponsorData.tiers %}
+                {% for tier in sponsorData.tiers %}
+                    {% for sponsor in tier.sponsors_list %}
+                        {% if renderCount.val < 4 %}
+                            
+                            {% set sponsorUrl = sponsor.url %}
+                            {% if sponsorUrl and not '://' in sponsorUrl %}
+                                {% set sponsorUrl = 'https://' + sponsorUrl %}
                             {% endif %}
-                        </a>
-                    {% endif %}
-                    
-                {% endif %}
+
+                            <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                                {% if sponsor.logo %}
+                                <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                {% else %}
+                                <span class="partner-fallback">{{ sponsor.name }}</span>
+                                {% endif %}
+                            </a>
+                            
+                            {# Increment the counter so we stop at exactly 4 #}
+                            {% set renderCount.val = renderCount.val + 1 %}
+                            
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
             {% endif %}
         </div>
