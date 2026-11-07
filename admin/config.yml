@@ -23,6 +23,7 @@ collections:
     folder: "content/events"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "[{{category}}] {{title}} // {{dateString}}"
     fields:
       - {label: "Event Title", name: "title", widget: "string"}
       - {label: "Category", name: "category", widget: "select", options: ["Active", "Past", "Timeline"]}
@@ -54,6 +55,7 @@ collections:
     folder: "content/achievements"
     create: true
     slug: "{{slug}}"
+    summary: "{{card_meta}} // {{card_title}}"
     fields:
       - {label: "Expanded Cinematic Title (e.g. National Drone Techfest: Securing AIR 5)", name: "title", widget: "string"}
       - {label: "Compact Card Title (e.g. National Drone Techfest)", name: "card_title", widget: "string"}
@@ -132,6 +134,7 @@ collections:
     folder: "content/personnel"
     create: true
     slug: "{{name}}"
+    summary: "[{{division}}] {{name}} - {{role}}"
     fields:
       - {label: "Name", name: "name", widget: "string"}
       - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}

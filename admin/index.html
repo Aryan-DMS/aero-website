@@ -8,5 +8,46 @@
   <body>
     <!-- This script automatically renders the entire dashboard interface -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+          <!-- OLED DARK MODE INJECTION -->
+  <style>
+    /* The core OLED background */
+    body.oled-mode { background-color: #000 !important; }
+    
+    /* Inverts the entire CMS UI, shifts the hue back to normal, and boosts contrast */
+    body.oled-mode #nc-root { filter: invert(1) hue-rotate(180deg) contrast(1.1); }
+    
+    /* Double-inverts images and videos so they look normal, not like x-rays */
+    body.oled-mode #nc-root img, 
+    body.oled-mode #nc-root video { filter: invert(1) hue-rotate(180deg); }
+    
+    /* Premium Floating Toggle Button */
+    #dark-mode-toggle {
+        position: fixed; bottom: 24px; right: 24px; z-index: 100000;
+        background: #0B1121; color: #0EA5E9; border: 1px solid #1E293B;
+        padding: 12px 24px; border-radius: 24px; font-family: monospace; font-weight: bold;
+        cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transition: all 0.2s ease;
+    }
+    #dark-mode-toggle:hover { background: #0EA5E9; color: #0B1121; }
+  </style>
+
+  <button id="dark-mode-toggle" onclick="toggleOLED()">OLED MODE : OFF</button>
+
+  <script>
+    const btn = document.getElementById('dark-mode-toggle');
+    
+    // Check local storage so it remembers your preference across reloads
+    if (localStorage.getItem('oled-mode') === 'true') {
+        document.body.classList.add('oled-mode');
+        btn.textContent = "OLED MODE : ON";
+    }
+    
+    function toggleOLED() {
+        document.body.classList.toggle('oled-mode');
+        const isActive = document.body.classList.contains('oled-mode');
+        localStorage.setItem('oled-mode', isActive);
+        btn.textContent = isActive ? "OLED MODE : ON" : "OLED MODE : OFF";
+    }
+  </script>
   </body>
 </html>
