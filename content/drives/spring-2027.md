@@ -1,7 +1,7 @@
 ---
 title: Spring 2027 Induction
 status: Live
-image: www.youtube.com
+image: https://images.unsplash.com/photo-1724010371681-7cdbfb42a7ef?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
 roles: Aerodynamics, Embedded Systems, Payload Integration, Web Design
 phase1:
   status: Open
