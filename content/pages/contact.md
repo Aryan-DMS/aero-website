@@ -1,16 +1,18 @@
 ---
 layout: contact.njk
 permalink: /contact/index.html
-email: contact@aeroclub.edu.in
+email: aerialmartial@gmail.com
 location: |-
-  Aerospace Lab 3, College of Engineering
+  Idea Lab 501, PES's Modern College of Engineering
   Pune, Maharashtra 411005
 phone: +91 98765 43210
 socials:
   - platform: LinkedIn
-    url: https://linkedin.com/fah
+    url: https://www.linkedin.com/company/team-aerial-martialmcoe
   - platform: Instagram
-    url: https://instagram.com/eh
+    url: https://www.instagram.com/teamaerialmartial/
   - platform: YouTube
-    url: https://youtube.com/@FOXMC07
+    url: https://www.youtube.com/channel/UCBD1x9EdxqMjrMDhqJWB4yg
+  - platform: Facebook
+    url: https://www.facebook.com/aerialmartial/
 ---
