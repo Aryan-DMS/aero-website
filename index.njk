@@ -338,21 +338,27 @@ title: "AeroClub | Home"
         </div>
         <div class="partners-grid">
             {% if sponsorData and sponsorData.tiers[0] %}
-                {% for sponsor in sponsorData.tiers[0].sponsors_list %}
+                {% for item in sponsorData.tiers[0].sponsors_list %}
                 {% if loop.index <= 4 %}
                     
-                    {% set sponsorUrl = sponsor.url %}
-                    {% if sponsorUrl and not '://' in sponsorUrl %}
-                        {% set sponsorUrl = 'https://' + sponsorUrl %}
-                    {% endif %}
-
-                    <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                        {% if sponsor.logo %}
-                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                        {% else %}
-                        <span class="partner-fallback">{{ sponsor.name }}</span>
+                    {# Extract data based on the CMS variable type #}
+                    {% set sponsor = item.detailed_card if item.type == 'detailed_card' else item.logo_card %}
+                    
+                    {% if sponsor %}
+                        {% set sponsorUrl = sponsor.url %}
+                        {% if sponsorUrl and not '://' in sponsorUrl %}
+                            {% set sponsorUrl = 'https://' + sponsorUrl %}
                         {% endif %}
-                    </a>
+
+                        <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                            {% if sponsor.logo %}
+                            <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                            {% else %}
+                            <span class="partner-fallback">{{ sponsor.name }}</span>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                    
                 {% endif %}
                 {% endfor %}
             {% endif %}
