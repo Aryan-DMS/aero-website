@@ -116,10 +116,10 @@ title: "AeroClub | Sponsors"
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
         
         /* Premium Original-Color Logo Wall */
-        .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+        .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
         
-        /* White background cards to preserve full-color brand logos perfectly */
-        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 140px; display: flex; align-items: center; justify-content: center; padding: 32px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        /* Scaled up white cards with more vertical breadth and padding */
+        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 200px; display: flex; align-items: center; justify-content: center; padding: 48px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         a.sponsor-logo-box:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
         
         /* No filters! Just pure original colors, contained beautifully */
@@ -148,8 +148,8 @@ title: "AeroClub | Sponsors"
                 {% for tier in item.data.tiers %}
                 <section style="padding: {% if loop.first %}80px 0{% else %}0 0 80px{% endif %};">
                     <div class="container">
-                        <!-- Centered Tier Headers for a premium keynote aesthetic -->
-                        <div style="margin-bottom: 48px; text-align: center;">
+                        <!-- Left-aligned Tier Headers matching site flow -->
+                        <div style="margin-bottom: 40px; text-align: left;">
                             <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1.5px; text-transform: uppercase;">{{ tier.eyebrow }}</h4>
                             <h3 style="font-size: 40px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0;">{{ tier.title }}</h3>
                         </div>
