@@ -179,7 +179,7 @@ title: "AeroClub | Gallery"
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.operations %}
                                 {% if item.media_format != 'Vertical' %}
-                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}">
+                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}" data-url="{{ item.url }}">
                                     <div class="thumb-wrapper">
                                         <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
                                         {% if item.type == 'video' %}<div class="play-indicator">▶ VIDEO</div>{% endif %}
@@ -201,7 +201,7 @@ title: "AeroClub | Gallery"
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.operations %}
                                 {% if item.media_format == 'Vertical' %}
-                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}">
+                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}" data-url="{{ item.url }}">
                                     <div class="thumb-wrapper">
                                         <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
                                         {% if item.type == 'video' %}<div class="play-indicator">▶ VIDEO</div>{% endif %}
@@ -235,7 +235,7 @@ title: "AeroClub | Gallery"
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.awards %}
                                 {% if item.media_format != 'Vertical' %}
-                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}">
+                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}" data-url="{{ item.url }}">
                                     <div class="thumb-wrapper">
                                         <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
                                         {% if item.type == 'video' %}<div class="play-indicator">▶ VIDEO</div>{% endif %}
@@ -257,7 +257,7 @@ title: "AeroClub | Gallery"
                         {% if page.fileSlug == 'gallery' %}
                             {% for item in page.data.awards %}
                                 {% if item.media_format == 'Vertical' %}
-                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}">
+                                <div class="gallery-card" data-type="{{ item.type }}" data-src="{{ item.src }}" data-meta="{{ item.meta }}" data-thumb="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" data-caption="{{ item.caption }}" data-url="{{ item.url }}">
                                     <div class="thumb-wrapper">
                                         <img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ item.src }}{% endif %}" alt="{{ item.caption }}">
                                         {% if item.type == 'video' %}<div class="play-indicator">▶ VIDEO</div>{% endif %}
@@ -353,6 +353,9 @@ title: "AeroClub | Gallery"
 
             // The Master Function: Loads media and dynamically builds the sidebar relative to the clicked card
             window.openLightbox = function(card) {
+                // Lock the main body from scrolling
+                document.body.style.overflow = 'hidden';
+
                 // Pause existing video if playing before swapping
                 lbVid.pause();
                 
@@ -466,6 +469,10 @@ title: "AeroClub | Gallery"
             // Close & Hard-Clear Logic
             const closeLightbox = () => {
                 lightbox.classList.remove('active');
+                
+                // Unlock the main body scrolling
+                document.body.style.overflow = '';
+                
                 lbVid.pause();
                 
                 setTimeout(() => {
