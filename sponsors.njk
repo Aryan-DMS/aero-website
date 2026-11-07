@@ -118,12 +118,12 @@ title: "AeroClub | Sponsors"
         /* Premium Original-Color Logo Wall */
         .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
         
-        /* Scaled up white cards with more vertical breadth and padding */
-        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 200px; display: flex; align-items: center; justify-content: center; padding: 48px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        /* Scaled up white cards with balanced padding */
+        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 200px; display: flex; align-items: center; justify-content: center; padding: 24px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         a.sponsor-logo-box:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
         
-        /* No filters! Just pure original colors, contained beautifully */
-        .sponsor-logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
+        /* Allow wide logos to scale up, cap tall logos so they aren't massive */
+        .sponsor-logo-box img { max-width: 85%; max-height: 110px; object-fit: contain; transition: transform 0.3s ease; }
         a.sponsor-logo-box:hover img { transform: scale(1.05); }
         
         /* Fallback if Captain forgets to upload a logo (needs dark text since bg is white) */
