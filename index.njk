@@ -142,14 +142,28 @@ title: "AeroClub | Home"
     .learn-more::after { content: '→'; transition: transform 0.2s; }
     .news-card:hover .learn-more::after { transform: translateX(6px); }
 
+    /* Team Roster Grid (Homepage) */
+    .home-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 80px; }
+    .home-team-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; display: block; overflow: hidden; transition: border-color 0.2s ease; text-decoration: none; }
+    .home-team-card:hover { border-color: var(--text-light); }
+    .home-team-img { height: 320px; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: #1E293B; }
+    .home-team-img img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1); transition: transform 0.4s ease; }
+    .home-team-card:hover .home-team-img img { transform: scale(1.03); }
+    .home-team-info { padding: 24px; }
+    .home-team-info h4 { font-size: 20px; margin-bottom: 4px; color: var(--text-light); font-weight: 700; transition: color 0.2s; }
+    .home-team-info p { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin: 0; }
+
+    /* Premium Scaled-Down Sponsor Cards (Homepage) */
     .partners-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
     .partners-header h2 { font-size: 32px; font-weight: 800; }
     .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
     
-    .partner-logo { display: flex; justify-content: center; align-items: center; padding: 40px; height: 220px; border-radius: 4px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); transition: border-color 0.2s ease; }
-    .partner-logo img { max-width: 85%; max-height: 90px; object-fit: contain; filter: brightness(0) invert(1); transition: transform 0.2s ease; }
-    .partner-logo:hover { border-color: var(--text-light); }
+    .partner-logo { background: #ffffff; border-radius: 8px; height: 120px; display: flex; justify-content: center; align-items: center; padding: 24px; text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+    .partner-logo:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
+    .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
     .partner-logo:hover img { transform: scale(1.05); }
+    .partner-fallback { font-size: 16px; font-weight: 800; color: #1E293B; margin: 0; text-align: center; transition: color 0.3s ease; letter-spacing: -0.5px; }
+    .partner-logo:hover .partner-fallback { color: #0EA5E9; }
     
     .marquee-wrapper { overflow: hidden; white-space: nowrap; padding: 60px 0; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark); }
     .marquee-content { display: inline-flex; gap: 80px; align-items: center; animation: marquee 20s linear infinite; opacity: 0.5; }
@@ -282,6 +296,30 @@ title: "AeroClub | Home"
         </div>
     </section>
 
+    <!-- NEW SECTION: Core Command -->
+    <section class="home-section container" style="padding-top: 0;">
+        <div class="news-header">
+            <div>
+                <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px;">CORE COMMAND</h4>
+                <h2>Leadership</h2>
+            </div>
+            <a href="/team/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View Full Roster</a>
+        </div>
+        <div class="home-team-grid">
+            {% for member in collections.personnel %}
+                {% if member.data.role == 'Faculty Advisor' or member.data.role == 'Captain' or member.data.role == 'Vice-Captain' or member.data.role == 'Vice Captain' %}
+                <a href="{{ member.url }}" class="home-team-card">
+                    <div class="home-team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
+                    <div class="home-team-info">
+                        <h4>{{ member.data.name }}</h4>
+                        <p>{{ member.data.role }}</p>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
     {% set sponsorData = null %}
     {% for page in collections.all %}
         {% if page.fileSlug == 'sponsors' %}
@@ -289,21 +327,32 @@ title: "AeroClub | Home"
         {% endif %}
     {% endfor %}
 
+    <!-- FIXED SECTION: Sponsors -->
     <section class="home-section container" style="padding-top: 0;">
         <div class="partners-header">
             <div>
                 <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px;">INDUSTRY ALLIANCES</h4>
-                <h2>Strategic Partners</h2>
+                <h2>Tier 1 Partners</h2>
             </div>
-            <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Partners</a>
+            <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Sponsors</a>
         </div>
         <div class="partners-grid">
             {% if sponsorData and sponsorData.tiers[0] %}
                 {% for sponsor in sponsorData.tiers[0].sponsors_list %}
                 {% if loop.index <= 4 %}
-                <a href="{{ sponsor.url | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                </a>
+                    
+                    {% set sponsorUrl = sponsor.url %}
+                    {% if sponsorUrl and not '://' in sponsorUrl %}
+                        {% set sponsorUrl = 'https://' + sponsorUrl %}
+                    {% endif %}
+
+                    <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                        {% if sponsor.logo %}
+                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                        {% else %}
+                        <span class="partner-fallback">{{ sponsor.name }}</span>
+                        {% endif %}
+                    </a>
                 {% endif %}
                 {% endfor %}
             {% endif %}
