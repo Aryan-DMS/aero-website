@@ -7,7 +7,7 @@ hardware: Payload Class
 summary: |-
   Secured AIR 5 in the autonomous payload delivery circuit.
   yeah
-image: https://images.unsplash.com/photo-1541187764121-717013809cb8?auto=format&fit=crop&q=80&w=2000
+image: https://images.unsplash.com/photo-1499708544652-0e4c43899071?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
 ---
 Official post-mission debrief and telemetry logs from the National Drone Techfest. 
 
