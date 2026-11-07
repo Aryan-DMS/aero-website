@@ -8,40 +8,20 @@
   <body>
     <!-- This script automatically renders the entire dashboard interface -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-          <!-- OLED DARK MODE & GRID UI INJECTION -->
+          <!-- OLED DARK MODE INJECTION -->
   <style>
-    /* 1. Core OLED background */
+    /* The core OLED background */
     body.oled-mode { background-color: #000 !important; }
     
-    /* 2. Inverts the entire CMS UI, shifts the hue back, boosts contrast */
+    /* Inverts the entire CMS UI, shifts the hue back, and boosts contrast */
     body.oled-mode #nc-root { filter: invert(1) hue-rotate(180deg) contrast(1.1); }
     
-    /* 3. THE FIX: Protects images, background-thumbnails, and the live-preview iframe from turning negative */
+    /* Protects images, background-thumbnails, and the live-preview iframe from turning negative */
     body.oled-mode #nc-root img, 
     body.oled-mode #nc-root video,
     body.oled-mode #nc-root iframe,
     body.oled-mode #nc-root div[style*="background-image"] { 
         filter: invert(1) hue-rotate(180deg) !important; 
-    }
-
-    /* 4. PREMIUM PAGE CARDS: Detect empty grid boxes and turn them into blueprint-style modules */
-    #nc-root a[href*="collections"] > div:first-child:not([style*="background-image"]) {
-        background: linear-gradient(135deg, #0EA5E9 0%, #0B1121 100%) !important;
-        position: relative;
-        border-bottom: 2px solid #0EA5E9;
-    }
-    
-    /* Injects a visible watermark inside the empty space */
-    #nc-root a[href*="collections"] > div:first-child:not([style*="background-image"])::after {
-        content: '📄 SYSTEM FILE';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        color: rgba(255,255,255,0.9);
-        font-family: monospace;
-        font-weight: bold;
-        font-size: 13px;
-        letter-spacing: 2px;
     }
 
     /* Premium Floating Toggle Button */
@@ -58,7 +38,7 @@
   <button id="dark-mode-toggle" onclick="toggleOLED()">OLED MODE : OFF</button>
 
   <script>
-    // 5. THE GRID FIX: Automatically hack the local storage to force Grid View on load
+    // Automatically force Grid View on load
     if (!localStorage.getItem('decap-cms-view-type')) {
         localStorage.setItem('decap-cms-view-type', '"grid"');
     }
@@ -66,7 +46,7 @@
         localStorage.setItem('netlify-cms-view-type', '"grid"');
     }
 
-    // Toggle Logic
+    // OLED Toggle Logic
     const btn = document.getElementById('dark-mode-toggle');
     
     if (localStorage.getItem('oled-mode') === 'true') {
