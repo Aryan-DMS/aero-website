@@ -1,6 +1,6 @@
 ---
 name: Z.Member
-division: Core Team
+division: ZCore Team
 role: Member of Club
 image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
 major: Mechanical Engineering
