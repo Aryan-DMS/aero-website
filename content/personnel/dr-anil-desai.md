@@ -1,38 +1,38 @@
 ---
-name: Prof. Siddhant Kolase
-division: Faculty Advisor
-role: Chief Academic Advisor
-image: https://webweb.ams3.digitaloceanspaces.com/data/modern-college-of-eng-pune.webweb.ai.in/1778131147_2f1ec5a5d1c9fec6d937.jpg
-major: Heat Power Engineering
+name: "Member #1"
+division: Core Team
+role: Member
+image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
+major: Mechanical Engineering
 joined: August 2020
-linkedin: https://in.linkedin.com/in/siddhant-kolase-b86312218
+linkedin: https://in.linkedin.com/in/
 contributions:
-  - title: Technical Guidance
-    desc: Provides technical direction and expertise to support the club's aerospace
-      projects and initiatives.
-  - title: Student Mentorship
-    desc: Encourages students to explore aerospace engineering, innovation,
-      research, and practical learning.
-  - title: Project Development
-    desc: Guides the team through project planning, design decisions, and technical
-      challenges.
-  - title: Club Development
-    desc: Plays an instrumental role in building a collaborative environment that
-      promotes innovation, teamwork, and a passion for aviation and space
-      exploration.
+  - title: Technical Innovation
+    desc: Contribute to designing, developing, and experimenting with
+      aerospace-related concepts and projects.
+  - title: Research & Exploration
+    desc: Explore emerging technologies, research opportunities, and advancements in
+      aviation and space exploration.
+  - title: Team Collaboration
+    desc: Work alongside fellow members to exchange ideas, solve challenges, and
+      bring innovative concepts to life.
+  - title: Club Initiatives
+    desc: Actively participate in workshops, competitions, technical events, and
+      activities that promote aerospace learning.
 quote: >-
-  The sky is not the limit; it is merely the beginning of exploration.
+  Every great flight begins with an idea, a little curiosity, and the courage to
+  take off
 
-  Innovation takes flight when curiosity meets the courage to experiment.
+  We don't just study the science of flight; we explore the possibilities of what comes next.
 
-  The future of aerospace belongs to those who dare to imagine, design, and build beyond boundaries
+  Dream beyond the horizon, experiment beyond expectations, and build beyond limitations.
 ---
-As the Faculty Advisor of the Aero Club, I consider it a privilege to guide and mentor students who share a passion for aerospace, aviation, and the endless possibilities of flight. I strongly believe that aerospace engineering is not just about understanding how things fly, but about questioning existing boundaries, exploring new possibilities, and turning ambitious ideas into meaningful innovations.
+Being a member of the Aero Club gives me an opportunity to explore my passion for aerospace, aviation, and the fascinating science behind flight. I believe that the world of aerospace engineering represents the perfect intersection of curiosity, creativity, and innovation, where even the smallest idea has the potential to lead to something extraordinary.
 
-Through my association with the Aero Club, I strive to create an environment where students are encouraged to think creatively, experiment fearlessly, and develop a practical understanding of engineering concepts. I believe that the true essence of learning lies beyond textbooks and classrooms, in the process of designing, building, testing, failing, and improving. My role is to provide students with the right direction, technical guidance, and encouragement as they navigate these experiences.
+As a member of the club, I actively engage in exploring aerospace concepts, working on technical projects, and learning about the technologies that shape the future of aviation and space exploration. I enjoy being part of an environment where ideas are shared freely, questions are encouraged, and challenges are viewed as opportunities to learn and grow.
 
-I actively support the club's technical initiatives, projects, workshops, and collaborative activities, with an emphasis on fostering curiosity, teamwork, and problem-solving abilities. I encourage students to approach challenges with an open mind, take ownership of their ideas, and develop the confidence to transform concepts into working solutions. I also believe in creating opportunities for students to explore emerging developments in aeronautics, aerospace technology, and space exploration.
+My journey with the Aero Club is not limited to technical learning. It is also about developing essential skills such as teamwork, leadership, problem-solving, and creative thinking. Collaborating with fellow enthusiasts allows me to gain different perspectives, learn from shared experiences, and turn theoretical knowledge into practical understanding.
 
-For me, mentoring young minds is about more than sharing knowledge; it is about inspiring them to discover their potential, challenge conventional thinking, and develop the determination to pursue their ambitions. I take great pride in witnessing students grow from curious enthusiasts into capable individuals who can contribute meaningfully to the world of engineering and innovation.
+I look forward to contributing to the club's projects, participating in technical events and competitions, and exploring new possibilities in the aerospace domain. Every design challenge, experiment, and collaborative effort adds to my understanding and strengthens my enthusiasm for engineering.
 
-As we continue our journey with the Aero Club, my vision is to cultivate a community driven by curiosity, creativity, collaboration, and a shared passion for flight. I hope to inspire every member to look beyond the horizon, embrace the challenges of exploration, and remember that every great achievement in aerospace begins with the courage to imagine what seems impossible.
+For me, being part of the Aero Club is about more than simply sharing an interest in flight. It is about being part of a community that dares to dream, questions limitations, and works together to turn imagination into reality. I aspire to keep learning, keep building, and keep pushing boundaries as I explore the incredible possibilities that lie beyond the horizon.
