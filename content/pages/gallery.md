@@ -44,6 +44,12 @@ operations:
     meta: fewgf
     caption: rwgyw
     url: https://aero-website-7xh.pages.dev/achievements/saeiss-ddc-2026-engineering-a-competition-ready-fixed-wing-uav-2/
+  - media_format: Horizontal
+    type: image
+    src: https://images.unsplash.com/photo-1755524709943-b33ad219f80c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+    meta: w
+    caption: WX
+    url: https://gemini.google.com/u/3/app/081f35ef21bc7d11
 awards:
   - type: image
     grid_span: span-2-col
