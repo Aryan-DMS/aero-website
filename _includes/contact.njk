@@ -7,12 +7,16 @@ title: "AeroClub | Contact"
         /* Contact Typographic Lists */
         .contact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
         .contact-item { display: flex; flex-direction: column; gap: 6px; }
-        .contact-label { font-family: var(--font-data); color: var(--text-muted); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        .contact-label { font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-muted); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
         .contact-value { font-size: 18px; color: var(--text-light); font-weight: 600; }
         
         .social-links { display: flex; gap: 24px; }
         .social-link { color: var(--accent-cyan); font-weight: 700; font-size: 15px; transition: color 0.2s; text-decoration: none; display: inline-block; }
         .social-link:hover { color: var(--text-light); }
+
+        /* Premium Solid Action Button */
+        .btn-solid-cyan { display: inline-block; padding: 14px 32px; background: var(--accent-cyan); color: var(--bg-deep); font-family: var(--font-ui), sans-serif; font-size: 15px; font-weight: 800; border-radius: 4px; text-decoration: none; transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: 1px solid var(--accent-cyan); }
+        .btn-solid-cyan:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.25); }
 
         /* ==========================================
            CLEAN ARCHITECTURAL CONTACT FORM
@@ -186,10 +190,10 @@ title: "AeroClub | Contact"
                     </div>
 
                     <!-- New Recruitment Link -->
-                    <div style="margin-top: 48px; border-top: 1px solid var(--border-dark); padding-top: 32px;">
-                        <span class="contact-label" style="margin-bottom: 16px; display: block;">Division Recruitment</span>
-                        <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px; line-height: 1.6;">Interested in joining the engineering team? Check our active roster for open positions and technical requirements.</p>
-                        <a href="/join_us/" class="btn-outline">View Open Roles</a>
+                    <div style="margin-top: 48px; border-top: 1px solid var(--border-dark); padding-top: 40px;">
+                        <span class="contact-label" style="margin-bottom: 16px; display: block; color: var(--accent-cyan);">Division Recruitment</span>
+                        <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 32px; line-height: 1.6;">Interested in joining the engineering team? Check our active roster for open positions and technical requirements.</p>
+                        <a href="/join_us/" class="btn-solid-cyan">View Open Roles</a>
                     </div>
                 </div>
                 
