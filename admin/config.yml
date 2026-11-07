@@ -216,6 +216,7 @@ collections:
               - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
               - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
+              - {label: "External Source URL (Optional)", name: "url", widget: "string", required: false}
           - label: "Hall of Records (Awards)"
             name: "awards"
             widget: "list"
@@ -227,6 +228,7 @@ collections:
               - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
               - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
+              - {label: "External Source URL (Optional)", name: "url", widget: "string", required: false}
 
   - name: "page_achievements_timeline"
     label: "Achievements: Timeline"

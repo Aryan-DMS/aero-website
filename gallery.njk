@@ -55,17 +55,31 @@ title: "AeroClub | Gallery"
         .card-info span { font-family: var(--font-data); font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* ==========================================
-           YOUTUBE-STYLE LIGHTBOX & SIDEBAR
+           PREMIUM CINEMATIC LIGHTBOX
         ========================================== */
-        .lightbox { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .lightbox { position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999; display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; flex-direction: column; }
         .lightbox.active { opacity: 1; pointer-events: auto; }
         
-        .lightbox-nav { position: absolute; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; z-index: 10000; }
-        .lightbox-close { background: transparent; border: none; color: var(--text-light); font-size: 32px; cursor: pointer; transition: color 0.2s ease; display: flex; align-items: center; }
-        .lightbox-close:hover { color: var(--text-muted); }
+        /* Minimal Top Header */
+        .lightbox-header { width: 100%; height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: rgba(11, 17, 33, 0.95); border-bottom: 1px solid var(--border-dark); z-index: 10000; flex-shrink: 0; }
         
-        /* 2-Column Split (Main + Sidebar) - Scaled Up Player Area */
-        .yt-layout { width: 100%; height: 100vh; display: grid; grid-template-columns: 1fr 360px; padding: 70px 32px 32px; gap: 32px; box-sizing: border-box; }
+        /* Brand Left */
+        .lb-brand { font-size: 20px; font-weight: 800; color: var(--text-light); text-decoration: none; letter-spacing: -0.5px; }
+        .lb-brand span { color: var(--accent-cyan); }
+        
+        /* Controls Right */
+        .lb-controls { display: flex; align-items: center; gap: 24px; }
+        
+        /* The Information Link Icon */
+        .lb-info-btn { color: var(--text-light); font-size: 20px; text-decoration: none; display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; transition: background 0.2s, color 0.2s; font-family: monospace; font-weight: bold; border: 1px solid var(--border-dark); }
+        .lb-info-btn:hover { background: var(--bg-panel-dark); color: var(--accent-cyan); border-color: var(--accent-cyan); }
+        
+        /* Close Button */
+        .lightbox-close { background: transparent; border: none; color: var(--text-light); font-size: 36px; cursor: pointer; transition: color 0.2s ease; display: flex; align-items: center; line-height: 1; padding: 0; }
+        .lightbox-close:hover { color: #ef4444; } /* Subtle red on hover for close */
+        
+        /* 2-Column Split - Adjusted for Header */
+        .yt-layout { width: 100%; height: calc(100vh - 72px); display: grid; grid-template-columns: 1fr 360px; padding: 32px; gap: 32px; box-sizing: border-box; overflow: hidden; }
         @media (max-width: 1024px) { .yt-layout { grid-template-columns: 1fr; overflow-y: auto; } }
         
         .yt-main { display: flex; flex-direction: column; max-height: calc(100vh - 100px); }
@@ -277,10 +291,16 @@ title: "AeroClub | Gallery"
     </main>
     
 
-<!-- YouTube-Style Split Screen Lightbox -->
+<!-- Premium Split Screen Lightbox -->
     <div class="lightbox" id="media-lightbox">
-        <div class="lightbox-nav">
-            <button class="lightbox-close" id="lightbox-close">×</button>
+        
+        <!-- Minimal Top Navigation -->
+        <div class="lightbox-header">
+            <a href="/" class="lb-brand">Aerial<span>Martial</span></a>
+            <div class="lb-controls">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="lb-info-btn" id="lightbox-link" title="View Source">ⓘ</a>
+                <button class="lightbox-close" id="lightbox-close" title="Close Gallery">×</button>
+            </div>
         </div>
         
         <div class="yt-layout">
@@ -341,6 +361,17 @@ title: "AeroClub | Gallery"
                 const meta = card.getAttribute('data-meta') || 'ARCHIVE';
                 const caption = card.getAttribute('data-caption');
                 const thumb = card.getAttribute('data-thumb');
+                const extUrl = card.getAttribute('data-url');
+                
+                // Header Controls: Handle the external URL Icon
+                const lbLink = document.getElementById('lightbox-link');
+                if (extUrl && extUrl.trim() !== "") {
+                    lbLink.href = extUrl;
+                    lbLink.style.display = "flex";
+                } else {
+                    lbLink.style.display = "none";
+                    lbLink.href = "#";
+                }
 
                 // 1. Load Main Item
                 lbCaption.textContent = caption;
