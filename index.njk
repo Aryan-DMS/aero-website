@@ -337,12 +337,19 @@ title: "AeroClub | Home"
             <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Sponsors</a>
         </div>
         <div class="partners-grid">
-            {% set renderCount = namespace(val=0) %}
-            {% if sponsorData and sponsorData.tiers %}
-                {% for tier in sponsorData.tiers %}
-                    {% for sponsor in tier.sponsors_list %}
-                        {% if renderCount.val < 4 %}
-                            
+            {% if sponsorData and sponsorData.tiers[0] %}
+                {% for item in sponsorData.tiers[0].sponsors_list %}
+                    {% if loop.index <= 4 %}
+                        
+                        {# Safely extract data without Nunjucks namespace hacks #}
+                        {% set sponsor = null %}
+                        {% if item.type == 'detailed_card' %}
+                            {% set sponsor = item.detailed_card %}
+                        {% else %}
+                            {% set sponsor = item.logo_card %}
+                        {% endif %}
+                        
+                        {% if sponsor %}
                             {% set sponsorUrl = sponsor.url %}
                             {% if sponsorUrl and not '://' in sponsorUrl %}
                                 {% set sponsorUrl = 'https://' + sponsorUrl %}
@@ -355,12 +362,9 @@ title: "AeroClub | Home"
                                 <span class="partner-fallback">{{ sponsor.name }}</span>
                                 {% endif %}
                             </a>
-                            
-                            {# Increment the counter so we stop at exactly 4 #}
-                            {% set renderCount.val = renderCount.val + 1 %}
-                            
                         {% endif %}
-                    {% endfor %}
+                        
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
