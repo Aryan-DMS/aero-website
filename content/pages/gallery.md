@@ -38,6 +38,12 @@ operations:
     src: https://www.pexels.com/download/video/16403223/
     meta: Propeller
     caption: How Does a Propeller Work
+  - media_format: Horizontal
+    type: image
+    src: https://images.unsplash.com/photo-1597863417549-9c5705bd69c9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+    meta: fewgf
+    caption: rwgyw
+    url: https://aero-website-7xh.pages.dev/achievements/saeiss-ddc-2026-engineering-a-competition-ready-fixed-wing-uav-2/
 awards:
   - type: image
     grid_span: span-2-col
