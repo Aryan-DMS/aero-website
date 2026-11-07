@@ -115,19 +115,20 @@ title: "AeroClub | Sponsors"
         .launch-cta h2 { font-size: 48px; font-weight: 800; margin-bottom: 24px; }
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
         
-        /* Unified Logo Wall Architecture */
+        /* Premium Original-Color Logo Wall */
         .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
         
-        .sponsor-logo-box { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 8px; height: 160px; display: flex; align-items: center; justify-content: center; padding: 40px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; }
-        a.sponsor-logo-box:hover { border-color: rgba(255,255,255,0.2); background: var(--bg-panel-dark); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        /* White background cards to preserve full-color brand logos perfectly */
+        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 140px; display: flex; align-items: center; justify-content: center; padding: 32px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        a.sponsor-logo-box:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
         
-        /* Forces all logos to white, slightly dimmed, brightening on hover */
-        .sponsor-logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.65; transition: opacity 0.3s ease, transform 0.3s ease; }
-        a.sponsor-logo-box:hover img { opacity: 1; transform: scale(1.05); }
+        /* No filters! Just pure original colors, contained beautifully */
+        .sponsor-logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
+        a.sponsor-logo-box:hover img { transform: scale(1.05); }
         
-        /* Fallback if Captain forgets to upload a logo */
-        .sponsor-fallback-text { font-size: 20px; font-weight: 800; color: var(--text-muted); margin: 0; text-align: center; transition: color 0.3s ease; letter-spacing: -0.5px; }
-        a.sponsor-logo-box:hover .sponsor-fallback-text { color: var(--text-light); }
+        /* Fallback if Captain forgets to upload a logo (needs dark text since bg is white) */
+        .sponsor-fallback-text { font-size: 20px; font-weight: 800; color: #1E293B; margin: 0; text-align: center; transition: color 0.3s ease; letter-spacing: -0.5px; }
+        a.sponsor-logo-box:hover .sponsor-fallback-text { color: #0EA5E9; }
 </style>
 
 <main id="sponsors">
