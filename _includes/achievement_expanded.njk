@@ -28,11 +28,21 @@ layout: base.njk
             .btn-hud { display: inline-block; width: 100%; text-align: center; padding: 14px; background: var(--accent-cyan); color: var(--bg-deep); font-weight: 800; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
             .btn-hud:hover { background: var(--text-light); }
 
-            /* Narrative Modules */
-            .narrative-flow { display: flex; flex-direction: column; gap: 60px; }
-            .narrative-phase { display: flex; flex-direction: column; gap: 24px; }
-            .phase-hook { font-size: 22px; color: var(--text-light); line-height: 1.6; font-weight: 500; margin: 0; }
-            .phase-text { font-size: 18px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+            /* Narrative Modules & Premium Typography */
+            .narrative-flow { display: flex; flex-direction: column; gap: 80px; padding-top: 12px; }
+            .narrative-phase { display: flex; flex-direction: column; }
+            
+            /* Architectural Headings */
+            .phase-header { margin-bottom: 24px; }
+            .phase-overline { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+            .phase-heading { font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0; letter-spacing: -0.5px; }
+            
+            /* Standardized Body Text */
+            .phase-text { font-size: 18px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+            .phase-text:last-child { margin-bottom: 0; }
+            
+            /* The Hook (Slightly larger, but still muted) */
+            .phase-hook { font-size: 20px; color: var(--text-muted); line-height: 1.8; font-weight: 500; margin: 0; }
             
             /* Visual 1: Telemetry Bars */
             .telemetry-bars { display: flex; flex-direction: column; gap: 20px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 8px; margin-top: 16px; }
@@ -82,13 +92,22 @@ layout: base.njk
                         
                         <!-- Phase 1: Executive Briefing -->
                         <div class="narrative-phase">
+                            <div class="phase-header">
+                                <span class="phase-overline">{{ p.phase1.overline | default('01 // EXECUTIVE BRIEFING') }}</span>
+                                <h3 class="phase-heading">{{ p.phase1.heading | default('Mission Overview & Objectives') }}</h3>
+                            </div>
                             <p class="phase-hook">{{ p.phase1.hook }}</p>
                         </div>
                         
                         <!-- Phase 2: Strategy & Analytics -->
                         <div class="narrative-phase">
+                            <div class="phase-header">
+                                <span class="phase-overline">{{ p.phase2.overline | default('02 // STRATEGY & SCORING') }}</span>
+                                <h3 class="phase-heading">{{ p.phase2.heading | default('Competitive Execution') }}</h3>
+                            </div>
                             <p class="phase-text">{{ p.phase2.strategy }}</p>
                             <p class="phase-text">{{ p.phase2.execution }}</p>
+                            
                             <div class="telemetry-bars">
                                 {% for bar in p.phase2.bars %}
                                 <div class="bar-row">
@@ -101,7 +120,12 @@ layout: base.njk
                         
                         <!-- Phase 3: Technical Context -->
                         <div class="narrative-phase">
+                            <div class="phase-header">
+                                <span class="phase-overline">{{ p.phase3.overline | default('03 // FIELD VARIABLES') }}</span>
+                                <h3 class="phase-heading">{{ p.phase3.heading | default('Environmental Context & Hardware') }}</h3>
+                            </div>
                             <p class="phase-text">{{ p.phase3.context }}</p>
+                            
                             <div class="subsystem-matrix">
                                 {% for row in p.phase3.matrix %}
                                 <div class="matrix-row">
@@ -114,7 +138,12 @@ layout: base.njk
                         
                         <!-- Phase 4: Flight Dynamics -->
                         <div class="narrative-phase">
+                            <div class="phase-header">
+                                <span class="phase-overline">{{ p.phase4.overline | default('04 // AERODYNAMICS') }}</span>
+                                <h3 class="phase-heading">{{ p.phase4.heading | default('Flight Envelope & Peak Capabilities') }}</h3>
+                            </div>
                             <p class="phase-text">{{ p.phase4.dynamics }}</p>
+                            
                             <div class="flight-dashboard">
                                 {% for stat in p.phase4.dashboard %}
                                 <div class="dash-card">
@@ -127,6 +156,10 @@ layout: base.njk
                         
                         <!-- Phase 5: Post-Action -->
                         <div class="narrative-phase">
+                            <div class="phase-header">
+                                <span class="phase-overline">{{ p.phase5.overline | default('05 // CONCLUSION') }}</span>
+                                <h3 class="phase-heading">{{ p.phase5.heading | default('Post-Action Directives') }}</h3>
+                            </div>
                             <p class="phase-text">{{ p.phase5.debrief }}</p>
                         </div>
                         
