@@ -111,12 +111,12 @@ title: "AeroClub | Achievements"
                     {% for mission in collections.achievements | reverse %}
                     <a href="{{ mission.url }}" class="achievement-card">
                         <div class="achievement-img">
-                            <img src="{{ mission.data.image }}" alt="{{ mission.data.card_title }}">
+                            <img src="{{ mission.data.card.image }}" alt="{{ mission.data.card.title }}">
                         </div>
                         <div class="achievement-content">
-                            <span class="achievement-meta">{{ mission.data.card_meta }}</span>
-                            <h4>{{ mission.data.card_title }}</h4>
-                            <p>{{ mission.data.summary }}</p>
+                            <span class="achievement-meta">{{ mission.data.card.meta }}</span>
+                            <h4>{{ mission.data.card.title }}</h4>
+                            <p>{{ mission.data.card.summary }}</p>
                             <span class="read-report">Read Mission Report</span>
                         </div>
                     </a>
