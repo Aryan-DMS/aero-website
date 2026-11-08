@@ -64,6 +64,14 @@ layout: base.njk
             .bar-meta .val { color: var(--text-light); font-weight: 800; font-family: var(--font-data); }
             .bar-track { width: 100%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
             .bar-fill { height: 100%; background: var(--text-light); border-radius: 2px; } 
+            
+            /* Up Next Recommendation Block */
+            .next-report { border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 80px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; text-decoration: none; }
+            .next-report:hover { background: var(--bg-deep); border-top-color: var(--accent-cyan); }
+            .next-report:hover .next-title { color: var(--accent-cyan); transform: translateX(12px); }
+            .next-label { font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; transition: color 0.3s ease; }
+            .next-report:hover .next-label { color: var(--text-light); }
+            .next-title { font-size: 48px; font-weight: 900; color: var(--text-light); letter-spacing: -1px; margin: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
         </style>
 
         <!-- Dynamic Architectural Layout -->
@@ -183,4 +191,17 @@ layout: base.njk
                 </article>
             </div>
         </section>
+        
+        <!-- Up Next / Recommendation Loop -->
+        {% set nextItem = collections.models | getNextCollectionItem(page) %}
+        {% if not nextItem %}
+            {% set nextItem = collections.models[0] %}
+        {% endif %}
+        {% if nextItem %}
+        <a href="{{ nextItem.url }}" class="next-report">
+            <span class="next-label">Read More About</span>
+            <h2 class="next-title">{{ nextItem.data.title }} ➔</h2>
+        </a>
+        {% endif %}
+
     </main>
