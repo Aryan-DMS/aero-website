@@ -348,18 +348,6 @@ title: "AeroClub | Home"
         {% endif %}
     {% endfor %}
 
-    <!-- SPONSOR DEBUG LOGGER -->
-    <script>
-        console.log("=== AEROCLUB HOMEPAGE DEBUG LOGS ===");
-        console.log("1. Did we find the Sponsor Page?", {{ 'true' if sponsorData else 'false' }});
-        console.log("2. Raw Sponsor Data Payload:", {{ sponsorData | dump | safe }});
-        console.log("3. Collections Dump (Looking for 'sponsors'):", [
-            {% for item in collections.all %}
-            { title: "{{ item.data.title }}", url: "{{ item.url }}", slug: "{{ item.fileSlug }}" },
-            {% endfor %}
-        ]);
-    </script>
-
     <!-- FIXED SECTION: Sponsors -->
     <section class="home-section container" style="padding-top: 0;">
         <div class="partners-header">
