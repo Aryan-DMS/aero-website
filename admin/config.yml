@@ -188,6 +188,12 @@ collections:
               - {label: "Overline", name: "overline", widget: "string"}
               - {label: "Headline (Use <span> tag for cyan text)", name: "headline", widget: "string"}
               - {label: "Body Text", name: "body", widget: "text"}
+          - label: "Cinematic Spacer Quote"
+            name: "cinematic_quote"
+            widget: "object"
+            fields:
+              - {label: "The Quote", name: "text", widget: "text"}
+              - {label: "The Author / Attribution", name: "author", widget: "string"}
           - label: "Software Marquee Items"
             name: "marquee"
             widget: "list"
