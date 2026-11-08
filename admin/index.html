@@ -96,45 +96,6 @@
           font-size: 14px !important;
       }
 
-      /* ========================================================
-         5. THE "NAUTILUS HACK" - Assassinating the Tree Structure
-         ======================================================== */
-      /* Kill all the vertical hierarchy lines / "tree" borders */
-      #nc-root div[style*="border-left"] { border-left: none !important; }
-      #nc-root div[class*="css-"] { border-left-color: transparent !important; }
-      
-      /* Force all nested components to be flush left (remove tree indentation) */
-      #nc-root div[class*="ControlContainer"], 
-      #nc-root div[class*="ObjectControl"],
-      #nc-root div[class*="ListControl"] {
-          padding-left: 0 !important;
-          margin-left: 0 !important;
-      }
-
-      /* Style the collapsible headers as chunky, standalone "Folders/Cards" */
-      #nc-root div[class*="TopBar"] {
-          background: #1E293B !important;
-          border: 1px solid #334155 !important;
-          border-radius: 8px !important;
-          padding: 16px 20px !important;
-          margin-top: 12px !important;
-          margin-bottom: 8px !important;
-          transition: all 0.2s ease !important;
-      }
-      #nc-root div[class*="TopBar"]:hover {
-          border-color: #0EA5E9 !important;
-          background: #0F172A !important;
-      }
-      
-      /* The Form Body (What happens when you click the folder) */
-      #nc-root div[class*="Collapse"] {
-          background: rgba(255,255,255,0.02) !important;
-          border-radius: 8px !important;
-          padding: 24px !important;
-          border: 1px solid rgba(255,255,255,0.05) !important;
-          margin-bottom: 24px !important;
-      }
-
       /* Premium Floating Toggle Button */
       #dark-mode-toggle {
           position: fixed; bottom: 24px; right: 24px; z-index: 100000;
