@@ -6,6 +6,38 @@ image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
 major: Mechanical Engineering
 joined: August 2018
 linkedin: https://in.linkedin.com/
+report_mode: Automation
+automation_payload: >-
+  {
+    "phase1": {
+      "overline": "01 // SPECIALIST PROFILE",
+      "heading": "Executive Summary",
+      "hook": "Serving as the Lead Aerodynamics Engineer, this specialist brings a rigorous, data-driven approach to airframe optimization. Their expertise in computational fluid dynamics (CFD) and composite material behavior was instrumental in redesigning the Valkyrie Mk II wing structure, directly resulting in a 15% increase in lift-to-drag efficiency during our latest competitive deployment."
+    },
+    "phase2": {
+      "overline": "02 // TECHNICAL DEPLOYMENT",
+      "heading": "Core Competencies",
+      "matrix": [
+        {
+          "skill": "Aerodynamic Simulation",
+          "desc": "Advanced proficiency in ANSYS Fluent and OpenFOAM for analyzing high-alpha flight characteristics and vortex shedding."
+        },
+        {
+          "skill": "Composite Fabrication",
+          "desc": "Mastery of vacuum-bagged carbon fiber layups, structural epoxy curing, and 3D-printed mold generation."
+        },
+        {
+          "skill": "Telemetry Analytics",
+          "desc": "Translates raw ArduPilot flight logs into actionable mechanical and software adjustments between competitive flight rounds."
+        }
+      ]
+    },
+    "phase3": {
+      "overline": "03 // BACKGROUND",
+      "heading": "Operational History",
+      "history": "Joining the AeroClub during their sophomore year, they quickly transitioned from a junior fabrication assistant to commanding the entire aerodynamics division. Prior to leading the Valkyrie project, they spent six months rigorously stress-testing experimental 3D-printed structures in the wind tunnel, eventually proving that a shift to continuous-fiber nylon was mandatory for the team's high-stress motor mounts. Their engineering philosophy centers on aggressive, iterative testing—breaking things in the simulation so they never fail on the tarmac."
+    }
+  }
 contributions:
   - title: Technical Innovation
     desc: Contribute to designing, developing, and experimenting with
