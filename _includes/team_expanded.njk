@@ -113,26 +113,19 @@ layout: base.njk
                                     <p class="phase-text">{{ p.phase3.history }}</p>
                                 </div>
                                 
-                            {% else %}
-                                <!-- LEGACY MANUAL BIO -->
-                                <div class="phase-text">
-                                    {{ content | safe }}
-                                </div>
-                            {% endif %}
-                            
-                            <!-- MANUAL FALLBACKS (Keys Contributions & Quote) -->
-                            <div style="display: flex; flex-direction: column; gap: 60px; margin-top: 20px;">
-                                
-                                <!-- Key Contributions -->
-                                {% if contributions %}
-                                <div>
-                                    <h3 style="font-size: 24px; font-weight: 800; color: var(--text-light); margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px;">Key Field Contributions</h3>
+                                <!-- Phase 4: Automated Key Contributions -->
+                                {% if p.phase4 %}
+                                <div class="narrative-phase">
+                                    <div class="phase-header">
+                                        <span class="phase-overline">{{ p.phase4.overline | default('04 // DEPLOYMENT LOG') }}</span>
+                                        <h3 class="phase-heading">{{ p.phase4.heading | default('Key Field Contributions') }}</h3>
+                                    </div>
                                     <div style="display: flex; flex-direction: column; gap: 24px;">
-                                        {% for item in contributions %}
+                                        {% for item in p.phase4.contributions %}
                                         <div style="display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start;">
-                                            <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px;">
-                                                <span style="display: inline-block; width: 6px; height: 6px; background: var(--accent-cyan); margin-right: 12px; transform: translateY(-2px);"></span>
-                                                {{ item.title }}
+                                            <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: flex-start; gap: 12px; margin-top: 5px;">
+                                                <span style="display: block; width: 6px; height: 6px; background: var(--accent-cyan); flex-shrink: 0; margin-top: 6px;"></span>
+                                                <span style="line-height: 1.4;">{{ item.title }}</span>
                                             </div>
                                             <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
                                                 {{ item.desc }}
@@ -143,13 +136,20 @@ layout: base.njk
                                 </div>
                                 {% endif %}
                                 
-                                <!-- Personal Quote -->
+                            {% else %}
+                                <!-- LEGACY MANUAL BIO -->
+                                <div class="phase-text">
+                                    {{ content | safe }}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- MANUAL FALLBACK (Personal Quote) -->
+                            <div style="display: flex; flex-direction: column; gap: 60px; margin-top: 20px;">
                                 {% if quote %}
                                 <blockquote style="border-left: 3px solid var(--accent-cyan); padding-left: 32px; margin: 0; font-style: italic; font-size: 22px; color: var(--text-light); line-height: 1.6; font-weight: 500;">
                                     "{{ quote }}"
                                 </blockquote>
                                 {% endif %}
-                                
                             </div>
 
                         </article>
