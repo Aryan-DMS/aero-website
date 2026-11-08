@@ -341,14 +341,7 @@ title: "AeroClub | Home"
         </div>
     </section>
 
-    {% set sponsorData = null %}
-    {% for item in collections.all %}
-        {% if item.fileSlug == 'sponsors' or item.url == '/sponsors/' %}
-            {% set sponsorData = item.data %}
-        {% endif %}
-    {% endfor %}
-
-    <!-- FIXED SECTION: Sponsors -->
+    <!-- BULLETPROOF SECTION: Sponsors -->
     <section class="home-section container" style="padding-top: 0;">
         <div class="partners-header">
             <div>
@@ -357,43 +350,42 @@ title: "AeroClub | Home"
             </div>
             <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Sponsors</a>
         </div>
+        
         <div class="partners-grid">
-            {% if sponsorData and sponsorData.tiers %}
-                {% set sponsorCount = 0 %}
-                {% for tier in sponsorData.tiers %}
-                    {% for item in tier.sponsors_list %}
-                        {% if sponsorCount < 8 %}
-                            {% set sponsorCount = sponsorCount + 1 %}
+            <!-- Directly rendering inside the loop to bypass Nunjucks scope destruction -->
+            {% for item in collections.all %}
+                {% if item.fileSlug == 'sponsors' %}
+                    {% if item.data.tiers %}
+                        {% for tier in item.data.tiers %}
+                            {% for sponsorItem in tier.sponsors_list %}
                             
-                            {# Safely extract data without Nunjucks namespace hacks #}
-                            {% set sponsor = null %}
-                            {% if item.type == 'detailed_card' %}
-                                {% set sponsor = item.detailed_card %}
-                            {% else %}
-                                {% set sponsor = item.logo_card %}
-                            {% endif %}
-                            
-                            {% if sponsor %}
-                                {% set sponsorUrl = sponsor.url %}
-                                {% if sponsorUrl and not '://' in sponsorUrl %}
-                                    {% set sponsorUrl = 'https://' + sponsorUrl %}
+                                {% set sponsor = null %}
+                                {% if sponsorItem.type == 'detailed_card' %}
+                                    {% set sponsor = sponsorItem.detailed_card %}
+                                {% else %}
+                                    {% set sponsor = sponsorItem.logo_card %}
                                 {% endif %}
-
-                                <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                                    {% if sponsor.logo %}
-                                    <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                                    {% else %}
-                                    <span class="partner-fallback">{{ sponsor.name }}</span>
+                                
+                                {% if sponsor %}
+                                    {% set sponsorUrl = sponsor.url %}
+                                    {% if sponsorUrl and not '://' in sponsorUrl %}
+                                        {% set sponsorUrl = 'https://' + sponsorUrl %}
                                     {% endif %}
-                                </a>
-                            {% endif %}
-                            
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            {% else %}
-                <p style="color: var(--text-muted); grid-column: 1 / -1;">No sponsors detected. Check the browser console logs (F12)!</p>
-            {% endif %}
+
+                                    <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                                        {% if sponsor.logo %}
+                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                        {% else %}
+                                        <span class="partner-fallback">{{ sponsor.name }}</span>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                                
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
 
