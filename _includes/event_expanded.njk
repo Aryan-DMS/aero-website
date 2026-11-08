@@ -87,7 +87,14 @@ layout: base.njk
                         <div class="hud-item"><span class="hud-item-label">COORDINATES</span><span class="hud-item-value">{{ location }}</span></div>
                         <div class="hud-item"><span class="hud-item-label">PRIMARY ASSET</span><span class="hud-item-value">{{ hardware | default('Personnel Only') }}</span></div>
                     </div>
-                    <a href="/contact/" class="btn-hud">Request Briefing ↗</a>
+                    
+                    {% if category == 'Past' %}
+                        <div class="btn-hud" style="background: rgba(255,255,255,0.05); color: var(--text-muted); cursor: not-allowed;">Mission Concluded</div>
+                    {% elif action_type == 'Application' and application_link %}
+                        <a href="{{ application_link }}" target="_blank" rel="noopener noreferrer" class="btn-hud">Apply Now ↗</a>
+                    {% else %}
+                        <a href="/contact/" class="btn-hud">Request Briefing ↗</a>
+                    {% endif %}
                 </aside>
 
                 <!-- Column 2: Narrative Engine -->

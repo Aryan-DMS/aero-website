@@ -30,6 +30,8 @@ collections:
       - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
       - {label: "Location or Type", name: "location", widget: "string"}
       - {label: "Hardware Class", name: "hardware", widget: "string", required: false}
+      - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application"], default: "Briefing"}
+      - {label: "Application Link (Required if Action is Application)", name: "application_link", widget: "string", required: false}
       - {label: "Card Summary", name: "summary", widget: "text"}
       - {label: "Cover Image", name: "image", widget: "image"}
       - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
