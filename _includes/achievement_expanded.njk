@@ -77,7 +77,8 @@ layout: base.njk
                     
                     {% if report_mode == 'Automation' and automation_payload %}
                         <!-- JSON AUTOMATION PARSER -->
-                        {% set p = automation_payload | parseJSON %}
+                        {% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}
+                        {% set p = rawPayload | parseJSON %}
                         
                         <!-- Phase 1: Executive Briefing -->
                         <div class="narrative-phase">

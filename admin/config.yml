@@ -66,7 +66,7 @@ collections:
       - {label: "Hardware Deployed (e.g. Project Valkyrie (Quadcopter))", name: "hardware", widget: "string"}
       - {label: "Overall Result (e.g. All India Rank 5 (out of 102))", name: "result", widget: "string"}
       - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", required: false}
+      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
       - label: "Mission Report (Manual Fallback)"
         name: "blocks"
         widget: "list"
