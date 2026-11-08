@@ -224,7 +224,7 @@ collections:
     summary: "[{{division}}] {{name}} - {{role}}"
     fields:
       - {label: "Name", name: "name", widget: "string"}
-      - {label: "Division Category", name: "division", widget: "string"}
+      - {label: "Division Category", name: "division", widget: "select", options: ["Faculty Advisor", "Core Team", "Juniors"], default: "Core Team"}
       - {label: "Role / Title", name: "role", widget: "string"}
       - {label: "Profile Image", name: "image", widget: "image"}
       - {label: "Academic Major", name: "major", widget: "string"}
