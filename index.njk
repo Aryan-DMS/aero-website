@@ -301,7 +301,7 @@ title: "AeroClub | Home"
             <a href="/achievements/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Logs</a>
         </div>
         <div class="news-grid">
-            {% for log in collections.achievements | reverse %}
+            {% for log in collections.achievements %}
             {% if loop.index <= 3 %}
             <a href="{{ log.url }}" class="news-card">
                 <div class="news-img"><img src="{{ log.data.card.image }}" alt="{{ log.data.card.title }}"></div>

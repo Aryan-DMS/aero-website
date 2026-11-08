@@ -108,7 +108,7 @@ title: "AeroClub | Achievements"
                     <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Recent Competitions</h3>
                 </div>
                 <div class="achievement-grid">
-                    {% for mission in collections.achievements | reverse %}
+                    {% for mission in collections.achievements %}
                     <a href="{{ mission.url }}" class="achievement-card">
                         <div class="achievement-img">
                             <img src="{{ mission.data.card.image }}" alt="{{ mission.data.card.title }}">
