@@ -65,7 +65,9 @@ collections:
       - {label: "Card Summary (Short paragraph for the grid)", name: "summary", widget: "text"}
       - {label: "Hardware Deployed (e.g. Project Valkyrie (Quadcopter))", name: "hardware", widget: "string"}
       - {label: "Overall Result (e.g. All India Rank 5 (out of 102))", name: "result", widget: "string"}
-      - label: "Mission Report (Block Builder)"
+      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", required: false}
+      - label: "Mission Report (Manual Fallback)"
         name: "blocks"
         widget: "list"
         summary: '{{fields.type}} Block'

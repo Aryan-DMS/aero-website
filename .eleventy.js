@@ -12,6 +12,17 @@ module.exports = function(eleventyConfig) {
     return md.render(content || "");
   });
 
+  // Add JSON parsing filter for Automation payloads
+  eleventyConfig.addFilter("parseJSON", function(value) {
+    if (typeof value !== "string") return value;
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      console.error("JSON Parsing Error:", e);
+      return {};
+    }
+  });
+
   return {
     dir: {
       input: ".",
