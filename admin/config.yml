@@ -16,10 +16,10 @@ media_library:
 
 collections:
   # ==========================================
-  # DATABASES (Dynamic Collections)
+  # GROUP 1: ACTIVE OPERATIONS
   # ==========================================
   - name: "events"
-    label: "Mission Manifest (Events)"
+    label: "🚀 Upcoming Events"
     folder: "content/events"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
@@ -34,18 +34,19 @@ collections:
       - {label: "Application Link (Required if Action is Application)", name: "application_link", widget: "string", required: false}
       - {label: "Card Summary", name: "summary", widget: "text"}
       - {label: "Cover Image", name: "image", widget: "image"}
-      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Operational Briefing (Manual Fallback)"
+      - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "🧠 AI Intelligence Payload (Paste JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+      - label: "Legacy: Manual Briefing Blocks"
         name: "blocks"
         widget: "list"
+        collapsed: true
         summary: '{{fields.type}} Block'
         types:
           - label: "Text Section"
             name: "text_block"
             widget: "object"
             fields:
-              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false}
+              - {label: "Section Heading", name: "heading", widget: "string", required: false}
               - {label: "Text Content", name: "content", widget: "markdown"}
           - label: "Inline Image"
             name: "image_block"
@@ -54,34 +55,90 @@ collections:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Image Alt Text", name: "alt", widget: "string"}
 
+  - name: "drives"
+    label: "📢 Recruitment Drives"
+    folder: "content/drives"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Drive Title", name: "title", widget: "string"}
+      - {label: "Status", name: "status", widget: "select", options: ["Live", "Archived"]}
+      - {label: "Thumbnail Image", name: "image", widget: "image"}
+      - {label: "Open Roles", name: "roles", widget: "string"}
+      - label: "Phase 1: Application"
+        name: "phase1"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
+          - {label: "Deadline", name: "deadline", widget: "string"}
+          - {label: "Application Form Link", name: "form_link", widget: "string"}
+          - {label: "Phase Report", name: "report", widget: "markdown"}
+      - label: "Phase 2: Technical Test"
+        name: "phase2"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
+          - {label: "Date", name: "date", widget: "string"}
+          - {label: "Time", name: "time", widget: "string"}
+          - {label: "Venue", name: "venue", widget: "string"}
+          - {label: "Format", name: "format", widget: "string"}
+          - {label: "Phase Report", name: "report", widget: "markdown"}
+      - label: "Phase 3: Shortlist"
+        name: "phase3"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
+          - {label: "Phase Report", name: "report", widget: "markdown"}
+      - label: "Phase 4: Interviews"
+        name: "phase4"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
+          - {label: "Phase Report", name: "report", widget: "markdown"}
+      - label: "Phase 5: Results"
+        name: "phase5"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
+          - {label: "Phase Report", name: "report", widget: "markdown"}
+
+  # ==========================================
+  # GROUP 2: HARDWARE & LOGS
+  # ==========================================
   - name: "achievements"
-    label: "Achievements: Reports"
+    label: "🎖️ Mission Reports (Achievements)"
     folder: "content/achievements"
     create: true
     slug: "{{slug}}"
     summary: "{{card_meta}} // {{card_title}}"
     fields:
-      - {label: "Expanded Cinematic Title (e.g. National Drone Techfest: Securing AIR 5)", name: "title", widget: "string"}
-      - {label: "Compact Card Title (e.g. National Drone Techfest)", name: "card_title", widget: "string"}
-      - {label: "Hero Meta Tag (e.g. MISSION LOG // DEC 2026 // PUNE, INDIA)", name: "hero_meta", widget: "string"}
-      - {label: "Card Meta Tag (e.g. DEC 2026 // OVERALL RANK: AIR 5)", name: "card_meta", widget: "string"}
+      - {label: "Expanded Cinematic Title", name: "title", widget: "string"}
+      - {label: "Compact Card Title", name: "card_title", widget: "string"}
+      - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
+      - {label: "Card Meta Tag", name: "card_meta", widget: "string"}
       - {label: "Cover/Hero Image", name: "image", widget: "image"}
-      - {label: "Card Summary (Short paragraph for the grid)", name: "summary", widget: "text"}
-      - {label: "Hardware Deployed (e.g. Project Valkyrie (Quadcopter))", name: "hardware", widget: "string"}
-      - {label: "Overall Result (e.g. All India Rank 5 (out of 102))", name: "result", widget: "string"}
-      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Mission Report (Manual Fallback)"
+      - {label: "Card Summary (Short paragraph)", name: "summary", widget: "text"}
+      - {label: "Hardware Deployed", name: "hardware", widget: "string"}
+      - {label: "Overall Result", name: "result", widget: "string"}
+      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+      - label: "Legacy: Manual Mission Report"
         name: "blocks"
         widget: "list"
+        collapsed: true
         summary: '{{fields.type}} Block'
         types:
           - label: "Text Section"
             name: "text_block"
             widget: "object"
             fields:
-              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false, hint: "Generates the massive white H3 heading"}
-              - {label: "Text Content", name: "content", widget: "markdown", hint: "Standard paragraph text"}
+              - {label: "Section Heading", name: "heading", widget: "string", required: false}
+              - {label: "Text Content", name: "content", widget: "markdown"}
           - label: "Inline Image"
             name: "image_block"
             widget: "object"
@@ -90,45 +147,49 @@ collections:
               - {label: "Image Alt Text", name: "alt", widget: "string"}
 
   - name: "models"
-    label: "The Fleet (Models)"
+    label: "🚁 The Fleet (Models)"
     folder: "content/models"
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Model Name (e.g. Project Valkyrie v2.0)", name: "title", widget: "string"}
-      - {label: "Card Meta Tag (e.g. CLASS // AUTONOMOUS QUADCOPTER)", name: "card_meta", widget: "string"}
-      - {label: "Hero Meta Tag (e.g. CLASS: AUTONOMOUS QUADCOPTER // STATUS: ACTIVE)", name: "hero_meta", widget: "string"}
+      - {label: "Model Name", name: "title", widget: "string"}
+      - {label: "Card Meta Tag", name: "card_meta", widget: "string"}
+      - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
       - {label: "Cover/Hero Image", name: "image", widget: "image"}
-      - label: "Quick Specs (For the Grid Card - Max 4)"
+      - label: "Quick Specs (For Grid)"
         name: "card_specs"
         widget: "list"
+        collapsed: true
         fields:
-          - {label: "Label (e.g. Max Takeoff)", name: "label", widget: "string"}
-          - {label: "Value (e.g. 4.2 kg)", name: "value", widget: "string"}
-      - label: "Physical Dimensions (For Expanded Page)"
+          - {label: "Label", name: "label", widget: "string"}
+          - {label: "Value", name: "value", widget: "string"}
+      - label: "Physical Dimensions"
         name: "dimensions"
         widget: "list"
+        collapsed: true
         fields:
           - {label: "Label", name: "label", widget: "string"}
           - {label: "Value", name: "value", widget: "string"}
-      - label: "Avionics & Power Systems (For Expanded Page)"
+      - label: "Avionics & Power Systems"
         name: "systems"
         widget: "list"
+        collapsed: true
         fields:
           - {label: "Label", name: "label", widget: "string"}
           - {label: "Value", name: "value", widget: "string"}
-      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Engineering Summary (Manual Fallback)"
+      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+      - label: "Legacy: Manual Engineering Summary"
         name: "blocks"
         widget: "list"
+        collapsed: true
         summary: '{{fields.type}} Block'
         types:
           - label: "Text Section"
             name: "text_block"
             widget: "object"
             fields:
-              - {label: "Section Heading (Optional)", name: "heading", widget: "string", required: false}
+              - {label: "Section Heading", name: "heading", widget: "string", required: false}
               - {label: "Text Content", name: "content", widget: "markdown"}
           - label: "Inline Image"
             name: "image_block"
@@ -137,30 +198,33 @@ collections:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Image Alt Text", name: "alt", widget: "string"}
 
+  # ==========================================
+  # GROUP 3: TEAM & PARTNERS
+  # ==========================================
   - name: "personnel"
-    label: "Personnel Roster"
+    label: "👥 Core Personnel"
     folder: "content/personnel"
     create: true
     slug: "{{name}}"
     summary: "[{{division}}] {{name}} - {{role}}"
     fields:
       - {label: "Name", name: "name", widget: "string"}
-      - {label: "Division Category", name: "division", widget: "string", hint: "Type a division to group them on the main page (e.g., Core Team, Juniors)"}
+      - {label: "Division Category", name: "division", widget: "string"}
       - {label: "Role / Title", name: "role", widget: "string"}
       - {label: "Profile Image", name: "image", widget: "image"}
       - {label: "Academic Major", name: "major", widget: "string"}
       - {label: "Joined Division", name: "joined", widget: "string"}
       - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
-      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - {label: "Full Bio (Manual Fallback)", name: "body", widget: "markdown", required: false}
-      - {label: "Personal Quote (Without quotes)", name: "quote", widget: "text", required: false}
+      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+      - {label: "Legacy: Manual Bio", name: "body", widget: "markdown", required: false}
+      - {label: "Personal Quote", name: "quote", widget: "text", required: false}
 
   # ==========================================
-  # MASTER PAGES (Single File Configuration)
+  # GROUP 4: SITE CONFIGURATION (PAGES)
   # ==========================================
   - name: "page_home"
-    label: "Page: Home"
+    label: "🏠 Page: Homepage"
     files:
       - label: "Homepage Editor"
         name: "home"
@@ -170,44 +234,75 @@ collections:
           - label: "Hero Section"
             name: "hero"
             widget: "object"
+            collapsed: true
             fields:
-              - {label: "Overline (e.g. AERIAL MARTIAL)", name: "overline", widget: "string"}
-              - {label: "Headline (Use <span> tag for cyan text)", name: "headline", widget: "string"}
-              - {label: "Sub-headline / Description", name: "desc", widget: "text"}
-              - {label: "Footer Line (e.g. DESIGN / FABRICATION...)", name: "footer_line", widget: "string"}
-          - label: "Stats Bar (Exactly 4 items)"
+              - {label: "Overline", name: "overline", widget: "string"}
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Sub-headline", name: "desc", widget: "text"}
+              - {label: "Footer Line", name: "footer_line", widget: "string"}
+          - label: "Stats Bar"
             name: "stats"
             widget: "list"
+            collapsed: true
             min: 4
             max: 4
             fields:
-              - {label: "Value (e.g. AIR 5)", name: "value", widget: "string"}
-              - {label: "Label (e.g. Peak National Standing)", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+              - {label: "Label", name: "label", widget: "string"}
           - label: "Mission Section"
             name: "mission"
             widget: "object"
+            collapsed: true
             fields:
               - {label: "Overline", name: "overline", widget: "string"}
-              - {label: "Headline (Use <span> tag for cyan text)", name: "headline", widget: "string"}
+              - {label: "Headline", name: "headline", widget: "string"}
               - {label: "Body Text", name: "body", widget: "text"}
           - label: "Cinematic Spacer Quote"
             name: "cinematic_quote"
             widget: "object"
+            collapsed: true
             fields:
               - {label: "The Quote", name: "text", widget: "text"}
-              - {label: "The Author / Attribution", name: "author", widget: "string"}
+              - {label: "The Author", name: "author", widget: "string"}
           - label: "Software Marquee Items"
             name: "marquee"
             widget: "list"
+            collapsed: true
             field: {label: "Software Name", name: "item", widget: "string"}
           - label: "Bottom CTA"
             name: "cta"
             widget: "object"
+            collapsed: true
             fields:
               - {label: "Headline", name: "headline", widget: "string"}
               - {label: "Description", name: "desc", widget: "string"}
+
+  - name: "page_about"
+    label: "📖 Page: About Us"
+    files:
+      - label: "About Us Editor"
+        name: "about"
+        file: "content/pages/about.md"
+        fields:
+          - label: "Division Overview"
+            name: "overview"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Meta Subtitle", name: "subtitle", widget: "string", default: "EST. 2015 // PUNE, INDIA"}
+              - {label: "Overview Image", name: "image", widget: "image"}
+              - {label: "Main Briefing", name: "body", widget: "markdown"}
+          - label: "Engineering Philosophy Pillars"
+            name: "philosophy"
+            widget: "list"
+            collapsed: true
+            fields:
+              - {label: "Pillar Title", name: "title", widget: "string"}
+              - {label: "Pillar Description", name: "body", widget: "text"}
+          - {label: "Scope of Operation", name: "scope", widget: "markdown"}
+
   - name: "page_gallery"
-    label: "Page: Gallery"
+    label: "📸 Page: Gallery"
     files:
       - label: "Gallery Editor"
         name: "gallery"
@@ -217,30 +312,32 @@ collections:
           - label: "Operations & Flight Logs"
             name: "operations"
             widget: "list"
+            collapsed: true
             summary: '{{fields.meta}} - {{fields.caption}}'
             fields:
               - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
-              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
-              - {label: "Video Thumbnail (Required if media is a video)", name: "thumbnail", widget: "image", required: false}
+              - {label: "Media File", name: "src", widget: "file"}
+              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
               - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
-              - {label: "Top Meta Tag (e.g. FLIGHT LOG, FIELD TEST)", name: "meta", widget: "string"}
+              - {label: "Top Meta Tag", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
-              - {label: "External Source URL (Optional)", name: "url", widget: "string", required: false}
+              - {label: "External Source URL", name: "url", widget: "string", required: false}
           - label: "Hall of Records (Awards)"
             name: "awards"
             widget: "list"
+            collapsed: true
             summary: '{{fields.meta}} - {{fields.caption}}'
             fields:
               - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
-              - {label: "Media File (Image or Video Upload)", name: "src", widget: "file"}
+              - {label: "Media File", name: "src", widget: "file"}
               - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
               - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
-              - {label: "Top Meta Tag (e.g. ACCOLADE)", name: "meta", widget: "string"}
+              - {label: "Top Meta Tag", name: "meta", widget: "string"}
               - {label: "Caption / Title", name: "caption", widget: "string"}
-              - {label: "External Source URL (Optional)", name: "url", widget: "string", required: false}
+              - {label: "External Source URL", name: "url", widget: "string", required: false}
 
   - name: "page_achievements_timeline"
-    label: "Achievements: Timeline"
+    label: "⏳ Page: Timeline"
     files:
       - label: "Timeline Editor"
         name: "achievements_timeline"
@@ -249,88 +346,14 @@ collections:
           - label: "Historical Milestones"
             name: "timeline"
             widget: "list"
+            collapsed: true
             fields:
-              - {label: "Date / Event Meta (e.g. 2025 // SAE AERO DESIGN)", name: "date_meta", widget: "string"}
+              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
               - {label: "Milestone Title", name: "title", widget: "string"}
               - {label: "Description", name: "desc", widget: "text"}
 
-  - name: "page_about"
-    label: "Page: About Us"
-    files:
-      - label: "About Us Editor"
-        name: "about"
-        file: "content/pages/about.md"
-        fields:
-          - label: "Division Overview"
-            name: "overview"
-            widget: "object"
-            fields:
-              - label: "Meta Subtitle"
-                name: "subtitle"
-                widget: "string"
-                default: "EST. 2015 // PUNE, INDIA"
-              - label: "Overview Image"
-                name: "image"
-                widget: "image"
-              - label: "Main Briefing"
-                name: "body"
-                widget: "markdown"
-          - label: "Engineering Philosophy Pillars"
-            name: "philosophy"
-            widget: "list"
-            fields:
-              - label: "Pillar Title"
-                name: "title"
-                widget: "string"
-              - label: "Pillar Description"
-                name: "body"
-                widget: "text"
-          - label: "Scope of Operation"
-            name: "scope"
-            widget: "markdown"
-
-  - name: "page_contact"
-    label: "Page: Contact Details"
-    files:
-      - label: "Contact Details Editor"
-        name: "contact"
-        file: "content/pages/contact.md"
-        fields:
-          - label: "Primary Email"
-            name: "email"
-            widget: "string"
-          - label: "Facility Location"
-            name: "location"
-            widget: "text"
-          - label: "Direct Line"
-            name: "phone"
-            widget: "string"
-          - label: "Social Networks"
-            name: "socials"
-            widget: "list"
-            summary: '{{fields.platform}}'
-            fields:
-              - label: "Platform Name"
-                name: "platform"
-                widget: "string"
-              - label: "Profile URL"
-                name: "url"
-                widget: "string"
-
-  - name: "page_sponsor_us"
-    label: "Page: Sponsor Us (Actions)"
-    files:
-      - label: "Sponsor Action Editor"
-        name: "sponsor_us"
-        file: "content/pages/sponsor_us.md"
-        fields:
-          - {name: "permalink", widget: "hidden", default: false}
-          - {label: "Prospectus Document (PDF Upload)", name: "prospectus_pdf", widget: "file"}
-          - {label: "Faculty Board Email Address", name: "contact_email", widget: "string"}
-          - {label: "Default Email Subject Line", name: "email_subject", widget: "string", default: "Corporate Partnership Inquiry - Aerial Martial"}
-
   - name: "page_sponsors"
-    label: "Page: Sponsors (Roster)"
+    label: "🤝 Page: Sponsors"
     files:
       - label: "Sponsors Roster Editor"
         name: "sponsors"
@@ -340,79 +363,60 @@ collections:
           - label: "Sponsorship Tiers"
             name: "tiers"
             widget: "list"
+            collapsed: true
             fields:
-              - {label: "Tier Eyebrow (e.g. TIER 1 ALLIANCES)", name: "eyebrow", widget: "string"}
-              - {label: "Tier Title (e.g. Titanium Partners)", name: "title", widget: "string"}
+              - {label: "Tier Eyebrow", name: "eyebrow", widget: "string"}
+              - {label: "Tier Title", name: "title", widget: "string"}
               - label: "Sponsors in this Tier"
                 name: "sponsors_list"
                 widget: "list"
+                collapsed: true
                 summary: '{{fields.type}} Card'
                 types:
                   - label: "Detailed Card (Logo, Text, Link)"
                     name: "detailed_card"
                     widget: "object"
                     fields:
-                      - {label: "Sponsor Name (Required)", name: "name", widget: "string"}
-                      - {label: "Sponsor Logo (Transparent PNG)", name: "logo", widget: "image", required: false}
+                      - {label: "Sponsor Name", name: "name", widget: "string"}
+                      - {label: "Sponsor Logo", name: "logo", widget: "image", required: false}
                       - {label: "Contribution Details", name: "desc", widget: "text"}
                       - {label: "Website URL", name: "url", widget: "string"}
                   - label: "Logo Only Card"
                     name: "logo_card"
                     widget: "object"
                     fields:
-                      - {label: "Sponsor Name (Alt text)", name: "name", widget: "string"}
-                      - {label: "Sponsor Logo (Transparent PNG)", name: "logo", widget: "image"}
-                      - {label: "Website URL (Optional)", name: "url", widget: "string", required: false}
+                      - {label: "Sponsor Name", name: "name", widget: "string"}
+                      - {label: "Sponsor Logo", name: "logo", widget: "image"}
+                      - {label: "Website URL", name: "url", widget: "string", required: false}
 
-  - name: "drives"
-    label: "Recruitment Drives"
-    folder: "content/drives"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Drive Title (e.g. Spring 2027 Induction)", name: "title", widget: "string"}
-      - {label: "Status", name: "status", widget: "select", options: ["Live", "Archived"]}
-      - {label: "Thumbnail Image", name: "image", widget: "image"}
-      - {label: "Open Roles", name: "roles", widget: "string"}
-      
-      - label: "Phase 1: Application"
-        name: "phase1"
-        widget: "object"
+  - name: "page_sponsor_us"
+    label: "💼 Page: Sponsor Us (PDF)"
+    files:
+      - label: "Sponsor Action Editor"
+        name: "sponsor_us"
+        file: "content/pages/sponsor_us.md"
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Deadline (e.g. FEB 15)", name: "deadline", widget: "string"}
-          - {label: "Application Form Link", name: "form_link", widget: "string"}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
-          
-      - label: "Phase 2: Technical Test"
-        name: "phase2"
-        widget: "object"
+          - {name: "permalink", widget: "hidden", default: false}
+          - {label: "Prospectus Document", name: "prospectus_pdf", widget: "file"}
+          - {label: "Faculty Board Email Address", name: "contact_email", widget: "string"}
+          - {label: "Default Email Subject Line", name: "email_subject", widget: "string", default: "Corporate Partnership Inquiry - Aerial Martial"}
+
+  - name: "page_contact"
+    label: "📞 Page: Contact"
+    files:
+      - label: "Contact Details Editor"
+        name: "contact"
+        file: "content/pages/contact.md"
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Date", name: "date", widget: "string"}
-          - {label: "Time", name: "time", widget: "string"}
-          - {label: "Venue", name: "venue", widget: "string"}
-          - {label: "Format", name: "format", widget: "string"}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
-          
-      - label: "Phase 3: Shortlist"
-        name: "phase3"
-        widget: "object"
-        fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
-          
-      - label: "Phase 4: Interviews"
-        name: "phase4"
-        widget: "object"
-        fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
-          
-      - label: "Phase 5: Results"
-        name: "phase5"
-        widget: "object"
-        fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
-                
+          - {label: "Primary Email", name: "email", widget: "string"}
+          - {label: "Facility Location", name: "location", widget: "text"}
+          - {label: "Direct Line", name: "phone", widget: "string"}
+          - label: "Social Networks"
+            name: "socials"
+            widget: "list"
+            collapsed: true
+            summary: '{{fields.platform}}'
+            fields:
+              - {label: "Platform Name", name: "platform", widget: "string"}
+              - {label: "Profile URL", name: "url", widget: "string"}
+              

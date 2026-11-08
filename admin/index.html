@@ -8,58 +8,131 @@
   <body>
     <!-- This script automatically renders the entire dashboard interface -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-          <!-- OLED DARK MODE INJECTION -->
-  <style>
-    /* The core OLED background */
-    body.oled-mode { background-color: #000 !important; }
     
-    /* Inverts the entire CMS UI, shifts the hue back, and boosts contrast */
-    body.oled-mode #nc-root { filter: invert(1) hue-rotate(180deg) contrast(1.1); }
-    
-    /* Protects images, background-thumbnails, and the live-preview iframe from turning negative */
-    body.oled-mode #nc-root img, 
-    body.oled-mode #nc-root video,
-    body.oled-mode #nc-root iframe,
-    body.oled-mode #nc-root div[style*="background-image"] { 
-        filter: invert(1) hue-rotate(180deg) !important; 
-    }
+    <!-- CUSTOM AEROCLUB UI INJECTION -->
+    <style>
+      /* 1. Core OLED Background */
+      body.oled-mode { background-color: #000 !important; }
+      
+      /* 2. Invert Decap CMS to match site aesthetic */
+      body.oled-mode #nc-root { filter: invert(1) hue-rotate(180deg) contrast(1.1); }
+      
+      /* Protect media from inversion */
+      body.oled-mode #nc-root img, 
+      body.oled-mode #nc-root video,
+      body.oled-mode #nc-root iframe,
+      body.oled-mode #nc-root div[style*="background-image"] { 
+          filter: invert(1) hue-rotate(180deg) !important; 
+      }
 
-    /* Premium Floating Toggle Button */
-    #dark-mode-toggle {
-        position: fixed; bottom: 24px; right: 24px; z-index: 100000;
-        background: #0B1121; color: #0EA5E9; border: 1px solid #1E293B;
-        padding: 12px 24px; border-radius: 24px; font-family: monospace; font-weight: bold;
-        cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        transition: all 0.2s ease;
-    }
-    #dark-mode-toggle:hover { background: #0EA5E9; color: #0B1121; }
-  </style>
+      /* ========================================================
+         3. THE "INSTAGRAM HACK" - Sidebar Grouping via CSS 
+         ======================================================== */
+      /* Group 1: Active Operations (Triggered on Item 1) */
+      aside ul li:nth-child(1)::before { 
+          content: "ACTIVE OPERATIONS"; 
+          display: block; 
+          color: #0EA5E9; 
+          font-size: 11px; 
+          font-weight: 800; 
+          margin: 24px 0 12px 12px; 
+          letter-spacing: 1.5px; 
+          text-transform: uppercase; 
+      }
+      /* Group 2: Hardware & Logs (Triggered on Item 3) */
+      aside ul li:nth-child(3)::before { 
+          content: "HARDWARE & LOGS"; 
+          display: block; 
+          color: #0EA5E9; 
+          font-size: 11px; 
+          font-weight: 800; 
+          margin: 32px 0 12px 12px; 
+          letter-spacing: 1.5px; 
+          text-transform: uppercase; 
+      }
+      /* Group 3: Team & Partners (Triggered on Item 5) */
+      aside ul li:nth-child(5)::before { 
+          content: "TEAM & PARTNERS"; 
+          display: block; 
+          color: #0EA5E9; 
+          font-size: 11px; 
+          font-weight: 800; 
+          margin: 32px 0 12px 12px; 
+          letter-spacing: 1.5px; 
+          text-transform: uppercase; 
+      }
+      /* Group 4: Site Configuration (Triggered on Item 6) */
+      aside ul li:nth-child(6)::before { 
+          content: "SITE CONFIGURATION"; 
+          display: block; 
+          color: #0EA5E9; 
+          font-size: 11px; 
+          font-weight: 800; 
+          margin: 32px 0 12px 12px; 
+          letter-spacing: 1.5px; 
+          text-transform: uppercase; 
+      }
 
-  <button id="dark-mode-toggle" onclick="toggleOLED()">OLED MODE : OFF</button>
+      /* ========================================================
+         4. MODERNIZING THE INPUTS & PANELS
+         ======================================================== */
+      /* Clean up the sidebar links */
+      aside ul li a { border-radius: 6px !important; transition: all 0.2s !important; }
+      
+      /* Make inputs look like a modern web-app instead of 1995 HTML */
+      input[type="text"], textarea, .css-1y5l8d8-Control, .css-1a2ptin-FieldContainer {
+          border-radius: 8px !important;
+          border: 1px solid #334155 !important;
+          box-shadow: none !important;
+      }
+      
+      /* Style the AI JSON Payload box to look like a terminal */
+      .css-1r05d7u-FieldContainer textarea {
+          font-family: monospace !important;
+          background: #0f172a !important;
+          color: #38bdf8 !important;
+          border-radius: 8px !important;
+          padding: 16px !important;
+          font-size: 14px !important;
+      }
 
-  <script>
-    // Automatically force Grid View on load
-    if (!localStorage.getItem('decap-cms-view-type')) {
-        localStorage.setItem('decap-cms-view-type', '"grid"');
-    }
-    if (!localStorage.getItem('netlify-cms-view-type')) {
-        localStorage.setItem('netlify-cms-view-type', '"grid"');
-    }
+      /* Premium Floating Toggle Button */
+      #dark-mode-toggle {
+          position: fixed; bottom: 24px; right: 24px; z-index: 100000;
+          background: #0B1121; color: #0EA5E9; border: 1px solid #1E293B;
+          padding: 12px 24px; border-radius: 24px; font-family: monospace; font-weight: bold;
+          cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          transition: all 0.2s ease;
+      }
+      #dark-mode-toggle:hover { background: #0EA5E9; color: #0B1121; }
+    </style>
 
-    // OLED Toggle Logic
-    const btn = document.getElementById('dark-mode-toggle');
-    
-    if (localStorage.getItem('oled-mode') === 'true') {
-        document.body.classList.add('oled-mode');
-        btn.textContent = "OLED MODE : ON";
-    }
-    
-    function toggleOLED() {
-        document.body.classList.toggle('oled-mode');
-        const isActive = document.body.classList.contains('oled-mode');
-        localStorage.setItem('oled-mode', isActive);
-        btn.textContent = isActive ? "OLED MODE : ON" : "OLED MODE : OFF";
-    }
-  </script>   
+    <button id="dark-mode-toggle" onclick="toggleOLED()">OLED MODE : OFF</button>
+
+    <script>
+      // Automatically force Grid View on load for better visual layout
+      if (!localStorage.getItem('decap-cms-view-type')) {
+          localStorage.setItem('decap-cms-view-type', '"grid"');
+      }
+      if (!localStorage.getItem('netlify-cms-view-type')) {
+          localStorage.setItem('netlify-cms-view-type', '"grid"');
+      }
+
+      // OLED Toggle Logic
+      const btn = document.getElementById('dark-mode-toggle');
+      
+      if (localStorage.getItem('oled-mode') === 'true') {
+          document.body.classList.add('oled-mode');
+          btn.textContent = "OLED MODE : ON";
+      }
+      
+      function toggleOLED() {
+          document.body.classList.toggle('oled-mode');
+          const isActive = document.body.classList.contains('oled-mode');
+          localStorage.setItem('oled-mode', isActive);
+          btn.textContent = isActive ? "OLED MODE : ON" : "OLED MODE : OFF";
+      }
+    </script>   
   </body>
 </html>
+
