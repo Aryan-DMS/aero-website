@@ -21,6 +21,94 @@ dimensions:
     value: 5KG
   - label: Overall Dimensions
     value: 680 × 680 × 280 mm
+report_mode: Automation
+automation_payload: >-
+  {
+    "phase1": {
+      "overline": "01 // THE ARCHITECTURE",
+      "heading": "Platform Directive",
+      "hook": "Project Valkyrie Mk II was commissioned to solve a specific aerospace paradox: the need for aggressive vertical lift agility combined with high-endurance forward flight efficiency. Serving as our flagship autonomous VTOL (Vertical Take-Off and Landing) hybrid, this platform was engineered from the ground up to dominate the heavy-lift payload classes at national SAE Aero competitions while operating strictly beyond visual line of sight (BVLOS)."
+    },
+    "phase2": {
+      "overline": "02 // AIRFRAME",
+      "heading": "Structural Engineering & Materials",
+      "chassis": "The structural philosophy of Valkyrie Mk II revolves around a rigid carbon-fiber monocoque core. We abandoned traditional balsa wood ribs in favor of custom-cut 3K woven carbon plates, significantly reducing flex during high-G banking maneuvers. The wings feature a custom, high-camber airfoil designed via extensive Computational Fluid Dynamics (CFD) to maximize lift at lower cruising speeds.",
+      "assembly": "Fabrication required a hybrid manufacturing approach. While the main spars are pultruded carbon fiber, the complex motor mounts and avionics bay were printed in-house using continuous-fiber reinforced nylon. This allowed us to rapidly iterate the motor tilt mechanisms overnight without waiting for external CNC machine shop delays.",
+      "dimensions": [
+        {
+          "spec": "Wingspan",
+          "val": "1.85 Meters"
+        },
+        {
+          "spec": "Dry Airframe Weight",
+          "val": "2.4 Kilograms"
+        },
+        {
+          "spec": "Max Takeoff Weight (MTOW)",
+          "val": "6.8 Kilograms"
+        },
+        {
+          "spec": "Primary Material",
+          "val": "3K Carbon Fiber / CF-Nylon"
+        }
+      ]
+    },
+    "phase3": {
+      "overline": "03 // PROPULSION",
+      "heading": "Avionics & Power Delivery",
+      "nervous_system": "The biological heart of the aircraft is an ArduPilot-flashed Pixhawk Cube Orange, providing triple-redundant IMU sensors to prevent catastrophic attitude failure in flight. Power is distributed through a custom-soldered, high-amperage PDB (Power Distribution Board), feeding four 40-amp electronic speed controllers. To eliminate voltage sag during aggressive vertical ascents, the entire system runs on a massive 6S Lithium-Polymer architecture.",
+      "dashboard": [
+        {
+          "val": "8.2kg",
+          "label": "PEAK STATIC THRUST"
+        },
+        {
+          "val": "22V",
+          "label": "NOMINAL VOLTAGE"
+        },
+        {
+          "val": "6S 10A",
+          "label": "BATTERY CAPACITY"
+        },
+        {
+          "val": "45A",
+          "label": "PEAK CURRENT DRAW"
+        }
+      ]
+    },
+    "phase4": {
+      "overline": "04 // ENVELOPE",
+      "heading": "Flight Dynamics & Capabilities",
+      "dynamics": "Valkyrie Mk II's flight envelope is defined by its transition sequence. The quad-rotor system handles absolute vertical stability up to 15 meters, before the flight controller commands a 15-degree pitch-down attitude, spooling the forward propulsion motor. Once airspeed exceeds stall velocity (approx. 12m/s), the lift-rotors completely shut down, allowing the wings to take the entire load. This transition eliminates hover-state battery drain and triples the operational range.",
+      "capabilities": [
+        {
+          "label": "Forward Flight Endurance",
+          "val": 94,
+          "max": 100
+        },
+        {
+          "label": "Payload Efficiency Ratio",
+          "val": 88,
+          "max": 100
+        },
+        {
+          "label": "Hover State Agility",
+          "val": 72,
+          "max": 100
+        },
+        {
+          "label": "Crosswind Penetration",
+          "val": 85,
+          "max": 100
+        }
+      ]
+    },
+    "phase5": {
+      "overline": "05 // LEGACY",
+      "heading": "Operational Horizon",
+      "debrief": "Valkyrie Mk II currently serves as the primary active workhorse for the AeroClub's heavy-lift division. However, the telemetry gathered from its high-amperage transition phases has highlighted minor thermal inefficiencies in the rear ESC placements. This airframe will remain active through the 2027 competitive season, while its data simultaneously acts as the foundational blueprint for the upcoming, fully composite Mk III."
+    }
+  }
 blocks:
   - type: text_block
     heading: Aircraft Overview
