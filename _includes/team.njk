@@ -71,27 +71,30 @@ title: "AeroClub | Team"
             </div>
         </section>
 
-        <section style="padding: 60px 0 100px;">
+        {% set groupedPersonnel = collections.personnel | groupby("data.division") %}
+        {% for divisionName, members in groupedPersonnel %}
+        
+        <!-- Alternating Background Logic: Even sections get panel-dark, odd get deep -->
+        <section style="padding: 80px 0; background: {% if loop.index % 2 == 0 %}var(--bg-panel-dark){% else %}var(--bg-deep){% endif %};">
             <div class="container">
                 
-                {% set groupedPersonnel = collections.personnel | groupby("data.division") %}
-                {% for divisionName, members in groupedPersonnel %}
-                <div style="margin-bottom: 80px;">
-                    <div style="margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px;">
-                        <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
-                        <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ divisionName }}</h3>
-                    </div>
-                    <div class="team-grid">
-                        {% for member in members %}
-                        <a href="{{ member.url }}" class="team-card">
-                            <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
-                            <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
-                        </a>
-                        {% endfor %}
-                    </div>
+                <div style="margin-bottom: 48px;">
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ divisionName }}</h3>
                 </div>
-                {% endfor %}
+                
+                <div class="team-grid">
+                    {% for member in members %}
+                    <!-- Invert card border color slightly if on the panel-dark background -->
+                    <a href="{{ member.url }}" class="team-card" style="{% if loop.parent.loop.index % 2 == 0 %}border-color: rgba(255,255,255,0.1);{% endif %}">
+                        <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
+                        <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
+                    </a>
+                    {% endfor %}
+                </div>
 
             </div>
         </section>
+        {% endfor %}
+
     </main>
