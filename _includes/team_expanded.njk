@@ -2,68 +2,157 @@
 layout: base.njk
 ---
 <main id="personnel-expanded">
+        
+        <style>
+            /* The 30/70 Macro Grid */
+            .report-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start; }
+            @media (max-width: 1024px) { .report-grid { grid-template-columns: 1fr; } }
+            
+            /* Sticky Identity Anchor (ID Badge) */
+            .hud-anchor { position: sticky; top: 40px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 24px; border-radius: 8px; }
+            .hud-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-dark); margin-bottom: 24px; filter: contrast(1.1); }
+            .hud-anchor:hover .hud-image { filter: grayscale(0%) contrast(1.1); }
+            
+            .hud-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+            .hud-item span { display: block; }
+            .hud-item-label { font-family: var(--font-ui), sans-serif; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+            .hud-item-value { font-size: 15px; color: var(--text-light); font-weight: 600; }
+            
+            .btn-hud { display: inline-block; width: 100%; text-align: center; padding: 14px; background: var(--text-light); color: var(--bg-deep); font-weight: 800; border-radius: 4px; text-decoration: none; transition: background 0.2s; font-family: var(--font-ui), sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+            .btn-hud:hover { background: var(--accent-cyan); }
+
+            /* Narrative Modules & Premium Typography */
+            .narrative-flow { display: flex; flex-direction: column; gap: 60px; padding-top: 12px; }
+            .narrative-phase { display: flex; flex-direction: column; }
+            
+            /* Architectural Headings */
+            .phase-header { margin-bottom: 24px; }
+            .phase-overline { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+            .phase-heading { font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0; letter-spacing: -0.5px; }
+            
+            /* Standardized Body Text */
+            .phase-text { font-size: 18px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+            .phase-text:last-child { margin-bottom: 0; }
+            .phase-hook { font-size: 20px; color: var(--text-muted); line-height: 1.8; font-weight: 500; margin: 0; }
+
+            /* Visual 1: Competency Matrix (Tech Spec Sheet) */
+            .subsystem-matrix { display: flex; flex-direction: column; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); margin-top: 24px; }
+            .matrix-row { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--border-dark); transition: background 0.2s; }
+            .matrix-row:last-child { border-bottom: none; }
+            .matrix-row:hover { background: rgba(255, 255, 255, 0.02); }
+            .matrix-left { padding: 24px 24px 24px 0; font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid var(--border-dark); }
+            .matrix-right { padding: 24px; color: var(--text-muted); font-size: 16px; line-height: 1.6; }
+        </style>
+
         <section style="padding: 60px 0 100px;">
             <div class="container">
-                <a href="/team/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; letter-spacing: 1px; transition: color 0.2s;">← Back to Personnel</a>
+                <a href="/personnel/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; letter-spacing: 1px; transition: color 0.2s;">← Back to Roster</a>
                 
-                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start;">
-                    <!-- Left Column: Media & Meta -->
-                    <div>
-                        <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; overflow: hidden; margin-bottom: 24px;">
-                            <img src="{{ image }}" alt="{{ name }}" style="width: 100%; height: 400px; object-fit: cover; display: block; filter: contrast(1.1);">
-                        </div>
-                        
-                        <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 24px;">
-                            <div style="margin-bottom: 16px;">
-                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Academic Major</span>
-                                <span style="color: var(--text-light); font-size: 14px; font-weight: 600;">{{ major }}</span>
-                            </div>
-                            <div style="margin-bottom: 16px;">
-                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Joined Division</span>
-                                <span style="color: var(--text-light); font-size: 14px; font-weight: 600;">{{ joined }}</span>
-                            </div>
-                            <div>
-                                <span style="display: block; font-family: var(--font-data); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Network</span>
-                                <a href="{{ linkedin }}" target="_blank" style="color: var(--accent-cyan); font-size: 13px; font-weight: 600; text-decoration: none;">LinkedIn Profile ↗</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="report-grid">
                     
-                    <!-- Right Column: Profile Narrative -->
-                    <div style="padding-top: 16px;">
-                        <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; letter-spacing: -1px;">{{ name }}</h1>
-                        <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; margin-bottom: 40px; letter-spacing: 1px; text-transform: uppercase;">{{ role }}</h4>
-                        
-                        <div style="font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px;">
-                            {{ content | safe }}
+                    <!-- Column 1: Sticky Identity Anchor -->
+                    <aside class="hud-anchor">
+                        <img src="{{ image }}" alt="{{ name }}" class="hud-image">
+                        <div class="hud-grid">
+                            <div class="hud-item"><span class="hud-item-label">DIVISION</span><span class="hud-item-value">{{ division }}</span></div>
+                            <div class="hud-item"><span class="hud-item-label">ACADEMIC MAJOR</span><span class="hud-item-value">{{ major }}</span></div>
+                            <div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ joined }}</span></div>
+                        </div>
+                        {% if linkedin %}
+                        <a href="{{ linkedin }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
+                        {% endif %}
+                    </aside>
+                    
+                    <!-- Column 2: Specialist Dossier -->
+                    <div>
+                        <!-- Dossier Header -->
+                        <div style="margin-bottom: 60px; border-bottom: 1px solid var(--border-dark); padding-bottom: 40px;">
+                            <h1 style="font-size: 56px; font-weight: 900; color: var(--text-light); margin-bottom: 8px; letter-spacing: -1.5px;">{{ name }}</h1>
+                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin: 0;">{{ role }}</h4>
                         </div>
                         
-                        <!-- CMS Injected: Key Contributions -->
-                        {% if contributions %}
-                        <div style="margin-bottom: 48px;">
-                            <h3 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 24px;">Key Contributions</h3>
-                            <div style="display: flex; flex-direction: column; gap: 20px;">
-                                {% for item in contributions %}
-                                <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline;">
-                                    <div style="color: var(--accent-cyan); font-weight: 700; font-size: 14px; position: relative; padding-left: 16px; font-family: var(--font-ui);">
-                                        <span style="position: absolute; left: 0; top: 6px; width: 6px; height: 6px; background: var(--accent-cyan);"></span>
-                                        {{ item.title }}:
+                        <!-- Automated Narrative Engine -->
+                        <article class="narrative-flow">
+                            
+                            {% if report_mode == 'Automation' and automation_payload %}
+                                <!-- JSON AUTOMATION PARSER -->
+                                {% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}
+                                {% set p = rawPayload | parseJSON %}
+                                
+                                <!-- Phase 1: Executive Summary -->
+                                <div class="narrative-phase">
+                                    <div class="phase-header">
+                                        <span class="phase-overline">{{ p.phase1.overline | default('01 // SPECIALIST PROFILE') }}</span>
+                                        <h3 class="phase-heading">{{ p.phase1.heading | default('Executive Summary') }}</h3>
                                     </div>
-                                    <div style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
-                                        {{ item.desc }}
+                                    <p class="phase-hook">{{ p.phase1.hook }}</p>
+                                </div>
+                                
+                                <!-- Phase 2: Technical Matrix -->
+                                <div class="narrative-phase">
+                                    <div class="phase-header">
+                                        <span class="phase-overline">{{ p.phase2.overline | default('02 // TECHNICAL DEPLOYMENT') }}</span>
+                                        <h3 class="phase-heading">{{ p.phase2.heading | default('Core Competencies') }}</h3>
+                                    </div>
+                                    <div class="subsystem-matrix">
+                                        {% for row in p.phase2.matrix %}
+                                        <div class="matrix-row">
+                                            <div class="matrix-left">{{ row.skill }}</div>
+                                            <div class="matrix-right">{{ row.desc }}</div>
+                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
-                                {% endfor %}
+                                
+                                <!-- Phase 3: Background & History -->
+                                <div class="narrative-phase">
+                                    <div class="phase-header">
+                                        <span class="phase-overline">{{ p.phase3.overline | default('03 // BACKGROUND') }}</span>
+                                        <h3 class="phase-heading">{{ p.phase3.heading | default('Operational History') }}</h3>
+                                    </div>
+                                    <p class="phase-text">{{ p.phase3.history }}</p>
+                                </div>
+                                
+                            {% else %}
+                                <!-- LEGACY MANUAL BIO -->
+                                <div class="phase-text">
+                                    {{ content | safe }}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- MANUAL FALLBACKS (Keys Contributions & Quote) -->
+                            <div style="display: flex; flex-direction: column; gap: 60px; margin-top: 20px;">
+                                
+                                <!-- Key Contributions -->
+                                {% if contributions %}
+                                <div>
+                                    <h3 style="font-size: 24px; font-weight: 800; color: var(--text-light); margin-bottom: 32px; border-bottom: 1px solid var(--border-dark); padding-bottom: 16px;">Key Field Contributions</h3>
+                                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                                        {% for item in contributions %}
+                                        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start;">
+                                            <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px;">
+                                                <span style="display: inline-block; width: 6px; height: 6px; background: var(--accent-cyan); margin-right: 12px; transform: translateY(-2px);"></span>
+                                                {{ item.title }}
+                                            </div>
+                                            <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
+                                                {{ item.desc }}
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <!-- Personal Quote -->
+                                {% if quote %}
+                                <blockquote style="border-left: 3px solid var(--accent-cyan); padding-left: 32px; margin: 0; font-style: italic; font-size: 22px; color: var(--text-light); line-height: 1.6; font-weight: 500;">
+                                    "{{ quote }}"
+                                </blockquote>
+                                {% endif %}
+                                
                             </div>
-                        </div>
-                        {% endif %}
-                        
-                        <!-- CMS Injected: Quote -->
-                        {% if quote %}
-                        <blockquote style="border-left: 3px solid var(--accent-cyan); padding-left: 24px; margin: 0; font-style: italic; font-size: 18px; color: var(--text-light); line-height: 1.6; font-weight: 500;">
-                            "{{ quote }}"
-                        </blockquote>
-                        {% endif %}
+
+                        </article>
                     </div>
                 </div>
             </div>
