@@ -25,6 +25,10 @@ tiers:
       - type: logo_card
         logo: https://images.seeklogo.com/logo-png/48/2/autocad-logo-png_seeklogo-482394.png
         name: ayr
+      - type: logo_card
+        url: ""
+        logo: https://images.seeklogo.com/logo-png/17/2/solidworks-logo-png_seeklogo-179590.png
+        name: Solidworks
   - eyebrow: TIER 2 ALLIANCE
     title: Diamond Partners
     sponsors_list:
