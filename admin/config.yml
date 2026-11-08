@@ -115,7 +115,9 @@ collections:
         fields:
           - {label: "Label", name: "label", widget: "string"}
           - {label: "Value", name: "value", widget: "string"}
-      - label: "Engineering Summary (Block Builder)"
+      - {label: "Report Generation Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+      - {label: "Automation Payload (Paste AI JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+      - label: "Engineering Summary (Manual Fallback)"
         name: "blocks"
         widget: "list"
         summary: '{{fields.type}} Block'
