@@ -236,13 +236,18 @@ title: "AeroClub | Home"
     </section>
     
     {% if homeData.cinematic_quote %}
-    <section style="padding: 120px 0; background: var(--bg-panel-dark); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); text-align: center;">
-        <div class="container" style="max-width: 900px;">
-            <blockquote style="font-size: 40px; font-weight: 800; color: var(--text-light); line-height: 1.3; margin: 0 0 24px 0; letter-spacing: -1px; font-style: italic;">
+    <section style="position: relative; padding: 70px 0; background: linear-gradient(135deg, var(--bg-panel-dark) 0%, var(--bg-deep) 100%); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); text-align: center; overflow: hidden;">
+        <!-- Massive Decorative Background Quote Mark -->
+        <div style="position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-size: 240px; color: rgba(255, 255, 255, 0.03); font-family: Georgia, serif; line-height: 1; pointer-events: none;">&ldquo;</div>
+        
+        <div class="container" style="max-width: 800px; position: relative; z-index: 2;">
+            <blockquote style="font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.4; margin: 0 0 20px 0; letter-spacing: -0.5px; font-style: italic;">
                 "{{ homeData.cinematic_quote.text }}"
             </blockquote>
-            <cite style="display: block; font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; font-style: normal;">
-                — {{ homeData.cinematic_quote.author }}
+            <cite style="display: flex; align-items: center; justify-content: center; gap: 12px; font-family: var(--font-data); color: var(--accent-cyan); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-style: normal; font-weight: 600;">
+                <span style="width: 24px; height: 1px; background: var(--border-dark);"></span>
+                {{ homeData.cinematic_quote.author }}
+                <span style="width: 24px; height: 1px; background: var(--border-dark);"></span>
             </cite>
         </div>
     </section>
@@ -338,10 +343,22 @@ title: "AeroClub | Home"
 
     {% set sponsorData = null %}
     {% for item in collections.all %}
-        {% if item.url == '/sponsors/' or item.data.title == 'AeroClub | Sponsors' %}
+        {% if item.fileSlug == 'sponsors' or item.url == '/sponsors/' %}
             {% set sponsorData = item.data %}
         {% endif %}
     {% endfor %}
+
+    <!-- SPONSOR DEBUG LOGGER -->
+    <script>
+        console.log("=== AEROCLUB HOMEPAGE DEBUG LOGS ===");
+        console.log("1. Did we find the Sponsor Page?", {{ 'true' if sponsorData else 'false' }});
+        console.log("2. Raw Sponsor Data Payload:", {{ sponsorData | dump | safe }});
+        console.log("3. Collections Dump (Looking for 'sponsors'):", [
+            {% for item in collections.all %}
+            { title: "{{ item.data.title }}", url: "{{ item.url }}", slug: "{{ item.fileSlug }}" },
+            {% endfor %}
+        ]);
+    </script>
 
     <!-- FIXED SECTION: Sponsors -->
     <section class="home-section container" style="padding-top: 0;">
@@ -353,35 +370,41 @@ title: "AeroClub | Home"
             <a href="/sponsors/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View All Sponsors</a>
         </div>
         <div class="partners-grid">
-            {% if sponsorData and sponsorData.tiers[0] %}
-                {% for item in sponsorData.tiers[0].sponsors_list %}
-                    {% if loop.index <= 4 %}
-                        
-                        {# Safely extract data without Nunjucks namespace hacks #}
-                        {% set sponsor = null %}
-                        {% if item.type == 'detailed_card' %}
-                            {% set sponsor = item.detailed_card %}
-                        {% else %}
-                            {% set sponsor = item.logo_card %}
-                        {% endif %}
-                        
-                        {% if sponsor %}
-                            {% set sponsorUrl = sponsor.url %}
-                            {% if sponsorUrl and not '://' in sponsorUrl %}
-                                {% set sponsorUrl = 'https://' + sponsorUrl %}
+            {% if sponsorData and sponsorData.tiers %}
+                {% set sponsorCount = 0 %}
+                {% for tier in sponsorData.tiers %}
+                    {% for item in tier.sponsors_list %}
+                        {% if sponsorCount < 8 %}
+                            {% set sponsorCount = sponsorCount + 1 %}
+                            
+                            {# Safely extract data without Nunjucks namespace hacks #}
+                            {% set sponsor = null %}
+                            {% if item.type == 'detailed_card' %}
+                                {% set sponsor = item.detailed_card %}
+                            {% else %}
+                                {% set sponsor = item.logo_card %}
                             {% endif %}
-
-                            <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                                {% if sponsor.logo %}
-                                <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                                {% else %}
-                                <span class="partner-fallback">{{ sponsor.name }}</span>
+                            
+                            {% if sponsor %}
+                                {% set sponsorUrl = sponsor.url %}
+                                {% if sponsorUrl and not '://' in sponsorUrl %}
+                                    {% set sponsorUrl = 'https://' + sponsorUrl %}
                                 {% endif %}
-                            </a>
+
+                                <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                                    {% if sponsor.logo %}
+                                    <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                    {% else %}
+                                    <span class="partner-fallback">{{ sponsor.name }}</span>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                            
                         {% endif %}
-                        
-                    {% endif %}
+                    {% endfor %}
                 {% endfor %}
+            {% else %}
+                <p style="color: var(--text-muted); grid-column: 1 / -1;">No sponsors detected. Check the browser console logs (F12)!</p>
             {% endif %}
         </div>
     </section>
