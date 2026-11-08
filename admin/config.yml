@@ -119,36 +119,47 @@ collections:
     folder: "content/achievements"
     create: true
     slug: "{{slug}}"
-    summary: "{{card_meta}} // {{card_title}}"
+    summary: "{{card.meta}} // {{card.title}}"
     fields:
-      - {label: "Expanded Cinematic Title", name: "title", widget: "string"}
-      - {label: "Compact Card Title", name: "card_title", widget: "string"}
-      - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
-      - {label: "Card Meta Tag", name: "card_meta", widget: "string"}
-      - {label: "Cover/Hero Image", name: "image", widget: "image"}
-      - {label: "Card Summary (Short paragraph)", name: "summary", widget: "text"}
-      - {label: "Hardware Deployed", name: "hardware", widget: "string"}
-      - {label: "Overall Result", name: "result", widget: "string"}
-      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Legacy: Manual Mission Report"
-        name: "blocks"
-        widget: "list"
+      - label: "📦 BOX 1: THE GRID CARD (Quick Overview)"
+        name: "card"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Compact Card Title", name: "title", widget: "string"}
+          - {label: "Card Meta Tag (e.g. DEC 2026 // AIR 5)", name: "meta", widget: "string"}
+          - {label: "Card Summary (Short paragraph)", name: "summary", widget: "text"}
+          - {label: "Cover/Hero Image", name: "image", widget: "image"}
+          
+      - label: "📄 BOX 2: THE EXPANDED REPORT (Deep Dive)"
+        name: "report"
+        widget: "object"
         collapsed: true
-        summary: '{{fields.type}} Block'
-        types:
-          - label: "Text Section"
-            name: "text_block"
-            widget: "object"
-            fields:
-              - {label: "Section Heading", name: "heading", widget: "string", required: false}
-              - {label: "Text Content", name: "content", widget: "markdown"}
-          - label: "Inline Image"
-            name: "image_block"
-            widget: "object"
-            fields:
-              - {label: "Image", name: "image", widget: "image"}
-              - {label: "Image Alt Text", name: "alt", widget: "string"}
+        fields:
+          - {label: "Expanded Cinematic Title", name: "title", widget: "string"}
+          - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
+          - {label: "Hardware Deployed", name: "hardware", widget: "string"}
+          - {label: "Overall Result", name: "result", widget: "string"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - label: "Legacy: Manual Mission Report"
+            name: "blocks"
+            widget: "list"
+            collapsed: true
+            summary: '{{fields.type}} Block'
+            types:
+              - label: "Text Section"
+                name: "text_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Heading", name: "heading", widget: "string", required: false}
+                  - {label: "Text Content", name: "content", widget: "markdown"}
+              - label: "Inline Image"
+                name: "image_block"
+                widget: "object"
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Image Alt Text", name: "alt", widget: "string"}
 
   - name: "models"
     label: "🚁 The Fleet (Models)"

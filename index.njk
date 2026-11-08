@@ -304,11 +304,11 @@ title: "AeroClub | Home"
             {% for log in collections.achievements | reverse %}
             {% if loop.index <= 3 %}
             <a href="{{ log.url }}" class="news-card">
-                <div class="news-img"><img src="{{ log.data.image }}" alt="{{ log.data.card_title }}"></div>
+                <div class="news-img"><img src="{{ log.data.card.image }}" alt="{{ log.data.card.title }}"></div>
                 <div class="news-content">
-                    <span class="news-meta">{{ log.data.card_meta }}</span>
-                    <h4>{{ log.data.card_title }}</h4>
-                    <p>{{ log.data.summary }}</p>
+                    <span class="news-meta">{{ log.data.card.meta }}</span>
+                    <h4>{{ log.data.card.title }}</h4>
+                    <p>{{ log.data.card.summary }}</p>
                     <span class="learn-more">Learn More</span>
                 </div>
             </a>

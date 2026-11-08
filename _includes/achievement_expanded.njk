@@ -4,11 +4,11 @@ layout: base.njk
 <main id="mission-report">
         
         <!-- Massive Cinematic Header -->
-        <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ card.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
                 <a href="/achievements/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ hero_meta }}</span>
-                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ title }}</h1>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ report.hero_meta }}</span>
+                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ report.title }}</h1>
             </div>
         </section>
 
@@ -82,11 +82,11 @@ layout: base.njk
                 
                 <!-- Column 1: Sticky HUD Anchor -->
                 <aside class="hud-anchor">
-                    <div class="hud-metric">{{ result | default('N/A') }}</div>
+                    <div class="hud-metric">{{ report.result | default('N/A') }}</div>
                     <span class="hud-label">OVERALL RESULT</span>
                     <div class="hud-grid">
-                        <div class="hud-item"><span class="hud-item-label">MISSION LOG</span><span class="hud-item-value">{{ card_meta }}</span></div>
-                        <div class="hud-item"><span class="hud-item-label">HARDWARE DEPLOYED</span><span class="hud-item-value">{{ hardware }}</span></div>
+                        <div class="hud-item"><span class="hud-item-label">MISSION LOG</span><span class="hud-item-value">{{ card.meta }}</span></div>
+                        <div class="hud-item"><span class="hud-item-label">HARDWARE DEPLOYED</span><span class="hud-item-value">{{ report.hardware }}</span></div>
                     </div>
                     <a href="/gallery/" class="btn-hud">View Flight Media ↗</a>
                 </aside>
@@ -94,9 +94,9 @@ layout: base.njk
                 <!-- Column 2: Narrative Engine -->
                 <article class="narrative-flow">
                     
-                    {% if report_mode == 'Automation' and automation_payload %}
+                    {% if report.report_mode == 'Automation' and report.automation_payload %}
                         <!-- JSON AUTOMATION PARSER -->
-                        {% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}
+                        {% set rawPayload = report.automation_payload.code if report.automation_payload.code else report.automation_payload %}
                         {% set p = rawPayload | parseJSON %}
                         
                         <!-- Phase 1: Executive Briefing -->
@@ -175,7 +175,7 @@ layout: base.njk
                     {% else %}
                         <!-- LEGACY MANUAL BLOCK BUILDER (Preserved so old pages don't break) -->
                         <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8;">
-                            {% for block in blocks %}
+                            {% for block in report.blocks %}
                                 {% if block.type == 'text_block' %}
                                     {% if block.heading %}
                                         <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
@@ -202,9 +202,10 @@ layout: base.njk
         {% if nextItem %}
         <a href="{{ nextItem.url }}" class="next-report">
             <span class="next-label">Read More About</span>
-            <h2 class="next-title">{{ nextItem.data.title }} ➔</h2>
+            <h2 class="next-title">{{ nextItem.data.card.title }} ➔</h2>
         </a>
         {% endif %}
         
     </main>
+    
     
