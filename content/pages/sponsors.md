@@ -19,6 +19,9 @@ tiers:
         logo: https://images.seeklogo.com/logo-png/50/2/matlab-logo-png_seeklogo-506902.png
         name: Matlab
         url: https://www.mathworks.com/products/matlab.html
+      - type: logo_card
+        logo: https://images.seeklogo.com/logo-png/48/2/autocad-logo-png_seeklogo-482394.png
+        name: AutoCAD
   - eyebrow: TIER 2 ALLIANCE
     title: Diamond Partners
     sponsors_list:
