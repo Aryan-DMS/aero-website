@@ -1,6 +1,6 @@
 ---
 tiers:
-  - eyebrow: TIER 1 ALLIANCE
+  - eyebrow: Tier 1
     title: Titanium Partners
     sponsors_list:
       - type: logo_card
@@ -22,6 +22,9 @@ tiers:
       - type: logo_card
         logo: https://images.seeklogo.com/logo-png/48/2/autocad-logo-png_seeklogo-482394.png
         name: AutoCAD
+      - type: logo_card
+        logo: https://images.seeklogo.com/logo-png/48/2/autocad-logo-png_seeklogo-482394.png
+        name: ayr
   - eyebrow: TIER 2 ALLIANCE
     title: Diamond Partners
     sponsors_list:
@@ -44,4 +47,5 @@ tiers:
         name: Ansys
         logo: https://images.seeklogo.com/logo-png/34/2/ansys-logo-png_seeklogo-349473.png
         url: https://ansys.synopsys.com/en-in
+  - {}
 ---
