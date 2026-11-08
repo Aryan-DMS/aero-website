@@ -71,30 +71,91 @@ title: "AeroClub | Team"
             </div>
         </section>
 
-        {% set groupedPersonnel = collections.personnel | groupby("data.division") %}
-        {% for divisionName, members in groupedPersonnel %}
-        
-        <!-- Alternating Background Logic: Even sections get panel-dark, odd get deep -->
-        <section style="padding: 80px 0; background: {% if loop.index % 2 == 0 %}var(--bg-panel-dark){% else %}var(--bg-deep){% endif %};">
+        {# Reusable Card Macro to keep the HTML clean and DRY #}
+        {% macro teamCard(member, isDarkPanel) %}
+        <a href="{{ member.url }}" class="team-card" style="{% if isDarkPanel %}border-color: rgba(255,255,255,0.1);{% endif %}">
+            <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
+            <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
+        </a>
+        {% endmacro %}
+
+        <!-- MACRO-SECTION 1: FACULTY ADVISORS -->
+        <section style="padding: 80px 0; background: var(--bg-deep);">
             <div class="container">
-                
                 <div style="margin-bottom: 48px;">
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
-                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">{{ divisionName }}</h3>
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Faculty Advisors</h3>
                 </div>
-                
                 <div class="team-grid">
-                    {% for member in members %}
-                    <!-- Invert card border color slightly if on the panel-dark background -->
-                    <a href="{{ member.url }}" class="team-card" style="{% if loop.parent.loop.index % 2 == 0 %}border-color: rgba(255,255,255,0.1);{% endif %}">
-                        <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
-                        <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
-                    </a>
+                    {% for member in collections.personnel %}
+                        {% if 'Faculty' in member.data.division %}
+                            {{ teamCard(member, false) }}
+                        {% endif %}
                     {% endfor %}
                 </div>
-
             </div>
         </section>
-        {% endfor %}
+
+        <!-- MACRO-SECTION 2: CORE TEAM (The VIP Sweeps) -->
+        <section style="padding: 80px 0; background: var(--bg-panel-dark);">
+            <div class="container">
+                <div style="margin-bottom: 48px;">
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Core Team</h3>
+                </div>
+                <div class="team-grid">
+                    
+                    <!-- Sweep 1: Captain -->
+                    {% for member in collections.personnel %}
+                        {% if 'Core' in member.data.division and member.data.role == 'Captain' %}
+                            {{ teamCard(member, true) }}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <!-- Sweep 2: Vice Captain -->
+                    {% for member in collections.personnel %}
+                        {% if 'Core' in member.data.division and (member.data.role == 'Vice Captain' or member.data.role == 'Vice-Captain') %}
+                            {{ teamCard(member, true) }}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <!-- Sweep 3: Heads & Leads -->
+                    {% for member in collections.personnel %}
+                        {% if 'Core' in member.data.division %}
+                            {% if ('Head' in member.data.role or 'Lead' in member.data.role) and member.data.role != 'Captain' and member.data.role != 'Vice Captain' and member.data.role != 'Vice-Captain' %}
+                                {{ teamCard(member, true) }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <!-- Sweep 4: Standard Members -->
+                    {% for member in collections.personnel %}
+                        {% if 'Core' in member.data.division %}
+                            {% if not ('Head' in member.data.role or 'Lead' in member.data.role or member.data.role == 'Captain' or member.data.role == 'Vice Captain' or member.data.role == 'Vice-Captain') %}
+                                {{ teamCard(member, true) }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- MACRO-SECTION 3: JUNIORS -->
+        <section style="padding: 80px 0; background: var(--bg-deep);">
+            <div class="container">
+                <div style="margin-bottom: 48px;">
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase;">TEAM DIVISION</h4>
+                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Juniors</h3>
+                </div>
+                <div class="team-grid">
+                    {% for member in collections.personnel %}
+                        {% if 'Junior' in member.data.division %}
+                            {{ teamCard(member, false) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
     </main>
