@@ -1,43 +1,4 @@
 ---
-name: "Member #1"
-division: Core Team
-role: Member of Club
-image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
-major: Mechanical Engineering
-joined: August 2018
-linkedin: https://in.linkedin.com/
-report_mode: Automation
-automation_payload: >-
-  {
-    "phase1": {
-      "overline": "01 // SPECIALIST PROFILE",
-      "heading": "Executive Summary",
-      "hook": "Serving as the Lead Aerodynamics Engineer, this specialist brings a rigorous, data-driven approach to airframe optimization. Their expertise in computational fluid dynamics (CFD) and composite material behavior was instrumental in redesigning the Valkyrie Mk II wing structure, directly resulting in a 15% increase in lift-to-drag efficiency during our latest competitive deployment."
-    },
-    "phase2": {
-      "overline": "02 // TECHNICAL DEPLOYMENT",
-      "heading": "Core Competencies",
-      "matrix": [
-        {
-          "skill": "Aerodynamic Simulation",
-          "desc": "Advanced proficiency in ANSYS Fluent and OpenFOAM for analyzing high-alpha flight characteristics and vortex shedding."
-        },
-        {
-          "skill": "Composite Fabrication",
-          "desc": "Mastery of vacuum-bagged carbon fiber layups, structural epoxy curing, and 3D-printed mold generation."
-        },
-        {
-          "skill": "Telemetry Analytics",
-          "desc": "Translates raw ArduPilot flight logs into actionable mechanical and software adjustments between competitive flight rounds."
-        }
-      ]
-    },
-    "phase3": {
-      "overline": "03 // BACKGROUND",
-      "heading": "Operational History",
-      "history": "Joining the AeroClub during their sophomore year, they quickly transitioned from a junior fabrication assistant to commanding the entire aerodynamics division. Prior to leading the Valkyrie project, they spent six months rigorously stress-testing experimental 3D-printed structures in the wind tunnel, eventually proving that a shift to continuous-fiber nylon was mandatory for the team's high-stress motor mounts. Their engineering philosophy centers on aggressive, iterative testing—breaking things in the simulation so they never fail on the tarmac."
-    }
-  }
 contributions:
   - title: Technical Innovation
     desc: Contribute to designing, developing, and experimenting with
@@ -51,6 +12,63 @@ contributions:
   - title: Club Initiatives
     desc: Actively participate in workshops, competitions, technical events, and
       activities that promote aerospace learning.
+name: "Member #1"
+division: Core Team
+role: Member of Club
+image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
+major: Mechanical Engineering
+joined: August 2018
+linkedin: https://in.linkedin.com/
+report_mode: Automation
+automation_payload: >-
+  {
+    "phase1": {
+      "overline": "01 // SPECIALIST PROFILE",
+      "heading": "Executive Summary",
+      "hook": "Serving as the Lead Aerodynamics Engineer, this specialist brings a rigorously data-driven and uncompromising approach to airframe optimization and composite manufacturing. By entirely phasing out legacy balsa wood construction in favor of advanced vacuum-bagged carbon-fiber laminates, they single-handedly increased the fleet's structural payload capacity by over 30%. Their expertise in computational fluid dynamics (CFD) and composite material behavior was instrumental in redesigning the Valkyrie Mk II wing structure, directly resulting in a 15% increase in lift-to-drag efficiency during our most recent competitive deployment under extreme crosswind conditions."
+    },
+    "phase2": {
+      "overline": "02 // TECHNICAL DEPLOYMENT",
+      "heading": "Core Competencies",
+      "matrix": [
+        {
+          "skill": "Aerodynamic Simulation",
+          "desc": "Advanced proficiency in ANSYS Fluent and OpenFOAM for analyzing high-alpha flight characteristics, predicting vortex shedding, and optimizing airfoil cambers before physical fabrication begins."
+        },
+        {
+          "skill": "Composite Fabrication",
+          "desc": "Mastery of aerospace-grade manufacturing techniques, including vacuum-bagged carbon fiber layups, structural epoxy curing cycles, and generating 3D-printed titanium/nylon hybrid molds."
+        },
+        {
+          "skill": "Telemetry Analytics",
+          "desc": "Translates raw ArduPilot flight logs and IMU sensor data into actionable mechanical adjustments, eliminating thermal inefficiencies and structural resonance during competitive flight rounds."
+        }
+      ]
+    },
+    "phase3": {
+      "overline": "03 // BACKGROUND",
+      "heading": "Operational History",
+      "history": "Joining the AeroClub during their freshman year, they quickly transitioned from a junior fabrication assistant to commanding the entire aerodynamics division. Their early tenure was defined by a relentless drive to modernize the club's manufacturing standards. Prior to leading the Valkyrie project, they spent six months rigorously stress-testing experimental 3D-printed structures in the university's subsonic wind tunnel, eventually proving that a shift to continuous-fiber nylon was mandatory for the team's high-stress motor mounts. Their engineering philosophy centers on aggressive, iterative testing—breaking components in the simulation environments so they never suffer catastrophic failure on the tarmac. This mindset fundamentally shifted the club's culture from 'trial-and-error' building to precision, data-backed aerospace engineering."
+    },
+    "phase4": {
+      "overline": "04 // DEPLOYMENT LOG",
+      "heading": "Key Field Contributions",
+      "contributions": [
+        {
+          "title": "Project Valkyrie Mk II Airframe Overhaul",
+          "desc": "Spearheaded the complete aerodynamic redesign of the primary heavy-lift vehicle. Transitioned the wing architecture to a custom high-lift Selig airfoil, utilizing internal carbon-fiber sparring that reduced total wing deflection by 40% under max payload."
+        },
+        {
+          "title": "Operation Vanguard BVLOS Testing",
+          "desc": "Served as the primary Ground Control Station (GCS) telemetry analyst during beyond-visual-line-of-sight autonomous trials. Continuously monitored voltage sag and PID tuning, ensuring 100% geofence compliance in 25km/h crosswinds."
+        },
+        {
+          "title": "Standardization of Composite Curing",
+          "desc": "Wrote and implemented the standard operating procedure (SOP) for all vacuum-bagging and epoxy curing processes. This protocol eliminated delamination errors in landing gear brackets and saved the club roughly $400 in wasted materials per semester."
+        }
+      ]
+    }
+  }
 quote: >-
   Every great flight begins with an idea, a little curiosity, and the courage to
   take off.
