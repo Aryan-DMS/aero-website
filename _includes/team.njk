@@ -71,9 +71,14 @@ title: "AeroClub | Team"
             </div>
         </section>
 
+        <style>
+            /* Specific border adjustment for cards inside the lighter panel-dark background */
+            .team-card-dark { border-color: rgba(255,255,255,0.1); }
+        </style>
+        
         {# Reusable Card Macro to keep the HTML clean and DRY #}
         {% macro teamCard(member, isDarkPanel) %}
-        <a href="{{ member.url }}" class="team-card" style="{% if isDarkPanel %}border-color: rgba(255,255,255,0.1);{% endif %}">
+        <a href="{{ member.url }}" class="team-card {% if isDarkPanel %}team-card-dark{% endif %}">
             <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
             <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
         </a>
