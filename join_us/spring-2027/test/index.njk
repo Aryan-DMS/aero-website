@@ -70,41 +70,29 @@ title: "AeroClub | Phase 02: Technical Test"
         {% endif %}
     {% endfor %}
 
-    <div class="report-container">
-        <!-- Header (Full Width) -->
-        <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Dashboard</a>
-        <span class="report-meta">PHASE 02 // {{ drive.phase2.status | default('EVALUATION') | upper }}</span>
-        <h1 class="report-title">Technical Test Briefing</h1>
+    <!-- Cinematic Phase Header -->
+    <section style="height: 40vh; background: linear-gradient(to top, var(--bg-deep) 10%, rgba(11,17,33,0.7)), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 40px; border-bottom: 1px solid var(--border-dark);">
+        <div class="container" style="width: 100%;">
+            <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Dashboard</a>
+            <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 02 // {{ drive.phase2.status | default('EVALUATION') | upper }}</span>
+            <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0; line-height: 1.1;">Technical Test Briefing</h1>
+        </div>
+    </section>
 
+    <div class="report-container">
         <!-- 2-Column Split -->
         <div class="report-grid">
             
-            <!-- LEFT COLUMN: Logistics Sidebar -->
-            <aside>
-                <span style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; display: block;">TEST LOGISTICS</span>
+            <!-- LEFT COLUMN: Premium Sticky HUD -->
+            <aside class="hud-anchor">
+                <div class="hud-metric">PHASE 02</div>
+                <span class="hud-label" {% if drive.phase2.status == 'Open' %}style="color: #10B981;"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
                 
-                <div class="data-box">
-                    <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">DEPLOYMENT DATA</span>
-                    <div class="data-row">
-                        <span class="data-label">Date</span>
-                        <span class="data-value">{{ drive.phase2.date | default('TBA') }}</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Time</span>
-                        <span class="data-value">{{ drive.phase2.time | default('TBA') }}</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Venue</span>
-                        <span class="data-value">{{ drive.phase2.venue | default('TBA') }}</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Format</span>
-                        <span class="data-value">{{ drive.phase2.format | default('TBA') }}</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Status</span>
-                        <span class="data-value" {% if drive.phase2.status == 'Open' %}style="color: #10B981;"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
-                    </div>
+                <div class="hud-grid">
+                    <div class="hud-item"><span class="hud-item-label">DATE</span><span class="hud-item-value">{{ drive.phase2.date | default('TBA') }}</span></div>
+                    <div class="hud-item"><span class="hud-item-label">TIME</span><span class="hud-item-value">{{ drive.phase2.time | default('TBA') }}</span></div>
+                    <div class="hud-item"><span class="hud-item-label">VENUE</span><span class="hud-item-value">{{ drive.phase2.venue | default('TBA') }}</span></div>
+                    <div class="hud-item"><span class="hud-item-label">FORMAT</span><span class="hud-item-value">{{ drive.phase2.format | default('TBA') }}</span></div>
                 </div>
             </aside>
 

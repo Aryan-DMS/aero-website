@@ -86,7 +86,7 @@ title: "AeroClub | Spring 2027 Command Dashboard"
     }
 
     .card-cta span {
-        color: var(--accent-cyan);
+        color: var(--text-light); /* Enforce white arrow */
         transition: transform 0.2s;
     }
 
@@ -104,21 +104,21 @@ title: "AeroClub | Spring 2027 Command Dashboard"
         {% endif %}
     {% endfor %}
 
-    <!-- Clean Header mirroring the "Our Team" aesthetic -->
-    <section style="padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 60px); border-bottom: 1px solid var(--border-dark);">
-        <div class="container">
-            <a href="/join_us/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; transition: color 0.2s;">← Back to Archives</a>
+    <!-- Massive Cinematic Header -->
+    <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <div class="container" style="width: 100%;">
+            <a href="/join_us/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
             
-            <span style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block;">
+            <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase;">
                 RECRUITMENT CYCLE
             </span>
             
-            <h1 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1;">
+            <h1 style="font-size: clamp(40px, 8vw, 64px); font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px; color: var(--text-light); margin-bottom: 32px;">
                 {{ drive.title | default("Spring 2027 Induction") }}
             </h1>
             
             <!-- The specific dark panel requested for roles -->
-            <div style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
+            <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
                 <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">ACTIVE RECRUITMENT ROLES</h4>
                 <p style="color: var(--text-light); font-size: 16px; line-height: 1.6; font-weight: 500; margin: 0;">
                     {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
