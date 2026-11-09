@@ -29,6 +29,7 @@ collections:
     slug: "{{year}}-{{month}}-{{slug}}"
     summary: "[{{card.category}}] {{card.title}} // {{card.dateString}}"
     fields:
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
       - label: "📦 BOX 1: THE GRID CARD (Always Required)"
         name: "card"
         widget: "object"
@@ -147,6 +148,7 @@ collections:
     slug: "{{slug}}"
     summary: "{{card.meta}} // {{card.title}}"
     fields:
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
       - label: "📦 BOX 1: THE GRID CARD (Always Required)"
         name: "card"
         widget: "object"

@@ -100,7 +100,7 @@ title: "AeroClub | Events"
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-                    {% for event in collections.events %}
+                    {% for event in collections.events | reverse %}
                     {% set eCard = event.data.card | default(event.data) %}
                     {% if eCard.category == "Active" %}
                     <a href="{{ event.url }}" class="event-card">
@@ -131,7 +131,7 @@ title: "AeroClub | Events"
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                    {% for event in collections.events %}
+                    {% for event in collections.events | reverse %}
                     {% set eCard = event.data.card | default(event.data) %}
                     {% if eCard.category == "Past" %}
                     <a href="{{ event.url }}" class="event-card">
