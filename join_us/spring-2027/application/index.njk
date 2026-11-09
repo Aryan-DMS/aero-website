@@ -67,13 +67,16 @@ title: "AeroClub | Phase 01: Application"
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
                 <div class="hud-metric">PHASE 01</div>
-                <span class="hud-label" {% if drive.phase1.status == 'Open' %}style="color: #10B981;"{% endif %}>{{ drive.phase1.status | default("Pending") }}</span>
                 
-                <div class="hud-grid">
-                    <div class="hud-item"><span class="hud-item-label">DEADLINE</span><span class="hud-item-value">{{ drive.phase1.deadline | default("TBA") }}</span></div>
+                {% if drive.phase1.metrics %}
+                <div class="hud-grid" style="margin-top: 24px;">
+                    {% for metric in drive.phase1.metrics %}
+                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Open' or metric.value == 'OPEN' or metric.value == 'COMPLETED' %}style="color: #10B981;"{% endif %}>{{ metric.value }}</span></div>
+                    {% endfor %}
                 </div>
+                {% endif %}
 
-                {% if drive.phase1.status == 'Open' %}
+                {% if drive.phase1.action_tracker %}
                     <div style="border-top: 1px solid var(--border-dark); margin-top: 8px; padding-top: 24px;">
                         <!-- STATE 1: Enter Name -->
                         <div id="auth-gate">

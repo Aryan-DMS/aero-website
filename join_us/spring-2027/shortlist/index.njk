@@ -71,7 +71,14 @@ title: "AeroClub | Phase 03: Shortlist"
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
                 <div class="hud-metric">PHASE 03</div>
-                <span class="hud-label" {% if drive.phase3.status == 'Completed' %}style="color: #10B981;"{% endif %}>{{ drive.phase3.status | default("Pending") }}</span>
+                
+                {% if drive.phase3.metrics %}
+                <div class="hud-grid" style="margin-top: 24px;">
+                    {% for metric in drive.phase3.metrics %}
+                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Open' or metric.value == 'OPEN' or metric.value == 'COMPLETED' %}style="color: #10B981;"{% endif %}>{{ metric.value }}</span></div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </aside>
 
             <!-- RIGHT COLUMN: Narrative Engine + Command Terminal Data -->

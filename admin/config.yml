@@ -102,50 +102,90 @@ collections:
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Deadline", name: "deadline", widget: "string"}
-          - {label: "Application Form Link", name: "form_link", widget: "string"}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "OPEN"}
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label (e.g. DEADLINE)", name: "label", widget: "string"}
+              - {label: "Value (e.g. FEB 15)", name: "value", widget: "string"}
+          - {label: "Activate Application Tracker", name: "action_tracker", widget: "boolean", default: false}
+          - {label: "Application Form Link", name: "form_link", widget: "string", required: false}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+
       - label: "Phase 2: Technical Test"
         name: "phase2"
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Date", name: "date", widget: "string", required: false}
-          - {label: "Time", name: "time", widget: "string", required: false}
-          - {label: "Venue", name: "venue", widget: "string", required: false}
-          - {label: "Format", name: "format", widget: "string", required: false}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "OPEN"}
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label (e.g. DATE)", name: "label", widget: "string"}
+              - {label: "Value (e.g. FEB 20, 2027)", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+
       - label: "Phase 3: Shortlist"
         name: "phase3"
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "OPEN"}
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+
       - label: "Phase 4: Interviews"
         name: "phase4"
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "OPEN"}
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+
       - label: "Phase 5: Results"
         name: "phase5"
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "COMPLETED"}
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
 
