@@ -101,17 +101,18 @@ title: "AeroClub | Events"
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
                     {% for event in collections.events %}
-                    {% if event.data.category == "Active" %}
+                    {% set eCard = event.data.card | default(event.data) %}
+                    {% if eCard.category == "Active" %}
                     <a href="{{ event.url }}" class="event-card">
-                        {% if event.data.image %}
+                        {% if eCard.image %}
                         <div class="event-img">
-                            <img src="{{ event.data.image }}" alt="{{ event.data.title }}">
+                            <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
                         </div>
                         {% endif %}
                         <div class="event-content">
-                            <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
-                            <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ event.data.title }}</h3>
-                            <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ event.data.summary }}</p>
+                            <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                            <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ eCard.title }}</h3>
+                            <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ eCard.summary }}</p>
                             <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Event Details →</span>
                         </div>
                     </a>
@@ -131,17 +132,18 @@ title: "AeroClub | Events"
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
                     {% for event in collections.events %}
-                    {% if event.data.category == "Past" %}
+                    {% set eCard = event.data.card | default(event.data) %}
+                    {% if eCard.category == "Past" %}
                     <a href="{{ event.url }}" class="event-card">
-                        {% if event.data.image %}
+                        {% if eCard.image %}
                         <div class="event-img" style="height: 200px;">
-                            <img src="{{ event.data.image }}" alt="{{ event.data.title }}">
+                            <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
                         </div>
                         {% endif %}
                         <div class="event-content-past">
-                            <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ event.data.dateString }} // {{ event.data.location }}</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ event.data.title }}</h4>
-                            <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ event.data.summary }}</p>
+                            <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ eCard.title }}</h4>
+                            <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ eCard.summary }}</p>
                             <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Read Recap ↗</span>
                         </div>
                     </a>
@@ -162,12 +164,13 @@ title: "AeroClub | Events"
                 <div class="timeline-wrapper">
                     <div class="timeline-track">
                         {% for event in collections.events %}
-                        {% if event.data.category == "Timeline" %}
+                        {% set eCard = event.data.card | default(event.data) %}
+                        {% if eCard.category == "Timeline" %}
                         <div class="timeline-node">
                             <div class="timeline-dot"></div>
-                            <span class="timeline-meta">{{ event.data.dateString }} // {{ event.data.location }}</span>
-                            <h4 class="timeline-title">{{ event.data.title }}</h4>
-                            <p class="timeline-desc">{{ event.data.summary }}</p>
+                            <span class="timeline-meta">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                            <h4 class="timeline-title">{{ eCard.title }}</h4>
+                            <p class="timeline-desc">{{ eCard.summary }}</p>
                         </div>
                         {% endif %}
                         {% endfor %}

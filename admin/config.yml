@@ -27,37 +27,63 @@ collections:
     folder: "content/events"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
-    summary: "[{{category}}] {{title}} // {{dateString}}"
+    summary: "[{{card.category}}] {{card.title}} // {{card.dateString}}"
     fields:
-      - {label: "Event Title", name: "title", widget: "string"}
-      - {label: "Category", name: "category", widget: "select", options: ["Active", "Past", "Timeline"]}
-      - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
-      - {label: "Location or Type", name: "location", widget: "string"}
-      - {label: "Hardware Class", name: "hardware", widget: "string", required: false}
-      - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application"], default: "Briefing"}
-      - {label: "Application Link (Required if Action is Application)", name: "application_link", widget: "string", required: false}
-      - {label: "Card Summary", name: "summary", widget: "text"}
-      - {label: "Cover Image", name: "image", widget: "image"}
-      - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "🧠 AI Intelligence Payload (Paste JSON Here)", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Legacy: Manual Briefing Blocks"
-        name: "blocks"
-        widget: "list"
+      - label: "📦 BOX 1: THE GRID CARD (Always Required)"
+        name: "card"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Event Title", name: "title", widget: "string"}
+          - {label: "Category", name: "category", widget: "select", options: ["Active", "Past", "Timeline"]}
+          - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
+          - {label: "Location or Type", name: "location", widget: "string"}
+          - {label: "Card Summary", name: "summary", widget: "text"}
+          - {label: "Cover Image", name: "image", widget: "image"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          
+      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
+        name: "automation"
+        widget: "object"
         collapsed: true
-        summary: '{{fields.type}} Block'
-        types:
-          - label: "Text Section"
-            name: "text_block"
-            widget: "object"
+        fields:
+          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          
+      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
+        name: "manual"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Expanded Cinematic Title", name: "title", widget: "string", required: false}
+          - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application", "None"], default: "Briefing", required: false}
+          - {label: "Application Link", name: "application_link", widget: "string", required: false}
+          - label: "HUD Metrics (Left Sidebar)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
             fields:
-              - {label: "Section Heading", name: "heading", widget: "string", required: false}
-              - {label: "Text Content", name: "content", widget: "markdown"}
-          - label: "Inline Image"
-            name: "image_block"
-            widget: "object"
-            fields:
-              - {label: "Image", name: "image", widget: "image"}
-              - {label: "Image Alt Text", name: "alt", widget: "string"}
+              - {label: "Label (e.g. COORDINATES)", name: "label", widget: "string"}
+              - {label: "Value (e.g. MIT, Pune)", name: "value", widget: "string"}
+          - label: "Manual Narrative Builder"
+            name: "blocks"
+            widget: "list"
+            collapsed: true
+            required: false
+            summary: '{{fields.type}} Block'
+            types:
+              - label: "Text Section"
+                name: "text_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Heading", name: "heading", widget: "string", required: false}
+                  - {label: "Text Content", name: "content", widget: "markdown"}
+              - label: "Inline Image"
+                name: "image_block"
+                widget: "object"
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Image Alt Text", name: "alt", widget: "string"}
 
   - name: "drives"
     label: "📢 Recruitment Drives"
