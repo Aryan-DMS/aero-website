@@ -98,6 +98,14 @@ layout: base.njk
             .dash-card:hover { border-color: var(--text-light); background: rgba(255, 255, 255, 0.03); }
             .dash-val { font-size: 40px; font-weight: 800; color: var(--text-light); margin-bottom: 6px; line-height: 1; letter-spacing: -1px; }
             .dash-label { font-family: var(--font-data); font-size: 11px; font-weight: 700; color: var(--accent-cyan); letter-spacing: 1.5px; text-transform: uppercase; }
+            
+            /* Up Next Recommendation Block (Restored) */
+            .next-report { border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 80px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; text-decoration: none; }
+            .next-report:hover { background: var(--bg-deep); border-top-color: var(--accent-cyan); }
+            .next-report:hover .next-title { color: var(--accent-cyan); transform: translateX(12px); }
+            .next-label { font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; transition: color 0.3s ease; }
+            .next-report:hover .next-label { color: var(--text-light); }
+            .next-title { font-size: 48px; font-weight: 900; color: var(--text-light); letter-spacing: -1px; margin: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
         </style>
 
         <!-- Dynamic Architectural Layout -->
@@ -229,7 +237,7 @@ layout: base.njk
         {% if nextItem %}
         <a href="{{ nextItem.url }}" class="next-report">
             <span class="next-label">Read More About</span>
-            <h2 class="next-title">{{ nextItem.data.card.title }} ➔</h2>
+            <h2 class="next-title">{{ nextItem.data.card.title | default(nextItem.data.title) | default(nextItem.data.card_title) }} ➔</h2>
         </a>
         {% endif %}
         
