@@ -90,7 +90,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
     }
 
     .card-cta span {
-        color: var(--text-light); /* Enforce white arrow */
+        color: var(--text-light);
         transition: transform 0.2s;
     }
 
@@ -116,7 +116,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                 {{ drive.title | default("Spring 2027 Induction") }}
             </h1>
             
-            <!-- The specific dark panel requested for roles -->
             <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
                 <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">ACTIVE RECRUITMENT ROLES</h4>
                 <p style="color: var(--text-light); font-size: 16px; line-height: 1.6; font-weight: 500; margin: 0;">
@@ -126,7 +125,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         </div>
     </section>
 
-    <!-- Clean Card Grid mirroring the Archive aesthetic -->
+    <!-- Clean Card Grid -->
     <section style="padding: clamp(60px, 8vw, 100px) 0;">
         <div class="container">
             <div class="dashboard-grid">
@@ -143,10 +142,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 02 (Shortlist) -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
+                <!-- PHASE 02 (Shortlist) - IDs added for JS Timer -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" id="card-phase2" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase2">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
                         <h3 class="card-title">First Filter</h3>
                         <p class="card-desc">Official roster of candidates who cleared the technical exam and advanced to interviews.</p>
                         <div class="card-footer">
@@ -155,10 +154,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 03 (Interviews) -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
+                <!-- PHASE 03 (Interviews) - IDs added for JS Timer -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" id="card-phase3" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase3">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
                         <h3 class="card-title">Engagement</h3>
                         <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
                         <div class="card-footer">
@@ -167,10 +166,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 04 (Results) -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/results/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
+                <!-- PHASE 04 (Results) - IDs added for JS Timer -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/results/" id="card-phase4" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase4">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
                         <h3 class="card-title">Outcomes</h3>
                         <p class="card-desc">The finalized list of inducted engineering operatives for the competition cycle.</p>
                         <div class="card-footer">
@@ -183,3 +182,37 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         </div>
     </section>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // Dynamic Unlocking Engine
+        function evaluatePhaseLock(cardId, labelId, releaseStr, unlockedLabel) {
+            const card = document.getElementById(cardId);
+            const label = document.getElementById(labelId);
+            
+            // If no release time is set in the CMS, rely on whatever the server hardcoded
+            if (!card || !releaseStr) return; 
+
+            const releaseDate = new Date(releaseStr).getTime();
+            
+            function checkUnlock() {
+                const now = new Date().getTime();
+                if (now >= releaseDate) {
+                    card.classList.remove('status-pending'); // Removes the CSS lock
+                    if (label) label.innerText = unlockedLabel; // Updates the text visually
+                }
+            }
+            
+            // Check immediately on load, then evaluate every 1 second
+            checkUnlock();
+            setInterval(checkUnlock, 1000);
+        }
+
+        // Initialize timers for Phases 2, 3, and 4 dynamically from CMS data
+        evaluatePhaseLock('card-phase2', 'label-phase2', '{{ drive.phase2.release_time }}', 'PHASE 02 // DECLASSIFIED');
+        evaluatePhaseLock('card-phase3', 'label-phase3', '{{ drive.phase3.release_time }}', 'PHASE 03 // LOGISTICS');
+        evaluatePhaseLock('card-phase4', 'label-phase4', '{{ drive.phase4.release_time }}', 'PHASE 04 // OUTCOMES');
+    });
+</script>
+
