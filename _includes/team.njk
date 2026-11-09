@@ -71,9 +71,10 @@ title: "AeroClub | Team"
         
         {# Reusable Card Macro to keep the HTML clean and DRY #}
         {% macro teamCard(member, isDarkPanel) %}
+        {% set mCard = member.data.card | default(member.data) %}
         <a href="{{ member.url }}" class="team-card {% if isDarkPanel %}team-card-dark{% endif %}">
-            <div class="team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
-            <div class="team-info"><h4>{{ member.data.name }}</h4><p>{{ member.data.role }}</p></div>
+            <div class="team-img"><img src="{{ mCard.image }}" alt="{{ mCard.name }}"></div>
+            <div class="team-info"><h4>{{ mCard.name }}</h4><p>{{ mCard.role }}</p></div>
         </a>
         {% endmacro %}
 
@@ -94,7 +95,8 @@ title: "AeroClub | Team"
                 </div>
                 <div class="team-grid">
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Faculty Advisor' %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Faculty Advisor' %}
                             {{ teamCard(member, false) }}
                         {% endif %}
                     {% endfor %}
@@ -113,22 +115,25 @@ title: "AeroClub | Team"
                     
                     <!-- Sweep 1: Captain -->
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Core Team' and member.data.role == 'Captain' %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Core Team' and mCard.role == 'Captain' %}
                             {{ teamCard(member, true) }}
                         {% endif %}
                     {% endfor %}
                     
                     <!-- Sweep 2: Vice Captain -->
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Core Team' and (member.data.role == 'Vice Captain' or member.data.role == 'Vice-Captain') %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Core Team' and (mCard.role == 'Vice Captain' or mCard.role == 'Vice-Captain') %}
                             {{ teamCard(member, true) }}
                         {% endif %}
                     {% endfor %}
                     
                     <!-- Sweep 3: Heads & Leads -->
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Core Team' %}
-                            {% if ('Head' in member.data.role or 'Lead' in member.data.role) and member.data.role != 'Captain' and member.data.role != 'Vice Captain' and member.data.role != 'Vice-Captain' %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Core Team' %}
+                            {% if ('Head' in mCard.role or 'Lead' in mCard.role) and mCard.role != 'Captain' and mCard.role != 'Vice Captain' and mCard.role != 'Vice-Captain' %}
                                 {{ teamCard(member, true) }}
                             {% endif %}
                         {% endif %}
@@ -136,8 +141,9 @@ title: "AeroClub | Team"
                     
                     <!-- Sweep 4: Standard Members -->
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Core Team' %}
-                            {% if not ('Head' in member.data.role or 'Lead' in member.data.role or member.data.role == 'Captain' or member.data.role == 'Vice Captain' or member.data.role == 'Vice-Captain') %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Core Team' %}
+                            {% if not ('Head' in mCard.role or 'Lead' in mCard.role or mCard.role == 'Captain' or mCard.role == 'Vice Captain' or mCard.role == 'Vice-Captain') %}
                                 {{ teamCard(member, true) }}
                             {% endif %}
                         {% endif %}
@@ -156,7 +162,8 @@ title: "AeroClub | Team"
                 </div>
                 <div class="team-grid">
                     {% for member in collections.personnel %}
-                        {% if member.data.division == 'Juniors' %}
+                        {% set mCard = member.data.card | default(member.data) %}
+                        {% if mCard.division == 'Juniors' %}
                             {{ teamCard(member, false) }}
                         {% endif %}
                     {% endfor %}

@@ -44,22 +44,51 @@ layout: base.njk
             .matrix-right { padding: 24px; color: var(--text-muted); font-size: 16px; line-height: 1.6; }
         </style>
 
+        {# --- MASTER ROUTING ENGINE FOR ROSTER --- #}
+        {% set legacyMode = report_mode | default('Automation') %}
+        {% set mode = card.report_mode | default(legacyMode) %}
+        
+        {# Extract base fallback variables so legacy files don't crash #}
+        {% set baseName = card.name | default(name) %}
+        {% set baseRole = card.role | default(role) %}
+        {% set baseDiv = card.division | default(division) %}
+        {% set baseImage = card.image | default(image) %}
+        
+        {% if mode == 'Automation' %}
+            {# Attempt to pull from new Automation Box, fallback to old Report box #}
+            {% set rawPayload = automation.payload.code if automation.payload.code else automation.payload %}
+            {% if not rawPayload %}{% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}{% endif %}
+            {% set p = rawPayload | parseJSON %}
+            
+            {% set bioMajor = p.major | default(major) %}
+            {% set bioJoined = p.joined | default(joined) %}
+            {% set bioLink = p.linkedin | default(linkedin) %}
+            {% set bioQuote = p.quote | default(quote) %}
+            
+        {% else %}
+            {# Attempt to pull from new Manual Box, fallback to legacy variables #}
+            {% set bioMajor = manual.major | default(major) %}
+            {% set bioJoined = manual.joined | default(joined) %}
+            {% set bioLink = manual.linkedin | default(linkedin) %}
+            {% set bioQuote = manual.quote | default(quote) %}
+        {% endif %}
+
         <section style="padding: 60px 0 100px;">
             <div class="container">
-                <a href="/personnel/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; letter-spacing: 1px; transition: color 0.2s;">← Back to Roster</a>
+                <a href="/team/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; letter-spacing: 1px; transition: color 0.2s;">← Back to Roster</a>
                 
                 <div class="report-grid">
                     
                     <!-- Column 1: Sticky Identity Anchor -->
                     <aside class="hud-anchor">
-                        <img src="{{ image }}" alt="{{ name }}" class="hud-image">
+                        <img src="{{ baseImage }}" alt="{{ baseName }}" class="hud-image">
                         <div class="hud-grid">
-                            <div class="hud-item"><span class="hud-item-label">DIVISION</span><span class="hud-item-value">{{ division }}</span></div>
-                            <div class="hud-item"><span class="hud-item-label">ACADEMIC MAJOR</span><span class="hud-item-value">{{ major }}</span></div>
-                            <div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ joined }}</span></div>
+                            <div class="hud-item"><span class="hud-item-label">DIVISION</span><span class="hud-item-value">{{ baseDiv }}</span></div>
+                            {% if bioMajor %}<div class="hud-item"><span class="hud-item-label">ACADEMIC MAJOR</span><span class="hud-item-value">{{ bioMajor }}</span></div>{% endif %}
+                            {% if bioJoined %}<div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ bioJoined }}</span></div>{% endif %}
                         </div>
-                        {% if linkedin %}
-                        <a href="{{ linkedin }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
+                        {% if bioLink %}
+                        <a href="{{ bioLink }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
                         {% endif %}
                     </aside>
                     
@@ -67,18 +96,14 @@ layout: base.njk
                     <div>
                         <!-- Dossier Header -->
                         <div style="margin-bottom: 60px; border-bottom: 1px solid var(--border-dark); padding-bottom: 40px;">
-                            <h1 style="font-size: 56px; font-weight: 900; color: var(--text-light); margin-bottom: 8px; letter-spacing: -1.5px;">{{ name }}</h1>
-                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin: 0;">{{ role }}</h4>
+                            <h1 style="font-size: 56px; font-weight: 900; color: var(--text-light); margin-bottom: 8px; letter-spacing: -1.5px;">{{ baseName }}</h1>
+                            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin: 0;">{{ baseRole }}</h4>
                         </div>
                         
                         <!-- Automated Narrative Engine -->
                         <article class="narrative-flow">
                             
-                            {% if report_mode == 'Automation' and automation_payload %}
-                                <!-- JSON AUTOMATION PARSER -->
-                                {% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}
-                                {% set p = rawPayload | parseJSON %}
-                                
+                            {% if mode == 'Automation' and p %}
                                 <!-- Phase 1: Executive Summary -->
                                 <div class="narrative-phase">
                                     <div class="phase-header">
@@ -89,6 +114,7 @@ layout: base.njk
                                 </div>
                                 
                                 <!-- Phase 2: Technical Matrix -->
+                                {% if p.phase2 and p.phase2.matrix %}
                                 <div class="narrative-phase">
                                     <div class="phase-header">
                                         <span class="phase-overline">{{ p.phase2.overline | default('02 // TECHNICAL DEPLOYMENT') }}</span>
@@ -103,8 +129,10 @@ layout: base.njk
                                         {% endfor %}
                                     </div>
                                 </div>
+                                {% endif %}
                                 
                                 <!-- Phase 3: Background & History -->
+                                {% if p.phase3 %}
                                 <div class="narrative-phase">
                                     <div class="phase-header">
                                         <span class="phase-overline">{{ p.phase3.overline | default('03 // BACKGROUND') }}</span>
@@ -112,6 +140,7 @@ layout: base.njk
                                     </div>
                                     <p class="phase-text">{{ p.phase3.history }}</p>
                                 </div>
+                                {% endif %}
                                 
                                 <!-- Phase 4: Automated Key Contributions -->
                                 {% if p.phase4 %}
@@ -139,18 +168,19 @@ layout: base.njk
                             {% else %}
                                 <!-- LEGACY MANUAL BIO -->
                                 <div class="phase-text">
-                                    {{ content | safe }}
+                                    {% set bioContent = manual.body | default(body) | default(content) %}
+                                    {{ bioContent | safe }}
                                 </div>
                             {% endif %}
                             
                             <!-- MANUAL FALLBACK (Personal Quote) -->
+                            {% if bioQuote %}
                             <div style="display: flex; flex-direction: column; gap: 60px; margin-top: 20px;">
-                                {% if quote %}
                                 <blockquote style="border-left: 3px solid var(--accent-cyan); padding-left: 32px; margin: 0; font-style: italic; font-size: 22px; color: var(--text-light); line-height: 1.6; font-weight: 500;">
-                                    "{{ quote }}"
+                                    "{{ bioQuote }}"
                                 </blockquote>
-                                {% endif %}
                             </div>
+                            {% endif %}
 
                         </article>
                     </div>

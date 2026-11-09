@@ -277,20 +277,37 @@ collections:
     label: "👥 Core Personnel"
     folder: "content/personnel"
     create: true
-    slug: "{{name}}"
-    summary: "[{{division}}] {{name}} - {{role}}"
+    slug: "{{slug}}"
+    summary: "[{{card.division}}] {{card.name}} - {{card.role}}"
     fields:
-      - {label: "Name", name: "name", widget: "string"}
-      - {label: "Division Category", name: "division", widget: "select", options: ["Faculty Advisor", "Core Team", "Juniors"], default: "Core Team"}
-      - {label: "Role / Title", name: "role", widget: "string"}
-      - {label: "Profile Image", name: "image", widget: "image"}
-      - {label: "Academic Major", name: "major", widget: "string"}
-      - {label: "Joined Division", name: "joined", widget: "string"}
-      - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
-      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - {label: "Legacy: Manual Bio", name: "body", widget: "markdown", required: false}
-      - {label: "Personal Quote", name: "quote", widget: "text", required: false}
+      - label: "📦 BOX 1: THE ROSTER CARD (Always Required)"
+        name: "card"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Name", name: "name", widget: "string"}
+          - {label: "Division Category", name: "division", widget: "select", options: ["Faculty Advisor", "Core Team", "Juniors"], default: "Core Team"}
+          - {label: "Role / Title", name: "role", widget: "string"}
+          - {label: "Profile Image", name: "image", widget: "image"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+
+      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
+        name: "automation"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+
+      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
+        name: "manual"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Academic Major", name: "major", widget: "string", required: false}
+          - {label: "Joined Division (Year)", name: "joined", widget: "string", required: false}
+          - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
+          - {label: "Personal Quote", name: "quote", widget: "text", required: false}
+          - {label: "Manual Bio", name: "body", widget: "markdown", required: false}
 
   # ==========================================
   # GROUP 4: SITE CONFIGURATION (PAGES)
