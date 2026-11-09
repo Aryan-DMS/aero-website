@@ -71,12 +71,12 @@ title: "AeroClub | Phase 05: Results"
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
                 <div class="hud-metric">PHASE 05</div>
-                <span class="hud-label" {% if drive.phase5.status == 'Completed' or drive.phase5.status == 'COMPLETED' %}style="color: #10B981;"{% endif %}>{{ drive.phase5.status | default('Pending') }}</span>
+                <span class="hud-label" {% if drive.phase5.status == 'Completed' or drive.phase5.status == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase5.status | default('Pending') }}</span>
                 
                 {% if drive.phase5.metrics %}
                 <div class="hud-grid" style="margin-top: 24px;">
                     {% for metric in drive.phase5.metrics %}
-                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Completed' or metric.value == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ metric.value }}</span></div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -118,7 +118,7 @@ title: "AeroClub | Phase 05: Results"
 
                 <!-- CSV TERMINAL INJECTION -->
                 <div class="data-table-wrapper">
-                    <table style="border-left: 4px solid #10B981;">
+                    <table style="border-left: 4px solid var(--accent-cyan);">
                         <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
                         <tbody>
                             {% for applicant in csvData %}
@@ -127,7 +127,7 @@ title: "AeroClub | Phase 05: Results"
                                 <tr>
                                     <td>{{ applicant['Full Name'] }}</td>
                                     <td>{{ applicant['Division Preference'] }}</td>
-                                    <td style="color: #10B981; font-weight: 700;">INDUCTED</td>
+                                    <td style="color: var(--accent-cyan); font-weight: 700;">INDUCTED</td>
                                 </tr>
                                 {% endif %}
                             {% endfor %}
