@@ -102,7 +102,6 @@ collections:
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "OPEN"}
           - label: "HUD Metrics (Left Sidebar Builder)"
             name: "metrics"
             widget: "list"
@@ -123,7 +122,6 @@ collections:
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "PENDING"}
           - label: "HUD Metrics (Left Sidebar Builder)"
             name: "metrics"
             widget: "list"
@@ -142,7 +140,7 @@ collections:
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "PENDING"}
+
           - label: "HUD Metrics (Left Sidebar Builder)"
             name: "metrics"
             widget: "list"
@@ -161,7 +159,6 @@ collections:
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Phase Status (For Top Overline)", name: "status", widget: "string", default: "PENDING"}
           - label: "HUD Metrics (Left Sidebar Builder)"
             name: "metrics"
             widget: "list"

@@ -31,8 +31,8 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         transform: translateY(-4px);
     }
 
-    /* Lock down pending cards smoothly */
-    .mission-card.status-pending {
+    /* CSS Lock for Time-Gating */
+    .mission-card.status-locked {
         opacity: 0.5;
         pointer-events: none;
         cursor: not-allowed;
@@ -54,6 +54,11 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         margin-bottom: 16px;
         display: block;
     }
+    
+    /* Unique colors for JS states */
+    .meta-closed { color: #ef4444 !important; }
+    .meta-decrypting { color: #f59e0b !important; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
     .card-title {
         font-size: 24px;
@@ -113,7 +118,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
             </span>
             
             <h1 style="font-size: clamp(40px, 8vw, 64px); font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px; color: var(--text-light); margin-bottom: 32px;">
-                {{ drive.title | default("Spring 2027 Induction") }}
+                {{ drive.title | default("Induction Cycle") }}
             </h1>
             
             <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
@@ -130,10 +135,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         <div class="container">
             <div class="dashboard-grid">
                 
-                <!-- PHASE 01 (Merged App + Test) -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/application/" class="mission-card status-{{ (drive.phase1.status | default('Open')) | lower }}">
+                <!-- PHASE 01: Defaults to Unlocked -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/application/" id="card-phase1" class="mission-card">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 01 // {{ drive.phase1.status | default('Open') }}</span>
+                        <span class="card-meta" id="label-phase1">PHASE 01 // OPEN</span>
                         <h3 class="card-title">The Directive</h3>
                         <p class="card-desc">Role breakdowns, technical test syllabus, and the primary application portal.</p>
                         <div class="card-footer">
@@ -142,10 +147,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 02 (Shortlist) - IDs added for JS Timer -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" id="card-phase2" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
+                <!-- PHASE 02: Defaults to Locked -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" id="card-phase2" class="mission-card status-locked">
                     <div class="card-content">
-                        <span class="card-meta" id="label-phase2">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase2">PHASE 02 // PENDING</span>
                         <h3 class="card-title">First Filter</h3>
                         <p class="card-desc">Official roster of candidates who cleared the technical exam and advanced to interviews.</p>
                         <div class="card-footer">
@@ -154,10 +159,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 03 (Interviews) - IDs added for JS Timer -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" id="card-phase3" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
+                <!-- PHASE 03: Defaults to Locked -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" id="card-phase3" class="mission-card status-locked">
                     <div class="card-content">
-                        <span class="card-meta" id="label-phase3">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase3">PHASE 03 // PENDING</span>
                         <h3 class="card-title">Engagement</h3>
                         <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
                         <div class="card-footer">
@@ -166,10 +171,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                     </div>
                 </a>
 
-                <!-- PHASE 04 (Results) - IDs added for JS Timer -->
-                <a href="/join_us/{{ driveEntry.fileSlug }}/results/" id="card-phase4" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
+                <!-- PHASE 04: Defaults to Locked -->
+                <a href="/join_us/{{ driveEntry.fileSlug }}/results/" id="card-phase4" class="mission-card status-locked">
                     <div class="card-content">
-                        <span class="card-meta" id="label-phase4">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
+                        <span class="card-meta" id="label-phase4">PHASE 04 // PENDING</span>
                         <h3 class="card-title">Outcomes</h3>
                         <p class="card-desc">The finalized list of inducted engineering operatives for the competition cycle.</p>
                         <div class="card-footer">
@@ -186,33 +191,73 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // Dynamic Unlocking Engine
-        function evaluatePhaseLock(cardId, labelId, releaseStr, unlockedLabel) {
+        // --- PHASE 1 DEADLINE ENGINE ---
+        function evaluateDeadline(cardId, labelId, deadlineStr) {
+            const card = document.getElementById(cardId);
+            const label = document.getElementById(labelId);
+            if (!card || !deadlineStr) return; 
+
+            const deadlineDate = new Date(deadlineStr).getTime();
+            
+            function checkDeadline() {
+                const now = new Date().getTime();
+                if (now >= deadlineDate) {
+                    card.classList.add('status-locked'); // Lock it
+                    label.innerText = 'PHASE 01 // CLOSED';
+                    label.classList.add('meta-closed');
+                } else {
+                    card.classList.remove('status-locked');
+                    label.innerText = 'PHASE 01 // OPEN';
+                    label.classList.remove('meta-closed');
+                }
+            }
+            checkDeadline();
+            setInterval(checkDeadline, 1000);
+        }
+
+        // --- PHASE 2, 3, 4 RELEASE ENGINE (With 60s Teaser) ---
+        function evaluateRelease(cardId, labelId, phaseNum, releaseStr) {
             const card = document.getElementById(cardId);
             const label = document.getElementById(labelId);
             
-            // If no release time is set in the CMS, rely on whatever the server hardcoded
+            // If the Captain hasn't set a release time yet, keep it locked indefinitely
             if (!card || !releaseStr) return; 
 
             const releaseDate = new Date(releaseStr).getTime();
+            const teaserDate = releaseDate - 60000; // Exactly 60 seconds before release
             
-            function checkUnlock() {
+            function checkRelease() {
                 const now = new Date().getTime();
-                if (now >= releaseDate) {
-                    card.classList.remove('status-pending'); // Removes the CSS lock
-                    if (label) label.innerText = unlockedLabel; // Updates the text visually
+                
+                // STATE 1: Too early. Keep locked.
+                if (now < teaserDate) {
+                    card.classList.add('status-locked');
+                    label.innerText = `PHASE 0${phaseNum} // PENDING`;
+                    label.className = 'card-meta'; // Reset colors
+                } 
+                // STATE 2: The 60-Second Teaser Window! Unlock card, pulse text.
+                else if (now >= teaserDate && now < releaseDate) {
+                    card.classList.remove('status-locked');
+                    label.innerText = `PHASE 0${phaseNum} // DECRYPTING...`;
+                    label.className = 'card-meta meta-decrypting'; 
+                } 
+                // STATE 3: Fully Released.
+                else if (now >= releaseDate) {
+                    card.classList.remove('status-locked');
+                    label.innerText = `PHASE 0${phaseNum} // DECLARED`;
+                    label.className = 'card-meta'; 
                 }
             }
             
-            // Check immediately on load, then evaluate every 1 second
-            checkUnlock();
-            setInterval(checkUnlock, 1000);
+            checkRelease();
+            setInterval(checkRelease, 1000);
         }
 
-        // Initialize timers for Phases 2, 3, and 4 dynamically from CMS data
-        evaluatePhaseLock('card-phase2', 'label-phase2', '{{ drive.phase2.release_time }}', 'PHASE 02 // DECLASSIFIED');
-        evaluatePhaseLock('card-phase3', 'label-phase3', '{{ drive.phase3.release_time }}', 'PHASE 03 // LOGISTICS');
-        evaluatePhaseLock('card-phase4', 'label-phase4', '{{ drive.phase4.release_time }}', 'PHASE 04 // OUTCOMES');
+        // Initialize all engines dynamically using the CMS timestamps
+        evaluateDeadline('card-phase1', 'label-phase1', '{{ drive.phase1.deadline }}');
+        evaluateRelease('card-phase2', 'label-phase2', '2', '{{ drive.phase2.release_time }}');
+        evaluateRelease('card-phase3', 'label-phase3', '3', '{{ drive.phase3.release_time }}');
+        evaluateRelease('card-phase4', 'label-phase4', '4', '{{ drive.phase4.release_time }}');
     });
 </script>
 
