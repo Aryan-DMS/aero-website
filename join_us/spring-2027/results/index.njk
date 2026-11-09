@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: "AeroClub | Phase 05: Results"
+title: "AeroClub | Phase 04: Results"
 ---
 <style>
     /* Full 2-Column Structural Grid */
@@ -9,7 +9,7 @@ title: "AeroClub | Phase 05: Results"
     .report-grid { display: grid; grid-template-columns: 350px 1fr; gap: clamp(40px, 6vw, 80px); align-items: start; }
     @media (max-width: 900px) { .report-grid { grid-template-columns: 1fr; } }
 
-    /* STICKY HUD STYLING (Replaces hacky boxes) */
+    /* STICKY HUD STYLING */
     .hud-anchor { position: sticky; top: 120px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 8px; }
     .hud-metric { font-size: 32px; font-weight: 900; color: var(--text-light); line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; text-transform: uppercase; }
     .hud-label { font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--accent-cyan); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 32px; display: block; }
@@ -17,7 +17,9 @@ title: "AeroClub | Phase 05: Results"
     .hud-item span { display: block; }
     .hud-item-label { font-family: var(--font-ui), sans-serif; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
     .hud-item-value { font-size: 15px; color: var(--text-light); font-weight: 600; }
-
+    .btn-hud { display: inline-block; width: 100%; text-align: center; padding: 14px; background: var(--text-light); color: var(--bg-deep); font-weight: 800; border-radius: 4px; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; font-size: 15px; font-family: var(--font-ui), sans-serif; }
+    .btn-hud:hover { background: var(--accent-cyan); color: var(--bg-deep); }
+    
     /* Right Column Markdown / Fallback */
     .report-content h3 { font-size: 32px; font-weight: 700; color: var(--text-light); margin: 0 0 24px 0; letter-spacing: -0.5px; }
     .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
@@ -31,19 +33,19 @@ title: "AeroClub | Phase 05: Results"
     tr:hover td { background: rgba(255,255,255,0.02); }
 
     /* NARRATIVE AUTOMATION STYLES */
-    .narrative-flow { display: flex; flex-direction: column; gap: 40px; }
+    .narrative-flow { display: flex; flex-direction: column; gap: 80px; }
     .narrative-phase { display: flex; flex-direction: column; }
     .phase-header { margin-bottom: 24px; }
     .phase-overline { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
     .phase-heading { font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0; letter-spacing: -0.5px; }
-    .phase-text { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
-    .phase-hook { font-size: 18px; color: var(--text-muted); line-height: 1.8; font-weight: 500; margin: 0; }
+    .phase-text { font-size: 18px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+    .phase-hook { font-size: 20px; color: var(--text-muted); line-height: 1.8; font-weight: 500; margin: 0; }
     .subsystem-matrix { display: flex; flex-direction: column; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); margin-top: 24px; margin-bottom: 32px; }
     .matrix-row { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--border-dark); transition: background 0.2s; }
     .matrix-row:last-child { border-bottom: none; }
     .matrix-row:hover { background: rgba(255, 255, 255, 0.02); }
-    .matrix-left { padding: 16px 16px 16px 0; font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid var(--border-dark); }
-    .matrix-right { padding: 16px; color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+    .matrix-left { padding: 24px 24px 24px 0; font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid var(--border-dark); }
+    .matrix-right { padding: 24px; color: var(--text-muted); font-size: 16px; line-height: 1.6; }
 </style>
 
 <main>
@@ -59,7 +61,7 @@ title: "AeroClub | Phase 05: Results"
     <section style="height: 40vh; background: linear-gradient(to top, var(--bg-deep) 10%, rgba(11,17,33,0.7)), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 40px; border-bottom: 1px solid var(--border-dark);">
         <div class="container" style="width: 100%;">
             <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Dashboard</a>
-            <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 05 // {{ drive.phase5.status | default('COMPLETED') | upper }}</span>
+            <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 04 // {{ drive.phase4.status | default('COMPLETED') | upper }}</span>
             <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0; line-height: 1.1;">Final Induction Roster</h1>
         </div>
     </section>
@@ -70,12 +72,12 @@ title: "AeroClub | Phase 05: Results"
             
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
-                <div class="hud-metric">PHASE 05</div>
-                <span class="hud-label" {% if drive.phase5.status == 'Completed' or drive.phase5.status == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase5.status | default('Pending') }}</span>
+                <div class="hud-metric">PHASE 04</div>
+                <span class="hud-label" {% if drive.phase4.status == 'Completed' or drive.phase4.status == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase4.status | default('Pending') }}</span>
                 
-                {% if drive.phase5.metrics %}
+                {% if drive.phase4.metrics %}
                 <div class="hud-grid" style="margin-top: 24px;">
-                    {% for metric in drive.phase5.metrics %}
+                    {% for metric in drive.phase4.metrics %}
                     <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Completed' or metric.value == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ metric.value }}</span></div>
                     {% endfor %}
                 </div>
@@ -84,14 +86,14 @@ title: "AeroClub | Phase 05: Results"
 
             <!-- RIGHT COLUMN: Narrative Engine + Command Terminal Data -->
             <article class="narrative-flow">
-                {% set mode = drive.phase5.report_mode | default('Automation') %}
-                {% if mode == 'Automation' and drive.phase5.automation_payload %}
-                    {% set rawPayload = drive.phase5.automation_payload.code if drive.phase5.automation_payload.code else drive.phase5.automation_payload %}
+                {% set mode = drive.phase4.report_mode | default('Automation') %}
+                {% if mode == 'Automation' and drive.phase4.automation_payload %}
+                    {% set rawPayload = drive.phase4.automation_payload.code if drive.phase4.automation_payload.code else drive.phase4.automation_payload %}
                     {% set p = rawPayload | parseJSON %}
                     
                     <div class="narrative-phase">
                         <div class="phase-header">
-                            <span class="phase-overline">{{ p.overline | default('PHASE 05 // OUTCOMES') }}</span>
+                            <span class="phase-overline">{{ p.overline | default('PHASE 04 // OUTCOMES') }}</span>
                             <h3 class="phase-heading">{{ p.heading | default('Final Induction Results') }}</h3>
                         </div>
                         <p class="phase-hook">{{ p.hook }}</p>
@@ -112,12 +114,18 @@ title: "AeroClub | Phase 05: Results"
                     <!-- LEGACY MANUAL FALLBACK -->
                     <div class="report-content" style="white-space: pre-wrap;">
                         <h3>Final Induction Results</h3>
-                        {{ drive.phase5.report | default("Final results will appear here once published in CMS.") }}
+                        {{ drive.phase4.report | default("Final results will appear here once published in CMS.") }}
                     </div>
                 {% endif %}
 
-                <!-- CSV TERMINAL INJECTION -->
-                <div class="data-table-wrapper">
+                <!-- SECURE DECLASSIFICATION GATE -->
+                <div id="countdown-wrapper" style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 60px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 12px; margin-bottom: 16px; display: block;">DECRYPTING ROSTER IN</span>
+                    <div id="countdown-timer" style="font-size: clamp(40px, 8vw, 64px); font-weight: 900; color: var(--text-light); letter-spacing: -2px; font-variant-numeric: tabular-nums;">--:--:--</div>
+                </div>
+
+                <!-- CSV TERMINAL INJECTION (HIDDEN BY DEFAULT) -->
+                <div id="secure-data" class="data-table-wrapper" style="display: none;">
                     <table style="border-left: 4px solid var(--accent-cyan);">
                         <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
                         <tbody>
@@ -138,3 +146,41 @@ title: "AeroClub | Phase 05: Results"
         </div>
     </div>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const releaseString = "{{ drive.phase4.release_time }}";
+        const wrapper = document.getElementById('countdown-wrapper');
+        const timerDisplay = document.getElementById('countdown-timer');
+        const secureData = document.getElementById('secure-data');
+
+        // If no release time is set in CMS, default to immediately open
+        if (!releaseString) {
+            wrapper.style.display = 'none';
+            secureData.style.display = 'block';
+            return;
+        }
+
+        const releaseDate = new Date(releaseString).getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
+
+            if (distance < 0) {
+                clearInterval(x);
+                wrapper.style.display = 'none';
+                secureData.style.display = 'block';
+            } else {
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerDisplay.innerHTML = 
+                    (hours < 10 ? "0" : "") + hours + "<span>:</span>" + 
+                    (minutes < 10 ? "0" : "") + minutes + "<span>:</span>" + 
+                    (seconds < 10 ? "0" : "") + seconds;
+            }
+        }, 1000);
+    });
+</script>

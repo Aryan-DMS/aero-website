@@ -146,38 +146,56 @@ title: "AeroClub | Phase 01: Application"
 
 
 <script>
-    // 1. We dump the names from Eleventy's CSV into a JavaScript array
     const verifiedApplicants = [
         {% for applicant in csvData %}
         "{{ applicant['Full Name'] | trim | lower }}"{% if not loop.last %},{% endif %}
         {% endfor %}
     ];
+    
+    // Grabbing the strict CMS datetime string
+    const deadlineString = "{{ drive.phase1.deadline }}";
 
     function checkStatus() {
-        const savedName = localStorage.getItem('aeroclub_sp27_applicant');
+        const now = new Date().getTime();
+        const deadlineDate = new Date(deadlineString).getTime();
         
+        // TIME-GATE ALGORITHM: Instantly locks UI if time is passed
+        if (deadlineString && now > deadlineDate) {
+            if (document.getElementById('auth-gate')) document.getElementById('auth-gate').style.display = 'none';
+            if (document.getElementById('auth-success')) document.getElementById('auth-success').style.display = 'none';
+            if (document.getElementById('auth-verified')) document.getElementById('auth-verified').style.display = 'none';
+            
+            // Generate Lockout Badge
+            const closedMsg = document.createElement('div');
+            closedMsg.className = 'btn-hud';
+            closedMsg.style.cssText = 'background: rgba(255,255,255,0.05); color: var(--text-muted); cursor: not-allowed; margin-top: 24px; border: 1px solid var(--border-dark);';
+            closedMsg.innerText = 'PORTAL CLOSED';
+            
+            // Append safely if action tracker wrapper exists
+            const wrapper = document.querySelector('.hud-anchor > div:last-child');
+            if (wrapper) wrapper.appendChild(closedMsg);
+            return; // Kill execution so form can't be used
+        }
+
+        // Standard Tracker Logic
+        const savedName = localStorage.getItem('aeroclub_sp27_applicant');
         if (savedName) {
             const normalizedName = savedName.trim().toLowerCase();
-            
-            // 2. Check if the name in localStorage matches any name in the CSV
             if (verifiedApplicants.includes(normalizedName)) {
-                // STATE 3: Verified in Database!
-                document.getElementById('auth-gate').style.display = 'none';
-                document.getElementById('auth-success').style.display = 'none';
-                document.getElementById('auth-verified').style.display = 'block';
-                document.getElementById('verified-name').innerText = savedName;
+                if (document.getElementById('auth-gate')) document.getElementById('auth-gate').style.display = 'none';
+                if (document.getElementById('auth-success')) document.getElementById('auth-success').style.display = 'none';
+                if (document.getElementById('auth-verified')) document.getElementById('auth-verified').style.display = 'block';
+                if (document.getElementById('verified-name')) document.getElementById('verified-name').innerText = savedName;
             } else {
-                // STATE 2: Local tracking on, but not synced to CSV yet
-                document.getElementById('auth-gate').style.display = 'none';
-                document.getElementById('auth-verified').style.display = 'none';
-                document.getElementById('auth-success').style.display = 'block';
-                document.getElementById('display-name').innerText = savedName;
+                if (document.getElementById('auth-gate')) document.getElementById('auth-gate').style.display = 'none';
+                if (document.getElementById('auth-verified')) document.getElementById('auth-verified').style.display = 'none';
+                if (document.getElementById('auth-success')) document.getElementById('auth-success').style.display = 'block';
+                if (document.getElementById('display-name')) document.getElementById('display-name').innerText = savedName;
             }
         } else {
-            // STATE 1: Enter Name
-            document.getElementById('auth-gate').style.display = 'block';
-            document.getElementById('auth-success').style.display = 'none';
-            document.getElementById('auth-verified').style.display = 'none';
+            if (document.getElementById('auth-gate')) document.getElementById('auth-gate').style.display = 'block';
+            if (document.getElementById('auth-success')) document.getElementById('auth-success').style.display = 'none';
+            if (document.getElementById('auth-verified')) document.getElementById('auth-verified').style.display = 'none';
         }
     }
 

@@ -132,47 +132,35 @@ title: "AeroClub | Spring 2027 Command Dashboard"
         <div class="container">
             <div class="dashboard-grid">
                 
-                <!-- PHASE 01 -->
+                <!-- PHASE 01 (Merged App + Test) -->
                 <a href="/join_us/spring-2027/application/" class="mission-card status-{{ (drive.phase1.status | default('Open')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 01 // {{ drive.phase1.status | default('Open') }}</span>
-                        <h3 class="card-title">Initial Applications</h3>
-                        <p class="card-desc">Role breakdowns, technical expectations, and the primary application portal.</p>
+                        <h3 class="card-title">The Directive</h3>
+                        <p class="card-desc">Role breakdowns, technical test syllabus, and the primary application portal.</p>
                         <div class="card-footer">
                             <span class="card-cta">ACCESS PORTAL <span>→</span></span>
                         </div>
                     </div>
                 </a>
 
-                <!-- PHASE 02 -->
-                <a href="/join_us/spring-2027/test/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
+                <!-- PHASE 02 (Shortlist) -->
+                <a href="/join_us/spring-2027/shortlist/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
-                        <h3 class="card-title">Technical Test</h3>
-                        <p class="card-desc">Syllabus breakdown, evaluation metrics, and logistical details for the written examination.</p>
-                        <div class="card-footer">
-                            <span class="card-cta">READ REPORT <span>→</span></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- PHASE 03 -->
-                <a href="/join_us/spring-2027/shortlist/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
-                    <div class="card-content">
-                        <span class="card-meta">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
-                        <h3 class="card-title">Test Shortlist</h3>
-                        <p class="card-desc">Official roster of candidates advancing to the technical interview rounds.</p>
+                        <h3 class="card-title">First Filter</h3>
+                        <p class="card-desc">Official roster of candidates who cleared the technical exam and advanced to interviews.</p>
                         <div class="card-footer">
                             <span class="card-cta">VIEW DATA <span>→</span></span>
                         </div>
                     </div>
                 </a>
 
-                <!-- PHASE 04 -->
-                <a href="/join_us/spring-2027/interview/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
+                <!-- PHASE 03 (Interviews) -->
+                <a href="/join_us/spring-2027/interview/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
-                        <h3 class="card-title">Interviews</h3>
+                        <span class="card-meta">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
+                        <h3 class="card-title">Engagement</h3>
                         <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
                         <div class="card-footer">
                             <span class="card-cta">VIEW LOGISTICS <span>→</span></span>
@@ -180,12 +168,12 @@ title: "AeroClub | Spring 2027 Command Dashboard"
                     </div>
                 </a>
 
-                <!-- PHASE 05 -->
-                <a href="/join_us/spring-2027/results/" class="mission-card status-{{ (drive.phase5.status | default('Pending')) | lower }}">
+                <!-- PHASE 04 (Results) -->
+                <a href="/join_us/spring-2027/results/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
                     <div class="card-content">
-                        <span class="card-meta">PHASE 05 // {{ drive.phase5.status | default('Pending') }}</span>
-                        <h3 class="card-title">Final Results</h3>
-                        <p class="card-desc">The finalized list of inducted members for the Spring 2027 competition cycle.</p>
+                        <span class="card-meta">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
+                        <h3 class="card-title">Outcomes</h3>
+                        <p class="card-desc">The finalized list of inducted engineering operatives for the competition cycle.</p>
                         <div class="card-footer">
                             <span class="card-cta">VIEW ROSTER <span>→</span></span>
                         </div>

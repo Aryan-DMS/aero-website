@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: "AeroClub | Phase 03: Shortlist"
+title: "AeroClub | Phase 02: Shortlist"
 ---
 <style>
     /* Full 2-Column Structural Grid */
@@ -61,7 +61,7 @@ title: "AeroClub | Phase 03: Shortlist"
     <section style="height: 40vh; background: linear-gradient(to top, var(--bg-deep) 10%, rgba(11,17,33,0.7)), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 40px; border-bottom: 1px solid var(--border-dark);">
         <div class="container" style="width: 100%;">
             <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Dashboard</a>
-            <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 03 // {{ drive.phase3.status | default('DECLASSIFIED') | upper }}</span>
+            <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 02 // {{ drive.phase2.status | default('DECLASSIFIED') | upper }}</span>
             <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0; line-height: 1.1;">Test Shortlist</h1>
         </div>
     </section>
@@ -72,13 +72,13 @@ title: "AeroClub | Phase 03: Shortlist"
             
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
-                <div class="hud-metric">PHASE 03</div>
-                <span class="hud-label" {% if drive.phase3.status == 'Open' or drive.phase3.status == 'OPEN' or drive.phase3.status == 'Completed' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase3.status | default('Pending') }}</span>
+                <div class="hud-metric">PHASE 02</div>
+                <span class="hud-label" {% if drive.phase2.status == 'Open' or drive.phase2.status == 'OPEN' or drive.phase2.status == 'Completed' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
                 
-                {% if drive.phase3.metrics %}
+                {% if drive.phase2.metrics %}
                 <div class="hud-grid" style="margin-top: 24px;">
-                    {% for metric in drive.phase3.metrics %}
-                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                    {% for metric in drive.phase2.metrics %}
+                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Open' or metric.value == 'OPEN' or metric.value == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ metric.value }}</span></div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -86,14 +86,14 @@ title: "AeroClub | Phase 03: Shortlist"
 
             <!-- RIGHT COLUMN: Narrative Engine + Command Terminal Data -->
             <article class="narrative-flow">
-                {% set mode = drive.phase3.report_mode | default('Automation') %}
-                {% if mode == 'Automation' and drive.phase3.automation_payload %}
-                    {% set rawPayload = drive.phase3.automation_payload.code if drive.phase3.automation_payload.code else drive.phase3.automation_payload %}
+                {% set mode = drive.phase2.report_mode | default('Automation') %}
+                {% if mode == 'Automation' and drive.phase2.automation_payload %}
+                    {% set rawPayload = drive.phase2.automation_payload.code if drive.phase2.automation_payload.code else drive.phase2.automation_payload %}
                     {% set p = rawPayload | parseJSON %}
                     
                     <div class="narrative-phase">
                         <div class="phase-header">
-                            <span class="phase-overline">{{ p.overline | default('PHASE 03 // ANALYTICS') }}</span>
+                            <span class="phase-overline">{{ p.overline | default('PHASE 02 // ANALYTICS') }}</span>
                             <h3 class="phase-heading">{{ p.heading | default('Evaluation Insights') }}</h3>
                         </div>
                         <p class="phase-hook">{{ p.hook }}</p>
@@ -114,12 +114,18 @@ title: "AeroClub | Phase 03: Shortlist"
                     <!-- LEGACY MANUAL FALLBACK -->
                     <div class="report-content" style="white-space: pre-wrap;">
                         <h3>Evaluation Insights</h3>
-                        {{ drive.phase3.report | default("Shortlist data will appear here once published in CMS.") }}
+                        {{ drive.phase2.report | default("Shortlist data will appear here once published in CMS.") }}
                     </div>
                 {% endif %}
 
-                <!-- CSV TERMINAL INJECTION -->
-                <div class="data-table-wrapper">
+                <!-- SECURE DECLASSIFICATION GATE -->
+                <div id="countdown-wrapper" style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 60px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 12px; margin-bottom: 16px; display: block;">DECRYPTING ROSTER IN</span>
+                    <div id="countdown-timer" style="font-size: clamp(40px, 8vw, 64px); font-weight: 900; color: var(--text-light); letter-spacing: -2px; font-variant-numeric: tabular-nums;">--:--:--</div>
+                </div>
+
+                <!-- CSV TERMINAL INJECTION (HIDDEN BY DEFAULT) -->
+                <div id="secure-data" class="data-table-wrapper" style="display: none;">
                     <table>
                         <thead><tr><th>Applicant Name</th><th>Division Preference</th><th>Status</th></tr></thead>
                         <tbody>
@@ -139,3 +145,42 @@ title: "AeroClub | Phase 03: Shortlist"
         </div>
     </div>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const releaseString = "{{ drive.phase2.release_time }}";
+        const wrapper = document.getElementById('countdown-wrapper');
+        const timerDisplay = document.getElementById('countdown-timer');
+        const secureData = document.getElementById('secure-data');
+
+        // If no release time is set in CMS, default to immediately open
+        if (!releaseString) {
+            wrapper.style.display = 'none';
+            secureData.style.display = 'block';
+            return;
+        }
+
+        const releaseDate = new Date(releaseString).getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
+
+            if (distance < 0) {
+                clearInterval(x);
+                wrapper.style.display = 'none';
+                secureData.style.display = 'block';
+            } else {
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerDisplay.innerHTML = 
+                    (hours < 10 ? "0" : "") + hours + "<span>:</span>" + 
+                    (minutes < 10 ? "0" : "") + minutes + "<span>:</span>" + 
+                    (seconds < 10 ? "0" : "") + seconds;
+            }
+        }, 1000);
+    });
+</script>
+
