@@ -121,31 +121,46 @@ collections:
     slug: "{{slug}}"
     summary: "{{card.meta}} // {{card.title}}"
     fields:
-      - label: "📦 BOX 1: THE GRID CARD (Quick Overview)"
+      - label: "📦 BOX 1: THE GRID CARD (Always Required)"
         name: "card"
         widget: "object"
         collapsed: false
         fields:
           - {label: "Compact Card Title", name: "title", widget: "string"}
-          - {label: "Card Meta Tag (e.g. DEC 2026 // AIR 5)", name: "meta", widget: "string"}
-          - {label: "Card Summary (Short paragraph)", name: "summary", widget: "text"}
+          - {label: "Card Meta Tag", name: "meta", widget: "string"}
+          - {label: "Card Summary", name: "summary", widget: "text"}
           - {label: "Cover/Hero Image", name: "image", widget: "image"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           
-      - label: "📄 BOX 2: THE EXPANDED REPORT (Deep Dive)"
-        name: "report"
+      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
+        name: "automation"
         widget: "object"
         collapsed: true
         fields:
-          - {label: "Expanded Cinematic Title", name: "title", widget: "string"}
-          - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
-          - {label: "Hardware Deployed", name: "hardware", widget: "string"}
-          - {label: "Overall Result", name: "result", widget: "string"}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          - label: "Legacy: Manual Mission Report"
+          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          
+      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
+        name: "manual"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Expanded Cinematic Title", name: "title", widget: "string", required: false}
+          - {label: "Hero Meta Tag", name: "hero_meta", widget: "string", required: false}
+          - {label: "Primary HUD Metric Label (e.g. OVERALL RANK)", name: "primary_label", widget: "string", required: false}
+          - {label: "Primary HUD Metric Value (e.g. AIR 5)", name: "primary_value", widget: "string", required: false}
+          - label: "Secondary HUD Metrics (Left Sidebar)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - label: "Manual Narrative Builder"
             name: "blocks"
             widget: "list"
             collapsed: true
+            required: false
             summary: '{{fields.type}} Block'
             types:
               - label: "Text Section"

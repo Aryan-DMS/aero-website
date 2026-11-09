@@ -2,13 +2,45 @@
 layout: base.njk
 ---
 <main id="mission-report">
+
+        {# --- MASTER ROUTING ENGINE (Handles backwards compatibility) --- #}
+        {% set mode = card.report_mode | default(report.report_mode) | default('Automation') %}
+        
+        {% if mode == 'Automation' %}
+            {# Attempt to pull from new Automation Box, fallback to old Report box #}
+            {% set rawPayload = automation.payload.code if automation.payload.code else automation.payload %}
+            {% if not rawPayload %}{% set rawPayload = report.automation_payload.code if report.automation_payload.code else report.automation_payload %}{% endif %}
+            {% set p = rawPayload | parseJSON %}
+            
+            {% set pageTitle = p.cinematic_title | default(card.title) %}
+            {% set pageMeta = p.hero_meta | default(card.meta) %}
+            {% set priLabel = p.primary_metric.label | default('OVERALL RESULT') %}
+            {% set priValue = p.primary_metric.value | default('N/A') %}
+            {% set secMetrics = p.secondary_metrics %}
+            
+        {% else %}
+            {# Attempt to pull from new Manual Box, fallback to old Report box #}
+            {% set pageTitle = manual.title | default(report.title) | default(card.title) %}
+            {% set pageMeta = manual.hero_meta | default(report.hero_meta) | default(card.meta) %}
+            {% set priLabel = manual.primary_label | default('OVERALL RESULT') %}
+            {% set priValue = manual.primary_value | default(report.result) | default('N/A') %}
+            
+            {% set secMetrics = manual.metrics %}
+            {# Legacy Manual Fallback for old HUD variables #}
+            {% if not secMetrics and report.hardware %}
+                {% set secMetrics = [
+                    {label: "MISSION LOG", value: card.meta},
+                    {label: "HARDWARE DEPLOYED", value: report.hardware}
+                ] %}
+            {% endif %}
+        {% endif %}
         
         <!-- Massive Cinematic Header -->
         <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ card.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
                 <a href="/achievements/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ report.hero_meta }}</span>
-                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ report.title }}</h1>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ pageMeta }}</span>
+                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ pageTitle }}</h1>
             </div>
         </section>
 
@@ -66,14 +98,6 @@ layout: base.njk
             .dash-card:hover { border-color: var(--text-light); background: rgba(255, 255, 255, 0.03); }
             .dash-val { font-size: 40px; font-weight: 800; color: var(--text-light); margin-bottom: 6px; line-height: 1; letter-spacing: -1px; }
             .dash-label { font-family: var(--font-data); font-size: 11px; font-weight: 700; color: var(--accent-cyan); letter-spacing: 1.5px; text-transform: uppercase; }
-            
-            /* Up Next Recommendation Block */
-            .next-report { border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 80px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; text-decoration: none; }
-            .next-report:hover { background: var(--bg-deep); border-top-color: var(--accent-cyan); }
-            .next-report:hover .next-title { color: var(--accent-cyan); transform: translateX(12px); }
-            .next-label { font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; transition: color 0.3s ease; }
-            .next-report:hover .next-label { color: var(--text-light); }
-            .next-title { font-size: 48px; font-weight: 900; color: var(--text-light); letter-spacing: -1px; margin: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
         </style>
 
         <!-- Dynamic Architectural Layout -->
@@ -82,23 +106,24 @@ layout: base.njk
                 
                 <!-- Column 1: Sticky HUD Anchor -->
                 <aside class="hud-anchor">
-                    <div class="hud-metric">{{ report.result | default('N/A') }}</div>
-                    <span class="hud-label">OVERALL RESULT</span>
+                    <div class="hud-metric">{{ priValue }}</div>
+                    <span class="hud-label">{{ priLabel }}</span>
+                    
+                    {% if secMetrics %}
                     <div class="hud-grid">
-                        <div class="hud-item"><span class="hud-item-label">MISSION LOG</span><span class="hud-item-value">{{ card.meta }}</span></div>
-                        <div class="hud-item"><span class="hud-item-label">HARDWARE DEPLOYED</span><span class="hud-item-value">{{ report.hardware }}</span></div>
+                        {% for metric in secMetrics %}
+                        <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+                    
                     <a href="/gallery/" class="btn-hud">View Flight Media ↗</a>
                 </aside>
 
                 <!-- Column 2: Narrative Engine -->
                 <article class="narrative-flow">
                     
-                    {% if report.report_mode == 'Automation' and report.automation_payload %}
-                        <!-- JSON AUTOMATION PARSER -->
-                        {% set rawPayload = report.automation_payload.code if report.automation_payload.code else report.automation_payload %}
-                        {% set p = rawPayload | parseJSON %}
-                        
+                    {% if mode == 'Automation' and p %}
                         <!-- Phase 1: Executive Briefing -->
                         <div class="narrative-phase">
                             <div class="phase-header">
@@ -175,7 +200,8 @@ layout: base.njk
                     {% else %}
                         <!-- LEGACY MANUAL BLOCK BUILDER (Preserved so old pages don't break) -->
                         <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8;">
-                            {% for block in report.blocks %}
+                            {% set blockArray = manual.blocks | default(report.blocks) %}
+                            {% for block in blockArray %}
                                 {% if block.type == 'text_block' %}
                                     {% if block.heading %}
                                         <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
@@ -193,6 +219,7 @@ layout: base.njk
                 </article>
             </div>
         </section>
+        
         
         <!-- Up Next / Recommendation Loop -->
         {% set nextItem = collections.achievements | getNextCollectionItem(page) %}
