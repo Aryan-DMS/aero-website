@@ -209,38 +209,66 @@ collections:
     folder: "content/models"
     create: true
     slug: "{{slug}}"
+    summary: "[{{card.meta}}] {{card.title}}"
     fields:
-      - {label: "Model Name", name: "title", widget: "string"}
-      - {label: "Card Meta Tag", name: "card_meta", widget: "string"}
-      - {label: "Hero Meta Tag", name: "hero_meta", widget: "string"}
-      - {label: "Cover/Hero Image", name: "image", widget: "image"}
-      - label: "Quick Specs (For Grid)"
-        name: "card_specs"
-        widget: "list"
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
+      - label: "📦 BOX 1: THE GRID CARD (Always Required)"
+        name: "card"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Model Name", name: "title", widget: "string"}
+          - {label: "Card Meta Tag", name: "meta", widget: "string"}
+          - {label: "Cover/Hero Image", name: "image", widget: "image"}
+          - label: "Quick Specs (For Grid)"
+            name: "specs"
+            widget: "list"
+            collapsed: true
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          
+      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
+        name: "automation"
+        widget: "object"
         collapsed: true
         fields:
-          - {label: "Label", name: "label", widget: "string"}
-          - {label: "Value", name: "value", widget: "string"}
-      - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-      - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-      - label: "Legacy: Manual Engineering Summary"
-        name: "blocks"
-        widget: "list"
+          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          
+      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
+        name: "manual"
+        widget: "object"
         collapsed: true
-        summary: '{{fields.type}} Block'
-        types:
-          - label: "Text Section"
-            name: "text_block"
-            widget: "object"
+        fields:
+          - {label: "Hero Meta Tag", name: "hero_meta", widget: "string", required: false}
+          - label: "HUD Metrics (Left Sidebar)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
             fields:
-              - {label: "Section Heading", name: "heading", widget: "string", required: false}
-              - {label: "Text Content", name: "content", widget: "markdown"}
-          - label: "Inline Image"
-            name: "image_block"
-            widget: "object"
-            fields:
-              - {label: "Image", name: "image", widget: "image"}
-              - {label: "Image Alt Text", name: "alt", widget: "string"}
+              - {label: "Label (e.g. CLASSIFICATION)", name: "label", widget: "string"}
+              - {label: "Value (e.g. EXPERIMENTAL)", name: "value", widget: "string"}
+          - label: "Manual Narrative Builder"
+            name: "blocks"
+            widget: "list"
+            collapsed: true
+            required: false
+            summary: '{{fields.type}} Block'
+            types:
+              - label: "Text Section"
+                name: "text_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Heading", name: "heading", widget: "string", required: false}
+                  - {label: "Text Content", name: "content", widget: "markdown"}
+              - label: "Inline Image"
+                name: "image_block"
+                widget: "object"
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Image Alt Text", name: "alt", widget: "string"}
 
   # ==========================================
   # GROUP 3: TEAM & PARTNERS

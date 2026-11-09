@@ -91,16 +91,18 @@ title: "AeroClub | Models"
                     <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Active Fleet</h3>
                 </div>
                 <div class="model-grid">
-                    {% for model in collections.models %}
+                    {% for model in collections.models | reverse %}
+                    {% set mCard = model.data.card | default(model.data) %}
                     <a href="{{ model.url }}" class="model-card">
                         <div class="model-img">
-                            <img src="{{ model.data.image }}" alt="{{ model.data.title }}">
+                            <img src="{{ mCard.image }}" alt="{{ mCard.title }}">
                         </div>
                         <div class="model-content">
-                            <span class="model-meta">{{ model.data.card_meta }}</span>
-                            <h4>{{ model.data.title }}</h4>
+                            <span class="model-meta">{{ mCard.meta | default(model.data.card_meta) }}</span>
+                            <h4>{{ mCard.title }}</h4>
                             <div class="tech-specs">
-                                {% for spec in model.data.card_specs %}
+                                {% set mSpecs = mCard.specs | default(model.data.card_specs) %}
+                                {% for spec in mSpecs %}
                                 <div class="spec-item">
                                     <span class="spec-label">{{ spec.label }}</span>
                                     <span class="spec-value">{{ spec.value }}</span>

@@ -2,13 +2,45 @@
 layout: base.njk
 ---
 <main id="hardware-report">
+
+        {# --- MASTER ROUTING ENGINE (Handles backwards compatibility) --- #}
+        {% set legacyMode = report_mode | default('Automation') %}
+        {% set mode = card.report_mode | default(legacyMode) %}
+        
+        {# Extract base fallback variables so legacy files don't crash #}
+        {% set baseTitle = card.title | default(title) %}
+        {% set baseImage = card.image | default(image) %}
+        {% set baseMeta = card.meta | default(card_meta) %}
+        
+        {% if mode == 'Automation' %}
+            {# Attempt to pull from new Automation Box, fallback to old Report box #}
+            {% set rawPayload = automation.payload.code if automation.payload.code else automation.payload %}
+            {% if not rawPayload %}{% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}{% endif %}
+            {% set p = rawPayload | parseJSON %}
+            
+            {% set heroMeta = p.hero_meta | default(hero_meta) | default('ACTIVE DEPLOYMENT') %}
+            {% set secMetrics = p.metrics %}
+            
+        {% else %}
+            {# Attempt to pull from new Manual Box, fallback to legacy variables #}
+            {% set heroMeta = manual.hero_meta | default(hero_meta) | default('ACTIVE DEPLOYMENT') %}
+            {% set secMetrics = manual.metrics %}
+            
+            {# Legacy Manual Fallback for old HUD variables #}
+            {% if not secMetrics %}
+                {% set secMetrics = [
+                    {label: "CLASSIFICATION", value: baseMeta | default('EXPERIMENTAL')},
+                    {label: "STATUS", value: heroMeta}
+                ] %}
+            {% endif %}
+        {% endif %}
         
         <!-- Massive Cinematic Header -->
-        <section style="height: 70vh; background: linear-gradient(to top, var(--bg-deep) 5%, transparent 60%), url('{{ image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <section style="height: 70vh; background: linear-gradient(to top, var(--bg-deep) 5%, transparent 60%), url('{{ baseImage }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
                 <a href="/models/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Fleet</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ hero_meta }}</span>
-                <h1 style="font-size: 64px; font-weight: 900; line-height: 1.1; max-width: 900px; letter-spacing: -2px;">{{ title }}</h1>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ heroMeta }}</span>
+                <h1 style="font-size: 64px; font-weight: 900; line-height: 1.1; max-width: 900px; letter-spacing: -2px;">{{ baseTitle }}</h1>
             </div>
         </section>
 
@@ -80,23 +112,24 @@ layout: base.njk
                 
                 <!-- Column 1: Sticky Hardware Anchor -->
                 <aside class="hud-anchor">
-                    <div class="hud-metric">{{ title }}</div>
+                    <div class="hud-metric">{{ baseTitle }}</div>
                     <span class="hud-label">PLATFORM REGISTRATION</span>
+                    
+                    {% if secMetrics %}
                     <div class="hud-grid">
-                        <div class="hud-item"><span class="hud-item-label">CLASSIFICATION</span><span class="hud-item-value">{{ card_meta | default('EXPERIMENTAL') }}</span></div>
-                        <div class="hud-item"><span class="hud-item-label">STATUS</span><span class="hud-item-value">{{ hero_meta | default('ACTIVE DEPLOYMENT') }}</span></div>
+                        {% for metric in secMetrics %}
+                        <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+                    
                     <a href="/achievements/" class="btn-hud">View Flight Logs ↗</a>
                 </aside>
 
                 <!-- Column 2: Engineering Whitepaper -->
                 <article class="narrative-flow">
                     
-                    {% if report_mode == 'Automation' and automation_payload %}
-                        <!-- JSON AUTOMATION PARSER -->
-                        {% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}
-                        {% set p = rawPayload | parseJSON %}
-                        
+                    {% if mode == 'Automation' and p %}
                         <!-- Phase 1: Executive Summary -->
                         <div class="narrative-phase">
                             <div class="phase-header">
@@ -173,7 +206,8 @@ layout: base.njk
                     {% else %}
                         <!-- LEGACY MANUAL BLOCK BUILDER (Preserved so old pages don't break) -->
                         <div style="font-size: 18px; color: var(--text-muted); line-height: 1.8;">
-                            {% for block in blocks %}
+                            {% set blockArray = manual.blocks | default(blocks) %}
+                            {% for block in blockArray %}
                                 {% if block.type == 'text_block' %}
                                     {% if block.heading %}
                                         <h3 style="color: var(--text-light); font-size: 24px; font-weight: 800; margin: 48px 0 24px;">{{ block.heading }}</h3>
@@ -191,6 +225,8 @@ layout: base.njk
                 </article>
             </div>
         </section>
+
+        <!-- Up Next / Recommendation Loop -->
         
         <!-- Up Next / Recommendation Loop -->
         {% set nextItem = collections.models | getNextCollectionItem(page) %}
