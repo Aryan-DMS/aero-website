@@ -12,12 +12,12 @@ phase1:
   report: WHAT TF
   deadline: 2026-11-09T22:00:00+05:30
 phase2:
-  status: PENDING
+  status: OPEN
   report_mode: Automation
   report: WHAT TF
   release_time: 2026-11-09T21:52:00+05:30
 phase3:
-  status: PENDING
+  status: OPEN
   report_mode: Automation
   report: WHAT TF
   release_time: 2026-11-09T21:52:00+05:30
