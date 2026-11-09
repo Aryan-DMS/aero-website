@@ -41,6 +41,7 @@ title: "AeroClub | Phase 02: Technical Test"
     .matrix-left { padding: 24px 24px 24px 0; font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid var(--border-dark); }
     .matrix-right { padding: 24px; color: var(--text-muted); font-size: 16px; line-height: 1.6; }
 </style>
+
 <main>
     <!-- Fetch the CMS Data specifically for Spring 2027 -->
     {% set drive = null %}
@@ -66,12 +67,12 @@ title: "AeroClub | Phase 02: Technical Test"
             <!-- LEFT COLUMN: Premium Sticky HUD -->
             <aside class="hud-anchor">
                 <div class="hud-metric">PHASE 02</div>
-                <span class="hud-label" {% if drive.phase2.status == 'Open' or drive.phase2.status == 'OPEN' %}style="color: #10B981;"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
+                <span class="hud-label" {% if drive.phase2.status == 'Open' or drive.phase2.status == 'OPEN' %}style="color: var(--accent-cyan);"{% endif %}>{{ drive.phase2.status | default('Pending') }}</span>
                 
                 {% if drive.phase2.metrics %}
                 <div class="hud-grid" style="margin-top: 24px;">
                     {% for metric in drive.phase2.metrics %}
-                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                    <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Open' or metric.value == 'OPEN' or metric.value == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ metric.value }}</span></div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -115,3 +116,4 @@ title: "AeroClub | Phase 02: Technical Test"
         </div>
     </div>
 </main>
+
