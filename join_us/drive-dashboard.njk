@@ -1,10 +1,14 @@
 ---
 layout: base.njk
-title: "AeroClub | Spring 2027 Command Dashboard"
+pagination:
+  data: collections.drives
+  size: 1
+  alias: driveEntry
+permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 ---
 <style>
     /* ==========================================
-       CLEAN NATIVE UI - COMMAND DASHBOARD
+        CLEAN NATIVE UI - COMMAND DASHBOARD
     ========================================== */
     .dashboard-grid { 
         display: grid; 
@@ -96,13 +100,8 @@ title: "AeroClub | Spring 2027 Command Dashboard"
 </style>
 
 <main id="command-dashboard">
-    <!-- Fetch the CMS Data specifically for Spring 2027 -->
-    {% set drive = null %}
-    {% for item in collections.drives %}
-        {% if item.fileSlug == 'spring-2027' %}
-            {% set drive = item.data %}
-        {% endif %}
-    {% endfor %}
+    <!-- MAGIC BINDING: Dynamically pull the exact CMS data for this specific URL -->
+    {% set drive = driveEntry.data %}
 
     <!-- Massive Cinematic Header -->
     <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
@@ -133,7 +132,7 @@ title: "AeroClub | Spring 2027 Command Dashboard"
             <div class="dashboard-grid">
                 
                 <!-- PHASE 01 (Merged App + Test) -->
-                <a href="/join_us/spring-2027/application/" class="mission-card status-{{ (drive.phase1.status | default('Open')) | lower }}">
+                <a href="/join_us/{{ driveEntry.fileSlug }}/application/" class="mission-card status-{{ (drive.phase1.status | default('Open')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 01 // {{ drive.phase1.status | default('Open') }}</span>
                         <h3 class="card-title">The Directive</h3>
@@ -145,7 +144,7 @@ title: "AeroClub | Spring 2027 Command Dashboard"
                 </a>
 
                 <!-- PHASE 02 (Shortlist) -->
-                <a href="/join_us/spring-2027/shortlist/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
+                <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" class="mission-card status-{{ (drive.phase2.status | default('Pending')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 02 // {{ drive.phase2.status | default('Pending') }}</span>
                         <h3 class="card-title">First Filter</h3>
@@ -157,7 +156,7 @@ title: "AeroClub | Spring 2027 Command Dashboard"
                 </a>
 
                 <!-- PHASE 03 (Interviews) -->
-                <a href="/join_us/spring-2027/interview/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
+                <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" class="mission-card status-{{ (drive.phase3.status | default('Pending')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 03 // {{ drive.phase3.status | default('Pending') }}</span>
                         <h3 class="card-title">Engagement</h3>
@@ -169,7 +168,7 @@ title: "AeroClub | Spring 2027 Command Dashboard"
                 </a>
 
                 <!-- PHASE 04 (Results) -->
-                <a href="/join_us/spring-2027/results/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
+                <a href="/join_us/{{ driveEntry.fileSlug }}/results/" class="mission-card status-{{ (drive.phase4.status | default('Pending')) | lower }}">
                     <div class="card-content">
                         <span class="card-meta">PHASE 04 // {{ drive.phase4.status | default('Pending') }}</span>
                         <h3 class="card-title">Outcomes</h3>

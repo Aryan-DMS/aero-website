@@ -1,6 +1,10 @@
 ---
 layout: base.njk
-title: "AeroClub | Phase 03: Interviews"
+pagination:
+  data: collections.drives
+  size: 1
+  alias: driveEntry
+permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
 ---
 <style>
     /* Full 2-Column Structural Grid */
@@ -49,18 +53,13 @@ title: "AeroClub | Phase 03: Interviews"
 </style>
 
 <main>
-    <!-- Fetch the CMS Data specifically for Spring 2027 -->
-    {% set drive = null %}
-    {% for item in collections.drives %}
-        {% if item.fileSlug == 'spring-2027' %}
-            {% set drive = item.data %}
-        {% endif %}
-    {% endfor %}
+    <!-- MAGIC BINDING: Dynamically pull the exact CMS data for this specific URL -->
+    {% set drive = driveEntry.data %}
 
     <!-- Cinematic Phase Header -->
     <section style="height: 40vh; background: linear-gradient(to top, var(--bg-deep) 10%, rgba(11,17,33,0.7)), url('{{ drive.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 40px; border-bottom: 1px solid var(--border-dark);">
         <div class="container" style="width: 100%;">
-            <a href="/join_us/spring-2027/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Dashboard</a>
+            <a href="/join_us/{{ driveEntry.fileSlug }}/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Dashboard</a>
             <span style="margin-bottom: 12px; font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block;">PHASE 03 // {{ drive.phase3.status | default('LOGISTICS') | upper }}</span>
             <h1 style="font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin: 0; line-height: 1.1;">Interview Schedules</h1>
         </div>
