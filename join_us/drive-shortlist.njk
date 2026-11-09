@@ -117,8 +117,8 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                     </div>
                 {% endif %}
 
-                <!-- SECURE DECLASSIFICATION GATE -->
-                <div id="countdown-wrapper" style="background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 60px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
+                <!-- SECURE DECLASSIFICATION GATE (HIDDEN BY DEFAULT) -->
+                <div id="countdown-wrapper" style="display: none; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 60px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
                     <span style="font-family: var(--font-data); color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 12px; margin-bottom: 16px; display: block;">DECRYPTING ROSTER IN</span>
                     <div id="countdown-timer" style="font-size: clamp(40px, 8vw, 64px); font-weight: 900; color: var(--text-light); letter-spacing: -2px; font-variant-numeric: tabular-nums;">--:--:--</div>
                 </div>
@@ -147,29 +147,30 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const releaseString = "{{ drive.phase2.release_time }}";
+        const releaseString = "{{ drive.phase2.release_time }}"; 
         const wrapper = document.getElementById('countdown-wrapper');
         const timerDisplay = document.getElementById('countdown-timer');
         const secureData = document.getElementById('secure-data');
 
-        // If no release time is set in CMS, default to immediately open
         if (!releaseString) {
-            wrapper.style.display = 'none';
             secureData.style.display = 'block';
             return;
         }
 
         const releaseDate = new Date(releaseString).getTime();
 
-        const x = setInterval(function() {
+        function checkAndRender() {
             const now = new Date().getTime();
             const distance = releaseDate - now;
 
-            if (distance < 0) {
-                clearInterval(x);
+            if (distance <= 0) {
                 wrapper.style.display = 'none';
                 secureData.style.display = 'block';
+                return true; 
             } else {
+                wrapper.style.display = 'block';
+                secureData.style.display = 'none';
+                
                 const hours = Math.floor(distance / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -178,8 +179,15 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                     (hours < 10 ? "0" : "") + hours + "<span>:</span>" + 
                     (minutes < 10 ? "0" : "") + minutes + "<span>:</span>" + 
                     (seconds < 10 ? "0" : "") + seconds;
+                return false;
             }
-        }, 1000);
+        }
+
+        if (!checkAndRender()) {
+            const x = setInterval(function() {
+                if (checkAndRender()) clearInterval(x);
+            }, 1000);
+        }
     });
 </script>
 

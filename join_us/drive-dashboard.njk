@@ -31,7 +31,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         transform: translateY(-4px);
     }
 
-    /* CSS Lock for Time-Gating */
     .mission-card.status-locked {
         opacity: 0.5;
         pointer-events: none;
@@ -55,7 +54,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         display: block;
     }
     
-    /* Unique colors for JS states */
     .meta-closed { color: #ef4444 !important; }
     .meta-decrypting { color: #f59e0b !important; animation: pulse 2s infinite; }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
@@ -72,8 +70,22 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         color: var(--text-muted);
         font-size: 16px;
         line-height: 1.6;
-        margin-bottom: 32px;
+        margin-bottom: 24px;
         flex-grow: 1;
+    }
+
+    /* New Schedule Text */
+    .card-schedule {
+        font-family: var(--font-data);
+        font-size: 11px;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 32px;
+        padding: 8px 12px;
+        background: rgba(255,255,255,0.03);
+        border-left: 2px solid var(--border-dark);
+        border-radius: 2px;
     }
 
     .card-footer {
@@ -105,7 +117,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 </style>
 
 <main id="command-dashboard">
-    <!-- MAGIC BINDING: Dynamically pull the exact CMS data for this specific URL -->
     {% set drive = driveEntry.data %}
 
     <!-- Massive Cinematic Header -->
@@ -135,48 +146,52 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         <div class="container">
             <div class="dashboard-grid">
                 
-                <!-- PHASE 01: Defaults to Unlocked -->
+                <!-- PHASE 01 -->
                 <a href="/join_us/{{ driveEntry.fileSlug }}/application/" id="card-phase1" class="mission-card">
                     <div class="card-content">
                         <span class="card-meta" id="label-phase1">PHASE 01 // OPEN</span>
                         <h3 class="card-title">The Directive</h3>
                         <p class="card-desc">Role breakdowns, technical test syllabus, and the primary application portal.</p>
+                        <div class="card-schedule" id="time-phase1">DEADLINE: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">ACCESS PORTAL <span>→</span></span>
                         </div>
                     </div>
                 </a>
 
-                <!-- PHASE 02: Defaults to Locked -->
+                <!-- PHASE 02 -->
                 <a href="/join_us/{{ driveEntry.fileSlug }}/shortlist/" id="card-phase2" class="mission-card status-locked">
                     <div class="card-content">
                         <span class="card-meta" id="label-phase2">PHASE 02 // PENDING</span>
                         <h3 class="card-title">First Filter</h3>
                         <p class="card-desc">Official roster of candidates who cleared the technical exam and advanced to interviews.</p>
+                        <div class="card-schedule" id="time-phase2">SCHEDULED: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW DATA <span>→</span></span>
                         </div>
                     </div>
                 </a>
 
-                <!-- PHASE 03: Defaults to Locked -->
+                <!-- PHASE 03 -->
                 <a href="/join_us/{{ driveEntry.fileSlug }}/interview/" id="card-phase3" class="mission-card status-locked">
                     <div class="card-content">
                         <span class="card-meta" id="label-phase3">PHASE 03 // PENDING</span>
                         <h3 class="card-title">Engagement</h3>
                         <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
+                        <div class="card-schedule" id="time-phase3">SCHEDULED: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW LOGISTICS <span>→</span></span>
                         </div>
                     </div>
                 </a>
 
-                <!-- PHASE 04: Defaults to Locked -->
+                <!-- PHASE 04 -->
                 <a href="/join_us/{{ driveEntry.fileSlug }}/results/" id="card-phase4" class="mission-card status-locked">
                     <div class="card-content">
                         <span class="card-meta" id="label-phase4">PHASE 04 // PENDING</span>
                         <h3 class="card-title">Outcomes</h3>
                         <p class="card-desc">The finalized list of inducted engineering operatives for the competition cycle.</p>
+                        <div class="card-schedule" id="time-phase4">SCHEDULED: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW ROSTER <span>→</span></span>
                         </div>
@@ -191,18 +206,27 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
+        // Formats ISO string into "Oct 25, 10:00 AM" locally for the user
+        function formatDisplayTime(isoString, prefix) {
+            if (!isoString) return prefix + " TBD";
+            const d = new Date(isoString);
+            return prefix + " " + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+        }
+
         // --- PHASE 1 DEADLINE ENGINE ---
-        function evaluateDeadline(cardId, labelId, deadlineStr) {
+        function evaluateDeadline(cardId, labelId, timeId, deadlineStr) {
             const card = document.getElementById(cardId);
             const label = document.getElementById(labelId);
+            const timeDisplay = document.getElementById(timeId);
             if (!card || !deadlineStr) return; 
 
+            timeDisplay.innerText = formatDisplayTime(deadlineStr, "DEADLINE:");
             const deadlineDate = new Date(deadlineStr).getTime();
             
             function checkDeadline() {
                 const now = new Date().getTime();
                 if (now >= deadlineDate) {
-                    card.classList.add('status-locked'); // Lock it
+                    card.classList.add('status-locked');
                     label.innerText = 'PHASE 01 // CLOSED';
                     label.classList.add('meta-closed');
                 } else {
@@ -216,48 +240,45 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         }
 
         // --- PHASE 2, 3, 4 RELEASE ENGINE (With 60s Teaser) ---
-        function evaluateRelease(cardId, labelId, phaseNum, releaseStr) {
+        function evaluateRelease(cardId, labelId, timeId, phaseNum, releaseStr) {
             const card = document.getElementById(cardId);
             const label = document.getElementById(labelId);
+            const timeDisplay = document.getElementById(timeId);
             
-            // If the Captain hasn't set a release time yet, keep it locked indefinitely
             if (!card || !releaseStr) return; 
 
+            timeDisplay.innerText = formatDisplayTime(releaseStr, "SCHEDULED:");
             const releaseDate = new Date(releaseStr).getTime();
-            const teaserDate = releaseDate - 60000; // Exactly 60 seconds before release
+            const teaserDate = releaseDate - 60000; 
             
             function checkRelease() {
                 const now = new Date().getTime();
                 
-                // STATE 1: Too early. Keep locked.
                 if (now < teaserDate) {
                     card.classList.add('status-locked');
                     label.innerText = `PHASE 0${phaseNum} // PENDING`;
-                    label.className = 'card-meta'; // Reset colors
+                    label.className = 'card-meta'; 
                 } 
-                // STATE 2: The 60-Second Teaser Window! Unlock card, pulse text.
                 else if (now >= teaserDate && now < releaseDate) {
                     card.classList.remove('status-locked');
                     label.innerText = `PHASE 0${phaseNum} // DECRYPTING...`;
                     label.className = 'card-meta meta-decrypting'; 
                 } 
-                // STATE 3: Fully Released.
                 else if (now >= releaseDate) {
                     card.classList.remove('status-locked');
                     label.innerText = `PHASE 0${phaseNum} // DECLARED`;
                     label.className = 'card-meta'; 
+                    timeDisplay.innerText = "STATUS: RELEASED"; // Clear schedule text when done
                 }
             }
-            
             checkRelease();
             setInterval(checkRelease, 1000);
         }
 
-        // Initialize all engines dynamically using the CMS timestamps
-        evaluateDeadline('card-phase1', 'label-phase1', '{{ drive.phase1.deadline }}');
-        evaluateRelease('card-phase2', 'label-phase2', '2', '{{ drive.phase2.release_time }}');
-        evaluateRelease('card-phase3', 'label-phase3', '3', '{{ drive.phase3.release_time }}');
-        evaluateRelease('card-phase4', 'label-phase4', '4', '{{ drive.phase4.release_time }}');
+        evaluateDeadline('card-phase1', 'label-phase1', 'time-phase1', '{{ drive.phase1.deadline }}');
+        evaluateRelease('card-phase2', 'label-phase2', 'time-phase2', '2', '{{ drive.phase2.release_time }}');
+        evaluateRelease('card-phase3', 'label-phase3', 'time-phase3', '3', '{{ drive.phase3.release_time }}');
+        evaluateRelease('card-phase4', 'label-phase4', 'time-phase4', '4', '{{ drive.phase4.release_time }}');
     });
 </script>
 
