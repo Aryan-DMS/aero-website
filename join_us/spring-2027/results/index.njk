@@ -3,16 +3,47 @@ layout: base.njk
 title: "AeroClub | Phase 05: Results"
 ---
 <style>
-    /* ... Copy identical <style> block from Phase 3/4 ... */
-    .report-container { max-width: 900px; margin: 0 auto; padding: 80px 20px 140px; }
+    /* Full 2-Column Structural Grid */
+    .report-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 140px; }
     .report-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; }
-    .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 24px; line-height: 1.1; }
-    .data-table-wrapper { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; overflow-x: auto; margin-top: 40px; }
+    .report-title { font-size: 48px; font-weight: 800; color: var(--text-light); letter-spacing: -1px; margin-bottom: 40px; line-height: 1.1; }
+    
+    .report-grid { display: grid; grid-template-columns: 350px 1fr; gap: clamp(40px, 6vw, 80px); align-items: start; }
+    @media (max-width: 900px) { .report-grid { grid-template-columns: 1fr; } }
+
+    /* Left Sidebar Styling */
+    .data-box { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 32px; margin-bottom: 24px; }
+    .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; gap: 16px; }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { color: var(--text-muted); font-family: var(--font-data); flex-shrink: 0; }
+    .data-value { color: var(--text-light); font-weight: 500; text-align: right; }
+
+    /* Right Column Markdown / Fallback */
+    .report-content h3 { font-size: 32px; font-weight: 700; color: var(--text-light); margin: 0 0 24px 0; letter-spacing: -0.5px; }
+    .report-content p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
+    
+    /* Terminal Data Table */
+    .data-table-wrapper { background: var(--bg-panel-dark); border: 1px solid var(--border-dark); border-radius: 4px; overflow-x: auto; margin-top: 32px; margin-bottom: 40px; }
     table { width: 100%; border-collapse: collapse; text-align: left; }
     th { padding: 20px 24px; font-family: var(--font-data); font-size: 12px; color: var(--text-muted); border-bottom: 1px solid var(--border-dark); text-transform: uppercase; letter-spacing: 1px; background: rgba(0,0,0,0.2); }
     td { padding: 16px 24px; font-size: 15px; color: var(--text-light); border-bottom: 1px solid rgba(255,255,255,0.05); }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* NARRATIVE AUTOMATION STYLES */
+    .narrative-flow { display: flex; flex-direction: column; gap: 40px; }
+    .narrative-phase { display: flex; flex-direction: column; }
+    .phase-header { margin-bottom: 24px; }
+    .phase-overline { font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+    .phase-heading { font-size: 32px; font-weight: 800; color: var(--text-light); margin: 0; letter-spacing: -0.5px; }
+    .phase-text { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+    .phase-hook { font-size: 18px; color: var(--text-muted); line-height: 1.8; font-weight: 500; margin: 0; }
+    .subsystem-matrix { display: flex; flex-direction: column; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); margin-top: 24px; margin-bottom: 32px; }
+    .matrix-row { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--border-dark); transition: background 0.2s; }
+    .matrix-row:last-child { border-bottom: none; }
+    .matrix-row:hover { background: rgba(255, 255, 255, 0.02); }
+    .matrix-left { padding: 16px 16px 16px 0; font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid var(--border-dark); }
+    .matrix-right { padding: 16px; color: var(--text-muted); font-size: 15px; line-height: 1.6; }
 </style>
 
 <main>
@@ -30,26 +61,74 @@ title: "AeroClub | Phase 05: Results"
         <span class="report-meta" style="color: #10B981;">PHASE 05 // {{ drive.phase5.status | default('COMPLETED') | upper }}</span>
         <h1 class="report-title">Final Induction Roster</h1>
         
-        <div class="report-content" style="white-space: pre-wrap; font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 800px; margin-bottom: 40px;">
-            {{ drive.phase5.report | default("Final results will appear here once published in CMS.") }}
-        </div>
+        <!-- 2-Column Split -->
+        <div class="report-grid">
+            
+            <!-- LEFT COLUMN: Logistics Sidebar -->
+            <aside>
+                <span style="font-family: var(--font-data); font-size: 11px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; display: block;">PHASE LOGISTICS</span>
+                <div class="data-box">
+                    <span style="font-family: var(--font-data); font-size: 10px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: block;">STATUS</span>
+                    <div class="data-row">
+                        <span class="data-label">Progression</span>
+                        <span class="data-value" {% if drive.phase5.status == 'Completed' %}style="color: #10B981;"{% endif %}>{{ drive.phase5.status | default("Pending") }}</span>
+                    </div>
+                </div>
+            </aside>
 
-        <div class="data-table-wrapper">
-            <table style="border-left: 4px solid #10B981;">
-                <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
-                <tbody>
-                    {% for applicant in csvData %}
-                        <!-- Looking for "Yes" or "Inducted" so the Captain has flexibility -->
-                        {% if applicant['Final Status'] == 'Yes' or applicant['Final Status'] == 'Inducted' %}
-                        <tr>
-                            <td>{{ applicant['Full Name'] }}</td>
-                            <td>{{ applicant['Division Preference'] }}</td>
-                            <td style="color: #10B981; font-weight: 700;">INDUCTED</td>
-                        </tr>
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
+            <!-- RIGHT COLUMN: Narrative Engine + Command Terminal Data -->
+            <article class="narrative-flow">
+                {% set mode = drive.phase5.report_mode | default('Automation') %}
+                {% if mode == 'Automation' and drive.phase5.automation_payload %}
+                    {% set rawPayload = drive.phase5.automation_payload.code if drive.phase5.automation_payload.code else drive.phase5.automation_payload %}
+                    {% set p = rawPayload | parseJSON %}
+                    
+                    <div class="narrative-phase">
+                        <div class="phase-header">
+                            <span class="phase-overline">{{ p.overline | default('PHASE 05 // OUTCOMES') }}</span>
+                            <h3 class="phase-heading">{{ p.heading | default('Final Induction Results') }}</h3>
+                        </div>
+                        <p class="phase-hook">{{ p.hook }}</p>
+                        {% if p.text %}<p class="phase-text">{{ p.text }}</p>{% endif %}
+                    </div>
+                    
+                    {% if p.matrix %}
+                    <div class="subsystem-matrix">
+                        {% for row in p.matrix %}
+                        <div class="matrix-row">
+                            <div class="matrix-left">{{ row.label }}</div>
+                            <div class="matrix-right">{{ row.value }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <!-- LEGACY MANUAL FALLBACK -->
+                    <div class="report-content" style="white-space: pre-wrap;">
+                        <h3>Final Induction Results</h3>
+                        {{ drive.phase5.report | default("Final results will appear here once published in CMS.") }}
+                    </div>
+                {% endif %}
+
+                <!-- CSV TERMINAL INJECTION -->
+                <div class="data-table-wrapper">
+                    <table style="border-left: 4px solid #10B981;">
+                        <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
+                        <tbody>
+                            {% for applicant in csvData %}
+                                <!-- Looking for "Yes" or "Inducted" so the Captain has flexibility -->
+                                {% if applicant['Final Status'] == 'Yes' or applicant['Final Status'] == 'Inducted' %}
+                                <tr>
+                                    <td>{{ applicant['Full Name'] }}</td>
+                                    <td>{{ applicant['Division Preference'] }}</td>
+                                    <td style="color: #10B981; font-weight: 700;">INDUCTED</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
         </div>
     </div>
 </main>

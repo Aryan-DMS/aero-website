@@ -92,8 +92,9 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
       - {label: "Drive Title", name: "title", widget: "string"}
-      - {label: "Status", name: "status", widget: "select", options: ["Live", "Archived"]}
+      - {label: "Master Status", name: "status", widget: "select", options: ["Live", "Archived"]}
       - {label: "Thumbnail Image", name: "image", widget: "image"}
       - {label: "Open Roles", name: "roles", widget: "string"}
       - label: "Phase 1: Application"
@@ -104,39 +105,49 @@ collections:
           - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
           - {label: "Deadline", name: "deadline", widget: "string"}
           - {label: "Application Form Link", name: "form_link", widget: "string"}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
       - label: "Phase 2: Technical Test"
         name: "phase2"
         widget: "object"
         collapsed: true
         fields:
           - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Date", name: "date", widget: "string"}
-          - {label: "Time", name: "time", widget: "string"}
-          - {label: "Venue", name: "venue", widget: "string"}
-          - {label: "Format", name: "format", widget: "string"}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
+          - {label: "Date", name: "date", widget: "string", required: false}
+          - {label: "Time", name: "time", widget: "string", required: false}
+          - {label: "Venue", name: "venue", widget: "string", required: false}
+          - {label: "Format", name: "format", widget: "string", required: false}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
       - label: "Phase 3: Shortlist"
         name: "phase3"
         widget: "object"
         collapsed: true
         fields:
           - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
       - label: "Phase 4: Interviews"
         name: "phase4"
         widget: "object"
         collapsed: true
         fields:
           - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
       - label: "Phase 5: Results"
         name: "phase5"
         widget: "object"
         collapsed: true
         fields:
           - {label: "Status", name: "status", widget: "select", options: ["Pending", "Open", "Completed"]}
-          - {label: "Phase Report", name: "report", widget: "markdown"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
 
   # ==========================================
   # GROUP 2: HARDWARE & LOGS
