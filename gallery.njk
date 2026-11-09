@@ -70,9 +70,9 @@ title: "AeroClub | Gallery"
         /* Controls Right */
         .lb-controls { display: flex; align-items: center; gap: 24px; }
         
-        /* The Information Link Icon */
-        .lb-info-btn { color: var(--text-light); font-size: 20px; text-decoration: none; display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; transition: background 0.2s, color 0.2s; font-family: monospace; font-weight: bold; border: 1px solid var(--border-dark); }
-        .lb-info-btn:hover { background: var(--bg-panel-dark); color: var(--accent-cyan); border-color: var(--accent-cyan); }
+        /* The Information Link Icon (Media Overlay) */
+        .lb-info-btn { position: absolute; top: 16px; right: 16px; color: rgba(255, 255, 255, 0.7); font-size: 16px; text-decoration: none; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; transition: all 0.2s ease; font-family: monospace; font-weight: bold; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100; }
+        .lb-info-btn:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; border-color: rgba(255, 255, 255, 0.4); }
         
         /* Close Button */
         .lightbox-close { background: transparent; border: none; color: var(--text-light); font-size: 36px; cursor: pointer; transition: color 0.2s ease; display: flex; align-items: center; line-height: 1; padding: 0; }
@@ -298,7 +298,6 @@ title: "AeroClub | Gallery"
         <div class="lightbox-header">
             <a href="/" class="lb-brand">Aerial<span>Martial</span></a>
             <div class="lb-controls">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="lb-info-btn" id="lightbox-link" title="View Source">ⓘ</a>
                 <button class="lightbox-close" id="lightbox-close" title="Close Gallery">×</button>
             </div>
         </div>
@@ -308,6 +307,7 @@ title: "AeroClub | Gallery"
             <!-- LEFT: Main Player Area -->
             <div class="yt-main">
                 <div class="yt-player-box" id="video-container">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="lb-info-btn" id="lightbox-link" title="View Source">ⓘ</a>
                     <img src="" alt="" class="lightbox-img" id="lightbox-img">
                     <video src="" class="lightbox-video" id="lightbox-video"></video>
                     
