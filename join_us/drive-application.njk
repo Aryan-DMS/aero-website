@@ -146,7 +146,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/application/index.html"
 
 <script>
     const verifiedApplicants = [
-        {% for applicant in csvData %}
+        {% for applicant in csvData[driveEntry.fileSlug] %}
         "{{ applicant['Full Name'] | trim | lower }}"{% if not loop.last %},{% endif %}
         {% endfor %}
     ];

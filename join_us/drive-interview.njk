@@ -128,7 +128,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
                     <table>
                         <thead><tr><th>Time Slot</th><th>Candidate Name</th><th>Panel Room</th></tr></thead>
                         <tbody>
-                            {% for applicant in csvData %}
+                            {% for applicant in csvData[driveEntry.fileSlug] %}
                                 {% if applicant['Interview Time'] and applicant['Interview Time'] != '' %}
                                 <tr>
                                     <td style="font-family: var(--font-data); color: var(--accent-cyan);">{{ applicant['Interview Time'] }}</td>

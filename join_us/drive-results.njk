@@ -128,7 +128,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
                     <table style="border-left: 4px solid var(--accent-cyan);">
                         <thead><tr><th>Inductee Name</th><th>Assigned Division</th><th>Status</th></tr></thead>
                         <tbody>
-                            {% for applicant in csvData %}
+                            {% for applicant in csvData[driveEntry.fileSlug] %}
                                 <!-- Looking for "Yes" or "Inducted" so the Captain has flexibility -->
                                 {% if applicant['Final Status'] == 'Yes' or applicant['Final Status'] == 'Inducted' %}
                                 <tr>

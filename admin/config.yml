@@ -97,6 +97,7 @@ collections:
       - {label: "Master Status", name: "status", widget: "select", options: ["Live", "Archived"]}
       - {label: "Thumbnail Image", name: "image", widget: "image"}
       - {label: "Open Roles", name: "roles", widget: "string"}
+      - {label: "Google Sheet CSV Link", name: "csv_link", widget: "string", required: false, hint: "Paste the Google Sheets 'Publish to Web' CSV link here to automatically sync candidate data."}
       - label: "Phase 1: The Directive (Application & Syllabus)"
         name: "phase1"
         widget: "object"

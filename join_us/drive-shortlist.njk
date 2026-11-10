@@ -128,7 +128,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                     <table>
                         <thead><tr><th>Applicant Name</th><th>Division Preference</th><th>Status</th></tr></thead>
                         <tbody>
-                            {% for applicant in csvData %}
+                            {% for applicant in csvData[driveEntry.fileSlug] %}
                                 {% if applicant['Test Cleared'] == 'Yes' %}
                                 <tr>
                                     <td>{{ applicant['Full Name'] }}</td>
