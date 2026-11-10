@@ -7,9 +7,6 @@ pagination:
 permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 ---
 <style>
-    /* ==========================================
-        CLEAN NATIVE UI - COMMAND DASHBOARD
-    ========================================== */
     .dashboard-grid { 
         display: grid; 
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
@@ -52,12 +49,9 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         text-transform: uppercase;
         margin-bottom: 16px;
         display: block;
+        transition: color 0.3s ease;
     }
     
-    .meta-closed { color: #ef4444 !important; }
-    .meta-decrypting { color: #f59e0b !important; animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
     .card-title {
         font-size: 24px;
         font-weight: 700;
@@ -74,18 +68,12 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         flex-grow: 1;
     }
 
-    /* New Schedule Text */
+    /* Cleaned up, elegant schedule text (No more terminal box) */
     .card-schedule {
-        font-family: var(--font-data);
-        font-size: 11px;
+        font-size: 15px;
         color: var(--text-muted);
-        letter-spacing: 1px;
-        text-transform: uppercase;
         margin-bottom: 32px;
-        padding: 8px 12px;
-        background: rgba(255,255,255,0.03);
-        border-left: 2px solid var(--border-dark);
-        border-radius: 2px;
+        font-weight: 500;
     }
 
     .card-footer {
@@ -107,7 +95,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
     }
 
     .card-cta span {
-        color: var(--text-light);
         transition: transform 0.2s;
     }
 
@@ -128,22 +115,24 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                 RECRUITMENT CYCLE
             </span>
             
-            <h1 style="font-size: clamp(40px, 8vw, 64px); font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px; color: var(--text-light); margin-bottom: 32px;">
+            <h1 style="font-size: clamp(40px, 8vw, 64px); font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px; color: var(--text-light); margin-bottom: 0;">
                 {{ drive.title | default("Induction Cycle") }}
             </h1>
-            
-            <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--border-dark); padding: 24px; border-radius: 4px; max-width: 800px;">
-                <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">ACTIVE RECRUITMENT ROLES</h4>
-                <p style="color: var(--text-light); font-size: 16px; line-height: 1.6; font-weight: 500; margin: 0;">
-                    {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
-                </p>
-            </div>
         </div>
     </section>
 
     <!-- Clean Card Grid -->
     <section style="padding: clamp(60px, 8vw, 100px) 0;">
         <div class="container">
+            
+            <!-- Roles now sit cleanly above the grid -->
+            <div style="margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--border-dark);">
+                <h4 style="font-family: var(--font-data); font-size: 12px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">ACTIVE RECRUITMENT ROLES</h4>
+                <p style="color: var(--text-light); font-size: 18px; line-height: 1.6; font-weight: 500; margin: 0; max-width: 800px;">
+                    {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
+                </p>
+            </div>
+
             <div class="dashboard-grid">
                 
                 <!-- PHASE 01 -->
@@ -152,7 +141,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                         <span class="card-meta" id="label-phase1">PHASE 01 // OPEN</span>
                         <h3 class="card-title">The Directive</h3>
                         <p class="card-desc">Role breakdowns, technical test syllabus, and the primary application portal.</p>
-                        <div class="card-schedule" id="time-phase1">DEADLINE: TBD</div>
+                        <div class="card-schedule" id="time-phase1">Deadline: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">ACCESS PORTAL <span>→</span></span>
                         </div>
@@ -165,7 +154,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                         <span class="card-meta" id="label-phase2">PHASE 02 // PENDING</span>
                         <h3 class="card-title">First Filter</h3>
                         <p class="card-desc">Official roster of candidates who cleared the technical exam and advanced to interviews.</p>
-                        <div class="card-schedule" id="time-phase2">SCHEDULED: TBD</div>
+                        <div class="card-schedule" id="time-phase2">Scheduled: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW DATA <span>→</span></span>
                         </div>
@@ -178,7 +167,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                         <span class="card-meta" id="label-phase3">PHASE 03 // PENDING</span>
                         <h3 class="card-title">Engagement</h3>
                         <p class="card-desc">Panel schedules, time-slots, and preparation guidelines for shortlisted applicants.</p>
-                        <div class="card-schedule" id="time-phase3">SCHEDULED: TBD</div>
+                        <div class="card-schedule" id="time-phase3">Scheduled: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW LOGISTICS <span>→</span></span>
                         </div>
@@ -191,7 +180,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                         <span class="card-meta" id="label-phase4">PHASE 04 // PENDING</span>
                         <h3 class="card-title">Outcomes</h3>
                         <p class="card-desc">The finalized list of inducted engineering operatives for the competition cycle.</p>
-                        <div class="card-schedule" id="time-phase4">SCHEDULED: TBD</div>
+                        <div class="card-schedule" id="time-phase4">Scheduled: TBD</div>
                         <div class="card-footer">
                             <span class="card-cta">VIEW ROSTER <span>→</span></span>
                         </div>
@@ -206,21 +195,20 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // Formats ISO string into "Oct 25, 10:00 AM" locally for the user
+        // Clean display time format
         function formatDisplayTime(isoString, prefix) {
             if (!isoString) return prefix + " TBD";
             const d = new Date(isoString);
             return prefix + " " + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
         }
 
-        // --- PHASE 1 DEADLINE ENGINE ---
         function evaluateDeadline(cardId, labelId, timeId, deadlineStr) {
             const card = document.getElementById(cardId);
             const label = document.getElementById(labelId);
             const timeDisplay = document.getElementById(timeId);
             if (!card || !deadlineStr) return; 
 
-            timeDisplay.innerText = formatDisplayTime(deadlineStr, "DEADLINE:");
+            timeDisplay.innerText = formatDisplayTime(deadlineStr, "Deadline:");
             const deadlineDate = new Date(deadlineStr).getTime();
             
             function checkDeadline() {
@@ -228,18 +216,18 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                 if (now >= deadlineDate) {
                     card.classList.add('status-locked');
                     label.innerText = 'PHASE 01 // CLOSED';
-                    label.classList.add('meta-closed');
+                    label.style.color = 'var(--text-muted)';
                 } else {
                     card.classList.remove('status-locked');
                     label.innerText = 'PHASE 01 // OPEN';
-                    label.classList.remove('meta-closed');
+                    label.style.color = 'var(--accent-cyan)';
                 }
             }
             checkDeadline();
             setInterval(checkDeadline, 1000);
         }
 
-        // --- PHASE 2, 3, 4 RELEASE ENGINE (With 60s Teaser) ---
+        // Clean Professional 3-State Engine
         function evaluateRelease(cardId, labelId, timeId, phaseNum, releaseStr) {
             const card = document.getElementById(cardId);
             const label = document.getElementById(labelId);
@@ -247,8 +235,8 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
             
             if (!card || !releaseStr) return; 
 
-            timeDisplay.innerText = formatDisplayTime(releaseStr, "SCHEDULED:");
-            const releaseDate = new Date(releaseStr).getTime();
+            timeDisplay.innerText = formatDisplayTime(releaseStr, "Scheduled:");
+            const releaseDate = new Date(releaseString).getTime();
             const teaserDate = releaseDate - 60000; 
             
             function checkRelease() {
@@ -257,18 +245,18 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
                 if (now < teaserDate) {
                     card.classList.add('status-locked');
                     label.innerText = `PHASE 0${phaseNum} // PENDING`;
-                    label.className = 'card-meta'; 
+                    label.style.color = 'var(--accent-cyan)';
                 } 
                 else if (now >= teaserDate && now < releaseDate) {
                     card.classList.remove('status-locked');
-                    label.innerText = `PHASE 0${phaseNum} // DECRYPTING...`;
-                    label.className = 'card-meta meta-decrypting'; 
+                    label.innerText = `PHASE 0${phaseNum} // PROCESSING`;
+                    label.style.color = 'var(--text-light)'; // Clean white during processing
                 } 
                 else if (now >= releaseDate) {
                     card.classList.remove('status-locked');
-                    label.innerText = `PHASE 0${phaseNum} // DECLARED`;
-                    label.className = 'card-meta'; 
-                    timeDisplay.innerText = "STATUS: RELEASED"; // Clear schedule text when done
+                    label.innerText = `PHASE 0${phaseNum} // PUBLISHED`;
+                    label.style.color = 'var(--accent-cyan)';
+                    timeDisplay.innerText = "Status: Released"; 
                 }
             }
             checkRelease();
@@ -281,4 +269,3 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
         evaluateRelease('card-phase4', 'label-phase4', 'time-phase4', '4', '{{ drive.timeline.phase4_release }}');
     });
 </script>
-

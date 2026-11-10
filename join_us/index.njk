@@ -51,30 +51,6 @@ title: "AeroClub | Recruitment Drives"
         transform: scale(1.05);
     }
 
-    /* Floating Status Badges */
-    .status-badge {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: rgba(11, 17, 33, 0.85);
-        border: 1px solid var(--border-dark);
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-family: var(--font-data);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        backdrop-filter: blur(4px);
-    }
-    
-    .status-badge.active { color: #10B981; border-color: rgba(16, 185, 129, 0.3); }
-    .status-badge.active::before { content: ''; width: 6px; height: 6px; background: #10B981; border-radius: 50%; box-shadow: 0 0 8px #10B981; }
-    
-    .status-badge.archived { color: var(--text-muted); }
-
     /* Card Content Formatting */
     .drive-content {
         padding: 32px;
@@ -111,6 +87,7 @@ title: "AeroClub | Recruitment Drives"
 
     /* Clean bottom link (No buttons) */
     .view-dashboard {
+        font-family: var(--font-data);
         font-size: 13px;
         font-weight: 700;
         color: var(--text-light);
@@ -127,12 +104,12 @@ title: "AeroClub | Recruitment Drives"
 
     .view-dashboard::after {
         content: '→';
-        color: var(--text-light); /* Enforce white arrow */
         transition: transform 0.2s;
     }
 
+    /* Prevents the text and arrow from turning cyan on hover - maintains strict cohesive policy */
     .drive-card:hover .view-dashboard {
-        color: var(--accent-cyan);
+        color: var(--text-light); 
     }
 
     .drive-card:hover .view-dashboard::after {
@@ -145,37 +122,72 @@ title: "AeroClub | Recruitment Drives"
     <!-- Standardized Page Header -->
     <section style="padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 60px); border-bottom: 1px solid var(--border-dark);">
         <div class="container">
-            <h2 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">Recruitment Drives</h2>
+            <span style="font-family: var(--font-data); color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: block; font-size: 13px;">JOIN THE FLEET</span>
+            <h1 style="font-size: clamp(40px, 8vw, 56px); font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">Recruitment Drives</h1>
             <p style="color: var(--text-muted); font-size: clamp(16px, 4vw, 20px); line-height: 1.6; max-width: 700px;">Review active induction cycles and historical recruitment archives. Select a drive to view the comprehensive multi-stage dashboard.</p>
         </div>
     </section>
 
-    <!-- The Master Drives Grid -->
     <section style="padding: clamp(60px, 8vw, 100px) 0;">
         <div class="container">
-            <div class="drives-grid">
+            
+            <!-- LIVE SECTION -->
+            <div style="margin-bottom: 80px;">
+                <div style="margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">CURRENT CYCLE</span>
+                    <h2 style="font-size: 28px; font-weight: 700; color: var(--text-light); letter-spacing: -0.5px; margin: 0;">Live Operations</h2>
+                </div>
                 
-                <!-- Automatically generate a card for every drive in the CMS -->
-                {% for driveEntry in collections.drives | reverse %}
-                <a href="/join_us/{{ driveEntry.fileSlug }}/" class="drive-card">
-                    <div class="drive-img">
-                        <img src="{{ driveEntry.data.image | default('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800') }}" alt="{{ driveEntry.data.title }}">
-                        {% if driveEntry.data.active_status == 'LIVE' or driveEntry.data.active_status == 'Live' or driveEntry.data.active_status == 'live' %}
-                            <div class="status-badge active">LIVE</div>
-                        {% else %}
-                            <div class="status-badge archived">{{ driveEntry.data.active_status | default('ARCHIVED') | upper }}</div>
+                <div class="drives-grid">
+                    {% set hasLive = false %}
+                    {% for driveEntry in collections.drives | reverse %}
+                        {% if driveEntry.data.status == 'Live' %}
+                            {% set hasLive = true %}
+                            <a href="/join_us/{{ driveEntry.fileSlug }}/" class="drive-card">
+                                <div class="drive-img">
+                                    <img src="{{ driveEntry.data.image | default('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800') }}" alt="{{ driveEntry.data.title }}">
+                                </div>
+                                <div class="drive-content">
+                                    <span class="drive-meta">CYCLE // {{ driveEntry.data.title | upper }}</span>
+                                    <h4>{{ driveEntry.data.title }}</h4>
+                                    <p>{{ driveEntry.data.description | default('Recruitment and induction data for this cycle.') }}</p>
+                                    <span class="view-dashboard">Enter Dashboard</span>
+                                </div>
+                            </a>
                         {% endif %}
-                    </div>
-                    <div class="drive-content">
-                        <span class="drive-meta">CYCLE // {{ driveEntry.fileSlug | upper }}</span>
-                        <h4>{{ driveEntry.data.title }}</h4>
-                        <p>{{ driveEntry.data.description | default('Recruitment and induction data for this cycle.') }}</p>
-                        <span class="view-dashboard">Enter Command Dashboard</span>
-                    </div>
-                </a>
-                {% endfor %}
-
+                    {% endfor %}
+                    {% if not hasLive %}
+                        <p style="color: var(--text-muted); font-size: 15px;">No active recruitment drives at this time.</p>
+                    {% endif %}
+                </div>
             </div>
+
+            <!-- ARCHIVED SECTION -->
+            <div>
+                <div style="margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">HISTORICAL DATA</span>
+                    <h2 style="font-size: 28px; font-weight: 700; color: var(--text-light); letter-spacing: -0.5px; margin: 0;">Archived Drives</h2>
+                </div>
+
+                <div class="drives-grid">
+                    {% for driveEntry in collections.drives | reverse %}
+                        {% if driveEntry.data.status == 'Archived' %}
+                            <a href="/join_us/{{ driveEntry.fileSlug }}/" class="drive-card">
+                                <div class="drive-img">
+                                    <img src="{{ driveEntry.data.image | default('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800') }}" alt="{{ driveEntry.data.title }}">
+                                </div>
+                                <div class="drive-content">
+                                    <span class="drive-meta">CYCLE // {{ driveEntry.data.title | upper }}</span>
+                                    <h4>{{ driveEntry.data.title }}</h4>
+                                    <p>{{ driveEntry.data.description | default('Recruitment and induction data for this cycle.') }}</p>
+                                    <span class="view-dashboard">View Archive</span>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </section>
 </main>
