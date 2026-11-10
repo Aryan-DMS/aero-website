@@ -98,6 +98,17 @@ collections:
       - {label: "Thumbnail Image", name: "image", widget: "image"}
       - {label: "Open Roles", name: "roles", widget: "string"}
       - {label: "Google Sheet CSV Link", name: "csv_link", widget: "string", required: false, hint: "Paste the Google Sheets 'Publish to Web' CSV link here to automatically sync candidate data."}
+      
+      - label: "⏱️ Master Timeline & Schedules"
+        name: "timeline"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Phase 01: Application Deadline", name: "phase1_deadline", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: true}
+          - {label: "Phase 02: Shortlist Release", name: "phase2_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+          - {label: "Phase 03: Interview Logistics Release", name: "phase3_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+          - {label: "Phase 04: Final Outcomes Release", name: "phase4_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+
       - label: "Phase 1: The Directive (Application & Syllabus)"
         name: "phase1"
         widget: "object"
@@ -111,7 +122,6 @@ collections:
             fields:
               - {label: "Label (e.g. DEADLINE)", name: "label", widget: "string"}
               - {label: "Value (e.g. FEB 15)", name: "value", widget: "string"}
-          - {label: "⏳ Exact Deadline (Locks Portal Automatically)", name: "deadline", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: true}
           - {label: "Activate Application Tracker", name: "action_tracker", widget: "boolean", default: false}
           - {label: "Application Form Link", name: "form_link", widget: "string", required: false}
           - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
@@ -131,7 +141,6 @@ collections:
             fields:
               - {label: "Label", name: "label", widget: "string"}
               - {label: "Value", name: "value", widget: "string"}
-          - {label: "⏱️ Scheduled Release Time (Unlocks Data Table)", name: "release_time", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
           - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
@@ -150,7 +159,6 @@ collections:
             fields:
               - {label: "Label", name: "label", widget: "string"}
               - {label: "Value", name: "value", widget: "string"}
-          - {label: "⏱️ Scheduled Release Time (Unlocks Data Table)", name: "release_time", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
           - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
@@ -168,7 +176,6 @@ collections:
             fields:
               - {label: "Label", name: "label", widget: "string"}
               - {label: "Value", name: "value", widget: "string"}
-          - {label: "⏱️ Scheduled Release Time (Unlocks Data Table)", name: "release_time", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
           - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
           - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}

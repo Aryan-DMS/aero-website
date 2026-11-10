@@ -126,11 +126,12 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
                 <!-- CSV TERMINAL INJECTION (HIDDEN BY DEFAULT) -->
                 <div id="secure-data" class="data-table-wrapper" style="display: none;">
                     <table>
-                        <thead><tr><th>Time Slot</th><th>Candidate Name</th><th>Panel Room</th></tr></thead>
+                        <thead><tr><th>Date</th><th>Time Slot</th><th>Candidate Name</th><th>Panel Room</th></tr></thead>
                         <tbody>
                             {% for applicant in csvData[driveEntry.fileSlug] %}
                                 {% if applicant['Interview Time'] and applicant['Interview Time'] != '' %}
                                 <tr>
+                                    <td style="font-family: var(--font-data); color: var(--text-light);">{{ applicant['Interview Date'] | default('TBD') }}</td>
                                     <td style="font-family: var(--font-data); color: var(--accent-cyan);">{{ applicant['Interview Time'] }}</td>
                                     <td>{{ applicant['Full Name'] }}</td>
                                     <td>{{ applicant['Division Preference'] }}</td>
@@ -140,6 +141,12 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
                         </tbody>
                     </table>
                 </div>
+
+                <!-- DELAYED TRANSMISSION FAILSAFE (HIDDEN BY DEFAULT) -->
+                <div id="delayed-transmission" style="display: none; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.3); padding: 40px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: #ef4444; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; display: block; margin-bottom: 12px;">⚠️ TRANSMISSION DELAYED</span>
+                    <p style="color: var(--text-muted); font-size: 15px; margin: 0; font-family: var(--font-data);">Command is finalizing the logistics schedule. Stand by for decryption.</p>
+                </div>
             </article>
         </div>
     </div>
@@ -147,13 +154,18 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const releaseString = "{{ drive.phase3.release_time }}"; 
+        const releaseString = "{{ drive.timeline.phase3_release }}"; 
         const wrapper = document.getElementById('countdown-wrapper');
         const timerDisplay = document.getElementById('countdown-timer');
         const secureData = document.getElementById('secure-data');
+        const delayedTransmission = document.getElementById('delayed-transmission');
+
+        const tbody = secureData.querySelector('tbody');
+        const hasData = tbody && tbody.children.length > 0;
 
         if (!releaseString) {
-            secureData.style.display = 'block';
+            if (hasData) secureData.style.display = 'block';
+            else delayedTransmission.style.display = 'block';
             return;
         }
 
@@ -165,11 +177,16 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
 
             if (distance <= 0) {
                 wrapper.style.display = 'none';
-                secureData.style.display = 'block';
+                if (hasData) {
+                    secureData.style.display = 'block';
+                } else {
+                    delayedTransmission.style.display = 'block';
+                }
                 return true; 
             } else {
                 wrapper.style.display = 'block';
                 secureData.style.display = 'none';
+                delayedTransmission.style.display = 'none';
                 
                 const hours = Math.floor(distance / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

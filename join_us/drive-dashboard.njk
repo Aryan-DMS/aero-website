@@ -275,10 +275,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
             setInterval(checkRelease, 1000);
         }
 
-        evaluateDeadline('card-phase1', 'label-phase1', 'time-phase1', '{{ drive.phase1.deadline }}');
-        evaluateRelease('card-phase2', 'label-phase2', 'time-phase2', '2', '{{ drive.phase2.release_time }}');
-        evaluateRelease('card-phase3', 'label-phase3', 'time-phase3', '3', '{{ drive.phase3.release_time }}');
-        evaluateRelease('card-phase4', 'label-phase4', 'time-phase4', '4', '{{ drive.phase4.release_time }}');
+        evaluateDeadline('card-phase1', 'label-phase1', 'time-phase1', '{{ drive.timeline.phase1_deadline }}');
+        evaluateRelease('card-phase2', 'label-phase2', 'time-phase2', '2', '{{ drive.timeline.phase2_release }}');
+        evaluateRelease('card-phase3', 'label-phase3', 'time-phase3', '3', '{{ drive.timeline.phase3_release }}');
+        evaluateRelease('card-phase4', 'label-phase4', 'time-phase4', '4', '{{ drive.timeline.phase4_release }}');
     });
 </script>
 

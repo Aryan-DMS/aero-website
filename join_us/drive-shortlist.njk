@@ -140,6 +140,12 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                         </tbody>
                     </table>
                 </div>
+
+                <!-- DELAYED TRANSMISSION FAILSAFE (HIDDEN BY DEFAULT) -->
+                <div id="delayed-transmission" style="display: none; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.3); padding: 40px 20px; text-align: center; border-radius: 4px; margin-top: 32px; margin-bottom: 40px;">
+                    <span style="font-family: var(--font-data); color: #ef4444; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; display: block; margin-bottom: 12px;">⚠️ TRANSMISSION DELAYED</span>
+                    <p style="color: var(--text-muted); font-size: 15px; margin: 0; font-family: var(--font-data);">Command is finalizing the roster. Stand by for decryption.</p>
+                </div>
             </article>
         </div>
     </div>
@@ -147,13 +153,19 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const releaseString = "{{ drive.phase2.release_time }}"; 
+        const releaseString = "{{ drive.timeline.phase2_release }}"; 
         const wrapper = document.getElementById('countdown-wrapper');
         const timerDisplay = document.getElementById('countdown-timer');
         const secureData = document.getElementById('secure-data');
+        const delayedTransmission = document.getElementById('delayed-transmission');
+        
+        // Count actual table rows to see if Captain populated data
+        const tbody = secureData.querySelector('tbody');
+        const hasData = tbody && tbody.children.length > 0;
 
         if (!releaseString) {
-            secureData.style.display = 'block';
+            if (hasData) secureData.style.display = 'block';
+            else delayedTransmission.style.display = 'block';
             return;
         }
 
@@ -165,11 +177,16 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
 
             if (distance <= 0) {
                 wrapper.style.display = 'none';
-                secureData.style.display = 'block';
+                if (hasData) {
+                    secureData.style.display = 'block';
+                } else {
+                    delayedTransmission.style.display = 'block';
+                }
                 return true; 
             } else {
                 wrapper.style.display = 'block';
                 secureData.style.display = 'none';
+                delayedTransmission.style.display = 'none';
                 
                 const hours = Math.floor(distance / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
