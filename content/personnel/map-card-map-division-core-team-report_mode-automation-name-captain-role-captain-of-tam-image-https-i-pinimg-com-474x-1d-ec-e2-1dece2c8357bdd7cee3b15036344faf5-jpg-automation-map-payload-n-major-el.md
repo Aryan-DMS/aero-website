@@ -3,7 +3,7 @@ card:
   division: Core Team
   report_mode: Automation
   name: Captain
-  role: Captain of TAM
+  role: Captain
   image: https://i.pinimg.com/474x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg
 automation:
   payload: >-
