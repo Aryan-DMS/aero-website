@@ -236,7 +236,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
             if (!card || !releaseStr) return; 
 
             timeDisplay.innerText = formatDisplayTime(releaseStr, "Scheduled:");
-            const releaseDate = new Date(releaseString).getTime();
+            const releaseDate = new Date(releaseStr).getTime();
             const teaserDate = releaseDate - 60000; 
             
             function checkRelease() {
