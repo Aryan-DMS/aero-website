@@ -279,8 +279,13 @@ title: "AeroClub | Home"
             <div class="fleet-slide" style="width: 100%;">
                 <div class="fleet-info">
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">{{ mCard.meta | default('FLAGSHIP HARDWARE') }}</h4>
-                    <h3>{{ mCard.title }}</h3>
-                    <p>{{ heroMeta }}</p>
+                    <h3 style="font-size: 36px; font-weight: 800; margin-bottom: 8px; color: var(--text-light);">{{ mCard.title }}</h3>
+                    <div style="font-family: var(--font-ui), sans-serif; font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">{{ heroMeta }}</div>
+                    
+                    {# Extract the first paragraph from the JSON architecture for the description #}
+                    {% set fleetDesc = p.sections[0].paragraphs[0] | default(mCard.summary) | default('Engineered for peak aerodynamic efficiency and maximum payload capacity, serving as the primary testbed for our autonomous BVLOS navigation systems and advanced composite manufacturing techniques.') %}
+                    <p style="font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; max-width: 90%;">{{ fleetDesc | truncate(160) }}</p>
+                    
                     <a href="/models/" class="btn-join">View Full Fleet</a>
                 </div>
                 <div class="fleet-image">
@@ -340,9 +345,38 @@ title: "AeroClub | Home"
             <a href="/team/" class="btn-outline" style="padding: 10px 20px; font-size: 14px;">View Full Roster</a>
         </div>
         <div class="home-team-grid">
+            <!-- 1. Faculty Advisor (Always First) -->
             {% for member in collections.personnel %}
                 {% set mCard = member.data.card | default(member.data) %}
-                {% if mCard.role == 'Faculty Advisor' or mCard.role == 'Captain' or mCard.role == 'Vice-Captain' or mCard.role == 'Vice Captain' %}
+                {% if mCard.role == 'Faculty Advisor' %}
+                <a href="{{ member.url }}" class="home-team-card">
+                    <div class="home-team-img"><img src="{{ mCard.image }}" alt="{{ mCard.name }}"></div>
+                    <div class="home-team-info">
+                        <h4>{{ mCard.name }}</h4>
+                        <p>{{ mCard.role }}</p>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 2. Captain (Always Second) -->
+            {% for member in collections.personnel %}
+                {% set mCard = member.data.card | default(member.data) %}
+                {% if mCard.role == 'Captain' %}
+                <a href="{{ member.url }}" class="home-team-card">
+                    <div class="home-team-img"><img src="{{ mCard.image }}" alt="{{ mCard.name }}"></div>
+                    <div class="home-team-info">
+                        <h4>{{ mCard.name }}</h4>
+                        <p>{{ mCard.role }}</p>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 3. Vice Captain (Always Third) -->
+            {% for member in collections.personnel %}
+                {% set mCard = member.data.card | default(member.data) %}
+                {% if mCard.role == 'Vice-Captain' or mCard.role == 'Vice Captain' %}
                 <a href="{{ member.url }}" class="home-team-card">
                     <div class="home-team-img"><img src="{{ mCard.image }}" alt="{{ mCard.name }}"></div>
                     <div class="home-team-info">
@@ -371,24 +405,26 @@ title: "AeroClub | Home"
                 {% if item.fileSlug == 'sponsors' %}
                     {% if item.data.tiers %}
                         {% for tier in item.data.tiers %}
-                            {% for sponsor in tier.sponsors_list %}
-                                
-                                {% if sponsor %}
-                                    {% set sponsorUrl = sponsor.url %}
-                                    {% if sponsorUrl and not '://' in sponsorUrl %}
-                                        {% set sponsorUrl = 'https://' + sponsorUrl %}
-                                    {% endif %}
-
-                                    <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
-                                        {% if sponsor.logo %}
-                                        <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
-                                        {% else %}
-                                        <span class="partner-fallback">{{ sponsor.name }}</span>
+                            {% if loop.first %} <!-- Strictly isolates Tier 1 Sponsors -->
+                                {% for sponsor in tier.sponsors_list %}
+                                    
+                                    {% if sponsor %}
+                                        {% set sponsorUrl = sponsor.url %}
+                                        {% if sponsorUrl and not '://' in sponsorUrl %}
+                                            {% set sponsorUrl = 'https://' + sponsorUrl %}
                                         {% endif %}
-                                    </a>
-                                {% endif %}
-                                
-                            {% endfor %}
+
+                                        <a href="{{ sponsorUrl | default('/sponsors/') }}" class="partner-logo" target="_blank" rel="noopener noreferrer">
+                                            {% if sponsor.logo %}
+                                            <img src="{{ sponsor.logo }}" alt="{{ sponsor.name }}">
+                                            {% else %}
+                                            <span class="partner-fallback">{{ sponsor.name }}</span>
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+                                    
+                                {% endfor %}
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 {% endif %}
