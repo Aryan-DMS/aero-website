@@ -138,7 +138,15 @@ layout: base.njk
                                         <span class="phase-overline">{{ p.phase3.overline | default('03 // BACKGROUND') }}</span>
                                         <h3 class="phase-heading">{{ p.phase3.heading | default('Operational History') }}</h3>
                                     </div>
-                                    <p class="phase-text">{{ p.phase3.history }}</p>
+                                    
+                                    <!-- This loop renders multiple paragraphs dynamically -->
+                                    {% if p.phase3.paragraphs %}
+                                        {% for para in p.phase3.paragraphs %}
+                                            <p class="phase-text">{{ para }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="phase-text">{{ p.phase3.history }}</p>
+                                    {% endif %}
                                 </div>
                                 {% endif %}
                                 
