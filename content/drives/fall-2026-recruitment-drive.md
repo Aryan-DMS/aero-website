@@ -9,7 +9,7 @@ timeline:
   phase1_deadline: 2026-11-30T23:59:00+05:30
   phase2_release: 2026-11-11T22:35:00+05:30
   phase3_release: 2026-11-11T22:35:00+05:30
-  phase4_release: 2026-11-12T22:35:00+05:30
+  phase4_release: 2026-11-11T22:42:00+05:30
 phase1:
   action_tracker: true
   report_mode: Automation
