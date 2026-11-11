@@ -137,7 +137,18 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
 
                 <!-- CSV TERMINAL INJECTION (HIDDEN BY DEFAULT) -->
                 <div id="secure-data" class="data-table-wrapper" style="display: none;">
-                    <table>
+                    
+                    <!-- SEARCH TERMINAL -->
+                    <div style="padding: 24px; border-bottom: 1px solid var(--border-dark); background: var(--bg-deep);">
+                        <div style="position: relative;">
+                            <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.5;">
+                                <svg width="16" height="16" fill="var(--text-light)" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                            </span>
+                            <input type="text" id="candidate-search" onkeyup="filterTable()" placeholder="SEARCH CANDIDATE DOSSIER..." style="width: 100%; padding: 14px 16px 14px 44px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); color: var(--text-light); font-family: var(--font-ui), sans-serif; font-size: 14px; border-radius: 4px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-cyan)'" onblur="this.style.borderColor='var(--border-dark)'">
+                        </div>
+                    </div>
+                    
+                    <table id="roster-table">
                         <thead><tr><th>Date</th><th>Time Slot</th><th>Candidate Name</th><th>Panel Room</th></tr></thead>
                         <tbody>
                             {% for applicant in csvData[driveEntry.fileSlug] %}
@@ -152,6 +163,15 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
                             {% endfor %}
                         </tbody>
                     </table>
+                    
+                    <!-- SEARCH EMPTY STATE -->
+                    <div id="empty-search-state" style="display: none; padding: 80px 20px; text-align: center;">
+                        <span style="display: block; width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.2;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        </span>
+                        <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px;">NO MATCHING DOSSIER</span>
+                        <p style="color: var(--text-muted); font-size: 15px; margin: 0; max-width: 400px; margin-inline: auto;">Candidate not found in this operational phase. Please verify the exact spelling or consult previous tier logs.</p>
+                    </div>
                 </div>
 
                 <!-- DELAYED TRANSMISSION FAILSAFE (HIDDEN BY DEFAULT) -->
@@ -218,4 +238,26 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
             }, 1000);
         }
     });
+
+    // Live Search Filter Logic
+    window.filterTable = function() {
+        const input = document.getElementById("candidate-search");
+        const filter = input.value.toUpperCase();
+        const tbody = document.querySelector("#roster-table tbody");
+        const trs = tbody.getElementsByTagName("tr");
+        let visibleCount = 0;
+
+        for (let i = 0; i < trs.length; i++) {
+            const rowText = trs[i].textContent || trs[i].innerText;
+            if (rowText.toUpperCase().indexOf(filter) > -1) {
+                trs[i].style.display = "";
+                visibleCount++;
+            } else {
+                trs[i].style.display = "none";
+            }
+        }
+        
+        document.getElementById('empty-search-state').style.display = visibleCount === 0 ? 'block' : 'none';
+        document.getElementById('roster-table').style.display = visibleCount === 0 ? 'none' : 'table';
+    };
 </script>
