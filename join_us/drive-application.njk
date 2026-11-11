@@ -111,25 +111,37 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/application/index.html"
                     {% set rawPayload = drive.phase1.automation_payload.code if drive.phase1.automation_payload.code else drive.phase1.automation_payload %}
                     {% set p = rawPayload | parseJSON %}
                     
+                    <!-- GENERALIZED BLOCK BUILDER ENGINE -->
+                    {% for section in p.sections %}
                     <div class="narrative-phase">
+                        
+                        <!-- Architectural Header -->
                         <div class="phase-header">
-                            <span class="phase-overline">{{ p.overline | default('PHASE 01 // OVERVIEW') }}</span>
-                            <h3 class="phase-heading">{{ p.heading | default('Logistical Briefing') }}</h3>
+                            {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
+                            <h3 class="phase-heading">{{ section.heading }}</h3>
                         </div>
-                        <p class="phase-hook">{{ p.hook }}</p>
-                        {% if p.text %}<p class="phase-text">{{ p.text }}</p>{% endif %}
+                        
+                        <!-- Infinite Paragraph Loop -->
+                        {% if section.paragraphs %}
+                            {% for para in section.paragraphs %}
+                                <p class="phase-text">{{ para }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <!-- Dynamic Visual Injection Engine -->
+                        {% if section.visual_type == 'matrix' and section.visual_data %}
+                            <div class="subsystem-matrix">
+                                {% for row in section.visual_data %}
+                                <div class="matrix-row">
+                                    <div class="matrix-left">{{ row.label }}</div>
+                                    <div class="matrix-right">{{ row.val }}</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
                     </div>
-                    
-                    {% if p.matrix %}
-                    <div class="subsystem-matrix">
-                        {% for row in p.matrix %}
-                        <div class="matrix-row">
-                            <div class="matrix-left">{{ row.label }}</div>
-                            <div class="matrix-right">{{ row.value }}</div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+                    {% endfor %}
                 {% else %}
                     <!-- LEGACY MANUAL FALLBACK -->
                     <div class="report-content" style="white-space: pre-wrap;">
