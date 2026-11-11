@@ -60,17 +60,21 @@ layout: base.njk
             {% if not rawPayload %}{% set rawPayload = automation_payload.code if automation_payload.code else automation_payload %}{% endif %}
             {% set p = rawPayload | parseJSON %}
             
-            {% set bioMajor = p.major | default(major) %}
-            {% set bioJoined = p.joined | default(joined) %}
+            {% set secMetrics = p.metrics %}
             {% set bioLink = p.linkedin | default(linkedin) %}
             {% set bioQuote = p.quote | default(quote) %}
             
         {% else %}
             {# Attempt to pull from new Manual Box, fallback to legacy variables #}
-            {% set bioMajor = manual.major | default(major) %}
-            {% set bioJoined = manual.joined | default(joined) %}
+            {% set secMetrics = manual.metrics %}
             {% set bioLink = manual.linkedin | default(linkedin) %}
             {% set bioQuote = manual.quote | default(quote) %}
+            
+            {# Legacy Manual Fallbacks so old pages don't break #}
+            {% if not secMetrics %}
+                {% set bioMajor = manual.major | default(major) %}
+                {% set bioJoined = manual.joined | default(joined) %}
+            {% endif %}
         {% endif %}
 
         <section style="padding: 60px 0 100px;">
@@ -84,8 +88,16 @@ layout: base.njk
                         <img src="{{ baseImage }}" alt="{{ baseName }}" class="hud-image">
                         <div class="hud-grid">
                             <div class="hud-item"><span class="hud-item-label">DIVISION</span><span class="hud-item-value">{{ baseDiv }}</span></div>
-                            {% if bioMajor %}<div class="hud-item"><span class="hud-item-label">ACADEMIC MAJOR</span><span class="hud-item-value">{{ bioMajor }}</span></div>{% endif %}
-                            {% if bioJoined %}<div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ bioJoined }}</span></div>{% endif %}
+                            
+                            {% if secMetrics %}
+                                {% for metric in secMetrics %}
+                                <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value">{{ metric.value }}</span></div>
+                                {% endfor %}
+                            {% else %}
+                                {# Legacy Fallback #}
+                                {% if bioMajor %}<div class="hud-item"><span class="hud-item-label">ACADEMIC MAJOR</span><span class="hud-item-value">{{ bioMajor }}</span></div>{% endif %}
+                                {% if bioJoined %}<div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ bioJoined }}</span></div>{% endif %}
+                            {% endif %}
                         </div>
                         {% if bioLink %}
                         <a href="{{ bioLink }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
@@ -104,74 +116,53 @@ layout: base.njk
                         <article class="narrative-flow">
                             
                             {% if mode == 'Automation' and p %}
-                                <!-- Phase 1: Executive Summary -->
-                                <div class="narrative-phase">
-                                    <div class="phase-header">
-                                        <span class="phase-overline">{{ p.phase1.overline | default('01 // SPECIALIST PROFILE') }}</span>
-                                        <h3 class="phase-heading">{{ p.phase1.heading | default('Executive Summary') }}</h3>
-                                    </div>
-                                    <p class="phase-hook">{{ p.phase1.hook }}</p>
-                                </div>
                                 
-                                <!-- Phase 2: Technical Matrix -->
-                                {% if p.phase2 and p.phase2.matrix %}
+                                <!-- GENERALIZED BLOCK BUILDER ENGINE -->
+                                {% for section in p.sections %}
                                 <div class="narrative-phase">
+                                    
+                                    <!-- Architectural Header -->
                                     <div class="phase-header">
-                                        <span class="phase-overline">{{ p.phase2.overline | default('02 // TECHNICAL DEPLOYMENT') }}</span>
-                                        <h3 class="phase-heading">{{ p.phase2.heading | default('Core Competencies') }}</h3>
-                                    </div>
-                                    <div class="subsystem-matrix">
-                                        {% for row in p.phase2.matrix %}
-                                        <div class="matrix-row">
-                                            <div class="matrix-left">{{ row.skill }}</div>
-                                            <div class="matrix-right">{{ row.desc }}</div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                                
-                                <!-- Phase 3: Background & History -->
-                                {% if p.phase3 %}
-                                <div class="narrative-phase">
-                                    <div class="phase-header">
-                                        <span class="phase-overline">{{ p.phase3.overline | default('03 // BACKGROUND') }}</span>
-                                        <h3 class="phase-heading">{{ p.phase3.heading | default('Operational History') }}</h3>
+                                        {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
+                                        <h3 class="phase-heading">{{ section.heading }}</h3>
                                     </div>
                                     
-                                    <!-- This loop renders multiple paragraphs dynamically -->
-                                    {% if p.phase3.paragraphs %}
-                                        {% for para in p.phase3.paragraphs %}
+                                    <!-- Infinite Paragraph Loop -->
+                                    {% if section.paragraphs %}
+                                        {% for para in section.paragraphs %}
                                             <p class="phase-text">{{ para }}</p>
                                         {% endfor %}
-                                    {% else %}
-                                        <p class="phase-text">{{ p.phase3.history }}</p>
                                     {% endif %}
-                                </div>
-                                {% endif %}
-                                
-                                <!-- Phase 4: Automated Key Contributions -->
-                                {% if p.phase4 %}
-                                <div class="narrative-phase">
-                                    <div class="phase-header">
-                                        <span class="phase-overline">{{ p.phase4.overline | default('04 // DEPLOYMENT LOG') }}</span>
-                                        <h3 class="phase-heading">{{ p.phase4.heading | default('Key Field Contributions') }}</h3>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; gap: 24px;">
-                                        {% for item in p.phase4.contributions %}
-                                        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start;">
-                                            <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: flex-start; gap: 12px; margin-top: 5px;">
-                                                <span style="display: block; width: 6px; height: 6px; background: var(--accent-cyan); flex-shrink: 0; margin-top: 6px;"></span>
-                                                <span style="line-height: 1.4;">{{ item.title }}</span>
+                                    
+                                    <!-- Dynamic Visual Injection Engine -->
+                                    {% if section.visual_type == 'matrix' and section.visual_data %}
+                                        <div class="subsystem-matrix">
+                                            {% for row in section.visual_data %}
+                                            <div class="matrix-row">
+                                                <div class="matrix-left">{{ row.label }}</div>
+                                                <div class="matrix-right">{{ row.val }}</div>
                                             </div>
-                                            <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
-                                                {{ item.desc }}
-                                            </div>
+                                            {% endfor %}
                                         </div>
-                                        {% endfor %}
-                                    </div>
+                                        
+                                    {% elif section.visual_type == 'contributions' and section.visual_data %}
+                                        <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 24px;">
+                                            {% for item in section.visual_data %}
+                                            <div style="display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start;">
+                                                <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: flex-start; gap: 12px; margin-top: 5px;">
+                                                    <span style="display: block; width: 6px; height: 6px; background: var(--accent-cyan); flex-shrink: 0; margin-top: 6px;"></span>
+                                                    <span style="line-height: 1.4;">{{ item.label }}</span>
+                                                </div>
+                                                <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
+                                                    {{ item.val }}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
                                 </div>
-                                {% endif %}
+                                {% endfor %}
                                 
                             {% else %}
                                 <!-- LEGACY MANUAL BIO -->
