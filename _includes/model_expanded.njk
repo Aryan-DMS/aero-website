@@ -130,78 +130,58 @@ layout: base.njk
                 <article class="narrative-flow">
                     
                     {% if mode == 'Automation' and p %}
-                        <!-- Phase 1: Executive Summary -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase1.overline | default('01 // THE ARCHITECTURE') }}</span>
-                                <h3 class="phase-heading">{{ p.phase1.heading | default('Platform Directive') }}</h3>
-                            </div>
-                            <p class="phase-hook">{{ p.phase1.hook }}</p>
-                        </div>
                         
-                        <!-- Phase 2: Airframe & Physical Dimensions -->
+                        <!-- GENERALIZED BLOCK BUILDER ENGINE -->
+                        {% for section in p.sections %}
                         <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase2.overline | default('02 // AIRFRAME') }}</span>
-                                <h3 class="phase-heading">{{ p.phase2.heading | default('Structural Engineering & Materials') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase2.chassis }}</p>
-                            <p class="phase-text">{{ p.phase2.assembly }}</p>
                             
-                            <div class="subsystem-matrix">
-                                {% for row in p.phase2.dimensions %}
-                                <div class="matrix-row">
-                                    <div class="matrix-left">{{ row.spec }}</div>
-                                    <div class="matrix-right">{{ row.val }}</div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <!-- Phase 3: Avionics & Power Systems -->
-                        <div class="narrative-phase">
+                            <!-- Architectural Header -->
                             <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase3.overline | default('03 // PROPULSION') }}</span>
-                                <h3 class="phase-heading">{{ p.phase3.heading | default('Avionics & Power Delivery') }}</h3>
+                                {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
+                                <h3 class="phase-heading">{{ section.heading }}</h3>
                             </div>
-                            <p class="phase-text">{{ p.phase3.nervous_system }}</p>
                             
-                            <div class="flight-dashboard">
-                                {% for stat in p.phase3.dashboard %}
-                                <div class="dash-card">
-                                    <div class="dash-val">{{ stat.val }}</div>
-                                    <div class="dash-label">{{ stat.label }}</div>
-                                </div>
+                            <!-- Infinite Paragraph Loop -->
+                            {% if section.paragraphs %}
+                                {% for para in section.paragraphs %}
+                                    <p class="phase-text">{{ para }}</p>
                                 {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <!-- Phase 4: Flight Envelope & Capabilities -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase4.overline | default('04 // ENVELOPE') }}</span>
-                                <h3 class="phase-heading">{{ p.phase4.heading | default('Flight Dynamics & Capabilities') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase4.dynamics }}</p>
+                            {% endif %}
                             
-                            <div class="telemetry-bars">
-                                {% for bar in p.phase4.capabilities %}
-                                <div class="bar-row">
-                                    <div class="bar-meta"><span>{{ bar.label }}</span><span class="val">{{ bar.val }} / {{ bar.max }}</span></div>
-                                    <div class="bar-track"><div class="bar-fill" style="width: {{ (bar.val / bar.max) * 100 }}%"></div></div>
+                            <!-- Dynamic Visual Injection Engine -->
+                            {% if section.visual_type == 'matrix' and section.visual_data %}
+                                <div class="subsystem-matrix">
+                                    {% for row in section.visual_data %}
+                                    <div class="matrix-row">
+                                        <div class="matrix-left">{{ row.label }}</div>
+                                        <div class="matrix-right">{{ row.val }}</div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
+                                
+                            {% elif section.visual_type == 'dashboard' and section.visual_data %}
+                                <div class="flight-dashboard">
+                                    {% for stat in section.visual_data %}
+                                    <div class="dash-card">
+                                        <div class="dash-val">{{ stat.val }}</div>
+                                        <div class="dash-label">{{ stat.label }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                            {% elif section.visual_type == 'bars' and section.visual_data %}
+                                <div class="telemetry-bars">
+                                    {% for bar in section.visual_data %}
+                                    <div class="bar-row">
+                                        <div class="bar-meta"><span>{{ bar.label }}</span><span class="val">{{ bar.val }} / {{ bar.max }}</span></div>
+                                        <div class="bar-track"><div class="bar-fill" style="width: {{ (bar.val / bar.max) * 100 }}%"></div></div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
                         </div>
-                        
-                        <!-- Phase 5: Legacy -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase5.overline | default('05 // LEGACY') }}</span>
-                                <h3 class="phase-heading">{{ p.phase5.heading | default('Operational Horizon') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase5.debrief }}</p>
-                        </div>
+                        {% endfor %}
                         
                     {% else %}
                         <!-- LEGACY MANUAL BLOCK BUILDER (Preserved so old pages don't break) -->
