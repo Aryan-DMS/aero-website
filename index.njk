@@ -263,15 +263,28 @@ title: "AeroClub | Home"
         <div class="fleet-carousel">
             {% set flagship = collections.models | reverse | first %}
             {% if flagship %}
+                
+                {# Map to the new BOX 1 Card setup #}
+                {% set mCard = flagship.data.card | default(flagship.data) %}
+                
+                {# Extract the hero_meta from the new JSON Automation block #}
+                {% set p = null %}
+                {% set rawPayload = flagship.data.automation.payload.code if flagship.data.automation.payload.code else flagship.data.automation.payload %}
+                {% if not rawPayload %}{% set rawPayload = flagship.data.automation_payload.code if flagship.data.automation_payload.code else flagship.data.automation_payload %}{% endif %}
+                {% if rawPayload %}
+                    {% set p = rawPayload | parseJSON %}
+                {% endif %}
+                {% set heroMeta = p.hero_meta | default(flagship.data.manual.hero_meta) | default(mCard.summary) | default('Active Aerospace Deployment') %}
+                
             <div class="fleet-slide" style="width: 100%;">
                 <div class="fleet-info">
-                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">{{ flagship.data.card_meta | default('FLAGSHIP HARDWARE') }}</h4>
-                    <h3>{{ flagship.data.title }}</h3>
-                    <p>{{ flagship.data.hero_meta }}</p>
+                    <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px;">{{ mCard.meta | default('FLAGSHIP HARDWARE') }}</h4>
+                    <h3>{{ mCard.title }}</h3>
+                    <p>{{ heroMeta }}</p>
                     <a href="/models/" class="btn-join">View Full Fleet</a>
                 </div>
                 <div class="fleet-image">
-                    <img src="{{ flagship.data.image }}" alt="{{ flagship.data.title }}">
+                    <img src="{{ mCard.image }}" alt="{{ mCard.title }}">
                 </div>
             </div>
             {% endif %}
@@ -328,12 +341,13 @@ title: "AeroClub | Home"
         </div>
         <div class="home-team-grid">
             {% for member in collections.personnel %}
-                {% if member.data.role == 'Faculty Advisor' or member.data.role == 'Captain' or member.data.role == 'Vice-Captain' or member.data.role == 'Vice Captain' %}
+                {% set mCard = member.data.card | default(member.data) %}
+                {% if mCard.role == 'Faculty Advisor' or mCard.role == 'Captain' or mCard.role == 'Vice-Captain' or mCard.role == 'Vice Captain' %}
                 <a href="{{ member.url }}" class="home-team-card">
-                    <div class="home-team-img"><img src="{{ member.data.image }}" alt="{{ member.data.name }}"></div>
+                    <div class="home-team-img"><img src="{{ mCard.image }}" alt="{{ mCard.name }}"></div>
                     <div class="home-team-info">
-                        <h4>{{ member.data.name }}</h4>
-                        <p>{{ member.data.role }}</p>
+                        <h4>{{ mCard.name }}</h4>
+                        <p>{{ mCard.role }}</p>
                     </div>
                 </a>
                 {% endif %}
@@ -357,14 +371,7 @@ title: "AeroClub | Home"
                 {% if item.fileSlug == 'sponsors' %}
                     {% if item.data.tiers %}
                         {% for tier in item.data.tiers %}
-                            {% for sponsorItem in tier.sponsors_list %}
-                            
-                                {% set sponsor = null %}
-                                {% if sponsorItem.type == 'detailed_card' %}
-                                    {% set sponsor = sponsorItem.detailed_card %}
-                                {% else %}
-                                    {% set sponsor = sponsorItem.logo_card %}
-                                {% endif %}
+                            {% for sponsor in tier.sponsors_list %}
                                 
                                 {% if sponsor %}
                                     {% set sponsorUrl = sponsor.url %}

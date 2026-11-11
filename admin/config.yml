@@ -502,23 +502,10 @@ collections:
                 name: "sponsors_list"
                 widget: "list"
                 collapsed: true
-                summary: '{{fields.type}} Card'
-                types:
-                  - label: "Detailed Card (Logo, Text, Link)"
-                    name: "detailed_card"
-                    widget: "object"
-                    fields:
-                      - {label: "Sponsor Name", name: "name", widget: "string"}
-                      - {label: "Sponsor Logo", name: "logo", widget: "image", required: false}
-                      - {label: "Contribution Details", name: "desc", widget: "text"}
-                      - {label: "Website URL", name: "url", widget: "string"}
-                  - label: "Logo Only Card"
-                    name: "logo_card"
-                    widget: "object"
-                    fields:
-                      - {label: "Sponsor Name", name: "name", widget: "string"}
-                      - {label: "Sponsor Logo", name: "logo", widget: "image"}
-                      - {label: "Website URL", name: "url", widget: "string", required: false}
+                fields:
+                  - {label: "Sponsor Name", name: "name", widget: "string"}
+                  - {label: "Sponsor Logo", name: "logo", widget: "image", required: false}
+                  - {label: "Website URL", name: "url", widget: "string", required: false}
 
   - name: "page_sponsor_us"
     label: "💼 Page: Sponsor Us (PDF)"
