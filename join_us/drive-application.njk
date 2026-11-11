@@ -67,14 +67,14 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/application/index.html"
             <aside class="hud-anchor">
                 <div class="hud-metric">PHASE 01</div>
                 
-                <!-- LIVE DOSSIER COUNTER -->
-                <div style="background: rgba(14, 165, 233, 0.05); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 4px; padding: 20px; margin-top: 24px; text-align: center; box-shadow: inset 0 0 20px rgba(14,165,233,0.02);">
-                    <span style="font-family: var(--font-data); font-size: 11px; color: var(--accent-cyan); letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 8px;">SECURED DOSSIERS</span>
-                    <span style="font-size: 40px; font-weight: 900; color: var(--text-light); line-height: 1; letter-spacing: -1px;">{{ csvData[driveEntry.fileSlug] | length | default(0) }}</span>
-                </div>
-                
-                {% if drive.phase1.metrics %}
                 <div class="hud-grid" style="margin-top: 24px;">
+                    <!-- NATIVE DOSSIER COUNTER -->
+                    <div class="hud-item">
+                        <span class="hud-item-label">SECURED DOSSIERS</span>
+                        <span class="hud-item-value" style="color: var(--text-light); font-size: 18px; font-weight: 800;">{{ csvData[driveEntry.fileSlug] | length | default(0) }}</span>
+                    </div>
+                    
+                    {% if drive.phase1.metrics %}
                     {% for metric in drive.phase1.metrics %}
                     <div class="hud-item"><span class="hud-item-label">{{ metric.label }}</span><span class="hud-item-value" {% if metric.value == 'Open' or metric.value == 'OPEN' or metric.value == 'COMPLETED' %}style="color: var(--accent-cyan);"{% endif %}>{{ metric.value }}</span></div>
                     {% endfor %}
