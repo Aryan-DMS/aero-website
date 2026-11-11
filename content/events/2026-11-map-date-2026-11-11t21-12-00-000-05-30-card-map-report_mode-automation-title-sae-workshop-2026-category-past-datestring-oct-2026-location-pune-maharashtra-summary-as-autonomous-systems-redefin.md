@@ -1,15 +1,15 @@
 ---
-date: 2026-11-11T21:12:00.000+05:30
+date: 2026-11-11T21:13:00.000+05:30
 card:
   report_mode: Automation
-  title: SAE Workshop 2026
+  title: DDC Workshop 2026
   category: Past
   dateString: OCT 2026
   location: Pune,Maharashtra
   summary: "As autonomous systems redefine modern aerospace, AeroClub is hosting a
     two-day intensive technical symposium. The directive is clear: bridge the
     gap between theoretical aerodynamics taught in the classroom."
-  image: https://images.unsplash.com/photo-1551646772-19ac78231319?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+  image: https://images.unsplash.com/photo-1668193184151-6c3b93f39e34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
 automation:
   payload: >-
     {
