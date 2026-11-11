@@ -6,13 +6,13 @@ hero:
     high-performance unmanned aerial systems.
   footer_line: DESIGN / FABRICATION / TESTING / DEPLOYMENT
 stats:
-  - value: AIR 5
+  - value: AIR 2
     label: Peak National Standing
   - value: 20+
     label: Mission Deployments
-  - value: 50+
-    label: Active Personnel
   - value: 15+
+    label: Active Personnel
+  - value: 10+
     label: Years Operational
 mission:
   overline: WHO WE ARE
