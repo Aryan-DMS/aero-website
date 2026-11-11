@@ -143,77 +143,58 @@ layout: base.njk
                 <article class="narrative-flow">
                     
                     {% if mode == 'Automation' and p %}
-                        <!-- Phase 1: The Directive -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase1.overline | default('01 // THE DIRECTIVE') }}</span>
-                                <h3 class="phase-heading">{{ p.phase1.heading | default('Mission Overview & Objectives') }}</h3>
-                            </div>
-                            <p class="phase-hook">{{ p.phase1.hook }}</p>
-                        </div>
                         
-                        <!-- Phase 2: Schedule & Timeline -->
+                        <!-- GENERALIZED BLOCK BUILDER ENGINE -->
+                        {% for section in p.sections %}
                         <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase2.overline | default('02 // OPERATIONAL TIMELINE') }}</span>
-                                <h3 class="phase-heading">{{ p.phase2.heading | default('Schedule & Pacing') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase2.context }}</p>
                             
-                            <div class="timeline-track">
-                                {% for node in p.phase2.timeline %}
-                                <div class="timeline-node">
-                                    <span class="time-meta">{{ node.time }}</span>
-                                    <p class="time-desc">{{ node.desc }}</p>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <!-- Phase 3: Assets & Resource Allocation -->
-                        <div class="narrative-phase">
+                            <!-- Architectural Header -->
                             <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase3.overline | default('03 // DEPLOYMENT MANIFEST') }}</span>
-                                <h3 class="phase-heading">{{ p.phase3.heading | default('Assets & Personnel Allocation') }}</h3>
+                                {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
+                                <h3 class="phase-heading">{{ section.heading }}</h3>
                             </div>
-                            <p class="phase-text">{{ p.phase3.context }}</p>
                             
-                            <div class="subsystem-matrix">
-                                {% for row in p.phase3.matrix %}
-                                <div class="matrix-row">
-                                    <div class="matrix-left">{{ row.asset }}</div>
-                                    <div class="matrix-right">{{ row.role }}</div>
-                                </div>
+                            <!-- Infinite Paragraph Loop -->
+                            {% if section.paragraphs %}
+                                {% for para in section.paragraphs %}
+                                    <p class="phase-text">{{ para }}</p>
                                 {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <!-- Phase 4: Target Metrics -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase4.overline | default('04 // TARGET METRICS') }}</span>
-                                <h3 class="phase-heading">{{ p.phase4.heading | default('Scale & Outcomes') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase4.context }}</p>
+                            {% endif %}
                             
-                            <div class="flight-dashboard">
-                                {% for stat in p.phase4.dashboard %}
-                                <div class="dash-card">
-                                    <div class="dash-val">{{ stat.val }}</div>
-                                    <div class="dash-label">{{ stat.label }}</div>
+                            <!-- Dynamic Visual Injection Engine -->
+                            {% if section.visual_type == 'timeline' and section.visual_data %}
+                                <div class="timeline-track">
+                                    {% for node in section.visual_data %}
+                                    <div class="timeline-node">
+                                        <span class="time-meta">{{ node.time }}</span>
+                                        <p class="time-desc">{{ node.desc }}</p>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
+                                
+                            {% elif section.visual_type == 'matrix' and section.visual_data %}
+                                <div class="subsystem-matrix">
+                                    {% for row in section.visual_data %}
+                                    <div class="matrix-row">
+                                        <div class="matrix-left">{{ row.label }}</div>
+                                        <div class="matrix-right">{{ row.val }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                            {% elif section.visual_type == 'dashboard' and section.visual_data %}
+                                <div class="flight-dashboard">
+                                    {% for stat in section.visual_data %}
+                                    <div class="dash-card">
+                                        <div class="dash-val">{{ stat.val }}</div>
+                                        <div class="dash-label">{{ stat.label }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
                         </div>
-                        
-                        <!-- Phase 5: Broader Impact -->
-                        <div class="narrative-phase">
-                            <div class="phase-header">
-                                <span class="phase-overline">{{ p.phase5.overline | default('05 // THE HORIZON') }}</span>
-                                <h3 class="phase-heading">{{ p.phase5.heading | default('Institutional Impact') }}</h3>
-                            </div>
-                            <p class="phase-text">{{ p.phase5.debrief }}</p>
-                        </div>
+                        {% endfor %}
                         
                     {% else %}
                         <!-- LEGACY MANUAL BLOCK BUILDER (Preserved so old pages don't break) -->
