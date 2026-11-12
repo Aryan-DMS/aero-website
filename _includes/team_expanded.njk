@@ -117,51 +117,61 @@ layout: base.njk
                             
                             {% if mode == 'Automation' and p %}
                                 
-                                <!-- GENERALIZED BLOCK BUILDER ENGINE -->
-                                {% for section in p.sections %}
-                                <div class="narrative-phase">
-                                    
-                                    <!-- Architectural Header -->
-                                    <div class="phase-header">
-                                        {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
-                                        <h3 class="phase-heading">{{ section.heading }}</h3>
-                                    </div>
-                                    
-                                    <!-- Infinite Paragraph Loop -->
-                                    {% if section.paragraphs %}
-                                        {% for para in section.paragraphs %}
-                                            <p class="phase-text">{{ para }}</p>
-                                        {% endfor %}
-                                    {% endif %}
-                                    
-                                    <!-- Dynamic Visual Injection Engine -->
-                                    {% if section.visual_type == 'matrix' and section.visual_data %}
-                                        <div class="subsystem-matrix">
-                                            {% for row in section.visual_data %}
-                                            <div class="matrix-row">
-                                                <div class="matrix-left">{{ row.label }}</div>
-                                                <div class="matrix-right">{{ row.val }}</div>
-                                            </div>
-                                            {% endfor %}
+                                <!-- HIGH-FLEXIBILITY AUTOMATION ENGINE -->
+                                {% set narrative_phases = [p.phase1, p.phase2, p.phase3, p.phase4, p.phase5] %}
+                                {% for section in narrative_phases %}
+                                    {% if section %}
+                                    <div class="narrative-phase">
+                                        
+                                        <!-- Architectural Header -->
+                                        <div class="phase-header">
+                                            {% if section.overline %}<span class="phase-overline">{{ section.overline }}</span>{% endif %}
+                                            {% if section.heading %}<h3 class="phase-heading">{{ section.heading }}</h3>{% endif %}
                                         </div>
                                         
-                                    {% elif section.visual_type == 'contributions' and section.visual_data %}
-                                        <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 24px;">
-                                            {% for item in section.visual_data %}
-                                            <div style="display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start;">
-                                                <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: flex-start; gap: 12px; margin-top: 5px;">
-                                                    <span style="display: block; width: 6px; height: 6px; background: var(--accent-cyan); flex-shrink: 0; margin-top: 6px;"></span>
-                                                    <span style="line-height: 1.4;">{{ item.label }}</span>
-                                                </div>
-                                                <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
-                                                    {{ item.val }}
-                                                </div>
-                                            </div>
+                                        <!-- The Hook (Executive Summary style) -->
+                                        {% if section.hook %}
+                                            <p class="phase-hook" style="margin-bottom: 24px;">{{ section.hook }}</p>
+                                        {% endif %}
+                                        
+                                        <!-- Infinite Paragraph Loop -->
+                                        {% if section.paragraphs %}
+                                            {% for para in section.paragraphs %}
+                                                <p class="phase-text">{{ para }}</p>
                                             {% endfor %}
-                                        </div>
+                                        {% endif %}
+                                        
+                                        <!-- Dynamic Visual Injection: Matrix -->
+                                        {% if section.matrix %}
+                                            <div class="subsystem-matrix">
+                                                {% for row in section.matrix %}
+                                                <div class="matrix-row">
+                                                    <div class="matrix-left">{{ row.skill }}</div>
+                                                    <div class="matrix-right">{{ row.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                            
+                                        <!-- Dynamic Visual Injection: Contributions -->
+                                        {% if section.contributions %}
+                                            <div style="display: flex; flex-direction: column; gap: 24px; margin-top: 24px;">
+                                                {% for item in section.contributions %}
+                                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; align-items: start;">
+                                                    <div style="color: var(--text-light); font-weight: 700; font-size: 13px; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: flex-start; gap: 12px; margin-top: 5px;">
+                                                        <span style="display: block; width: 6px; height: 6px; background: var(--accent-cyan); flex-shrink: 0; margin-top: 6px;"></span>
+                                                        <span style="line-height: 1.4;">{{ item.title }}</span>
+                                                    </div>
+                                                    <div style="color: var(--text-muted); font-size: 16px; line-height: 1.7;">
+                                                        {{ item.desc }}
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        
+                                    </div>
                                     {% endif %}
-                                    
-                                </div>
                                 {% endfor %}
                                 
                             {% else %}
