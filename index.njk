@@ -283,7 +283,7 @@ title: "AeroClub | Home"
                     <div style="font-family: var(--font-ui), sans-serif; font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">{{ heroMeta }}</div>
                     
                     {# Extract the first paragraph from the JSON architecture for the description #}
-                    {% set fleetDesc = p.sections[0].paragraphs[0] | default(mCard.summary) | default('Engineered for peak aerodynamic efficiency and maximum payload capacity, serving as the primary testbed for our autonomous BVLOS navigation systems and advanced composite manufacturing techniques.') %}
+                    {% set fleetDesc = p.sections[0].paragraphs[0] | default(mCard.summary) | default('A specialized, multi-mission aerial platform engineered for precision, endurance, and advanced payload deployment across various competitive flight envelopes.') %}
                     <p style="font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; max-width: 90%;">{{ fleetDesc | truncate(160) }}</p>
                     
                     <a href="/models/" class="btn-join">View Full Fleet</a>

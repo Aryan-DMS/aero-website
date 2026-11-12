@@ -127,10 +127,13 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
             
             <!-- ACTIVE ROLES CARD -->
             <div style="background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; padding: 32px 40px; margin-bottom: 48px;">
-                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">Active Recruitment Roles</h4>
-                <p style="color: var(--text-light); font-size: 18px; line-height: 1.6; font-weight: 500; margin: 0;">
-                    {{ drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") }}
-                </p>
+                <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;">Active Recruitment Roles</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    {% set rolesList = drive.roles | default("Aerodynamics, Embedded Systems, Payload Integration, Web Design") %}
+                    {% for role in rolesList.split(',') %}
+                        <span style="background: rgba(14, 165, 233, 0.05); border: 1px solid rgba(14, 165, 233, 0.2); color: var(--text-light); padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; font-family: var(--font-ui), sans-serif;">{{ role | trim }}</span>
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="dashboard-grid">
