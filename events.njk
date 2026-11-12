@@ -15,7 +15,7 @@ title: "AeroClub | Events"
         .event-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; display: flex; flex-direction: column; transition: border-color 0.2s ease; overflow: hidden; text-decoration: none; }
         .event-card:hover { border-color: var(--text-light); }
         
-        .event-img { height: 260px; overflow: hidden; border-bottom: 1px solid var(--border-dark); }
+        .event-img { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border-dark); }
         .event-img img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1); transition: transform 0.4s ease; display: block; }
         .event-card:hover .event-img img { transform: scale(1.03); }
         
@@ -80,6 +80,41 @@ title: "AeroClub | Events"
         /* Bulletproof Grid Capping (Bypasses Nunjucks Limits) */
         .active-events-grid > a:nth-child(n+5) { display: none !important; }
         .past-events-grid > a:nth-child(n+10) { display: none !important; }
+
+        /* Fluid Grids */
+        .active-events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); gap: var(--space-gap); }
+        .past-events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--space-gap); }
+
+        /* ==========================================
+           MOBILE APP-LIKE SCROLLING
+        ========================================== */
+        @media (max-width: 960px) {
+            /* Transform Grids into Horizontal Swipe Carousels */
+            .active-events-grid, .past-events-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+                
+                /* Edge-to-edge bleed */
+                margin-left: calc(-1 * var(--space-container));
+                margin-right: calc(-1 * var(--space-container));
+                padding-left: var(--space-container);
+                padding-right: var(--space-container);
+                padding-bottom: 32px;
+                gap: 16px !important;
+            }
+            .active-events-grid::-webkit-scrollbar, .past-events-grid::-webkit-scrollbar { display: none; }
+            
+            .event-card { flex: 0 0 85% !important; scroll-snap-align: center; }
+
+            /* Optimize Timeline for Mobile Swiping */
+            .timeline-track { padding: 40px var(--space-container) 0 !important; gap: 32px !important; }
+            .timeline-node { width: 85vw !important; max-width: 320px !important; }
+        }
 </style>
 
 <main id="events-page">
@@ -109,7 +144,7 @@ title: "AeroClub | Events"
                     {% endfor %}
                 {% endset %}
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;" class="active-events-grid">
+                <div class="active-events-grid">
                     {% for event in collections.events | reverse %}
                         {% set eCard = event.data.card | default(event.data) %}
                         {% if eCard.category == "Active" %}
@@ -155,13 +190,13 @@ title: "AeroClub | Events"
                     {% endfor %}
                 {% endset %}
 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" class="past-events-grid">
+                <div class="past-events-grid">
                     {% for event in collections.events | reverse %}
                         {% set eCard = event.data.card | default(event.data) %}
                         {% if eCard.category == "Past" %}
                             <a href="{{ event.url }}" class="event-card">
                                 {% if eCard.image %}
-                                <div class="event-img" style="height: 200px;">
+                                <div class="event-img">
                                     <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
                                 </div>
                                 {% endif %}
