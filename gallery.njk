@@ -29,17 +29,12 @@ title: "AeroClub | Gallery"
         .feed-grid.hidden { display: none; }
         
         /* 16:9 Horizontal Feed */
-        .grid-horizontal { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+        .grid-horizontal { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--space-gap); }
         .grid-horizontal .thumb-wrapper { aspect-ratio: 16 / 9; }
         
         /* 9:16 Vertical Feed */
-        .grid-vertical { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        .grid-vertical { grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); gap: var(--space-gap); }
         .grid-vertical .thumb-wrapper { aspect-ratio: 9 / 16; }
-
-        @media (max-width: 600px) {
-            .grid-horizontal { grid-template-columns: 1fr; }
-            .grid-vertical { grid-template-columns: repeat(2, 1fr); }
-        }
         
         /* Separate Thumbnail and Text */
         .gallery-card { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; }
@@ -80,7 +75,6 @@ title: "AeroClub | Gallery"
         
         /* 2-Column Split - Adjusted for Header */
         .yt-layout { width: 100%; height: calc(100vh - 72px); display: grid; grid-template-columns: 1fr 360px; padding: 32px; gap: 32px; box-sizing: border-box; overflow: hidden; }
-        @media (max-width: 1024px) { .yt-layout { grid-template-columns: 1fr; overflow-y: auto; } }
         
         .yt-main { display: flex; flex-direction: column; max-height: calc(100vh - 100px); }
         
@@ -96,6 +90,21 @@ title: "AeroClub | Gallery"
         .yt-sidebar { display: flex; flex-direction: column; gap: 16px; overflow-y: auto; padding-right: 8px; }
         .yt-sidebar::-webkit-scrollbar { width: 8px; }
         .yt-sidebar::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 4px; }
+
+        /* ==========================================
+           MOBILE YOUTUBE UI STACK
+        ========================================== */
+        @media (max-width: 1024px) { 
+            .lightbox-header { height: 60px; padding: 0 16px; }
+            .yt-layout { display: flex; flex-direction: column; height: calc(100vh - 60px); padding: 0; gap: 0; overflow-y: auto; overflow-x: hidden; }
+            
+            .yt-main { max-height: none; }
+            /* Edge-to-edge video player locking exactly to 16:9 ratio */
+            .yt-player-box { border-radius: 0; flex: none; height: auto; aspect-ratio: 16 / 9; width: 100%; }
+            
+            .yt-meta-box { padding: 20px 16px; border-bottom: 1px solid var(--border-dark); }
+            .yt-sidebar { padding: 20px 16px 40px; overflow-y: visible; }
+        }
         
         .sidebar-card { display: grid; grid-template-columns: 160px 1fr; gap: 12px; cursor: pointer; }
         .sidebar-thumb { width: 100%; aspect-ratio: 16/9; border-radius: 6px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.05); }
