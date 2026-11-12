@@ -52,12 +52,17 @@ title: "AeroClub | About"
            MOBILE STACKING OVERRIDES
         ========================================== */
         @media (max-width: 960px) {
-            .about-overview-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            /* Switches to flex and reverses order so the Image (2nd item) loads above the Text (1st item) */
+            .about-overview-grid { display: flex !important; flex-direction: column-reverse !important; gap: 40px !important; }
+            
             .about-philosophy-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-            .about-buttons { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
-            .about-buttons a { width: 100% !important; text-align: center; }
-            .about-buttons-center { flex-direction: column !important; width: 100% !important; }
-            .about-buttons-center a { width: 100% !important; }
+            
+            /* Removes the ugly 100% stretch and allows buttons to wrap naturally with their proper padding */
+            .about-buttons { flex-direction: row !important; flex-wrap: wrap !important; align-items: flex-start !important; width: auto !important; }
+            .about-buttons a { width: fit-content !important; }
+            
+            .about-buttons-center { flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; width: auto !important; }
+            .about-buttons-center a { width: fit-content !important; }
         }
 </style>
 
