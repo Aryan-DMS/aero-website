@@ -23,15 +23,35 @@
             
             --font-ui: 'Inter', sans-serif;
             --font-data: 'Inter', sans-serif;
+
+            /* ==========================================
+               FLUID MATHEMATICAL CORE
+               These variables scale dynamically across all screen sizes
+            ========================================== */
+            --space-container: clamp(16px, 4vw, 40px);
+            --space-gap: clamp(24px, 3vw, 40px);
+            
+            /* Typography Scaling Matrix */
+            --text-h1: clamp(40px, 6vw, 64px);
+            --text-h2: clamp(28px, 4.5vw, 48px);
+            --text-h3: clamp(24px, 3vw, 36px);
+            --text-p: clamp(16px, 2vw, 18px);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: var(--font-ui); background: var(--bg-deep); color: var(--text-light); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: var(--font-ui); background: var(--bg-deep); color: var(--text-light); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        /* Global Fluid Constraints */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-container); width: 100%; }
         main { flex: 1; }
+        
+        /* Universal Fluid Typography (Overrides inline hardcoded pixel values) */
+        h1 { font-size: var(--text-h1) !important; letter-spacing: -1px; line-height: 1.1; }
+        h2 { font-size: var(--text-h2) !important; letter-spacing: -0.5px; line-height: 1.2; }
+        h3 { font-size: var(--text-h3) !important; letter-spacing: -0.5px; line-height: 1.3; }
+        p { font-size: var(--text-p); line-height: 1.6; }
 
         /* ==========================================
            CLEAN, FLAT, HIGH-CONTRAST NAVIGATION
@@ -119,18 +139,15 @@
         .footer-bottom { padding-bottom: 40px; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 14px; }
 
         /* ==========================================
-           FLUID RESPONSIVE OVERRIDES (ALL SCREENS)
+           STRUCTURAL MOBILE OVERRIDES
         ========================================== */
         @media (max-width: 960px) {
-            /* Scroll Lock Utility */
             body.no-scroll { overflow: hidden !important; touch-action: none; }
 
-            /* 1. Header & Mobile Drawer */
-            header { padding: 0 max(4vw, 16px); height: 70px; display: flex; align-items: center; position: relative; }
+            /* Header & Drawer */
+            header { padding: 0 var(--space-container); height: 70px; display: flex; align-items: center; position: relative; }
             .nav-logo { flex: 1; }
-            .menu-toggle { display: flex; position: absolute; right: max(4vw, 16px); top: 50%; transform: translateY(-50%); }
-            
-            /* FORCE hide the desktop sponsor button on mobile */
+            .menu-toggle { display: flex; position: absolute; right: var(--space-container); top: 50%; transform: translateY(-50%); }
             header > .btn-join { display: none !important; } 
             
             .nav-links {
@@ -141,105 +158,26 @@
                 opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999;
             }
             .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
-            
-            /* Force center alignment for drawer links */
             .nav-links li { width: 100%; display: flex; justify-content: center; }
             .nav-links a { font-size: 18px; width: 100%; text-align: center; padding: 12px; display: block; }
-            
             .mobile-sponsor-item { display: flex !important; justify-content: center; width: 100%; }
             .mobile-sponsor-item a { width: fit-content; margin: 0 auto; }
 
-            /* 2. Fluid Padding & Typography (The "Algorithm") */
-            /* Padding scales between 16px and 4vw dynamically */
-            .container { padding-left: max(4vw, 16px) !important; padding-right: max(4vw, 16px) !important; width: 100% !important; box-sizing: border-box; }
-            
-            /* Fonts scale pixel-by-pixel between min and max sizes based on screen width */
-            h1, .hero-text h1 { font-size: clamp(36px, 9vw, 56px) !important; letter-spacing: -1px !important; line-height: 1.1; margin-bottom: clamp(16px, 4vw, 24px) !important; }
-            h2, .mission-text h2, .page-section h2, .launch-cta h2, .news-header h2, .partners-header h2 { font-size: clamp(28px, 8vw, 40px) !important; line-height: 1.2; margin-bottom: 16px !important; }
-            .hero-text p, .mission-text p, .launch-cta p { font-size: clamp(16px, 4.5vw, 18px) !important; line-height: 1.6; margin-bottom: clamp(24px, 6vw, 40px) !important; }
-            
-            /* Vertical padding breathes based on screen height/width */
-            .home-section, .page-section, .launch-cta { padding-top: clamp(40px, 10vw, 80px) !important; padding-bottom: clamp(40px, 10vw, 80px) !important; }
-
-            /* 3. Fluid Button Sizing */
-            .btn-join, .btn-outline { width: fit-content !important; display: inline-flex !important; padding: clamp(12px, 3vw, 16px) clamp(24px, 6vw, 36px) !important; }
+            /* Structural Layout Stacks */
             div[style*="display: flex; gap: 16px; margin-top: 40px;"] { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; margin-top: 0 !important; gap: 16px !important; }
+            .btn-join, .btn-outline { width: fit-content !important; display: inline-flex !important; }
+            .mission-split { grid-template-columns: 1fr !important; gap: var(--space-gap) !important; }
+            .mission-typo { align-items: flex-start !important; }
             
-            /* 4. Hero Footer Line */
-            .hero-footer-line { flex-direction: column !important; align-items: flex-start !important; margin-top: clamp(32px, 8vw, 56px) !important; gap: 12px !important; }
-            .hero-footer-line::before { width: 40px !important; height: 2px !important; }
-
-            /* 5. Stats Grid - auto fits based on width! */
-            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)) !important; gap: clamp(24px, 6vw, 40px) 16px !important; }
-
-            /* 6. Mission Split */
-            .mission-split { grid-template-columns: 1fr !important; gap: clamp(40px, 10vw, 64px) !important; }
-            .mission-text { text-align: left !important; align-items: flex-start !important; display: flex; flex-direction: column; }
-            .mission-typo { align-items: flex-start !important; gap: 8px !important; }
-            .mission-typo h3 { font-size: clamp(44px, 12vw, 72px) !important; text-align: left !important; transform: none !important; margin: 0; }
-
-            /* 7. Aircraft Showcase / Fleet Carousel */
-            .fleet-carousel { margin: 0 !important; width: 100% !important; border-radius: 12px !important; }
-            .fleet-slide { flex-direction: column-reverse !important; padding: clamp(24px, 6vw, 40px) clamp(16px, 5vw, 32px) !important; text-align: left !important; align-items: flex-start !important; gap: 24px !important; }
-            .fleet-info h3 { font-size: clamp(24px, 7vw, 32px) !important; }
-            .fleet-image { width: 100% !important; justify-content: center !important; }
-            .fleet-image img { max-height: clamp(180px, 40vw, 250px) !important; width: auto; object-fit: contain; }
+            /* Fleet Carousel Stack */
+            .fleet-slide { flex-direction: column-reverse !important; padding: var(--space-gap) var(--space-container) !important; text-align: left !important; align-items: flex-start !important; }
+            .fleet-image img { max-height: clamp(180px, 40vw, 250px) !important; }
             
-            /* 8. Native Horizontal Swipe Carousels */
-            .news-header, .partners-header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 24px !important; }
-            .news-grid, .partners-grid { 
-                display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; 
-                scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch !important; 
-                gap: max(3vw, 12px) !important; padding-bottom: 24px !important;
-                -ms-overflow-style: none; scrollbar-width: none;
-                /* Bleed to edges dynamically based on exact screen padding formula */
-                margin-left: calc(-1 * max(4vw, 16px)) !important;
-                margin-right: calc(-1 * max(4vw, 16px)) !important;
-                padding-left: max(4vw, 16px) !important;
-                padding-right: max(4vw, 16px) !important;
-            }
-            .news-grid::-webkit-scrollbar, .partners-grid::-webkit-scrollbar { display: none; }
-            .news-card, .partner-logo { 
-                /* Calculates exactly the screen width minus space for the next card to peek out */
-                flex: 0 0 calc(100vw - max(12vw, 48px)) !important; 
-                scroll-snap-align: center !important;
-                height: auto !important;
-            }
-            .news-card .news-img { height: clamp(180px, 45vw, 240px) !important; }
-            .partner-logo { height: clamp(140px, 35vw, 200px) !important; padding: clamp(20px, 5vw, 40px) !important; }
-
-            /* 9. Footer Cleanup (Overriding Inline HTML Styles) */
-            footer { overflow-x: hidden; width: 100%; padding-top: clamp(40px, 10vw, 64px) !important; }
-            
-            /* Target the top footer container and obliterate the 4-column inline style */
-            footer > .container:nth-of-type(1) {
-                grid-template-columns: 1fr !important;
-                gap: clamp(32px, 8vw, 48px) !important;
-                margin-bottom: 32px !important;
-            }
-            
-            /* Force all footer link blocks to stack vertically and align left */
-            footer > .container:nth-of-type(1) > div {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                text-align: left !important;
-                width: 100%;
-            }
-            
-            /* Fix the bottom copyright and social links row */
-            footer > .container:nth-of-type(2) {
-                flex-direction: column !important;
-                gap: 24px !important;
-                align-items: flex-start !important;
-            }
-            
-            /* Prevent long emails or links from breaking the layout */
-            .footer-contact-link, footer span {
-                word-break: break-word;
-                white-space: normal !important;
-                line-height: 1.6;
-            }
+            /* Footer Stacking */
+            footer > .container:nth-of-type(1) { grid-template-columns: 1fr !important; gap: 40px !important; }
+            footer > .container:nth-of-type(2) { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
+            .footer-contact-link, footer span { word-break: break-word; }
+        }
     </style>
 </head>
 <body>

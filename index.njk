@@ -83,7 +83,7 @@ title: "AeroClub | Home"
        HOMEPAGE SPECIFIC SECTIONS
     ========================================== */
     .stats-bar { background: var(--bg-panel-dark); border-bottom: 1px solid var(--border-dark); padding: 40px 0; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 24px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); text-align: center; gap: var(--space-gap); }
     .stat-value { font-size: 48px; font-weight: 800; color: var(--accent-cyan); margin-bottom: 8px; line-height: 1; }
     .stat-label { font-family: var(--font-data); font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
     
@@ -129,11 +129,11 @@ title: "AeroClub | Home"
     
     .news-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
     .news-header h2 { font-size: 32px; font-weight: 800; }
-    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--space-gap); }
     
     .news-card { background: var(--bg-deep); border: 1px solid var(--border-dark); display: flex; flex-direction: column; transition: border-color 0.2s; overflow: hidden; }
     .news-card:hover { border-color: var(--text-light); }
-    .news-img { height: 200px; overflow: hidden; border-bottom: 1px solid var(--border-dark); }
+    .news-img { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border-dark); }
     .news-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%); transition: filter 0.3s; }
     .news-card:hover .news-img img { filter: grayscale(0%); }
     .news-content { padding: 32px; flex: 1; display: flex; flex-direction: column; }
@@ -145,10 +145,10 @@ title: "AeroClub | Home"
     .news-card:hover .learn-more::after { transform: translateX(6px); }
 
     /* Team Roster Grid (Homepage) */
-    .home-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 80px; }
+    .home-team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--space-gap); margin-bottom: 80px; }
     .home-team-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; display: block; overflow: hidden; transition: border-color 0.2s ease; text-decoration: none; }
     .home-team-card:hover { border-color: var(--text-light); }
-    .home-team-img { height: 320px; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: #1E293B; }
+    .home-team-img { aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: #1E293B; }
     .home-team-img img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1); transition: transform 0.4s ease; }
     .home-team-card:hover .home-team-img img { transform: scale(1.03); }
     .home-team-info { padding: 24px; }
@@ -158,9 +158,9 @@ title: "AeroClub | Home"
     /* Premium Scaled-Down Sponsor Cards (Homepage) */
     .partners-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
     .partners-header h2 { font-size: 32px; font-weight: 800; }
-    .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .partners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: var(--space-gap); }
     
-    .partner-logo { background: #ffffff; border-radius: 8px; height: 180px; display: flex; justify-content: center; align-items: center; padding: 36px; text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+    .partner-logo { background: #ffffff; border-radius: 8px; aspect-ratio: 3 / 2; display: flex; justify-content: center; align-items: center; padding: 36px; text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
     .partner-logo:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
     .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
     .partner-logo:hover img { transform: scale(1.05); }
