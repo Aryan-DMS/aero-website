@@ -76,6 +76,10 @@ title: "AeroClub | Events"
         .page-section { padding: 120px 0; min-height: 80vh; border-bottom: 1px solid var(--border-dark); }
         .page-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-light); }
         .page-section p { font-size: 18px; color: var(--text-muted); }
+
+        /* Bulletproof Grid Capping (Bypasses Nunjucks Limits) */
+        .active-events-grid > a:nth-child(n+5) { display: none !important; }
+        .past-events-grid > a:nth-child(n+10) { display: none !important; }
 </style>
 
 <main id="events-page">
@@ -97,12 +101,18 @@ title: "AeroClub | Events"
                     <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Upcoming Events</h3>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-                    {% set activeTracker = namespace(count=0) %}
+                <!-- Count Active Events Safely without Mutating Variables -->
+                {% set activeCountStr %}
+                    {% for event in collections.events %}
+                        {% set eCard = event.data.card | default(event.data) %}
+                        {% if eCard.category == "Active" %}*{% endif %}
+                    {% endfor %}
+                {% endset %}
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;" class="active-events-grid">
                     {% for event in collections.events | reverse %}
                         {% set eCard = event.data.card | default(event.data) %}
-                        {% if eCard.category == "Active" and activeTracker.count < 4 %}
-                            {% set activeTracker.count = activeTracker.count + 1 %}
+                        {% if eCard.category == "Active" %}
                             <a href="{{ event.url }}" class="event-card">
                                 {% if eCard.image %}
                                 <div class="event-img">
@@ -121,7 +131,7 @@ title: "AeroClub | Events"
                 </div>
                 
                 <!-- "See All Active" Button -->
-                {% if activeTracker.count >= 4 %}
+                {% if (activeCountStr | length) > 4 %}
                 <div style="text-align: center; margin-top: 48px;">
                     <a href="/events/active/" class="btn-outline" style="padding: 16px 36px; font-size: 14px;">View All Active Events &rarr;</a>
                 </div>
@@ -137,12 +147,18 @@ title: "AeroClub | Events"
                     <h3 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Past Events</h3>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                    {% set pastTracker = namespace(count=0) %}
+                <!-- Count Past Events Safely -->
+                {% set pastCountStr %}
+                    {% for event in collections.events %}
+                        {% set eCard = event.data.card | default(event.data) %}
+                        {% if eCard.category == "Past" %}*{% endif %}
+                    {% endfor %}
+                {% endset %}
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" class="past-events-grid">
                     {% for event in collections.events | reverse %}
                         {% set eCard = event.data.card | default(event.data) %}
-                        {% if eCard.category == "Past" and pastTracker.count < 9 %}
-                            {% set pastTracker.count = pastTracker.count + 1 %}
+                        {% if eCard.category == "Past" %}
                             <a href="{{ event.url }}" class="event-card">
                                 {% if eCard.image %}
                                 <div class="event-img" style="height: 200px;">
@@ -161,7 +177,7 @@ title: "AeroClub | Events"
                 </div>
                 
                 <!-- "See All Past" Button -->
-                {% if pastTracker.count >= 9 %}
+                {% if (pastCountStr | length) > 9 %}
                 <div style="text-align: center; margin-top: 48px;">
                     <a href="/events/past/" class="btn-outline" style="padding: 16px 36px; font-size: 14px;">View All Past Events &rarr;</a>
                 </div>
