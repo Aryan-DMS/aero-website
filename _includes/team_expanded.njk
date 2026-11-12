@@ -42,6 +42,18 @@ layout: base.njk
             /* Visual 2: Contributions Row */
             .contribution-row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; }
 
+            /* High-End Corporate Actions Compartment */
+            .action-btn { display: flex; justify-content: center; align-items: center; width: 100%; gap: 10px; padding: 14px; box-sizing: border-box; border-radius: 4px; font-size: 15px; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-decoration: none; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; }
+            
+            .action-btn-primary { background: var(--accent-cyan); color: var(--bg-deep); }
+            .action-btn-primary:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
+            
+            .action-btn-outline { background: transparent; border-color: var(--border-dark); color: var(--text-light); }
+            .action-btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
+            
+            /* Strictly caps the SVGs so they never blow up */
+            .action-btn svg { width: 18px !important; height: 18px !important; flex-shrink: 0; }
+
             /* ==========================================
                MOBILE RESPONSIVE OVERRIDES
             ========================================== */
