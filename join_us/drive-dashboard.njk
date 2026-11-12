@@ -9,8 +9,8 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/index.html"
 <style>
     .dashboard-grid { 
         display: grid; 
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-        gap: 32px; 
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); 
+        gap: var(--space-gap); 
     }
     
     .mission-card {
