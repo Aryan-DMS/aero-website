@@ -1,0 +1,52 @@
+---
+layout: base.njk
+title: "AeroClub | Active Events"
+permalink: /events/active/index.html
+---
+<style>
+    .event-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; display: flex; flex-direction: column; transition: border-color 0.2s ease; overflow: hidden; text-decoration: none; }
+    .event-card:hover { border-color: var(--text-light); }
+    
+    .event-img { height: 260px; overflow: hidden; border-bottom: 1px solid var(--border-dark); }
+    .event-img img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1); transition: transform 0.4s ease; display: block; }
+    .event-card:hover .event-img img { transform: scale(1.03); }
+    
+    .event-content { padding: 40px; display: flex; flex-direction: column; flex: 1; }
+</style>
+
+<main style="background: var(--bg-panel-dark); min-height: 100vh;">
+    <section style="padding: 80px 0 40px; border-bottom: 1px solid var(--border-dark); background: var(--bg-deep);">
+        <div class="container">
+            <a href="/events/" style="font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Calendar</a>
+            <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">CURRENT SEASON</h4>
+            <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; color: var(--text-light); letter-spacing: -1px;">All Active Events</h2>
+            <p style="color: var(--text-muted); font-size: 20px; line-height: 1.6; max-width: 700px;">The complete schedule of upcoming deployments, technical symposiums, and operations.</p>
+        </div>
+    </section>
+
+    <section style="padding: 80px 0 120px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <!-- NO LIMITS: Infinite Loop -->
+                {% for event in collections.events | reverse %}
+                    {% set eCard = event.data.card | default(event.data) %}
+                    {% if eCard.category == "Active" %}
+                        <a href="{{ event.url }}" class="event-card">
+                            {% if eCard.image %}
+                            <div class="event-img">
+                                <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
+                            </div>
+                            {% endif %}
+                            <div class="event-content">
+                                <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                                <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ eCard.title }}</h3>
+                                <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ eCard.summary }}</p>
+                                <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Event Details →</span>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
