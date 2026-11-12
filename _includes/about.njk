@@ -47,6 +47,18 @@ title: "AeroClub | About"
         .page-section { padding: 120px 0; min-height: 80vh; border-bottom: 1px solid var(--border-dark); }
         .page-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-light); }
         .page-section p { font-size: 18px; color: var(--text-muted); }
+
+        /* ==========================================
+           MOBILE STACKING OVERRIDES
+        ========================================== */
+        @media (max-width: 960px) {
+            .about-overview-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .about-philosophy-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .about-buttons { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
+            .about-buttons a { width: 100% !important; text-align: center; }
+            .about-buttons-center { flex-direction: column !important; width: 100% !important; }
+            .about-buttons-center a { width: 100% !important; }
+        }
 </style>
 
 <main id="about-page">
@@ -61,19 +73,19 @@ title: "AeroClub | About"
         </section>
 
         <!-- Sub-section 1: Division Overview (Image on Right) -->
-        <section style="padding: 80px 0;">
-            <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+        <section style="padding: clamp(40px, 8vw, 80px) 0;">
+            <div class="container about-overview-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
                 <div>
                     <div style="margin-bottom: 32px;">
                         <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">{{ overview.subtitle }}</h4>
                         <h2 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Division Overview</h2>
                     </div>
-                    <div style="color: var(--text-muted); font-size: 18px; line-height: 1.8; margin-bottom: 32px;">
+                    <div style="color: var(--text-muted); font-size: 18px; line-height: 1.8; margin-bottom: 32px; max-width: 65ch;">
                         {{ overview.body | markdown | safe }}
                     </div>
                     
                     <!-- Inline Navigation -->
-                    <div style="display: flex; gap: 16px;">
+                    <div class="about-buttons" style="display: flex; gap: 16px;">
                         <a href="/team/" class="btn-join" style="padding: 12px 28px; font-size: 15px;">Meet the Team</a>
                         <a href="/models/" class="btn-outline" style="padding: 12px 28px; font-size: 15px;">View The Fleet</a>
                     </div>
@@ -85,13 +97,13 @@ title: "AeroClub | About"
         </section>
 
         <!-- Sub-section 2: Engineering Philosophy (Pure Text Grid) -->
-        <section style="padding: 80px 0; background: var(--bg-panel-dark); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);">
+        <section style="padding: clamp(60px, 8vw, 80px) 0; background: var(--bg-panel-dark); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);">
             <div class="container">
                 <div style="margin-bottom: 40px;">
                     <h4 style="font-family: var(--font-data); color: var(--accent-cyan); font-size: 14px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase;">CORE VALUES</h4>
                     <h2 style="font-size: 36px; font-weight: 800; color: var(--text-light); letter-spacing: -0.5px;">Engineering Philosophy</h2>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
+                <div class="about-philosophy-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
                     {% for pillar in philosophy %}
                     <div>
                         <h4 style="font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase;">0{{ loop.index }} // {{ pillar.title }}</h4>
@@ -116,7 +128,7 @@ title: "AeroClub | About"
                 </div>
                 
                 <!-- Inline Navigation -->
-                <div style="display: flex; gap: 16px; justify-content: center;">
+                <div class="about-buttons-center" style="display: flex; gap: 16px; justify-content: center;">
                     <a href="/achievements/" class="btn-outline" style="padding: 12px 28px; font-size: 15px;">View Track Record</a>
                     <a href="/gallery/" class="btn-outline" style="padding: 12px 28px; font-size: 15px;">Explore Facilities</a>
                 </div>
