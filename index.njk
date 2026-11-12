@@ -118,7 +118,8 @@ title: "AeroClub | Home"
         .partner-logo { flex: 0 0 70% !important; scroll-snap-align: center; height: auto !important; aspect-ratio: 3/2; }
     }
     
-    .home-section { padding: 80px 0; }
+    /* Fluid Vertical Rhythm */
+    .home-section { padding: clamp(40px, 8vw, 80px) 0; }
     
     .mission-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .mission-text h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.5px; }
@@ -178,7 +179,7 @@ title: "AeroClub | Home"
     .news-card:hover .learn-more::after { transform: translateX(6px); }
 
     /* Team Roster Grid (Homepage) */
-    .home-team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--space-gap); margin-bottom: 80px; }
+    .home-team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--space-gap); margin-bottom: 0; }
     .home-team-card { background: var(--bg-deep); border: 1px solid var(--border-dark); border-radius: 4px; display: block; overflow: hidden; transition: border-color 0.2s ease; text-decoration: none; }
     .home-team-card:hover { border-color: var(--text-light); }
     .home-team-img { aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: #1E293B; }
@@ -423,7 +424,7 @@ title: "AeroClub | Home"
     </section>
 
     <!-- BULLETPROOF SECTION: Sponsors -->
-    <section style="padding: 100px 0; background: linear-gradient(135deg, var(--bg-panel-dark) 0%, var(--bg-deep) 100%); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);">
+    <section style="padding: clamp(60px, 8vw, 100px) 0; background: linear-gradient(135deg, var(--bg-panel-dark) 0%, var(--bg-deep) 100%); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);">
         <div class="container">
             <div class="partners-header">
                 <div>
