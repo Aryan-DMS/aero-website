@@ -18,8 +18,11 @@ layout: base.njk
             .hud-item-label { font-family: var(--font-ui), sans-serif; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
             .hud-item-value { font-size: 15px; color: var(--text-light); font-weight: 600; }
             
-            .btn-hud { display: inline-block; width: 100%; text-align: center; padding: 14px; background: var(--text-light); color: var(--bg-deep); font-weight: 800; border-radius: 4px; text-decoration: none; transition: background 0.2s; font-family: var(--font-ui), sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
-            .btn-hud:hover { background: var(--accent-cyan); }
+            .btn-hud { display: inline-block; width: 100%; box-sizing: border-box; text-align: center; padding: 14px; background: var(--text-light); color: var(--bg-deep); font-weight: 800; border-radius: 4px; text-decoration: none; transition: all 0.2s ease; font-family: var(--font-ui), sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; border: 1px solid transparent; cursor: pointer; }
+            .btn-hud:hover { background: var(--accent-cyan); border-color: var(--accent-cyan); }
+            
+            .btn-hud-outline { background: transparent; border-color: var(--border-dark); color: var(--text-muted); }
+            .btn-hud-outline:hover { background: var(--bg-panel-dark); border-color: var(--text-light); color: var(--text-light); }
 
             /* Narrative Modules & Premium Typography */
             .narrative-flow { display: flex; flex-direction: column; gap: 60px; padding-top: 12px; }
@@ -99,9 +102,15 @@ layout: base.njk
                                 {% if bioJoined %}<div class="hud-item"><span class="hud-item-label">DATE JOINED</span><span class="hud-item-value">{{ bioJoined }}</span></div>{% endif %}
                             {% endif %}
                         </div>
-                        {% if bioLink %}
-                        <a href="{{ bioLink }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
-                        {% endif %}
+                        
+                        <!-- Official Actions Compartment -->
+                        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px; border-top: 1px solid var(--border-dark); padding-top: 24px;">
+                            {% if bioLink %}
+                            <a href="{{ bioLink }}" target="_blank" class="btn-hud">LinkedIn Profile ↗</a>
+                            {% endif %}
+                            <button id="share-btn" class="btn-hud btn-hud-outline" onclick="shareProfile()">Copy Profile Link 🔗</button>
+                            <button id="cert-btn" class="btn-hud btn-hud-outline" onclick="printCertificate()">Official Certificate 📜</button>
+                        </div>
                     </aside>
                     
                     <!-- Column 2: Specialist Dossier -->
@@ -196,4 +205,44 @@ layout: base.njk
                 </div>
             </div>
         </section>
+
+        <!-- Personnel Action Scripts -->
+        <script>
+            function shareProfile() {
+                // Grabs the exact active URL of the profile page
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    const btn = document.getElementById('share-btn');
+                    const originalText = btn.innerHTML;
+                    
+                    // UI Feedback State
+                    btn.innerHTML = 'Link Copied! ✓';
+                    btn.style.color = 'var(--text-light)';
+                    btn.style.borderColor = 'var(--text-light)';
+                    
+                    // Revert back after 2.5 seconds
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.color = '';
+                        btn.style.borderColor = '';
+                    }, 2500);
+                });
+            }
+
+            function printCertificate() {
+                const btn = document.getElementById('cert-btn');
+                const originalText = btn.innerHTML;
+                
+                // UI Feedback State (Coming Soon)
+                btn.innerHTML = 'Module Coming Soon ⏳';
+                btn.style.color = 'var(--accent-cyan)';
+                btn.style.borderColor = 'var(--accent-cyan)';
+                
+                // Revert back after 2.5 seconds
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 2500);
+            }
+        </script>
     </main>
