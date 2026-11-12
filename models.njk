@@ -12,11 +12,11 @@ title: "AeroClub | Models"
         .btn-outline:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
 
         /* Hardware Fleet Cards */
-        .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--space-gap); }
         .model-card { background: var(--bg-deep); border: 1px solid var(--border-dark); display: flex; flex-direction: column; transition: border-color 0.2s ease; overflow: hidden; text-decoration: none; }
         .model-card:hover { border-color: var(--text-light); }
         
-        .model-img { height: 280px; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 16px; display: flex; justify-content: center; align-items: center; }
+        .model-img { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 16px; display: flex; justify-content: center; align-items: center; }
         .model-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; filter: contrast(1.1); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .model-card:hover .model-img img { transform: scale(1.03); }
         
@@ -70,6 +70,36 @@ title: "AeroClub | Models"
         .page-section { padding: 120px 0; min-height: 80vh; border-bottom: 1px solid var(--border-dark); }
         .page-section h2 { font-size: 40px; font-weight: 800; margin-bottom: 24px; color: var(--text-light); }
         .page-section p { font-size: 18px; color: var(--text-muted); }
+
+        /* ==========================================
+           MOBILE APP-LIKE SCROLLING
+        ========================================== */
+        @media (max-width: 960px) {
+            /* Transform Grid into Horizontal Swipe Carousel */
+            .model-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+                
+                /* Edge-to-edge bleed */
+                margin-left: calc(-1 * var(--space-container));
+                margin-right: calc(-1 * var(--space-container));
+                padding-left: var(--space-container);
+                padding-right: var(--space-container);
+                padding-bottom: 32px;
+                gap: 16px !important;
+            }
+            .model-grid::-webkit-scrollbar { display: none; }
+            
+            .model-card {
+                flex: 0 0 85% !important;
+                scroll-snap-align: center;
+            }
+        }
 </style>
 
 <main id="models-page">
