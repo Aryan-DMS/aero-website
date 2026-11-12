@@ -116,10 +116,10 @@ title: "AeroClub | Sponsors"
         .launch-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
         
         /* Premium Original-Color Logo Wall */
-        .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
+        .sponsor-logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-gap); }
         
         /* Scaled up white cards with more vertical breadth and padding */
-        .sponsor-logo-box { background: #ffffff; border-radius: 8px; height: 200px; display: flex; align-items: center; justify-content: center; padding: 48px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .sponsor-logo-box { background: #ffffff; border-radius: 8px; aspect-ratio: 3 / 2; display: flex; align-items: center; justify-content: center; padding: 48px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         a.sponsor-logo-box:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 2px var(--accent-cyan); }
         
         /* No filters! Just pure original colors, contained beautifully */
@@ -129,6 +129,15 @@ title: "AeroClub | Sponsors"
         /* Fallback if Captain forgets to upload a logo (needs dark text since bg is white) */
         .sponsor-fallback-text { font-size: 20px; font-weight: 800; color: #1E293B; margin: 0; text-align: center; transition: color 0.3s ease; letter-spacing: -0.5px; }
         a.sponsor-logo-box:hover .sponsor-fallback-text { color: #0EA5E9; }
+
+        /* ==========================================
+           MOBILE DENSE GRID (WALL OF FAME)
+        ========================================== */
+        @media (max-width: 960px) {
+            .sponsor-logo-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+            .sponsor-logo-box { padding: 24px !important; }
+            .sponsor-fallback-text { font-size: 14px !important; }
+        }
 </style>
 
 <main id="sponsors">
