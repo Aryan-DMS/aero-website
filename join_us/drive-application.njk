@@ -8,9 +8,10 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/application/index.html"
 ---
 <style>
     /* Full 2-Column Structural Grid */
-    .report-container { max-width: 1200px; margin: 0 auto; padding: clamp(40px, 8vw, 80px) 24px clamp(80px, 12vw, 140px); }
+    .report-container { max-width: 1200px; margin: 0 auto; padding: clamp(40px, 8vw, 80px) 24px clamp(80px, 12vw, 140px); box-sizing: border-box; width: 100%; }
     
-    .report-grid { display: grid; grid-template-columns: 350px 1fr; gap: clamp(40px, 6vw, 80px); align-items: start; }
+    /* FIX: minmax(0, 1fr) mathematically prevents Grid Blowout by locking the max width */
+    .report-grid { display: grid; grid-template-columns: 350px minmax(0, 1fr); gap: clamp(40px, 6vw, 80px); align-items: start; width: 100%; box-sizing: border-box; }
     
     /* STICKY HUD STYLING */
     .hud-anchor { position: sticky; top: 120px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: clamp(24px, 4vw, 32px); border-radius: 8px; }
@@ -51,8 +52,9 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/application/index.html"
        MOBILE RESPONSIVE OVERRIDES
     ========================================== */
     @media (max-width: 1024px) { 
-        .report-grid { grid-template-columns: 1fr; }
-        .hud-anchor { position: relative; top: 0; margin-bottom: 16px; }
+        .report-grid { grid-template-columns: minmax(0, 1fr); }
+        .hud-anchor { position: relative; top: 0; margin-bottom: 16px; width: 100%; box-sizing: border-box; }
+        .narrative-flow { width: 100%; min-width: 0; }
     }
     @media (max-width: 768px) {
         .matrix-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
