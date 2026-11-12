@@ -38,22 +38,21 @@ layout: base.njk
         {% endif %}
         
         <!-- Massive Cinematic Header -->
-        <section style="height: 60vh; background: linear-gradient(to top, var(--bg-deep), transparent 60%), url('{{ card.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-bottom: 60px; border-bottom: 1px solid var(--border-dark);">
+        <section style="min-height: 50vh; height: auto; background: linear-gradient(to top, var(--bg-deep) 10%, rgba(11,17,33,0.2) 100%), url('{{ card.image }}') center/cover; position: relative; display: flex; align-items: flex-end; padding-top: 120px; padding-bottom: clamp(40px, 8vw, 60px); border-bottom: 1px solid var(--border-dark);">
             <div class="container" style="width: 100%;">
-                <a href="/achievements/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s;">← Back to Archives</a>
-                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px;">{{ pageMeta }}</span>
-                <h1 style="font-size: 56px; font-weight: 800; line-height: 1.1; max-width: 900px; letter-spacing: -1px;">{{ pageTitle }}</h1>
+                <a href="/achievements/" style="font-family: var(--font-data); color: var(--text-muted); text-transform: uppercase; font-size: 11px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; transition: color 0.2s; letter-spacing: 1px;">← Back to Archives</a>
+                <span style="display: block; color: var(--accent-cyan); font-family: var(--font-data); letter-spacing: 1px; margin-bottom: 16px; font-size: clamp(12px, 2vw, 14px); text-transform: uppercase;">{{ pageMeta }}</span>
+                <h1 style="font-size: clamp(40px, 8vw, 56px); font-weight: 900; line-height: 1.1; max-width: 900px; letter-spacing: -1px; color: var(--text-light); margin: 0;">{{ pageTitle }}</h1>
             </div>
         </section>
 
         <style>
             /* The 30/70 Macro Grid */
-            .report-grid { display: grid; grid-template-columns: 320px 1fr; gap: 60px; align-items: start; }
-            @media (max-width: 1024px) { .report-grid { grid-template-columns: 1fr; } }
+            .report-grid { display: grid; grid-template-columns: 320px 1fr; gap: clamp(40px, 6vw, 64px); align-items: start; }
             
             /* Sticky HUD Anchor (Unified Corporate Aesthetic) */
-            .hud-anchor { position: sticky; top: 120px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: 32px; border-radius: 8px; }
-            .hud-metric { font-size: 52px; font-weight: 900; color: var(--text-light); line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; text-transform: uppercase; }
+            .hud-anchor { position: sticky; top: 120px; background: var(--bg-panel-dark); border: 1px solid var(--border-dark); padding: clamp(24px, 4vw, 32px); border-radius: 8px; }
+            .hud-metric { font-size: clamp(40px, 6vw, 52px); font-weight: 900; color: var(--text-light); line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; text-transform: uppercase; }
             .hud-submetric { display: block; font-size: 24px; font-weight: 800; color: var(--text-muted); margin-top: 4px; letter-spacing: -0.5px; }
             .hud-label { font-family: var(--font-ui), sans-serif; font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 32px; display: block; }
             .hud-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
@@ -103,16 +102,30 @@ layout: base.njk
             .dash-label { font-family: var(--font-data); font-size: 11px; font-weight: 700; color: var(--accent-cyan); letter-spacing: 1.5px; text-transform: uppercase; }
             
             /* Up Next Recommendation Block (Restored) */
-            .next-report { border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: 80px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; text-decoration: none; }
+            .next-report { border-top: 1px solid var(--border-dark); background: var(--bg-panel-dark); padding: clamp(60px, 8vw, 80px) 20px; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; text-decoration: none; }
             .next-report:hover { background: var(--bg-deep); border-top-color: var(--accent-cyan); }
             .next-report:hover .next-title { color: var(--accent-cyan); transform: translateX(12px); }
             .next-label { font-family: var(--font-data); color: var(--text-muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; transition: color 0.3s ease; }
             .next-report:hover .next-label { color: var(--text-light); }
-            .next-title { font-size: 48px; font-weight: 900; color: var(--text-light); letter-spacing: -1px; margin: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
+            .next-title { font-size: clamp(32px, 6vw, 48px); font-weight: 900; color: var(--text-light); letter-spacing: -1px; margin: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
+
+            /* ==========================================
+               MOBILE RESPONSIVE OVERRIDES
+            ========================================== */
+            @media (max-width: 1024px) { 
+                .report-grid { grid-template-columns: 1fr; }
+                .hud-anchor { position: relative; top: 0; margin-bottom: 16px; }
+            }
+            @media (max-width: 768px) {
+                .matrix-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+                .matrix-left { padding: 0; border-right: none; }
+                .matrix-right { padding: 0; }
+                .flight-dashboard { grid-template-columns: 1fr; }
+            }
         </style>
 
         <!-- Dynamic Architectural Layout -->
-        <section style="padding: 80px 0;">
+        <section style="padding: clamp(40px, 8vw, 80px) 0;">
             <div class="container report-grid">
                 
                 <!-- Column 1: Sticky HUD Anchor -->
