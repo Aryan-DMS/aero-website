@@ -25,18 +25,16 @@ title: "AeroClub | Events"
         /* ==========================================
            UNIFIED HORIZONTAL TIMELINE
         ========================================== */
-        .timeline-wrapper { width: 100%; overflow-x: auto; padding-bottom: 32px; scroll-behavior: smooth; cursor: grab; }
+        .timeline-wrapper { width: 100%; overflow-x: auto; padding-bottom: 32px; cursor: grab; user-select: none; -ms-overflow-style: none; scrollbar-width: none; }
         .timeline-wrapper:active { cursor: grabbing; }
-        .timeline-wrapper::-webkit-scrollbar { height: 6px; }
-        .timeline-wrapper::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
-        .timeline-wrapper::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 4px; transition: background 0.2s; }
-        .timeline-wrapper:hover::-webkit-scrollbar-thumb { background: var(--accent-cyan); }
+        /* Completely hide the scrollbar */
+        .timeline-wrapper::-webkit-scrollbar { display: none; }
         
         .timeline-track { display: flex; gap: 64px; min-width: max-content; padding: 40px 24px 0; border-top: 2px solid var(--border-dark); position: relative; margin-top: 32px; }
         .timeline-node { width: 340px; position: relative; display: flex; flex-direction: column; white-space: normal; }
         
-        .timeline-dot { position: absolute; left: 0; top: -48px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--text-muted); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2; }
-        .timeline-node:hover .timeline-dot { background: var(--accent-cyan); border-color: var(--accent-cyan); transform: scale(1.3); box-shadow: 0 0 12px rgba(14, 165, 233, 0.4); }
+        .timeline-dot { position: absolute; left: 0; top: -48px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--text-muted); transition: all 0.2s ease; z-index: 2; }
+        .timeline-node:hover .timeline-dot { background: var(--text-light); border-color: var(--accent-cyan); }
         
         .timeline-meta { font-family: var(--font-data); font-size: 13px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 12px; display: block; text-transform: uppercase; font-weight: 700; }
         .timeline-title { font-size: 22px; font-weight: 800; color: var(--text-light); margin-bottom: 12px; line-height: 1.3; }
@@ -100,25 +98,34 @@ title: "AeroClub | Events"
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                    {% set activeTracker = namespace(count=0) %}
                     {% for event in collections.events | reverse %}
-                    {% set eCard = event.data.card | default(event.data) %}
-                    {% if eCard.category == "Active" %}
-                    <a href="{{ event.url }}" class="event-card">
-                        {% if eCard.image %}
-                        <div class="event-img">
-                            <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
-                        </div>
+                        {% set eCard = event.data.card | default(event.data) %}
+                        {% if eCard.category == "Active" and activeTracker.count < 4 %}
+                            {% set activeTracker.count = activeTracker.count + 1 %}
+                            <a href="{{ event.url }}" class="event-card">
+                                {% if eCard.image %}
+                                <div class="event-img">
+                                    <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
+                                </div>
+                                {% endif %}
+                                <div class="event-content">
+                                    <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                                    <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ eCard.title }}</h3>
+                                    <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ eCard.summary }}</p>
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Event Details →</span>
+                                </div>
+                            </a>
                         {% endif %}
-                        <div class="event-content">
-                            <span style="font-family: var(--font-data); font-size: 14px; color: var(--accent-cyan); letter-spacing: 1px; margin-bottom: 16px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
-                            <h3 style="font-size: 32px; font-weight: 800; color: var(--text-light); margin-bottom: 16px;">{{ eCard.title }}</h3>
-                            <p style="color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; flex: 1;">{{ eCard.summary }}</p>
-                            <span style="font-size: 13px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">View Event Details →</span>
-                        </div>
-                    </a>
-                    {% endif %}
                     {% endfor %}
                 </div>
+                
+                <!-- "See All Active" Button -->
+                {% if activeTracker.count >= 4 %}
+                <div style="text-align: center; margin-top: 48px;">
+                    <a href="/events/active/" class="btn-outline" style="padding: 16px 36px; font-size: 14px;">View All Active Events &rarr;</a>
+                </div>
+                {% endif %}
             </div>
         </section>
 
@@ -131,25 +138,34 @@ title: "AeroClub | Events"
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                    {% set pastTracker = namespace(count=0) %}
                     {% for event in collections.events | reverse %}
-                    {% set eCard = event.data.card | default(event.data) %}
-                    {% if eCard.category == "Past" %}
-                    <a href="{{ event.url }}" class="event-card">
-                        {% if eCard.image %}
-                        <div class="event-img" style="height: 200px;">
-                            <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
-                        </div>
+                        {% set eCard = event.data.card | default(event.data) %}
+                        {% if eCard.category == "Past" and pastTracker.count < 9 %}
+                            {% set pastTracker.count = pastTracker.count + 1 %}
+                            <a href="{{ event.url }}" class="event-card">
+                                {% if eCard.image %}
+                                <div class="event-img" style="height: 200px;">
+                                    <img src="{{ eCard.image }}" alt="{{ eCard.title }}">
+                                </div>
+                                {% endif %}
+                                <div class="event-content-past">
+                                    <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
+                                    <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ eCard.title }}</h4>
+                                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ eCard.summary }}</p>
+                                    <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Read Recap ↗</span>
+                                </div>
+                            </a>
                         {% endif %}
-                        <div class="event-content-past">
-                            <span style="font-family: var(--font-data); font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 12px; display: block;">{{ eCard.dateString }} // {{ eCard.location }}</span>
-                            <h4 style="font-size: 20px; font-weight: 700; color: var(--text-light); margin-bottom: 12px;">{{ eCard.title }}</h4>
-                            <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; flex: 1;">{{ eCard.summary }}</p>
-                            <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px;">Read Recap ↗</span>
-                        </div>
-                    </a>
-                    {% endif %}
                     {% endfor %}
                 </div>
+                
+                <!-- "See All Past" Button -->
+                {% if pastTracker.count >= 9 %}
+                <div style="text-align: center; margin-top: 48px;">
+                    <a href="/events/past/" class="btn-outline" style="padding: 16px 36px; font-size: 14px;">View All Past Events &rarr;</a>
+                </div>
+                {% endif %}
             </div>
         </section>
 
@@ -179,3 +195,32 @@ title: "AeroClub | Events"
             </div>
         </section>
     </main>
+
+    <!-- Timeline Drag-to-Scroll Engine -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.querySelector('.timeline-wrapper');
+            if (!slider) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            slider.addEventListener('mouseup', () => { isDown = false; });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault(); // Prevent text highlighting while dragging
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll speed multiplier
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
