@@ -9,19 +9,22 @@ title: "AeroClub | Contact"
         .contact-item { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
         .contact-label { font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-muted); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
         
-        /* Minimalist Pill Tags (No gimmicks, pure architecture) */
-        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-dark); border-radius: 40px; color: var(--text-light); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: default; }
+        /* Institutional Contact Tags (Cohesive Dual-Color Inversion) */
+        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: transparent; border: 1px solid var(--border-dark); border-radius: 6px; color: var(--text-light); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: default; }
         a.contact-pill { cursor: pointer; }
+        
         @media (hover: hover) {
-            a.contact-pill:hover { background: rgba(14, 165, 233, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-1px); }
+            a.contact-pill:hover { background: var(--text-light); color: var(--bg-deep); border-color: var(--text-light); }
         }
+        
         .contact-pill svg { width: 16px; height: 16px; color: var(--text-muted); transition: color 0.2s ease; }
+        
         @media (hover: hover) {
-            a.contact-pill:hover svg { color: var(--accent-cyan); }
+            a.contact-pill:hover svg { color: var(--bg-deep); }
         }
         
         /* Multi-line text fix for location pill */
-        .contact-pill.location-pill { border-radius: 12px; align-items: flex-start; padding: 14px 16px; }
+        .contact-pill.location-pill { align-items: flex-start; padding: 14px 16px; }
         .contact-pill.location-pill svg { margin-top: 2px; flex-shrink: 0; }
         
         .social-links { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -204,12 +207,25 @@ title: "AeroClub | Contact"
                     <div style="margin-top: 48px; border-top: 1px solid var(--border-dark); padding-top: 32px;">
                         <span class="contact-label" style="margin-bottom: 16px; display: block;">Social Network</span>
                         <div class="social-links">
-                            {% for social in socials %}
-                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" class="contact-pill">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                                {{ social.platform }}
+                            
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/teamaerialmartial/" target="_blank" rel="noopener noreferrer" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                @teamaerialmartial
                             </a>
-                            {% endfor %}
+                            
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/company/team-aerial-martialmcoe" target="_blank" rel="noopener noreferrer" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                team-aerial-martial
+                            </a>
+                            
+                            <!-- YouTube -->
+                            <a href="https://www.youtube.com/channel/UCBD1x9EdxqMjrMDhqJWB4yg" target="_blank" rel="noopener noreferrer" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                                Aerial Martial
+                            </a>
+                            
                         </div>
                     </div>
 
