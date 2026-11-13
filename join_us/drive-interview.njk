@@ -300,7 +300,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
         document.getElementById('roster-table').style.display = visibleCount === 0 ? 'none' : 'table';
     };
 
-    // Institutional PDF Generation Engine
+    // Institutional PDF Generation Engine (1:1 Reference Match)
     window.downloadPDF = function() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -310,73 +310,102 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
         const phaseName = document.querySelector('.hud-metric').innerText; // Grabs Phase 02, 03, etc.
         const dateString = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-        // 1. INSTITUTIONAL LETTERHEAD (Centered)
+        // Corporate Colors
+        const navyBlue = [21, 40, 75];
+        const textGray = [100, 100, 100];
+        const borderGray = [180, 180, 180]; // Darker, crisp borders
+
+        // 1. INSTITUTIONAL LETTERHEAD
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.setTextColor(80, 80, 80);
         doc.text("Progressive Education Society's", pageWidth / 2, 16, { align: "center" });
         
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(15, 23, 42); // Navy
-        doc.text("Modern College of Engineering, Pune-05.", pageWidth / 2, 22, { align: "center" });
+        doc.setFontSize(11);
+        doc.setTextColor(navyBlue[0], navyBlue[1], navyBlue[2]);
+        doc.text("Modern College of Engineering, Pune-05.", pageWidth / 2, 21, { align: "center" });
         
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9);
         doc.setTextColor(80, 80, 80);
-        doc.text("(An Autonomous Institute Affiliated to Savitribai Phule Pune University)", pageWidth / 2, 27, { align: "center" });
+        doc.text("(An Autonomous Institute Affiliated to Savitribai Phule Pune University)", pageWidth / 2, 26, { align: "center" });
         
         doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
-        doc.text("Department of F. Y. B. Tech", pageWidth / 2, 32, { align: "center" });
+        doc.text("Aeromodelling Club", pageWidth / 2, 31, { align: "center" });
 
-        // Separator Line
-        doc.setDrawColor(200, 200, 200);
-        doc.setLineWidth(0.3);
+        // Left Vertical Divider (Logo Placeholder Area)
+        doc.setDrawColor(borderGray[0], borderGray[1], borderGray[2]);
+        doc.setLineWidth(0.4);
+        doc.line(40, 14, 40, 32); 
+
+        // Main Horizontal Separator
+        doc.setLineWidth(0.5);
         doc.line(14, 38, pageWidth - 14, 38);
 
         // 2. MAIN REPORT TITLE & FLANKING LINES
-        doc.setFontSize(22);
+        doc.setFontSize(26);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(15, 23, 42); // Navy Blue
+        doc.setTextColor(navyBlue[0], navyBlue[1], navyBlue[2]);
         doc.text("TEAM AERIAL MARTIAL", pageWidth / 2, 52, { align: "center" });
         
-        doc.setFontSize(11);
+        doc.setFontSize(12);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(100, 100, 100);
+        doc.setTextColor(textGray[0], textGray[1], textGray[2]);
         doc.text("R E C R U I T M E N T   D R I V E", pageWidth / 2, 60, { align: "center" });
 
         // Flanking Lines next to the title
-        doc.setDrawColor(15, 23, 42);
-        doc.setLineWidth(0.5);
-        doc.line(14, 49, (pageWidth / 2) - 62, 49); // Left line
-        doc.line((pageWidth / 2) + 62, 49, pageWidth - 14, 49); // Right line
+        doc.setDrawColor(navyBlue[0], navyBlue[1], navyBlue[2]);
+        doc.setLineWidth(0.6);
+        doc.line(14, 49, (pageWidth / 2) - 68, 49); // Left line
+        doc.line((pageWidth / 2) + 68, 49, pageWidth - 14, 49); // Right line
 
         // 3. METADATA BANNER (Rounded Box)
-        doc.setFillColor(248, 250, 252); // Ultra light gray bg
-        doc.setDrawColor(226, 232, 240); // Subtle border
+        doc.setFillColor(246, 248, 250);
+        doc.setDrawColor(220, 224, 228); 
         doc.setLineWidth(0.3);
-        doc.roundedRect(14, 68, pageWidth - 28, 16, 2, 2, 'FD'); // Filled and Stroked
+        doc.roundedRect(14, 68, pageWidth - 28, 16, 2, 2, 'FD'); 
+
+        // DRAW NATIVE ICONS (No external images required)
+        doc.setDrawColor(100, 100, 100);
+        doc.setLineWidth(0.4);
+        
+        // Calendar Icon
+        doc.roundedRect(20, 71, 6, 6, 1, 1);
+        doc.line(20, 73.5, 26, 73.5);
+        doc.line(22, 70, 22, 72);
+        doc.line(24, 70, 24, 72);
+        
+        // Stage/Layers Icon (Stacked diamonds)
+        doc.line(90, 73, 93, 71); doc.line(93, 71, 96, 73); doc.line(96, 73, 93, 75); doc.line(93, 75, 90, 73); // Top layer
+        doc.line(90, 75, 93, 77); doc.line(93, 77, 96, 75); // Mid layer
+        doc.line(90, 77, 93, 79); doc.line(93, 79, 96, 77); // Bot layer
+
+        // Clock Icon
+        doc.circle(150, 74, 3);
+        doc.line(150, 74, 150, 72);
+        doc.line(150, 74, 151.5, 75.5);
 
         // Metadata Labels
         doc.setFontSize(8);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(100, 100, 100);
-        doc.text("CYCLE", 20, 74);
+        doc.setTextColor(textGray[0], textGray[1], textGray[2]);
+        doc.text("CYCLE", 30, 74);
         doc.text("STAGE", 100, 74);
-        doc.text("GENERATED", 150, 74);
+        doc.text("GENERATED", 158, 74);
 
         // Metadata Values
-        doc.setFontSize(9);
+        doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(15, 23, 42);
-        doc.text(driveName, 20, 80);
+        doc.setTextColor(20, 20, 20);
+        doc.text(driveName, 30, 80);
         doc.text(phaseName, 100, 80);
-        doc.text(dateString, 150, 80);
+        doc.text(dateString, 158, 80);
 
         // Vertical Divider Lines inside Banner
-        doc.setDrawColor(226, 232, 240);
-        doc.line(94, 70, 94, 82);
+        doc.setDrawColor(200, 205, 210);
+        doc.line(85, 70, 85, 82);
         doc.line(144, 70, 144, 82);
 
         // 4. SMART DATA EXTRACTION (Respects Live Search, Ignores Dark Mode CSS)
@@ -396,38 +425,42 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/interview/index.html"
             }
         });
 
-        // 5. RENDER PROFESSIONAL TABLE
+        // 5. RENDER PERFECT TABLE (Match Reference 1:1)
         doc.autoTable({
             head: [headers],
             body: rows,
             startY: 92,
             theme: 'grid',
             headStyles: { 
-                fillColor: [15, 23, 42], // Exact Navy Blue from reference
+                fillColor: navyBlue, 
                 textColor: [255, 255, 255], 
                 fontStyle: 'bold', 
                 fontSize: 10, 
-                halign: 'center' 
+                halign: 'center',
+                valign: 'middle'
             },
             bodyStyles: { 
                 font: 'helvetica', 
-                fontSize: 9, 
-                textColor: [51, 51, 51] 
+                fontSize: 10, 
+                textColor: [40, 40, 40],
+                valign: 'middle'
             },
             alternateRowStyles: { 
-                fillColor: [241, 245, 249] // Faint gray alternating rows
+                fillColor: [244, 246, 249] // Light, clean gray alternating rows
             },
             styles: { 
-                cellPadding: 6, 
-                lineColor: [226, 232, 240], 
-                lineWidth: 0.1 
+                cellPadding: 6, // Proportional height so it doesn't look squished
+                lineColor: borderGray, // Crisp, bold visible grid lines
+                lineWidth: 0.2 
             },
             columnStyles: { 
-                0: { halign: 'left', fontStyle: 'bold' } 
+                0: { halign: 'left', fontStyle: 'bold' },
+                1: { halign: 'center' },
+                2: { halign: 'center', fontStyle: 'bold', textColor: navyBlue } // Professional pop for the status
             }
         });
 
         // Trigger Native Download
-        doc.save(`Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
+        doc.save(`Team_Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
     };
 </script>
