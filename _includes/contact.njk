@@ -9,8 +9,8 @@ title: "AeroClub | Contact"
         .contact-item { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
         .contact-label { font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-muted); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
         
-        /* Institutional Contact Tags (Cohesive Dual-Color Inversion) */
-        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: transparent; border: 1px solid var(--border-dark); border-radius: 6px; color: var(--text-light); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: default; }
+        /* Institutional Contact Tags (Restored App-Pill Shape with Cohesive Hover) */
+        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-dark); border-radius: 40px; color: var(--text-light); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: default; }
         a.contact-pill { cursor: pointer; }
         
         @media (hover: hover) {
@@ -24,7 +24,7 @@ title: "AeroClub | Contact"
         }
         
         /* Multi-line text fix for location pill */
-        .contact-pill.location-pill { align-items: flex-start; padding: 14px 16px; }
+        .contact-pill.location-pill { border-radius: 12px; align-items: flex-start; padding: 14px 16px; }
         .contact-pill.location-pill svg { margin-top: 2px; flex-shrink: 0; }
         
         .social-links { display: flex; gap: 12px; flex-wrap: wrap; }
