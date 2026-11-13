@@ -182,11 +182,12 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                     
                     <div class="data-table-wrapper" style="margin: 0;">
                         <table id="roster-table">
-                            <thead><tr><th>Applicant Name</th><th>Division Preference</th><th>Status</th></tr></thead>
+                            <thead><tr><th>Sr. No.</th><th>Applicant Name</th><th>Division Preference</th><th>Status</th></tr></thead>
                             <tbody>
                                 {% for applicant in csvData[driveEntry.fileSlug] %}
                                     {% if applicant['Test Cleared'] == 'Yes' %}
                                     <tr>
+                                        <td style="font-family: var(--font-data); color: var(--text-muted); font-weight: 700;">{{ loop.index }}</td>
                                         <td>{{ applicant['Full Name'] }}</td>
                                         <td>{{ applicant['Division Preference'] }}</td>
                                         <td style="color: var(--accent-cyan); font-weight: 700;">CLEARED</td>
@@ -285,7 +286,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
         for (let i = 0; i < trs.length; i++) {
             const tds = trs[i].getElementsByTagName("td");
             if (tds.length > 0) {
-                const nameCell = tds[0]; // Name is in the first column
+                const nameCell = tds[1]; // Shifted: Name is now in the second column
                 const nameText = nameCell.textContent || nameCell.innerText;
                 if (nameText.toUpperCase().indexOf(filter) > -1) {
                     trs[i].style.display = "";
@@ -300,14 +301,14 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
         document.getElementById('roster-table').style.display = visibleCount === 0 ? 'none' : 'table';
     };
 
-    // Institutional PDF Generation Engine (Typography & Layout Perfected)
+    // Institutional PDF Generation Engine (Flawless Grid & Alignment)
     window.downloadPDF = function() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
         const pageWidth = doc.internal.pageSize.width;
         
         const driveName = "{{ driveEntry.data.title | default('Recruitment Drive') | upper }}";
-        const phaseName = document.querySelector('.hud-metric').innerText; // Grabs Phase 02, 03, etc.
+        const phaseName = document.querySelector('.hud-metric').innerText; 
         const dateString = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
         // Corporate Colors
@@ -336,7 +337,6 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
         doc.setTextColor(40, 40, 40);
         doc.text("Aeromodelling Club", pageWidth / 2, 31, { align: "center" });
 
-        // Left Vertical Divider (Logo Placeholder Area)
         doc.setDrawColor(borderGray[0], borderGray[1], borderGray[2]);
         doc.setLineWidth(0.4);
         doc.line(36, 14, 36, 32); 
@@ -346,7 +346,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
         doc.setLineWidth(0.5);
         doc.line(14, 37, pageWidth - 14, 37);
 
-        // 2. MAIN REPORT TITLE & FLANKING LINES
+        // 2. MAIN REPORT TITLE
         doc.setFontSize(26);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(navyBlue[0], navyBlue[1], navyBlue[2]);
@@ -357,63 +357,61 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
         doc.setTextColor(textGray[0], textGray[1], textGray[2]);
         doc.text("R E C R U I T M E N T   D R I V E", pageWidth / 2, 58, { align: "center" });
 
-        // Flanking Lines next to the title
         doc.setDrawColor(navyBlue[0], navyBlue[1], navyBlue[2]);
         doc.setLineWidth(0.6);
-        doc.line(14, 48.5, (pageWidth / 2) - 68, 48.5); // Left line
-        doc.line((pageWidth / 2) + 68, 48.5, pageWidth - 14, 48.5); // Right line
+        doc.line(14, 48.5, (pageWidth / 2) - 68, 48.5); 
+        doc.line((pageWidth / 2) + 68, 48.5, pageWidth - 14, 48.5); 
 
-        // 3. METADATA BANNER (Rounded Box)
+        // 3. METADATA BANNER
         doc.setFillColor(248, 250, 252);
         doc.setDrawColor(226, 232, 240); 
         doc.setLineWidth(0.3);
         doc.roundedRect(14, 66, pageWidth - 28, 14, 2, 2, 'FD'); 
 
-        // DRAW NATIVE ICONS
+        // DRAW NATIVE ICONS (Mathematically Centered)
         doc.setDrawColor(100, 100, 100);
         doc.setLineWidth(0.4);
         
-        // Calendar Icon (X: 18)
-        doc.roundedRect(18, 69.5, 5, 5, 0.5, 0.5);
-        doc.line(18, 71.5, 23, 71.5);
-        doc.line(19.5, 68.5, 19.5, 70.5);
-        doc.line(21.5, 68.5, 21.5, 70.5);
+        // Calendar Icon (X: 19)
+        doc.roundedRect(19, 70, 6, 6, 0.5, 0.5);
+        doc.line(19, 72, 25, 72);
+        doc.line(20.5, 69, 20.5, 71);
+        doc.line(23.5, 69, 23.5, 71);
         
-        // Stage/Layers Icon (X: 92)
-        doc.line(90, 72, 92.5, 70.5); doc.line(92.5, 70.5, 95, 72); doc.line(95, 72, 92.5, 73.5); doc.line(92.5, 73.5, 90, 72); 
-        doc.line(90, 73.5, 92.5, 75); doc.line(92.5, 75, 95, 73.5); 
-        doc.line(90, 75, 92.5, 76.5); doc.line(92.5, 76.5, 95, 75); 
+        // Stage/Layers Icon (X: 91)
+        doc.line(91, 71.5, 94, 70); doc.line(94, 70, 97, 71.5); doc.line(97, 71.5, 94, 73); doc.line(94, 73, 91, 71.5); 
+        doc.line(91, 73.5, 94, 75); doc.line(94, 75, 97, 73.5); 
+        doc.line(91, 75.5, 94, 77); doc.line(94, 77, 97, 75.5); 
 
-        // Clock Icon (X: 148)
-        doc.circle(149.5, 73, 2.8);
-        doc.line(149.5, 73, 149.5, 71);
-        doc.line(149.5, 73, 151, 74);
+        // Clock Icon (X: 150)
+        doc.circle(150, 73, 3);
+        doc.line(150, 73, 150, 71);
+        doc.line(150, 73, 151.5, 74.5);
 
-        // Vertical Divider Lines inside Banner (Recalculated Spacing)
+        // Vertical Dividers
         doc.setDrawColor(220, 224, 228);
-        doc.line(86, 66, 86, 80);
-        doc.line(143, 66, 143, 80);
+        doc.line(85, 66, 85, 80);
+        doc.line(141, 66, 141, 80);
 
         // Metadata Labels
         doc.setFontSize(7);
         doc.setFont("helvetica", "normal");
         doc.setTextColor(textGray[0], textGray[1], textGray[2]);
-        doc.text("CYCLE", 26, 71.5);
-        doc.text("STAGE", 98, 71.5);
-        doc.text("GENERATED", 155, 71.5);
+        doc.text("CYCLE", 28, 71.5);
+        doc.text("STAGE", 100, 71.5);
+        doc.text("GENERATED", 156, 71.5);
 
         // Metadata Values
         doc.setFontSize(9);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(20, 20, 20);
         
-        // Truncate drive name safely so it never clips the divider
         const safeDriveName = driveName.length > 30 ? driveName.substring(0, 30) + '...' : driveName;
-        doc.text(safeDriveName, 26, 76.5);
-        doc.text(phaseName, 98, 76.5);
-        doc.text(dateString, 155, 76.5);
+        doc.text(safeDriveName, 28, 76.5);
+        doc.text(phaseName, 100, 76.5);
+        doc.text(dateString, 156, 76.5);
 
-        // 4. SMART DATA EXTRACTION (Respects Live Search, Ignores Dark Mode CSS)
+        // 4. SMART DATA EXTRACTION
         const table = document.getElementById("roster-table");
         const headers = [];
         const rows = [];
@@ -428,7 +426,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
             }
         });
 
-        // 5. RENDER PERFECT TABLE (Tightened cell padding for premium feel)
+        // 5. RENDER PERFECT TABLE (Centered globally)
         doc.autoTable({
             head: [headers],
             body: rows,
@@ -439,31 +437,26 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/shortlist/index.html"
                 textColor: [255, 255, 255], 
                 fontStyle: 'bold', 
                 fontSize: 9, 
-                halign: 'center',
+                halign: 'center', // Locks all headers strictly to center
                 valign: 'middle'
             },
             bodyStyles: { 
                 font: 'helvetica', 
                 fontSize: 9, 
                 textColor: [40, 40, 40],
+                halign: 'center', // Locks all cell data strictly to center
                 valign: 'middle'
             },
             alternateRowStyles: { 
-                fillColor: [246, 248, 250] // Extremely subtle gray
+                fillColor: [246, 248, 250] 
             },
             styles: { 
-                cellPadding: 3.5, // Reduced from 6 to kill the bloated look
+                cellPadding: 3.5, 
                 lineColor: [210, 215, 220], 
                 lineWidth: 0.1 
-            },
-            columnStyles: { 
-                0: { halign: 'left', fontStyle: 'bold' },
-                1: { halign: 'center' },
-                2: { halign: 'center', fontStyle: 'bold', textColor: navyBlue }
             }
         });
 
-        // Trigger Native Download
         doc.save(`Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
     };
 </script>
