@@ -19,172 +19,86 @@ media_library:
       - quality: auto
 
 collections:
-  # ==========================================
-  # GROUP 1: ACTIVE OPERATIONS
-  # ==========================================
-  - name: "events"
-    label: "🚀 Upcoming Events"
-    folder: "content/events"
-    create: true
-    slug: "{{year}}-{{month}}-{{slug}}"
-    summary: "[{{card.category}}] {{card.title}} // {{card.dateString}}"
-    fields:
-      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
-      - label: "📦 BOX 1: THE GRID CARD (Always Required)"
-        name: "card"
-        widget: "object"
-        collapsed: false
+  - name: "page_home"
+    label: "Homepage"
+    files:
+      - label: "Homepage Editor"
+        name: "home"
+        file: "content/pages/home.md"
         fields:
-          - {label: "Event Title", name: "title", widget: "string"}
-          - {label: "Category", name: "category", widget: "select", options: ["Active", "Past"]}
-          - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
-          - {label: "Location or Type", name: "location", widget: "string"}
-          - {label: "Card Summary", name: "summary", widget: "text"}
-          - {label: "Cover Image", name: "image", widget: "image"}
-          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          
-      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
-        name: "automation"
-        widget: "object"
-        collapsed: true
-        fields:
-          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          
-      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
-        name: "manual"
-        widget: "object"
-        collapsed: true
-        fields:
-          - {label: "Expanded Cinematic Title", name: "title", widget: "string", required: false}
-          - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application", "None"], default: "Briefing", required: false}
-          - {label: "Application Link", name: "application_link", widget: "string", required: false}
-          - label: "HUD Metrics (Left Sidebar)"
-            name: "metrics"
-            widget: "list"
+          - {name: "permalink", widget: "hidden", default: false}
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
             collapsed: true
-            required: false
             fields:
-              - {label: "Label (e.g. COORDINATES)", name: "label", widget: "string"}
-              - {label: "Value (e.g. MIT, Pune)", name: "value", widget: "string"}
-          - label: "Manual Narrative Builder"
-            name: "blocks"
+              - {label: "Overline", name: "overline", widget: "string"}
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Sub-headline", name: "desc", widget: "text"}
+              - {label: "Footer Line", name: "footer_line", widget: "string"}
+          - label: "Stats Bar"
+            name: "stats"
             widget: "list"
             collapsed: true
-            required: false
-            summary: '{{fields.type}} Block'
-            types:
-              - label: "Text Section"
-                name: "text_block"
-                widget: "object"
-                fields:
-                  - {label: "Section Heading", name: "heading", widget: "string", required: false}
-                  - {label: "Text Content", name: "content", widget: "markdown"}
-              - label: "Inline Image"
-                name: "image_block"
-                widget: "object"
-                fields:
-                  - {label: "Image", name: "image", widget: "image"}
-                  - {label: "Image Alt Text", name: "alt", widget: "string"}
-
-  - name: "drives"
-    label: "📢 Recruitment Drives"
-    folder: "content/drives"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
-      - {label: "Drive Title", name: "title", widget: "string"}
-      - {label: "Master Status", name: "status", widget: "select", options: ["Live", "Archived"]}
-      - {label: "Thumbnail Image", name: "image", widget: "image"}
-      - {label: "Open Roles", name: "roles", widget: "string"}
-      - {label: "Google Sheet CSV Link", name: "csv_link", widget: "string", required: false, hint: "Paste the Google Sheets 'Publish to Web' CSV link here to automatically sync candidate data."}
-      
-      - label: "⏱️ Master Timeline & Schedules"
-        name: "timeline"
-        widget: "object"
-        collapsed: false
-        fields:
-          - {label: "Phase 01: Application Deadline", name: "phase1_deadline", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: true}
-          - {label: "Phase 02: Shortlist Release", name: "phase2_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
-          - {label: "Phase 03: Interview Logistics Release", name: "phase3_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
-          - {label: "Phase 04: Final Outcomes Release", name: "phase4_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
-
-      - label: "Phase 1: The Directive (Application & Syllabus)"
-        name: "phase1"
-        widget: "object"
-        collapsed: true
-        fields:
-          - label: "HUD Metrics (Left Sidebar Builder)"
-            name: "metrics"
-            widget: "list"
-            collapsed: true
-            required: false
+            min: 4
+            max: 4
             fields:
-              - {label: "Label (e.g. DEADLINE)", name: "label", widget: "string"}
-              - {label: "Value (e.g. FEB 15)", name: "value", widget: "string"}
-          - {label: "Activate Application Tracker", name: "action_tracker", widget: "boolean", default: false}
-          - {label: "Application Form Link", name: "form_link", widget: "string", required: false}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
-
-      - label: "Phase 2: First Filter (Shortlist)"
-        name: "phase2"
-        widget: "object"
-        collapsed: true
-        fields:
-          - label: "HUD Metrics (Left Sidebar Builder)"
-            name: "metrics"
-            widget: "list"
-            collapsed: true
-            required: false
-            fields:
-              - {label: "Label", name: "label", widget: "string"}
               - {label: "Value", name: "value", widget: "string"}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
-
-      - label: "Phase 3: Engagement (Interviews)"
-        name: "phase3"
-        widget: "object"
-        collapsed: true
-        fields:
-
-          - label: "HUD Metrics (Left Sidebar Builder)"
-            name: "metrics"
+              - {label: "Label", name: "label", widget: "string"}
+          - label: "Mission Section"
+            name: "mission"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Overline", name: "overline", widget: "string"}
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Body Text", name: "body", widget: "text"}
+          - label: "Cinematic Spacer Quote"
+            name: "cinematic_quote"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "The Quote", name: "text", widget: "text"}
+              - {label: "The Author", name: "author", widget: "string"}
+          - label: "Software Marquee Items"
+            name: "marquee"
             widget: "list"
             collapsed: true
-            required: false
+            field: {label: "Software Name", name: "item", widget: "string"}
+          - label: "Bottom CTA"
+            name: "cta"
+            widget: "object"
+            collapsed: true
             fields:
-              - {label: "Label", name: "label", widget: "string"}
-              - {label: "Value", name: "value", widget: "string"}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Description", name: "desc", widget: "string"}
 
-      - label: "Phase 4: Outcomes (Results)"
-        name: "phase4"
-        widget: "object"
-        collapsed: true
+  - name: "page_about"
+    label: "About"
+    files:
+      - label: "About Us Editor"
+        name: "about"
+        file: "content/pages/about.md"
         fields:
-          - label: "HUD Metrics (Left Sidebar Builder)"
-            name: "metrics"
+          - label: "Division Overview"
+            name: "overview"
+            widget: "object"
+            collapsed: true
+            fields:
+              - {label: "Meta Subtitle", name: "subtitle", widget: "string", default: "EST. 2015 // PUNE, INDIA"}
+              - {label: "Overview Image", name: "image", widget: "image"}
+              - {label: "Main Briefing", name: "body", widget: "markdown"}
+          - label: "Engineering Philosophy Pillars"
+            name: "philosophy"
             widget: "list"
             collapsed: true
-            required: false
             fields:
-              - {label: "Label", name: "label", widget: "string"}
-              - {label: "Value", name: "value", widget: "string"}
-          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
-          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
-          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+              - {label: "Pillar Title", name: "title", widget: "string"}
+              - {label: "Pillar Description", name: "body", widget: "text"}
+          - {label: "Scope of Operation", name: "scope", widget: "markdown"}
 
-  # ==========================================
-  # GROUP 2: HARDWARE & LOGS
-  # ==========================================
   - name: "achievements"
-    label: "🎖️ Mission Reports (Achievements)"
+    label: "Achievements (Reports)"
     folder: "content/achievements"
     create: true
     slug: "{{slug}}"
@@ -246,8 +160,59 @@ collections:
                   - {label: "Image", name: "image", widget: "image"}
                   - {label: "Image Alt Text", name: "alt", widget: "string"}
 
+  - name: "page_achievements_timeline"
+    label: "Achievements (Timeline)"
+    files:
+      - label: "Achievements Timeline Editor"
+        name: "achievements_timeline"
+        file: "content/pages/achievements_timeline.md"
+        fields:
+          - label: "Historical Milestones"
+            name: "timeline"
+            widget: "list"
+            collapsed: true
+            fields:
+              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
+              - {label: "Milestone Title", name: "title", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+
+  - name: "page_gallery"
+    label: "Gallery"
+    files:
+      - label: "Gallery Editor"
+        name: "gallery"
+        file: "content/pages/gallery.md"
+        fields:
+          - {name: "permalink", widget: "hidden", default: false}
+          - label: "Operations & Flight Logs"
+            name: "operations"
+            widget: "list"
+            collapsed: true
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
+              - {label: "Media File", name: "src", widget: "file"}
+              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
+              - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
+              - {label: "Top Meta Tag", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+              - {label: "External Source URL", name: "url", widget: "string", required: false}
+          - label: "Hall of Records (Awards)"
+            name: "awards"
+            widget: "list"
+            collapsed: true
+            summary: '{{fields.meta}} - {{fields.caption}}'
+            fields:
+              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
+              - {label: "Media File", name: "src", widget: "file"}
+              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
+              - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
+              - {label: "Top Meta Tag", name: "meta", widget: "string"}
+              - {label: "Caption / Title", name: "caption", widget: "string"}
+              - {label: "External Source URL", name: "url", widget: "string", required: false}
+
   - name: "models"
-    label: "🚁 The Fleet (Models)"
+    label: "Models"
     folder: "content/models"
     create: true
     slug: "{{slug}}"
@@ -312,11 +277,88 @@ collections:
                   - {label: "Image", name: "image", widget: "image"}
                   - {label: "Image Alt Text", name: "alt", widget: "string"}
 
-  # ==========================================
-  # GROUP 3: TEAM & PARTNERS
-  # ==========================================
+  - name: "events"
+    label: "Events (Schedule)"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "[{{card.category}}] {{card.title}} // {{card.dateString}}"
+    fields:
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
+      - label: "📦 BOX 1: THE GRID CARD (Always Required)"
+        name: "card"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Event Title", name: "title", widget: "string"}
+          - {label: "Category", name: "category", widget: "select", options: ["Active", "Past"]}
+          - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
+          - {label: "Location or Type", name: "location", widget: "string"}
+          - {label: "Card Summary", name: "summary", widget: "text"}
+          - {label: "Cover Image", name: "image", widget: "image"}
+          - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          
+      - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
+        name: "automation"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "🧠 AI Intelligence Payload", name: "payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          
+      - label: "✍️ BOX 3: THE MANUAL OVERRIDE (Custom Build)"
+        name: "manual"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Expanded Cinematic Title", name: "title", widget: "string", required: false}
+          - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application", "None"], default: "Briefing", required: false}
+          - {label: "Application Link", name: "application_link", widget: "string", required: false}
+          - label: "HUD Metrics (Left Sidebar)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label (e.g. COORDINATES)", name: "label", widget: "string"}
+              - {label: "Value (e.g. MIT, Pune)", name: "value", widget: "string"}
+          - label: "Manual Narrative Builder"
+            name: "blocks"
+            widget: "list"
+            collapsed: true
+            required: false
+            summary: '{{fields.type}} Block'
+            types:
+              - label: "Text Section"
+                name: "text_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Heading", name: "heading", widget: "string", required: false}
+                  - {label: "Text Content", name: "content", widget: "markdown"}
+              - label: "Inline Image"
+                name: "image_block"
+                widget: "object"
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Image Alt Text", name: "alt", widget: "string"}
+
+  - name: "page_events_timeline"
+    label: "Events (Timeline)"
+    files:
+      - label: "Events Timeline Editor"
+        name: "events_timeline"
+        file: "content/pages/events_timeline.md"
+        fields:
+          - label: "Historical Milestones"
+            name: "timeline"
+            widget: "list"
+            collapsed: true
+            fields:
+              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
+              - {label: "Milestone Title", name: "title", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+
   - name: "personnel"
-    label: "👥 Core Personnel"
+    label: "Team"
     folder: "content/personnel"
     create: true
     slug: "{{card.name}}"
@@ -351,156 +393,120 @@ collections:
           - {label: "Personal Quote", name: "quote", widget: "text", required: false}
           - {label: "Manual Bio", name: "body", widget: "markdown", required: false}
 
-  # ==========================================
-  # GROUP 4: SITE CONFIGURATION (PAGES)
-  # ==========================================
-  - name: "page_home"
-    label: "🏠 Page: Homepage"
+  - name: "page_contact"
+    label: "Contact"
     files:
-      - label: "Homepage Editor"
-        name: "home"
-        file: "content/pages/home.md"
+      - label: "Contact Details Editor"
+        name: "contact"
+        file: "content/pages/contact.md"
         fields:
-          - {name: "permalink", widget: "hidden", default: false}
-          - label: "Hero Section"
-            name: "hero"
-            widget: "object"
-            collapsed: true
-            fields:
-              - {label: "Overline", name: "overline", widget: "string"}
-              - {label: "Headline", name: "headline", widget: "string"}
-              - {label: "Sub-headline", name: "desc", widget: "text"}
-              - {label: "Footer Line", name: "footer_line", widget: "string"}
-          - label: "Stats Bar"
-            name: "stats"
+          - {label: "Primary Email", name: "email", widget: "string"}
+          - {label: "Facility Location", name: "location", widget: "text"}
+          - {label: "Direct Line", name: "phone", widget: "string"}
+          - label: "Social Networks"
+            name: "socials"
             widget: "list"
             collapsed: true
-            min: 4
-            max: 4
+            summary: '{{fields.platform}}'
             fields:
-              - {label: "Value", name: "value", widget: "string"}
+              - {label: "Platform Name", name: "platform", widget: "string"}
+              - {label: "Profile URL", name: "url", widget: "string"}
+
+  - name: "drives"
+    label: "Recruitment"
+    folder: "content/drives"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "System Date (Controls Sorting)", name: "date", widget: "datetime"}
+      - {label: "Drive Title", name: "title", widget: "string"}
+      - {label: "Master Status", name: "status", widget: "select", options: ["Live", "Archived"]}
+      - {label: "Thumbnail Image", name: "image", widget: "image"}
+      - {label: "Open Roles", name: "roles", widget: "string"}
+      - {label: "Google Sheet CSV Link", name: "csv_link", widget: "string", required: false, hint: "Paste the Google Sheets 'Publish to Web' CSV link here to automatically sync candidate data."}
+      
+      - label: "⏱️ Master Timeline & Schedules"
+        name: "timeline"
+        widget: "object"
+        collapsed: false
+        fields:
+          - {label: "Phase 01: Application Deadline", name: "phase1_deadline", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: true}
+          - {label: "Phase 02: Shortlist Release", name: "phase2_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+          - {label: "Phase 03: Interview Logistics Release", name: "phase3_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+          - {label: "Phase 04: Final Outcomes Release", name: "phase4_release", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+
+      - label: "Phase 1: The Directive (Application & Syllabus)"
+        name: "phase1"
+        widget: "object"
+        collapsed: true
+        fields:
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - {label: "Label (e.g. DEADLINE)", name: "label", widget: "string"}
+              - {label: "Value (e.g. FEB 15)", name: "value", widget: "string"}
+          - {label: "Activate Application Tracker", name: "action_tracker", widget: "boolean", default: false}
+          - {label: "Application Form Link", name: "form_link", widget: "string", required: false}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
+
+      - label: "Phase 2: First Filter (Shortlist)"
+        name: "phase2"
+        widget: "object"
+        collapsed: true
+        fields:
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
               - {label: "Label", name: "label", widget: "string"}
-          - label: "Mission Section"
-            name: "mission"
-            widget: "object"
-            collapsed: true
-            fields:
-              - {label: "Overline", name: "overline", widget: "string"}
-              - {label: "Headline", name: "headline", widget: "string"}
-              - {label: "Body Text", name: "body", widget: "text"}
-          - label: "Cinematic Spacer Quote"
-            name: "cinematic_quote"
-            widget: "object"
-            collapsed: true
-            fields:
-              - {label: "The Quote", name: "text", widget: "text"}
-              - {label: "The Author", name: "author", widget: "string"}
-          - label: "Software Marquee Items"
-            name: "marquee"
-            widget: "list"
-            collapsed: true
-            field: {label: "Software Name", name: "item", widget: "string"}
-          - label: "Bottom CTA"
-            name: "cta"
-            widget: "object"
-            collapsed: true
-            fields:
-              - {label: "Headline", name: "headline", widget: "string"}
-              - {label: "Description", name: "desc", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
 
-  - name: "page_about"
-    label: "📖 Page: About Us"
-    files:
-      - label: "About Us Editor"
-        name: "about"
-        file: "content/pages/about.md"
+      - label: "Phase 3: Engagement (Interviews)"
+        name: "phase3"
+        widget: "object"
+        collapsed: true
         fields:
-          - label: "Division Overview"
-            name: "overview"
-            widget: "object"
-            collapsed: true
-            fields:
-              - {label: "Meta Subtitle", name: "subtitle", widget: "string", default: "EST. 2015 // PUNE, INDIA"}
-              - {label: "Overview Image", name: "image", widget: "image"}
-              - {label: "Main Briefing", name: "body", widget: "markdown"}
-          - label: "Engineering Philosophy Pillars"
-            name: "philosophy"
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
             widget: "list"
             collapsed: true
+            required: false
             fields:
-              - {label: "Pillar Title", name: "title", widget: "string"}
-              - {label: "Pillar Description", name: "body", widget: "text"}
-          - {label: "Scope of Operation", name: "scope", widget: "markdown"}
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
 
-  - name: "page_gallery"
-    label: "📸 Page: Gallery"
-    files:
-      - label: "Gallery Editor"
-        name: "gallery"
-        file: "content/pages/gallery.md"
+      - label: "Phase 4: Outcomes (Results)"
+        name: "phase4"
+        widget: "object"
+        collapsed: true
         fields:
-          - {name: "permalink", widget: "hidden", default: false}
-          - label: "Operations & Flight Logs"
-            name: "operations"
+          - label: "HUD Metrics (Left Sidebar Builder)"
+            name: "metrics"
             widget: "list"
             collapsed: true
-            summary: '{{fields.meta}} - {{fields.caption}}'
+            required: false
             fields:
-              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"]}
-              - {label: "Media File", name: "src", widget: "file"}
-              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
-              - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
-              - {label: "Top Meta Tag", name: "meta", widget: "string"}
-              - {label: "Caption / Title", name: "caption", widget: "string"}
-              - {label: "External Source URL", name: "url", widget: "string", required: false}
-          - label: "Hall of Records (Awards)"
-            name: "awards"
-            widget: "list"
-            collapsed: true
-            summary: '{{fields.meta}} - {{fields.caption}}'
-            fields:
-              - {label: "Media Type", name: "type", widget: "select", options: ["image", "video"], default: "image"}
-              - {label: "Media File", name: "src", widget: "file"}
-              - {label: "Video Thumbnail", name: "thumbnail", widget: "image", required: false}
-              - {label: "Media Format", name: "media_format", widget: "select", options: ["Horizontal", "Vertical"], default: "Horizontal"}
-              - {label: "Top Meta Tag", name: "meta", widget: "string"}
-              - {label: "Caption / Title", name: "caption", widget: "string"}
-              - {label: "External Source URL", name: "url", widget: "string", required: false}
-
-  - name: "page_achievements_timeline"
-    label: "🏆 Page: Achievements Timeline"
-    files:
-      - label: "Achievements Timeline Editor"
-        name: "achievements_timeline"
-        file: "content/pages/achievements_timeline.md"
-        fields:
-          - label: "Historical Milestones"
-            name: "timeline"
-            widget: "list"
-            collapsed: true
-            fields:
-              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
-              - {label: "Milestone Title", name: "title", widget: "string"}
-              - {label: "Description", name: "desc", widget: "text"}
-
-  - name: "page_events_timeline"
-    label: "⏳ Page: Events Timeline"
-    files:
-      - label: "Events Timeline Editor"
-        name: "events_timeline"
-        file: "content/pages/events_timeline.md"
-        fields:
-          - label: "Historical Milestones"
-            name: "timeline"
-            widget: "list"
-            collapsed: true
-            fields:
-              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
-              - {label: "Milestone Title", name: "title", widget: "string"}
-              - {label: "Description", name: "desc", widget: "text"}
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Value", name: "value", widget: "string"}
+          - {label: "⚙️ Engine Mode", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
+          - {label: "🧠 AI Intelligence Payload", name: "automation_payload", widget: "code", default_language: "json", output_code_only: true, required: false}
+          - {label: "Legacy Phase Report", name: "report", widget: "markdown", required: false}
 
   - name: "page_sponsors"
-    label: "🤝 Page: Sponsors"
+    label: "Sponsors"
     files:
       - label: "Sponsors Roster Editor"
         name: "sponsors"
@@ -524,7 +530,7 @@ collections:
                   - {label: "Website URL", name: "url", widget: "string", required: false}
 
   - name: "page_sponsor_us"
-    label: "💼 Page: Sponsor Us (PDF)"
+    label: "Sponsor Us"
     files:
       - label: "Sponsor Action Editor"
         name: "sponsor_us"
@@ -534,23 +540,3 @@ collections:
           - {label: "Prospectus Document", name: "prospectus_pdf", widget: "file"}
           - {label: "Faculty Board Email Address", name: "contact_email", widget: "string"}
           - {label: "Default Email Subject Line", name: "email_subject", widget: "string", default: "Corporate Partnership Inquiry - Aerial Martial"}
-
-  - name: "page_contact"
-    label: "📞 Page: Contact"
-    files:
-      - label: "Contact Details Editor"
-        name: "contact"
-        file: "content/pages/contact.md"
-        fields:
-          - {label: "Primary Email", name: "email", widget: "string"}
-          - {label: "Facility Location", name: "location", widget: "text"}
-          - {label: "Direct Line", name: "phone", widget: "string"}
-          - label: "Social Networks"
-            name: "socials"
-            widget: "list"
-            collapsed: true
-            summary: '{{fields.platform}}'
-            fields:
-              - {label: "Platform Name", name: "platform", widget: "string"}
-              - {label: "Profile URL", name: "url", widget: "string"}
-              
