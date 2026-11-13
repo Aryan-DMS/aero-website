@@ -6,13 +6,25 @@ title: "AeroClub | Contact"
 
         /* Contact Typographic Lists */
         .contact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 32px; }
-        .contact-item { display: flex; flex-direction: column; gap: 6px; }
+        .contact-item { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
         .contact-label { font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-muted); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
-        .contact-value { font-size: 18px; color: var(--text-light); font-weight: 600; }
         
-        .social-links { display: flex; gap: 24px; }
-        .social-link { color: var(--accent-cyan); font-weight: 700; font-size: 15px; transition: color 0.2s; text-decoration: none; display: inline-block; }
-        .social-link:hover { color: var(--text-light); }
+        /* Minimalist Pill Tags (No gimmicks, pure architecture) */
+        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-dark); border-radius: 40px; color: var(--text-light); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: default; }
+        a.contact-pill { cursor: pointer; }
+        @media (hover: hover) {
+            a.contact-pill:hover { background: rgba(14, 165, 233, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-1px); }
+        }
+        .contact-pill svg { width: 16px; height: 16px; color: var(--text-muted); transition: color 0.2s ease; }
+        @media (hover: hover) {
+            a.contact-pill:hover svg { color: var(--accent-cyan); }
+        }
+        
+        /* Multi-line text fix for location pill */
+        .contact-pill.location-pill { border-radius: 12px; align-items: flex-start; padding: 14px 16px; }
+        .contact-pill.location-pill svg { margin-top: 2px; flex-shrink: 0; }
+        
+        .social-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
         /* Premium Solid Action Button */
         .btn-solid-cyan { display: inline-block; padding: 14px 32px; background: var(--accent-cyan); color: var(--bg-deep); font-family: var(--font-ui), sans-serif; font-size: 15px; font-weight: 800; border-radius: 4px; text-decoration: none; transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: 1px solid var(--accent-cyan); }
@@ -168,15 +180,24 @@ title: "AeroClub | Contact"
                     <ul class="contact-list">
                         <li class="contact-item">
                             <span class="contact-label">Primary Email</span>
-                            <span class="contact-value">{{ email }}</span>
+                            <a href="mailto:{{ email }}" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                {{ email }}
+                            </a>
                         </li>
                         <li class="contact-item">
                             <span class="contact-label">Facility Location</span>
-                            <span class="contact-value" style="white-space: pre-line;">{{ location }}</span>
+                            <div class="contact-pill location-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span style="white-space: pre-line; line-height: 1.5;">{{ location }}</span>
+                            </div>
                         </li>
                         <li class="contact-item">
                             <span class="contact-label">Direct Line</span>
-                            <span class="contact-value">{{ phone }}</span>
+                            <a href="tel:{{ phone | replace(' ', '') }}" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                {{ phone }}
+                            </a>
                         </li>
                     </ul>
 
@@ -184,7 +205,10 @@ title: "AeroClub | Contact"
                         <span class="contact-label" style="margin-bottom: 16px; display: block;">Social Network</span>
                         <div class="social-links">
                             {% for social in socials %}
-                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" class="social-link">{{ social.platform }} ↗</a>
+                            <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" class="contact-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                                {{ social.platform }}
+                            </a>
                             {% endfor %}
                         </div>
                     </div>
