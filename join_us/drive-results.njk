@@ -300,42 +300,134 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
         document.getElementById('roster-table').style.display = visibleCount === 0 ? 'none' : 'table';
     };
 
-    // Professional PDF Generation Engine
+    // Institutional PDF Generation Engine
     window.downloadPDF = function() {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+        const pageWidth = doc.internal.pageSize.width;
         
         const driveName = "{{ driveEntry.data.title | default('Recruitment Drive') | upper }}";
         const phaseName = document.querySelector('.hud-metric').innerText; // Grabs Phase 02, 03, etc.
         const dateString = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-        // AeroClub Corporate Header
+        // 1. INSTITUTIONAL LETTERHEAD (Centered)
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(80, 80, 80);
+        doc.text("Progressive Education Society's", pageWidth / 2, 16, { align: "center" });
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(15, 23, 42); // Navy
+        doc.text("Modern College of Engineering, Pune-05.", pageWidth / 2, 22, { align: "center" });
+        
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        doc.setTextColor(80, 80, 80);
+        doc.text("(An Autonomous Institute Affiliated to Savitribai Phule Pune University)", pageWidth / 2, 27, { align: "center" });
+        
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("Department of F. Y. B. Tech", pageWidth / 2, 32, { align: "center" });
+
+        // Separator Line
+        doc.setDrawColor(200, 200, 200);
+        doc.setLineWidth(0.3);
+        doc.line(14, 38, pageWidth - 14, 38);
+
+        // 2. MAIN REPORT TITLE & FLANKING LINES
         doc.setFontSize(22);
         doc.setFont("helvetica", "bold");
-        doc.text("AEROCLUB", 14, 20);
+        doc.setTextColor(15, 23, 42); // Navy Blue
+        doc.text("TEAM AERIAL MARTIAL", pageWidth / 2, 52, { align: "center" });
         
-        doc.setFontSize(10);
-        doc.setFont("helvetica", "bold");
-        doc.text("OFFICIAL ROSTER DATA", 14, 28);
-        
-        doc.setFontSize(10);
+        doc.setFontSize(11);
         doc.setFont("helvetica", "normal");
-        doc.text(`CYCLE: ${driveName}`, 14, 34);
-        doc.text(`STAGE: ${phaseName}`, 14, 39);
-        doc.text(`GENERATED: ${dateString}`, 14, 44);
+        doc.setTextColor(100, 100, 100);
+        doc.text("R E C R U I T M E N T   D R I V E", pageWidth / 2, 60, { align: "center" });
 
-        // Auto-Scrape & Render Table
+        // Flanking Lines next to the title
+        doc.setDrawColor(15, 23, 42);
+        doc.setLineWidth(0.5);
+        doc.line(14, 49, (pageWidth / 2) - 62, 49); // Left line
+        doc.line((pageWidth / 2) + 62, 49, pageWidth - 14, 49); // Right line
+
+        // 3. METADATA BANNER (Rounded Box)
+        doc.setFillColor(248, 250, 252); // Ultra light gray bg
+        doc.setDrawColor(226, 232, 240); // Subtle border
+        doc.setLineWidth(0.3);
+        doc.roundedRect(14, 68, pageWidth - 28, 16, 2, 2, 'FD'); // Filled and Stroked
+
+        // Metadata Labels
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(100, 100, 100);
+        doc.text("CYCLE", 20, 74);
+        doc.text("STAGE", 100, 74);
+        doc.text("GENERATED", 150, 74);
+
+        // Metadata Values
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(15, 23, 42);
+        doc.text(driveName, 20, 80);
+        doc.text(phaseName, 100, 80);
+        doc.text(dateString, 150, 80);
+
+        // Vertical Divider Lines inside Banner
+        doc.setDrawColor(226, 232, 240);
+        doc.line(94, 70, 94, 82);
+        doc.line(144, 70, 144, 82);
+
+        // 4. SMART DATA EXTRACTION (Respects Live Search, Ignores Dark Mode CSS)
+        const table = document.getElementById("roster-table");
+        const headers = [];
+        const rows = [];
+        
+        // Grab Headers
+        table.querySelectorAll("thead th").forEach(th => headers.push(th.innerText));
+        
+        // Grab strictly visible rows to respect the search filter
+        table.querySelectorAll("tbody tr").forEach(tr => {
+            if (tr.style.display !== "none") {
+                const rowData = [];
+                tr.querySelectorAll("td").forEach(td => rowData.push(td.innerText));
+                rows.push(rowData);
+            }
+        });
+
+        // 5. RENDER PROFESSIONAL TABLE
         doc.autoTable({
-            html: '#roster-table',
-            startY: 52,
+            head: [headers],
+            body: rows,
+            startY: 92,
             theme: 'grid',
-            headStyles: { fillColor: [14, 165, 233], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 10 },
-            styles: { font: 'helvetica', fontSize: 9, cellPadding: 5 },
-            alternateRowStyles: { fillColor: [245, 245, 245] },
-            useCss: true // CRITICAL: This ensures filtered/hidden rows are NOT printed
+            headStyles: { 
+                fillColor: [15, 23, 42], // Exact Navy Blue from reference
+                textColor: [255, 255, 255], 
+                fontStyle: 'bold', 
+                fontSize: 10, 
+                halign: 'center' 
+            },
+            bodyStyles: { 
+                font: 'helvetica', 
+                fontSize: 9, 
+                textColor: [51, 51, 51] 
+            },
+            alternateRowStyles: { 
+                fillColor: [241, 245, 249] // Faint gray alternating rows
+            },
+            styles: { 
+                cellPadding: 6, 
+                lineColor: [226, 232, 240], 
+                lineWidth: 0.1 
+            },
+            columnStyles: { 
+                0: { halign: 'left', fontStyle: 'bold' } 
+            }
         });
 
         // Trigger Native Download
-        doc.save(`AeroClub_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
+        doc.save(`Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
     };
 </script>
