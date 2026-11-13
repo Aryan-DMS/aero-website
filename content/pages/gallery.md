@@ -7,7 +7,7 @@ operations:
     meta: This is an Aeroplane
     caption: This is a Cinematic Photo
     media_format: 16:9 Cinematic
-    url: https://aero-website-7xh.pages.dev/achievements/saeiss-ddc-2026-engineering-a-competition-ready-fixed-wing-uav/
+    url: https://3a90eb1b.aero-website-7xh.pages.dev/achievements/map-date-2026-11-11t21-15-00-000-05-30-card-map-report_mode-automation-title-csf-ddc-2026-meta-oct-2026-chennai-india-summary-tasked-with-maximizing-payload-fraction-under-extreme-dimensional-constrai/
   - media_format: 16:9 Cinematic
     type: image
     src: https://images.unsplash.com/photo-1668193184151-6c3b93f39e34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
@@ -27,7 +27,7 @@ operations:
     type: image
     src: https://images.unsplash.com/photo-1642764984373-1cc27ce63205?q=80&w=1553&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
     meta: Lufthansa Aero
-    caption: "German Engineering "
+    caption: "Luftwaffe Engineering "
   - media_format: Horizontal
     type: image
     src: https://images.unsplash.com/photo-1755524709943-b33ad219f80c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
@@ -49,7 +49,7 @@ operations:
     src: https://images.unsplash.com/photo-1755524709943-b33ad219f80c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
     meta: w
     caption: WX
-    url: https://gemini.google.com/u/3/app/081f35ef21bc7d11
+    url: ""
 awards:
   - type: image
     grid_span: span-2-col
