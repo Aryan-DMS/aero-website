@@ -300,7 +300,7 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
         document.getElementById('roster-table').style.display = visibleCount === 0 ? 'none' : 'table';
     };
 
-    // Institutional PDF Generation Engine (1:1 Reference Match)
+    // Institutional PDF Generation Engine (Typography & Layout Perfected)
     window.downloadPDF = function() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -313,11 +313,11 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
         // Corporate Colors
         const navyBlue = [21, 40, 75];
         const textGray = [100, 100, 100];
-        const borderGray = [180, 180, 180]; // Darker, crisp borders
+        const borderGray = [200, 205, 210]; 
 
         // 1. INSTITUTIONAL LETTERHEAD
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
+        doc.setFontSize(9);
         doc.setTextColor(80, 80, 80);
         doc.text("Progressive Education Society's", pageWidth / 2, 16, { align: "center" });
         
@@ -327,96 +327,99 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
         doc.text("Modern College of Engineering, Pune-05.", pageWidth / 2, 21, { align: "center" });
         
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(9);
+        doc.setFontSize(8.5);
         doc.setTextColor(80, 80, 80);
         doc.text("(An Autonomous Institute Affiliated to Savitribai Phule Pune University)", pageWidth / 2, 26, { align: "center" });
         
         doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
+        doc.setTextColor(40, 40, 40);
         doc.text("Aeromodelling Club", pageWidth / 2, 31, { align: "center" });
 
         // Left Vertical Divider (Logo Placeholder Area)
         doc.setDrawColor(borderGray[0], borderGray[1], borderGray[2]);
         doc.setLineWidth(0.4);
-        doc.line(40, 14, 40, 32); 
+        doc.line(36, 14, 36, 32); 
 
-        // Main Horizontal Separator
+        // Main Horizontal Separator (PURE BLACK)
+        doc.setDrawColor(0, 0, 0); 
         doc.setLineWidth(0.5);
-        doc.line(14, 38, pageWidth - 14, 38);
+        doc.line(14, 37, pageWidth - 14, 37);
 
         // 2. MAIN REPORT TITLE & FLANKING LINES
         doc.setFontSize(26);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(navyBlue[0], navyBlue[1], navyBlue[2]);
-        doc.text("TEAM AERIAL MARTIAL", pageWidth / 2, 52, { align: "center" });
+        doc.text("TEAM AERIAL MARTIAL", pageWidth / 2, 51, { align: "center" });
         
-        doc.setFontSize(12);
+        doc.setFontSize(11);
         doc.setFont("helvetica", "normal");
         doc.setTextColor(textGray[0], textGray[1], textGray[2]);
-        doc.text("R E C R U I T M E N T   D R I V E", pageWidth / 2, 60, { align: "center" });
+        doc.text("R E C R U I T M E N T   D R I V E", pageWidth / 2, 58, { align: "center" });
 
         // Flanking Lines next to the title
         doc.setDrawColor(navyBlue[0], navyBlue[1], navyBlue[2]);
         doc.setLineWidth(0.6);
-        doc.line(14, 49, (pageWidth / 2) - 68, 49); // Left line
-        doc.line((pageWidth / 2) + 68, 49, pageWidth - 14, 49); // Right line
+        doc.line(14, 48.5, (pageWidth / 2) - 68, 48.5); // Left line
+        doc.line((pageWidth / 2) + 68, 48.5, pageWidth - 14, 48.5); // Right line
 
         // 3. METADATA BANNER (Rounded Box)
-        doc.setFillColor(246, 248, 250);
-        doc.setDrawColor(220, 224, 228); 
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(226, 232, 240); 
         doc.setLineWidth(0.3);
-        doc.roundedRect(14, 68, pageWidth - 28, 16, 2, 2, 'FD'); 
+        doc.roundedRect(14, 66, pageWidth - 28, 14, 2, 2, 'FD'); 
 
-        // DRAW NATIVE ICONS (No external images required)
+        // DRAW NATIVE ICONS
         doc.setDrawColor(100, 100, 100);
         doc.setLineWidth(0.4);
         
-        // Calendar Icon
-        doc.roundedRect(20, 71, 6, 6, 1, 1);
-        doc.line(20, 73.5, 26, 73.5);
-        doc.line(22, 70, 22, 72);
-        doc.line(24, 70, 24, 72);
+        // Calendar Icon (X: 18)
+        doc.roundedRect(18, 69.5, 5, 5, 0.5, 0.5);
+        doc.line(18, 71.5, 23, 71.5);
+        doc.line(19.5, 68.5, 19.5, 70.5);
+        doc.line(21.5, 68.5, 21.5, 70.5);
         
-        // Stage/Layers Icon (Stacked diamonds)
-        doc.line(90, 73, 93, 71); doc.line(93, 71, 96, 73); doc.line(96, 73, 93, 75); doc.line(93, 75, 90, 73); // Top layer
-        doc.line(90, 75, 93, 77); doc.line(93, 77, 96, 75); // Mid layer
-        doc.line(90, 77, 93, 79); doc.line(93, 79, 96, 77); // Bot layer
+        // Stage/Layers Icon (X: 92)
+        doc.line(90, 72, 92.5, 70.5); doc.line(92.5, 70.5, 95, 72); doc.line(95, 72, 92.5, 73.5); doc.line(92.5, 73.5, 90, 72); 
+        doc.line(90, 73.5, 92.5, 75); doc.line(92.5, 75, 95, 73.5); 
+        doc.line(90, 75, 92.5, 76.5); doc.line(92.5, 76.5, 95, 75); 
 
-        // Clock Icon
-        doc.circle(150, 74, 3);
-        doc.line(150, 74, 150, 72);
-        doc.line(150, 74, 151.5, 75.5);
+        // Clock Icon (X: 148)
+        doc.circle(149.5, 73, 2.8);
+        doc.line(149.5, 73, 149.5, 71);
+        doc.line(149.5, 73, 151, 74);
+
+        // Vertical Divider Lines inside Banner (Recalculated Spacing)
+        doc.setDrawColor(220, 224, 228);
+        doc.line(86, 66, 86, 80);
+        doc.line(143, 66, 143, 80);
 
         // Metadata Labels
-        doc.setFontSize(8);
+        doc.setFontSize(7);
         doc.setFont("helvetica", "normal");
         doc.setTextColor(textGray[0], textGray[1], textGray[2]);
-        doc.text("CYCLE", 30, 74);
-        doc.text("STAGE", 100, 74);
-        doc.text("GENERATED", 158, 74);
+        doc.text("CYCLE", 26, 71.5);
+        doc.text("STAGE", 98, 71.5);
+        doc.text("GENERATED", 155, 71.5);
 
         // Metadata Values
-        doc.setFontSize(10);
+        doc.setFontSize(9);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(20, 20, 20);
-        doc.text(driveName, 30, 80);
-        doc.text(phaseName, 100, 80);
-        doc.text(dateString, 158, 80);
-
-        // Vertical Divider Lines inside Banner
-        doc.setDrawColor(200, 205, 210);
-        doc.line(85, 70, 85, 82);
-        doc.line(144, 70, 144, 82);
+        
+        // Truncate drive name safely so it never clips the divider
+        const safeDriveName = driveName.length > 30 ? driveName.substring(0, 30) + '...' : driveName;
+        doc.text(safeDriveName, 26, 76.5);
+        doc.text(phaseName, 98, 76.5);
+        doc.text(dateString, 155, 76.5);
 
         // 4. SMART DATA EXTRACTION (Respects Live Search, Ignores Dark Mode CSS)
         const table = document.getElementById("roster-table");
         const headers = [];
         const rows = [];
         
-        // Grab Headers
         table.querySelectorAll("thead th").forEach(th => headers.push(th.innerText));
         
-        // Grab strictly visible rows to respect the search filter
         table.querySelectorAll("tbody tr").forEach(tr => {
             if (tr.style.display !== "none") {
                 const rowData = [];
@@ -425,42 +428,42 @@ permalink: "join_us/{{ driveEntry.fileSlug }}/results/index.html"
             }
         });
 
-        // 5. RENDER PERFECT TABLE (Match Reference 1:1)
+        // 5. RENDER PERFECT TABLE (Tightened cell padding for premium feel)
         doc.autoTable({
             head: [headers],
             body: rows,
-            startY: 92,
+            startY: 88,
             theme: 'grid',
             headStyles: { 
                 fillColor: navyBlue, 
                 textColor: [255, 255, 255], 
                 fontStyle: 'bold', 
-                fontSize: 10, 
+                fontSize: 9, 
                 halign: 'center',
                 valign: 'middle'
             },
             bodyStyles: { 
                 font: 'helvetica', 
-                fontSize: 10, 
+                fontSize: 9, 
                 textColor: [40, 40, 40],
                 valign: 'middle'
             },
             alternateRowStyles: { 
-                fillColor: [244, 246, 249] // Light, clean gray alternating rows
+                fillColor: [246, 248, 250] // Extremely subtle gray
             },
             styles: { 
-                cellPadding: 6, // Proportional height so it doesn't look squished
-                lineColor: borderGray, // Crisp, bold visible grid lines
-                lineWidth: 0.2 
+                cellPadding: 3.5, // Reduced from 6 to kill the bloated look
+                lineColor: [210, 215, 220], 
+                lineWidth: 0.1 
             },
             columnStyles: { 
                 0: { halign: 'left', fontStyle: 'bold' },
                 1: { halign: 'center' },
-                2: { halign: 'center', fontStyle: 'bold', textColor: navyBlue } // Professional pop for the status
+                2: { halign: 'center', fontStyle: 'bold', textColor: navyBlue }
             }
         });
 
         // Trigger Native Download
-        doc.save(`Team_Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
+        doc.save(`Aerial_Martial_${phaseName}_Roster.pdf`.replace(/\s+/g, '_'));
     };
 </script>
