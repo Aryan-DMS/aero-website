@@ -14,6 +14,10 @@ layout: base.njk
         {% set baseDate = card.dateString | default(dateString) %}
         {% set baseLocation = card.location | default(location) %}
         
+        {# CMS-STRICT BUTTON ROUTING (Never pulls from JSON) #}
+        {% set actionType = card.action_type | default(action_type) | default('Briefing') %}
+        {% set appLink = card.application_link | default(application_link) %}
+        
         {% if mode == 'Automation' %}
             {# Attempt to pull from new Automation Box, fallback to old Report box #}
             {% set rawPayload = automation.payload.code if automation.payload.code else automation.payload %}
@@ -21,15 +25,11 @@ layout: base.njk
             {% set p = rawPayload | parseJSON %}
             
             {% set pageTitle = p.cinematic_title | default(baseTitle) %}
-            {% set actionType = p.action_type | default(action_type) | default('Briefing') %}
-            {% set appLink = p.application_link | default(application_link) %}
             {% set secMetrics = p.metrics %}
             
         {% else %}
             {# Attempt to pull from new Manual Box, fallback to legacy variables #}
             {% set pageTitle = manual.title | default(baseTitle) %}
-            {% set actionType = manual.action_type | default(action_type) | default('Briefing') %}
-            {% set appLink = manual.application_link | default(application_link) %}
             {% set secMetrics = manual.metrics %}
             
             {# Legacy Manual Fallback for old HUD variables #}
