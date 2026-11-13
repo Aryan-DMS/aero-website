@@ -36,7 +36,7 @@ collections:
         collapsed: false
         fields:
           - {label: "Event Title", name: "title", widget: "string"}
-          - {label: "Category", name: "category", widget: "select", options: ["Active", "Past", "Timeline"]}
+          - {label: "Category", name: "category", widget: "select", options: ["Active", "Past"]}
           - {label: "Display Date (e.g. DEC 2026)", name: "dateString", widget: "string"}
           - {label: "Location or Type", name: "location", widget: "string"}
           - {label: "Card Summary", name: "summary", widget: "text"}
@@ -468,11 +468,27 @@ collections:
               - {label: "External Source URL", name: "url", widget: "string", required: false}
 
   - name: "page_achievements_timeline"
-    label: "⏳ Page: Timeline"
+    label: "🏆 Page: Achievements Timeline"
     files:
-      - label: "Timeline Editor"
+      - label: "Achievements Timeline Editor"
         name: "achievements_timeline"
         file: "content/pages/achievements_timeline.md"
+        fields:
+          - label: "Historical Milestones"
+            name: "timeline"
+            widget: "list"
+            collapsed: true
+            fields:
+              - {label: "Date / Event Meta", name: "date_meta", widget: "string"}
+              - {label: "Milestone Title", name: "title", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+
+  - name: "page_events_timeline"
+    label: "⏳ Page: Events Timeline"
+    files:
+      - label: "Events Timeline Editor"
+        name: "events_timeline"
+        file: "content/pages/events_timeline.md"
         fields:
           - label: "Historical Milestones"
             name: "timeline"

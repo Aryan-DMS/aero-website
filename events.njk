@@ -225,16 +225,17 @@ title: "AeroClub | Events"
                 
                 <div class="timeline-wrapper">
                     <div class="timeline-track">
-                        {% for event in collections.events %}
-                        {% set eCard = event.data.card | default(event.data) %}
-                        {% if eCard.category == "Timeline" %}
-                        <div class="timeline-node">
-                            <div class="timeline-dot"></div>
-                            <span class="timeline-meta">{{ eCard.dateString }} // {{ eCard.location }}</span>
-                            <h4 class="timeline-title">{{ eCard.title }}</h4>
-                            <p class="timeline-desc">{{ eCard.summary }}</p>
-                        </div>
-                        {% endif %}
+                        {% for item in collections.all %}
+                            {% if item.fileSlug == 'events_timeline' %}
+                                {% for node in item.data.timeline %}
+                                <div class="timeline-node">
+                                    <div class="timeline-dot"></div>
+                                    <span class="timeline-meta">{{ node.date_meta }}</span>
+                                    <h4 class="timeline-title">{{ node.title }}</h4>
+                                    <p class="timeline-desc">{{ node.desc }}</p>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
