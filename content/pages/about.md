@@ -3,7 +3,7 @@ layout: about.njk
 permalink: /about/index.html
 overview:
   subtitle: EST. 2016–17 // PUNE, MAHARASHTRA
-  image: https://res.cloudinary.com/ylxttnsp/image/upload/v1794568422/aero-logo.png
+  image: https://res.cloudinary.com/ylxttnsp/image/upload/v1794568380/d.avif
   body: >-
     Aerial Martial is the Aeromodelling Club of PES's Modern College of
     Engineering, Pune, established in 2016–17. We are a student-led engineering
