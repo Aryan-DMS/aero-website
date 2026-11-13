@@ -296,6 +296,8 @@ collections:
           - {label: "Location or Type", name: "location", widget: "string"}
           - {label: "Card Summary", name: "summary", widget: "text"}
           - {label: "Cover Image", name: "image", widget: "image"}
+          - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application", "None"], default: "Briefing"}
+          - {label: "Application Link", name: "application_link", widget: "string", required: false}
           - {label: "⚙️ Engine Mode (Automation vs Manual)", name: "report_mode", widget: "select", options: ["Automation", "Manual"], default: "Automation"}
           
       - label: "🤖 BOX 2: THE AUTOMATION ENGINE (Just Paste JSON)"
@@ -311,8 +313,6 @@ collections:
         collapsed: true
         fields:
           - {label: "Expanded Cinematic Title", name: "title", widget: "string", required: false}
-          - {label: "Action Button Type", name: "action_type", widget: "select", options: ["Briefing", "Application", "None"], default: "Briefing", required: false}
-          - {label: "Application Link", name: "application_link", widget: "string", required: false}
           - label: "HUD Metrics (Left Sidebar)"
             name: "metrics"
             widget: "list"
