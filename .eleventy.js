@@ -5,6 +5,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("images"); 
+  eleventyConfig.addPassthroughCopy("favicon.png"); 
 
   // Add Markdown translation filter
   const md = new markdownIt({ html: true, breaks: true });
